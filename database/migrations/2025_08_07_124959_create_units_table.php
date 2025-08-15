@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('floor_number');
             $table->enum ('ownership_type', ['single, shared']);
             $table->enum ('type', ['commercial','residential']);
-            $table->boolean('is_empty');
+            $table->boolean('is_empty')->default(true);
             $table->timestamps();
             //FK
             $table->foreignId('estate_id')->references('id')->on('estates')->onUpdate('cascade')->onDelete('cascade');

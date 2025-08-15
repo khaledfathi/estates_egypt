@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', ['old_law','new_law']);
+            $table->unsignedInteger('rent_value');
+            $table->unsignedInteger('insurance_value')->nullable();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->unsignedTinyInteger('water_invoice_precentage');
             $table->timestamps();
+            //FK
+            $table->foreignId('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('renter_id')->references('id')->on('renters')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

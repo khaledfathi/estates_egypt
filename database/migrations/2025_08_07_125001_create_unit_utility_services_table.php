@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('unit_utility_services', function (Blueprint $table) {
             $table->id();
             $table->enum('type',  ['electricity', 'water', 'gas'])->unique();
-            $table->varchar('owner_name', 100)->unique();
+            $table->string('owner_name', 100)->unique();
             $table->text('counter_number')->nullable();
             $table->text('electronic_payment_number')->nullable();
             $table->text('notes')->nullable();

@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('renters', function (Blueprint $table) {
             $table->id();
             $table->string('name' , 150);
+            $table->enum('identity_type' , ['national_id', 'passport']);
+            $table->string('identity_number', 100);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

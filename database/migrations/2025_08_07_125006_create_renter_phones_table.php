@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('renter_phones', function (Blueprint $table) {
             $table->id();
+            $table->string('phone', 25);
             $table->timestamps();
+            //FK
+            $table->foreignId('renter_id')->references('id')->on('')->onDelete('renters')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->dateTime('datetime');
-            $table->int('amount');
-            $table->boolean('is_standalone');
+            $table->integer('amount');
+            $table->boolean('is_standalone')->default(false);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
