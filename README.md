@@ -4,6 +4,8 @@
 ```
 php 8.2 +
 composer 2.8.9 + 
+node 22 + 
+npm 10.9.2 +
 ```
 [Check Laravel Server Requirements]( https://laravel.com/docs/12.x/deployment )
 
@@ -12,6 +14,7 @@ composer 2.8.9 +
 ```bash
 cd estate_egypt
 composer install
+npm install
 cp .env.example .env
 php artisan key:generate
 ```
