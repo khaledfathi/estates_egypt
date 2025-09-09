@@ -14,10 +14,12 @@ final  class ShowOwnerUsecase implements ShowOwnerContract{
         private readonly OwnerRepository $ownerRepository
     ){ }
 
-    public function allWithPaginate(ShowOwnersPaginateOutput $presenter , int $paginate=5):void
+    public function allWithPaginate(ShowOwnersPaginateOutput $presenter , int $perPage=5):void
     {
         try {
-            $presenter->onSucces($this->ownerRepository->indexWithPaginate($paginate));
+            $r = $this->ownerRepository->indexWithPaginate($perPage);
+            $presenter->onSucces($r);
+
         } catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
         }

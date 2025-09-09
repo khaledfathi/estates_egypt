@@ -2,8 +2,9 @@
 declare (strict_types= 1);
 namespace App\Shared\Domain\Repositories;
 
-use App\Features\Owners\Application\DTOs\OwnerEntitiesWithPagination;
 use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+
 
 interface OwnerRepository{
     /**
@@ -11,7 +12,8 @@ interface OwnerRepository{
      * @return array<OwnerEntity> 
      */
     public function index ():array;
-    public function indexWithPaginate(int $paginate): OwnerEntitiesWithPagination;
+    public function indexWithPaginate(int $perPage): EntitiesWithPagination;
+
 
     public function store (OwnerEntity $ownerEntities):OwnerEntity;
 

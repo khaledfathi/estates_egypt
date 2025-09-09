@@ -30,7 +30,8 @@ class  OwnerController extends Controller
     public function index()
     {
         $presenter = new ShowOwnersPaginatePresenter();
-        $this->showOwnerUsecase->allWithPaginate($presenter, /*request('per-page') ?? 7*/ 5);
+        $this->showOwnerUsecase->allWithPaginate($presenter, 5);
+
         return $presenter->handle();
     }
 
