@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
-use App\Features\Owners\Application\DTOs\OwnerEntitiesWithPagination;
-use App\Shared\Application\DTOs\PaginationDTO;
+use App\Features\Owners\Domain\ValueObjects\OwnerEntitiesWithPagination;
 use App\Shared\Domain\Entities\OwnerEntity;
 use App\Shared\Domain\Repositories\OwnerRepository;
+use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+use App\Shared\Domain\ValueObjects\Pagination;
 use App\Shared\Infrastructure\Models\Owner;
 use App\Shared\Infrastructure\Models\OwnerPhone;
 
@@ -33,9 +35,11 @@ final class EloquentOwnerRepository implements OwnerRepository
         return $arrayOfOwners;
     }
 
-    public function indexWithPaginate(int $paginate): OwnerEntitiesWithPagination
+    public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
-        $owenrsRecords = Owner::with('phones')->paginate($paginate);
+        $owenrsRecords = Owner::with('phones')
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
         $arrayOfOwners = [];
         foreach ($owenrsRecords as $record) {
             $arrayOfOwners[] = new OwnerEntity(
@@ -47,7 +51,7 @@ final class EloquentOwnerRepository implements OwnerRepository
                 $record->notes
             );
         }
-        $paginationData = new PaginationDTO(
+        $paginationData = new Pagination(
             perPage: $owenrsRecords->perPage(),
             currentPage: $owenrsRecords->currentPage(),
             path: $owenrsRecords->path(),

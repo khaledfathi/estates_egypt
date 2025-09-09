@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Shared\Application\DTOs;
+namespace App\Shared\Domain\ValueObjects; 
 
-final readonly class PaginationDTO
+final readonly class Pagination 
 {
     public function __construct(
         public ?int $perPage  = null,

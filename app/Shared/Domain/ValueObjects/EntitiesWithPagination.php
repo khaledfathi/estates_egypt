@@ -1,8 +1,7 @@
 <?php
 declare (strict_types= 1);
-namespace App\Shared\Application\DTOs; 
+namespace App\Shared\Domain\ValueObjects; 
 
-use App\Shared\Application\DTOs\PaginationDTO;
 
 /**
  * @template T 
@@ -10,11 +9,11 @@ use App\Shared\Application\DTOs\PaginationDTO;
 class EntitiesWithPagination{
     /**
      * 
-     * @param PaginationDTO $pagination
+     * @param pagination $pagination
      * @param array<T> $entities
      */
     public function __construct(
-        public PaginationDTO $pagination,
+        public Pagination $pagination,
         public array $entities
     ) {}
 }

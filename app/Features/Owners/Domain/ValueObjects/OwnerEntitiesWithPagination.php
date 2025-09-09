@@ -1,10 +1,10 @@
 <?php
 declare (strict_types= 1);
 
-namespace App\Features\Owners\Application\DTOs;
+namespace App\Features\Owners\Domain\ValueObjects; 
 
-use App\Shared\Application\DTOs\EntitiesWithPagination;
 use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 
 /**
  * @extends EntitiesWithPagination<OwnerEntity> 
