@@ -64,6 +64,20 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
+        //custom channels for info and error logs
+        'db_action' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/db_action.log'),
+            'level' => env('LOG_LEVEL', 'info'),
+            'replace_placeholders' => true,
+        ],
+        'error' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/error.log'),
+            'level' => env('LOG_LEVEL', 'error'),
+            'replace_placeholders' => true,
+        ],
+        // ------------------------------------------------
 
         'daily' => [
             'driver' => 'daily',

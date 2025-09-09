@@ -1,0 +1,18 @@
+/** General **/
+@font-face {
+    font-family: "PlaypenSansArabic-Medium";
+    src: url("../../fonts/PlaypenSansArabic-Medium.ttf");
+}
+
+
+body {
+    font-family: 'PlaypenSansArabic-Medium', Courier, monospace !important;
+}
+/** End General **/
+
+
+/** UTILITY **/
+.required{
+    color: red;
+}
+/** END UTILITY **/

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('owner_phones', function (Blueprint $table) {
             $table->id();
-            $table->string('phone', 25);
+            $table->string('phone', 25)->unique();
             $table->timestamps();
             //FK
             $table->foreignId('owner_id')->references('id')->on('owners')->onUpdate('cascade')->onDelete('cascade');

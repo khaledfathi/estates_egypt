@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('owners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('national_id')->nullable();
+            $table->text('national_id')->unique()->nullable();
             $table->text('address')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();

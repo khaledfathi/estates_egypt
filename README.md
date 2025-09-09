@@ -31,17 +31,19 @@ DB_CONNECTION=<DBMS name>
 # DB_PASSWORD=
 ```
 
-disable debug mode 
+for production , disable debug mode : 
 
 ```ini
-APP_DEBUG=true
+APP_DEBUG=false
 ```
 
 continue your configuration
 
 ```bash
 php artisan migrate
+php artisan db:seed  
 php artisan storage:link
+npm run build
 ```
 
 run a local serverless 
