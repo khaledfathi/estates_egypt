@@ -50,6 +50,7 @@
             <div class="container-fluid">
 
                 {{-- top pagination  --}}
+
                 @isset($pagination)
                     @if ($pagination->getPageCounts() > 1)
                         <ul class="pagination row">
@@ -66,6 +67,7 @@
                     @endif
                 @endisset($pagination)
                 {{-- top pagination  --}}
+
                 <div class="row">
                     @if (count($owners))
                         <table class="table table-striped">

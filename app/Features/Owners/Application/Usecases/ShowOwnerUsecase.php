@@ -19,6 +19,7 @@ final  class ShowOwnerUsecase implements ShowOwnerContract{
         try {
             $r = $this->ownerRepository->indexWithPaginate($perPage);
             $presenter->onSucces($r);
+
         } catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
         }

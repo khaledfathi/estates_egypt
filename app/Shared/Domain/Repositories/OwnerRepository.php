@@ -5,6 +5,7 @@ namespace App\Shared\Domain\Repositories;
 use App\Shared\Domain\Entities\OwnerEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 
+
 interface OwnerRepository{
     /**
      * 
@@ -12,6 +13,7 @@ interface OwnerRepository{
      */
     public function index ():array;
     public function indexWithPaginate(int $perPage): EntitiesWithPagination;
+
 
     public function store (OwnerEntity $ownerEntities):OwnerEntity;
 

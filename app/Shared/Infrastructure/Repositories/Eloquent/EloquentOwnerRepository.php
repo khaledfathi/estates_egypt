@@ -9,6 +9,7 @@ use App\Shared\Domain\Entities\OwnerEntity;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Domain\ValueObjects\Pagination;
+
 use App\Shared\Infrastructure\Models\Owner;
 use App\Shared\Infrastructure\Models\OwnerPhone;
 
@@ -40,6 +41,7 @@ final class EloquentOwnerRepository implements OwnerRepository
         $owenrsRecords = Owner::with('phones')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
+
         $arrayOfOwners = [];
         foreach ($owenrsRecords as $record) {
             $arrayOfOwners[] = new OwnerEntity(
@@ -52,6 +54,7 @@ final class EloquentOwnerRepository implements OwnerRepository
             );
         }
         $paginationData = new Pagination(
+
             perPage: $owenrsRecords->perPage(),
             currentPage: $owenrsRecords->currentPage(),
             path: $owenrsRecords->path(),

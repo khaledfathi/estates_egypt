@@ -8,5 +8,6 @@ use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 interface  ShowOwnersPaginateOutput {
 
     public function onSucces( EntitiesWithPagination $ownerEntities):void;
+
     public function onFailure(string $error):void;
 }

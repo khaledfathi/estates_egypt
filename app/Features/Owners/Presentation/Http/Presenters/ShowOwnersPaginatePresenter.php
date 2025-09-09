@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace App\Features\Owners\Presentation\Http\Presenters;
 
+
 use App\Features\Owners\Application\Outputs\ShowOwnersPaginateOutput;
 use App\Shared\Contstants\LogChannels;
 use App\Shared\Contstants\Messages;
 use App\Shared\Contstants\SessionKeys;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
@@ -34,6 +36,7 @@ final class ShowOwnersPaginatePresenter implements ShowOwnersPaginateOutput
         ];
 
         //handle session
+
         $pageCounts = $ownerEntities->pagination->getPageCounts();
         $requestPageNumber = request('page');
         if ($requestPageNumber > $pageCounts) {

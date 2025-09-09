@@ -9,5 +9,6 @@ use App\Features\Owners\Application\Outputs\ShowOwnersPaginateOutput;
 interface ShowOwnerContract
 {
     public function allWithPaginate(ShowOwnersPaginateOutput $presenter, int $perPage=5): void;
+
     public function showById (int $id , ShowOwnerOutput $presenter):void;
 }
