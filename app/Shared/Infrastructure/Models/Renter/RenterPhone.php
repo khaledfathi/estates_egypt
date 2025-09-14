@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Infrastructure\Models; 
+namespace App\Shared\Infrastructure\Models\Renter; 
 
 use Illuminate\Database\Eloquent\Model;
 

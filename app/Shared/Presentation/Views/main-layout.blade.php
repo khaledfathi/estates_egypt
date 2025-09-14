@@ -86,31 +86,39 @@
 
                 <li class="nav-title"> العمليات </li>
                 <li class="nav-item">
-                    <a class="nav-link @yield('active-estates')" href="{{ route('estates.index') }}"><i
-                            class="icon-user-follow"></i> العقارات</a>
-                    <a class="nav-link @yield('active-owners')" href="{{ route('owners.index') }}"><i
-                            class="icon-people"></i>الملاك</a>
-                    <a class="nav-link @yield('active-renters')" href="{{ route('renters.index') }}"><i
-                            class="icon-user-following"></i>المستأجرين</a>
+                    <a class="nav-link @yield('active-estates')" href="{{ route('estates.index') }}">
+                        <i class="icon-home icons "></i>
+                        العقارات</a>
+                    <a class="nav-link @yield('active-owners')" href="{{ route('owners.index') }}">
+                        <i class="icon-people"></i>
+                        الملاك</a>
+                    <a class="nav-link @yield('active-renters')" href="{{ route('renters.index') }}">
+                        <i class="icon-people"></i>
+                        المستأجرين</a>
                 </li>
 
                 <li class="nav-title"> الادارة </li>
                 <li class="nav-item">
                     <a class="nav-link @yield('active-queries')" href="{{ route('queries.index') }}"><i class="icon-docs"></i>
                         استعلامات</a>
-                    <a class="nav-link @yield('active-transactions')" href="{{ route('transactions.index') }}"><i
-                            class="icon-docs"></i> الحسابات</a>
+                    <a class="nav-link @yield('active-transactions')" href="{{ route('transactions.index') }}">
+                        <i class="fa fa-dollar"></i>
+                        الحسابات</a>
                 </li>
 
                 <li class="nav-title"> الحساب </li>
                 <li class="nav-item">
-                    <a class="nav-link @yield('active-profile')" href="{{ route('profile.edit') }}"><i class="icon-docs"></i>
+                    <a class="nav-link @yield('active-profile')" href="{{ route('profile.edit') }}">
+                        <i class="icon-user icons"></i>
                         حسابى</a>
-                    <a class="nav-link @yield('active-settings')" href="{{ route('settings.index') }}"><i class="icon-docs"></i>
+                    <a class="nav-link @yield('active-settings')" href="{{ route('settings.index') }}">
+                        <i class="icon-settings icons"></i>
                         إعدادات</a>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button class="btn  btn-link nav-link" type="submit"><i class="icon-docs"></i>خروج </button>
+                        <button class="btn  btn-link nav-link" type="submit">
+                            <i class="icon-logout icons"></i>
+                            خروج </button>
                     </form>
                 </li>
                 <!--<li class="nav-item nav-dropdown">

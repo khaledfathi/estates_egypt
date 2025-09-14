@@ -2,10 +2,10 @@
 declare (strict_types= 1);
 namespace App\Shared\Contstants; 
 
-class Messages {
+final class Messages {
     public const INTERNAL_SERVER_ERROR =   'خطأ فى الخادم - برجاء التواصل مع الدعم الفنى';
     public const DATA_NOT_FOUND = 'خطأ : محاولة الوصول الى بيانات غير مسجلة بالنظام';
     public const STORE_SUCCESS = 'تم الحفظ بنجاح';
     public const UPDATE_SUCCESS = 'تم التحديث بنجاح';
-    public const DELETE_SUCCESS= 'تم الحذف بنجاح';
+    public const DESTROY_SUCCESS= 'تم الحذف بنجاح';
 }

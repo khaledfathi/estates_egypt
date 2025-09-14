@@ -7,7 +7,7 @@ use App\Features\Owners\Application\Outputs\EditOwnerOutput;
 use App\Shared\Contstants\LogChannels;
 use App\Shared\Contstants\Messages;
 use App\Shared\Contstants\SessionKeys;
-use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -26,7 +26,13 @@ final class EditOwnerPresenter implements EditOwnerOutput
     }
     public function onSuccess(OwnerEntity $ownerEntity): void
     {
-        $this->response = view('owners.edit', ['owner' => $ownerEntity]);
+        //this section done because old() mothod in blade dosen't accept array of objects
+        $ownerPhones= []; 
+        foreach($ownerEntity->phones ?? [] as $phone) {
+            $ownerPhones[] =  $phone->phone;
+        }
+        //
+        $this->response = view('owners.edit', ['owner' => $ownerEntity , 'ownerPhones'=>$ownerPhones]);
     }
     public function onFailure(string $error): void
     {

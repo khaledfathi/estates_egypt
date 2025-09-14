@@ -5,7 +5,7 @@ namespace App\Features\Owners\Application\Usecases;
 
 use App\Features\Owners\Application\Contracts\StoreOwnerContract;
 use App\Features\Owners\Application\Outputs\StoreOwnerOutput;
-use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\Repositories\OwnerRepository;
 
 final readonly class StoreOwnerUsecase implements StoreOwnerContract 

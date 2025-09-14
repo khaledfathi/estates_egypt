@@ -5,7 +5,7 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Shared\Domain\Entities\SettingEntity;
 use App\Shared\Domain\Repositories\SettingRepository;
-use App\Shared\Infrastructure\Models\Setting;
+use App\Shared\Infrastructure\Models\Setting\Setting;
 
 final class EloquentSettingRepository implements SettingRepository
 {

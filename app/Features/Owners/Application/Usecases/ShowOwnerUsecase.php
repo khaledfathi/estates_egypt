@@ -17,17 +17,16 @@ final  class ShowOwnerUsecase implements ShowOwnerContract{
     public function allWithPaginate(ShowOwnersPaginateOutput $presenter , int $perPage=5):void
     {
         try {
-            $r = $this->ownerRepository->indexWithPaginate($perPage);
-            $presenter->onSucces($r);
+            $presenter->onSucces($this->ownerRepository->indexWithPaginate($perPage));
 
         } catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
         }
     }
-    public function showById (int $id , ShowOwnerOutput $presenter):void
+    public function showById (int $ownerId , ShowOwnerOutput $presenter):void
     {
         try {
-            $record = $this->ownerRepository->show($id);
+            $record = $this->ownerRepository->show($ownerId);
             $record 
                 ? $presenter->onSuccess($record)
                 : $presenter->onNotFount();

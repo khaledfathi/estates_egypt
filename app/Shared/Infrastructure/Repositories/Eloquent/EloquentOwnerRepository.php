@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Features\Owners\Domain\ValueObjects\OwnerEntitiesWithPagination;
-use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerPhoneEntity;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Domain\ValueObjects\Pagination;
-
-use App\Shared\Infrastructure\Models\Owner;
-use App\Shared\Infrastructure\Models\OwnerPhone;
+use App\Shared\Infrastructure\Models\Owner\Owner;
+use App\Shared\Infrastructure\Models\Owner\OwnerPhone;
 
 final class EloquentOwnerRepository implements OwnerRepository
 {
@@ -38,34 +38,46 @@ final class EloquentOwnerRepository implements OwnerRepository
 
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
+        //Query 
         $owenrsRecords = Owner::with('phones')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
+        //Transform to DTO
         $arrayOfOwners = [];
         foreach ($owenrsRecords as $record) {
+            //phones DTO
+            $ownerPhones = [];
+            foreach ($record?->phones ?? [] as $phone) {
+                $ownerPhones[]  =  new OwnerPhoneEntity(
+                     (int)$phone->id,
+                     (int)$phone->owner_id,
+                     $phone->phone,
+                 );
+            }
+            //owner DTO
             $arrayOfOwners[] = new OwnerEntity(
                 (int) $record->id,
                 $record->name,
                 $record->national_id,
                 $record->address,
-                $record->phones->pluck('phone')->toArray(),
+                $ownerPhones,
                 $record->notes
             );
         }
+        //Pagination DTO
         $paginationData = new Pagination(
-
             perPage: $owenrsRecords->perPage(),
             currentPage: $owenrsRecords->currentPage(),
             path: $owenrsRecords->path(),
             pageName: $owenrsRecords->getPageName(),
             total: $owenrsRecords->total()
         );
-        $arrayOfOwnersWithPagination = new OwnerEntitiesWithPagination(
+        //Final DTO
+        return  new OwnerEntitiesWithPagination(
             $paginationData,
             $arrayOfOwners
         );
-        return $arrayOfOwnersWithPagination;
     }
 
     public function store(OwnerEntity $ownerEntity): OwnerEntity
@@ -78,8 +90,8 @@ final class EloquentOwnerRepository implements OwnerRepository
         ]);
         foreach ($ownerEntity->phones as $phone) {
             OwnerPhone::create([
-                'owner_id' => $ownerRecord->id,
-                'phone' => $phone,
+                'owner_id' => $ownerRecord->id, 
+                'phone' => $phone->phone,
             ]);
         }
         $ownerEntity->id = $ownerRecord->id;
@@ -89,12 +101,20 @@ final class EloquentOwnerRepository implements OwnerRepository
     {
         $record = Owner::with('phones')->find($ownerId);
         if ($record) {
+            $ownerPhones=[];
+            foreach ($record?->phones ?? [] as $phone) {
+                $ownerPhones[]  =  new OwnerPhoneEntity(
+                    (int)$phone->id,
+                    (int)$phone->owner_id,
+                    $phone->phone,
+                );
+            }
             $ownerEntity = new OwnerEntity(
                 $record->id,
                 $record->name,
                 $record->national_id,
                 $record->address,
-                $record->phones->pluck('phone')->toArray(),
+                $ownerPhones,
                 $record->notes
             );
             return $ownerEntity;
@@ -113,15 +133,14 @@ final class EloquentOwnerRepository implements OwnerRepository
                 'notes' => $ownerEntity->notes,
             ]);
 
-            //update phone releated to this owner record
-
-            //delete current phones 
+            // *- update phone releated to this owner record
+            // 1- delete current phones 
             OwnerPhone::where('owner_id', $ownerEntity->id)->delete();
-            //store new phones 
+            // 2- store new phones 
             foreach ($ownerEntity->phones as $phone) {
                 OwnerPhone::create([
                     'owner_id' => $ownerEntity->id,
-                    'phone' => $phone,
+                    'phone' => $phone->phone,
                 ]);
             }
             return $updateStatus;

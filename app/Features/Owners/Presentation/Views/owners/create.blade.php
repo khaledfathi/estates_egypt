@@ -1,5 +1,5 @@
 @extends('main-layout')
-@section('title', 'الملاك')
+@section('title', 'الملاك | اضافة مالك')
 @section('active-owners', 'active')
 @section('scripts')
     @vite('resources/ts/features/owners/create.ts')
@@ -59,14 +59,13 @@
                         {{-- / address --}}
 
                         {{-- phones --}}
-
                         <div id="phone-form-group" class="form-group">
                             <label>التليفون</label>
                             {{-- ||| TO BE CLONED |||  --}}
                             <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px"
                                 hidden>
                                 <input type="text" class="phones form-control d-inline-block"
-                                    placeholder="رقم التليفون">
+                                    placeholder="رقم التليفون" maxlength="25">
                                 <i class="remove-phone-btn fa fa-trash fa-lg"
                                     style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
                             </div>
@@ -77,7 +76,7 @@
                             @endphp
                             @foreach ($phones as $index => $phone)
                             <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                                <input type="text" name="phones[]" value="{{ $phone }}"  class="phones form-control d-inline-block" placeholder="رقم التليفون"/>
+                                <input type="text" name="phones[]" value="{{ $phone }}"  class="phones form-control d-inline-block" placeholder="رقم التليفون" maxlength="25"/>
                                 <i class="remove-phone-btn fa fa-trash fa-lg"
                                     style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
                             </div>

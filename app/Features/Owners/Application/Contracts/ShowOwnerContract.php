@@ -10,5 +10,5 @@ interface ShowOwnerContract
 {
     public function allWithPaginate(ShowOwnersPaginateOutput $presenter, int $perPage=5): void;
 
-    public function showById (int $id , ShowOwnerOutput $presenter):void;
+    public function showById (int $ownerId , ShowOwnerOutput $presenter):void;
 }

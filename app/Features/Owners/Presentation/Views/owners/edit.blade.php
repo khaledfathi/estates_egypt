@@ -70,19 +70,19 @@
                                 {{-- ||| TO BE CLONED |||  --}}
                                 <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px"
                                     hidden>
-                                    <input type="text" class="phones form-control d-inline-block" placeholder="رقم التليفون">
+                                    <input type="text" class="phones form-control d-inline-block" placeholder="رقم التليفون" maxlength="25">
                                     <i  class="remove-phone-btn fa fa-trash fa-lg"
                                         style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
                                 </div>
                                 {{-- \ ||| TO BE CLONED |||  --}}
 
                                 @php
-                                    $phones = old('phones', $owner->phones); // Default to one empty input if no old data
+                                    $phones = old('phones', $ownerPhones); 
                                 @endphp
                                 @foreach ($phones as $index => $phone)
                                     <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                                        <input type="text" name="phones[]" value="{{ $phone }}"
-                                            class="phones form-control d-inline-block" placeholder="رقم التليفون" />
+                                        <input type="text" name="phones[]" value="{{ $phone}}"
+                                            class="phones form-control d-inline-block" placeholder="رقم التليفون" maxlength="25"/>
                                         <i class="remove-phone-btn fa fa-trash fa-lg"
                                             style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
                                     </div>

@@ -6,5 +6,5 @@ namespace App\Features\Owners\Application\Contracts;
 use App\Features\Owners\Application\Outputs\DestroyOwnerOutput;
 
 interface DestroyOwnerContract {
-    public function destroy(int $id , DestroyOwnerOutput $presenter): void;
+    public function destroy(int $ownerId , DestroyOwnerOutput $presenter): void;
 }
