@@ -12,13 +12,17 @@
     <div class="container-fluid ">
 
         {{-- Errors --}}
-        @if(isset($error))
+        @if(isset($error) || session()->has('error'))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card card-inverse card-danger ">
                         <div class="card-block">
                             <ul>
-                                <li>{{$error}}</li>
+                                @if (isset($error))
+                                    <li>{{$error}}</li>
+                                @elseif (session('error'))
+                                    <li>{{session('error')}}</li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -97,19 +101,11 @@
                                     @else
                                         <ul>
                                             @foreach ($owner->phones as $phone)
-                                                <li>{{ $phone }}</li>
+                                                <li>{{ $phone->phone }}</li>
                                             @endforeach
                                         </ul>
                                     @endif
                                 </div>
-                                {{-- ||| TO BE CLONED |||  --}}
-                                <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px"
-                                    hidden>
-                                    <input type="text" class="phones form-control d-inline-block" placeholder="رقم التليفون">
-                                    <i onclick="removeParent(this)" class="fa fa-trash fa-lg"
-                                        style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
-                                </div>
-                                {{-- \ ||| TO BE CLONED |||  --}}
 
                                 @php
                                     $phones = old('phones', []); // Default to one empty input if no old data

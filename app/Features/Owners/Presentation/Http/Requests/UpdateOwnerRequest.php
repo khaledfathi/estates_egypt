@@ -19,12 +19,19 @@ class UpdateOwnerRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'national_id' => "nullable|numeric|digits:14|unique:owners,national_id,$this->owner",
+            'national_id' => [
+                'nullable',
+                'numeric',
+                'digits:14',
+                Rule::unique('owners','national_id')->ignore($this->owner),
+                Rule::unique('renters','identity_number'),
+            ],
             'phones' => 'nullable',
             'phones.*' => [
                 'bail', // stop at first error
-                'numeric',
-                Rule::unique('owner_phones' , 'phone')->ignore($this->owner,  'owner_id')
+                'digits_between:1,25',
+                Rule::unique('owner_phones' , 'phone')->ignore($this->owner,  'owner_id'),
+                Rule::unique('renter_phones' , 'phone'),
             ]
         ];
     }
@@ -33,11 +40,12 @@ class UpdateOwnerRequest extends FormRequest
     {
         return [
             'name.required' => 'الاسم مطلوب',
-            'national_id.unique' => 'الرقم القومى مسجل مسبقاً',
+            'national_id.unique' => 'الرقم القومى (:input) مسجل مسبقاً',
             'national_id.numeric' => 'الرقم القومى غير صالح - يجب أن يكون ارقام فقط.',
             'national_id.digits' => 'الرقم القومى غير صالح - يجب ان يكون 14 رقم.',
             'phones.*.unique' => 'رقم التليفون (:input) مسجل مسبقاً.',
             'phones.*.numeric' => 'رقم التليفون (:input) غير صالح - يجب أن يكون رقمًا.',
+            'phones.*.digits_between' => 'رقم التليفون (:input) غير صالح',
         ];
     }
 

@@ -7,7 +7,7 @@ use App\Features\Owners\Application\Outputs\ShowOwnerOutput;
 use App\Shared\Contstants\LogChannels;
 use App\Shared\Contstants\Messages;
 use App\Shared\Contstants\SessionKeys;
-use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 

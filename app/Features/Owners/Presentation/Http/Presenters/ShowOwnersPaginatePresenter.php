@@ -35,8 +35,7 @@ final class ShowOwnersPaginatePresenter implements ShowOwnersPaginateOutput
             'pagination' => $ownerEntities->pagination,
         ];
 
-        //handle session
-
+        //handle session & response
         $pageCounts = $ownerEntities->pagination->getPageCounts();
         $requestPageNumber = request('page');
         if ($requestPageNumber > $pageCounts) {

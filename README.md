@@ -1,4 +1,4 @@
-# Estate Egypt 
+# Estates Egypt 
 
 ###  Requirements 
 ```
@@ -49,7 +49,7 @@ npm run build
 run a local serverless 
 
 ```bash
-php artisan --serv
+php artisan serv
 ```
 it will run at localhost:8000
 

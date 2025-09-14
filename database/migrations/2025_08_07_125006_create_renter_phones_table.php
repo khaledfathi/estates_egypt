@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('phone', 25);
             $table->timestamps();
             //FK
-            $table->foreignId('renter_id')->references('id')->on('')->onDelete('renters')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('renter_id')->references('id')->on('renters')->onDelete('renters')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

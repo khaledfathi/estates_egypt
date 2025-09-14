@@ -10,20 +10,21 @@
 
 @section('content')
     <div class="container-fluid">
+
         {{-- error message  --}}
-        @isset($error)
+        @if(session()->has('error'))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card card-inverse card-danger ">
                         <div class="card-block">
                             <ul>
-                                <li>{{ $error }}</li>
+                                <li>{{ session('error')}}</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        @endisset($error)
+        @endif
         {{-- / error message  --}}
 
         {{-- success message  --}}
@@ -87,7 +88,7 @@
                                         <td>
                                             @if ($owner->phones)
                                                 @foreach ($owner->phones as $phone)
-                                                    {{ $phone }} <br>
+                                                    {{ $phone->phone}} <br>
                                                 @endforeach
                                             @else
                                                 {{ '----' }}

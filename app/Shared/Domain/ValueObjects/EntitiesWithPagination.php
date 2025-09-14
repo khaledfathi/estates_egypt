@@ -9,11 +9,11 @@ namespace App\Shared\Domain\ValueObjects;
 class EntitiesWithPagination{
     /**
      * 
-     * @param pagination $pagination
-     * @param array<T> $entities
+     * @param ?pagination $pagination
+     * @param ?array<T> $entities
      */
     public function __construct(
-        public Pagination $pagination,
-        public array $entities
+        public ?Pagination $pagination = null,
+        public ?array $entities = null
     ) {}
 }

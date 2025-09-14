@@ -6,7 +6,7 @@ namespace App\Features\Owners\Application\Usecases;
 use App\Features\Owners\Application\Contracts\UpdateOwnerContract;
 use App\Features\Owners\Application\Outputs\EditOwnerOutput;
 use App\Features\Owners\Application\Outputs\UpdateOwnerOutput;
-use App\Shared\Domain\Entities\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\Repositories\OwnerRepository;
 
 final class UpdateOwnerUsecase implements UpdateOwnerContract
@@ -14,10 +14,10 @@ final class UpdateOwnerUsecase implements UpdateOwnerContract
     public function __construct(
         private readonly OwnerRepository $ownerRepository
     ) {}
-    public function edit(int $id, EditOwnerOutput $presenter): void
+    public function edit(int $ownerId, EditOwnerOutput $presenter): void
     {
         try {
-            $record = $this->ownerRepository->show($id);
+            $record = $this->ownerRepository->show($ownerId);
             $record
                 ? $presenter->onSuccess($record)
                 : $presenter->onNotFound();

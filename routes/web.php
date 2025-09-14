@@ -35,14 +35,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('/owners', OwnerController::class);
     /*** END Owners ***/
 
-    /*** Owners ***/
+    /*** Renters ***/
+    Route::resource('/renters' , RenterController::class );
+    /*** / Renters ***/
+
+    /*** Settings ***/
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    /*** / Owners ***/
+    /*** / Settings ***/
 });
 
 /* FOR TEST  */
 Route::get('/estates' , [EstateController::class, 'index'])->name('estates.index');
-Route::get('/renters' , [RenterController::class, 'index'])->name('renters.index');
 Route::get('/queries' , [QueryContoller::class, 'index'])->name('queries.index');
 Route::get('/transactions' , [TransactionContoller::class, 'index'])->name('transactions.index');
 
