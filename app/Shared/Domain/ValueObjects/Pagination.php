@@ -1,19 +1,24 @@
 <?php
+
 declare(strict_types=1);
 
-namespace App\Shared\Domain\ValueObjects; 
+namespace App\Shared\Domain\ValueObjects;
 
-final readonly class Pagination 
+final class Pagination
 {
+    private string $queires = "";
     public function __construct(
-        public ?int $perPage  = null,
-        public ?int $currentPage = null,
-        public ?string $path = null,
-        public ?string $pageName = null,
-        public ?int  $total = null,
-    ) {}
+        public readonly ?int $perPage  = null,
+        public readonly ?int $currentPage = null,
+        public readonly ?string $path = null,
+        public readonly ?string $pageName = null,
+        public readonly ?int  $total = null,
+        private array $queryParameters = [],
+    ) {
+        $this->setQueryParameters();
+    }
 
-    private function generatePageURL(int $pageQueryNumber):mixed 
+    private function generatePageURL(int $pageQueryNumber): mixed
     {
         return "$this->path?$this->pageName=$pageQueryNumber";
     }
@@ -25,22 +30,29 @@ final readonly class Pagination
     {
         $linksArray = [];
         for ($i = 0; $i < $this->getPageCounts(); $i++) {
-            $linksArray[] = $this->generatePageURL($i+1);
+            $linksArray[] = $this->generatePageURL($i + 1) . $this->queires;
         }
         return $linksArray;
     }
     public function getCurrentPageURL(): string
     {
-        return $this->generatePageURL($this->currentPage); }
+        return $this->generatePageURL($this->currentPage) . $this->queires;
+    }
     public function getNextPageURL(): ?string
     {
         $pageCounts = $this->getPageCounts();
         $pageNumber = $this->currentPage < $pageCounts ? $this->currentPage + 1 : $pageCounts;
-        return $this->generatePageURL($pageNumber);
+        return $this->generatePageURL($pageNumber) . $this->queires;
     }
     public function getPreviousPageURL(): ?string
     {
-        $pageNumber = $this->currentPage > 1 ? $this->currentPage - 1 : $this->currentPage ;
-        return $this->generatePageURL($pageNumber);
+        $pageNumber = $this->currentPage > 1 ? $this->currentPage - 1 : $this->currentPage;
+        return $this->generatePageURL($pageNumber) . $this->queires;
+    }
+    public function setQueryParameters()
+    {
+        foreach ($this->queryParameters as $key => $value) {
+            $this->queires .= "&$key=$value";
+        }
     }
 }

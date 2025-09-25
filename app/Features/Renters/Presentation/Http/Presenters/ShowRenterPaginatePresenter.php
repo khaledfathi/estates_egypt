@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Features\Renters\Presentation\Http\Presenters;
 
 use App\Features\Renters\Application\Outputs\ShowRentersPaginateOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -43,12 +43,12 @@ final class ShowRenterPaginatePresenter implements ShowRentersPaginateOutput
             $this->response = fn() => redirect(route('renters.index') . '?page=' . $pageCounts);
         } else {
             // notmal use
-            $this->response = fn() => view('renters.index', $data);
+            $this->response = fn() => view('renters::index', $data);
         }
     }
     public function onFailure(string $error): void
     {
-        $this->response = fn() => view('renters.index', [
+        $this->response = fn() => view('renters::index', [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log

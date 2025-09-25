@@ -43,7 +43,7 @@ class RenterController extends Controller
    public function create()
    {
       $renterIdentityTypes = RenterIdentityType::labels();
-      return view('renters.create', ['renterIdentityTypes' => $renterIdentityTypes]);
+      return view('renters::create', ['renterIdentityTypes' => $renterIdentityTypes]);
    }
    public function store(StoreRenterRequest $request)
    {
@@ -51,7 +51,7 @@ class RenterController extends Controller
       $renterEntity = $this->formToOwnerEntity($request->all());
       //action
       $presenter = new StoreRenterPresenter();
-      $this->storeRenterUsecase->create($renterEntity, $presenter);
+      $this->storeRenterUsecase->store($renterEntity, $presenter);
       return $presenter->handle();
    }
    public function edit(string $id)

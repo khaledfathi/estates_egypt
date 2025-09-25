@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Features\Renters\Presentation\Http\Presenters;
 
 use App\Features\Renters\Application\Outputs\UpdateRenterOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;

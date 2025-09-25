@@ -10,7 +10,7 @@ interface   ShowRentersPaginateOutput {
 
     /**
      * of onSuccess
-     * @param EntitiesWithPagination<RenterEntity> $renterEntities
+     * @param EntitiesWithPagination<RenterEntity> $renterEntitiesWithPagination
      * @return void
      */
     public function onSuccess (EntitiesWithPagination $renterEntitiesWithPagination):void ;

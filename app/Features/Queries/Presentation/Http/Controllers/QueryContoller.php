@@ -9,6 +9,6 @@ class  QueryContoller extends Controller
 {
    public function index()
    {
-      return view("queries.index");
+      return view("queries::index");
    }
 }

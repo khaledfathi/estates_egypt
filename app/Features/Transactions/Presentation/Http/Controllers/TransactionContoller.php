@@ -9,6 +9,6 @@ class  TransactionContoller extends Controller
 {
    public function index()
    {
-      return view("transactions.index");
+      return view("transactions::index");
    }
 }

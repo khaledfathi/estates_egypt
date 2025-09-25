@@ -1,12 +1,12 @@
 // UI ELEMENTS
-const deleteOwnerButtons= document.querySelectorAll(".delete-owner-btn");
+const deleteRenterButtons= document.querySelectorAll(".delete-renter-btn");
 // ---------------
 
 // CORE
 // ---------------
 
 // EVENTS
-deleteOwnerButtons.forEach((btn) => {
+deleteRenterButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
         (btn.parentElement?.querySelector( ".delete-submit-btn") as HTMLElement).click();
     });

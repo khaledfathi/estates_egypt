@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Features\Renters\Presentation\Http\Presenters;
 
 use App\Features\Renters\Application\Outputs\EditRenterOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Renter\RenterEntity;
 use App\Shared\Domain\Enum\Renter\RenterIdentityType;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -35,7 +35,7 @@ final class EditRenterPresenter implements EditRenterOutput
             $renterPhones[] =  $phone->phone;
         }
         //
-        $this->response = view('renters.edit', [
+        $this->response = view('renters::edit', [
             'renter' => $renterEntity,
             'renterPhones' => $renterPhones,
             'renterIdentityTypes' => RenterIdentityType::labels(),
@@ -43,7 +43,7 @@ final class EditRenterPresenter implements EditRenterOutput
     }
     public function onFailure(string $error): void
     {
-        $this->response = view("owners.edit", [
+        $this->response = view("owners::edit", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -54,7 +54,7 @@ final class EditRenterPresenter implements EditRenterOutput
     }
     public function onNotFound(): void
     {
-        $this->response = view("owners.edit", [
+        $this->response = view("owners::edit", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }

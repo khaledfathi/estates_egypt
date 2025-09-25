@@ -13,10 +13,7 @@ interface OwnerRepository{
      */
     public function index ():array;
     public function indexWithPaginate(int $perPage): EntitiesWithPagination;
-
-
     public function store (OwnerEntity $ownerEntities):OwnerEntity;
-
     public function show (int $ownerId):OwnerEntity|null;
     public function update (ownerEntity $ownerEntity):bool;
     public function destroy (int $ownerId):bool; 

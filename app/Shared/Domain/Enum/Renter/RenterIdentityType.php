@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Enum\Renter;
 
+use App\Shared\Domain\Traits\EnumUtilities;
+
 enum RenterIdentityType: string
 {
+    use EnumUtilities;
     case NATIONAL_ID = 'national_id';
     case PASSPORT = 'passport';
 
+    /**
+     * 
+     * @inheritDoc
+     */
     public static function labels(): array
     {
         return [
@@ -16,21 +23,4 @@ enum RenterIdentityType: string
             self::PASSPORT->value => 'باسبور',
         ];
     }
-     public static function hasValue(string $value): bool
-    {
-        foreach (self::cases() as $case) {
-            if ($case->value === $value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function toLabel():string|null{
-        foreach (self::labels() as $value=>$label) {
-            if ($value == $this->value) return $label;
-        }
-        return null;
-    }
-
 }

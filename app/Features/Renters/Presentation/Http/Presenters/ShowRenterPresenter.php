@@ -4,10 +4,10 @@ declare(strict_types= 1);
 namespace App\Features\Renters\Presentation\Http\Presenters;
 
 use App\Features\Renters\Application\Outputs\ShowRenterOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Renter\RenterEntity;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -24,17 +24,17 @@ final class ShowRenterPresenter implements ShowRenterOutput {
     }
     public function onSuccess(RenterEntity $renterEntity): void
     {
-        $this->response = view('renters.show', ['renter' => $renterEntity]);
+        $this->response = view('renters::show', ['renter' => $renterEntity]);
     }
     public function onNotFount(): void
     {
-        $this->response = view("renters.show", [
+        $this->response = view("renters::show", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }
     public function onFailure(String $error): void
     {
-        $this->response = view("renters.show", [
+        $this->response = view("renters::show", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log

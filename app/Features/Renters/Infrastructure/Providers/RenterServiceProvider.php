@@ -9,6 +9,7 @@ use App\Features\Renters\Application\Usecases\DestroyRenterUsecase;
 use App\Features\Renters\Application\Usecases\ShowRenterUsecase;
 use App\Features\Renters\Application\Usecases\StoreRenterUsecase;
 use App\Features\Renters\Application\Usecases\UpdateRenterUsecase;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class RenterServiceProvider extends ServiceProvider
@@ -29,6 +30,6 @@ class RenterServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::addNamespace( 'renters', base_path('app/Features/Renters/Presentation/Views'));
     }
 }

@@ -21,9 +21,9 @@ final class EloquentOwnerRepository implements OwnerRepository
      */
     public function index(): array
     {
-        $owenrsRecords = Owner::with('phones')->get();
+        $ownersRecords = Owner::with('phones')->get();
         $arrayOfOwners = [];
-        foreach ($owenrsRecords as $record) {
+        foreach ($ownersRecords as $record) {
             $arrayOfOwners[] = new OwnerEntity(
                 (int) $record->id,
                 $record->name,
@@ -39,13 +39,13 @@ final class EloquentOwnerRepository implements OwnerRepository
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
         //Query 
-        $owenrsRecords = Owner::with('phones')
+        $ownersRecords = Owner::with('phones')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
         //Transform to DTO
         $arrayOfOwners = [];
-        foreach ($owenrsRecords as $record) {
+        foreach ($ownersRecords as $record) {
             //phones DTO
             $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
@@ -67,11 +67,11 @@ final class EloquentOwnerRepository implements OwnerRepository
         }
         //Pagination DTO
         $paginationData = new Pagination(
-            perPage: $owenrsRecords->perPage(),
-            currentPage: $owenrsRecords->currentPage(),
-            path: $owenrsRecords->path(),
-            pageName: $owenrsRecords->getPageName(),
-            total: $owenrsRecords->total()
+            perPage: $ownersRecords->perPage(),
+            currentPage: $ownersRecords->currentPage(),
+            path: $ownersRecords->path(),
+            pageName: $ownersRecords->getPageName(),
+            total: $ownersRecords->total()
         );
         //Final DTO
         return  new OwnerEntitiesWithPagination(

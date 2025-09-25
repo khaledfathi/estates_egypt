@@ -17,7 +17,7 @@
     <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
     <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
     <title>@yield('title')</title>
-    @include('main-header-assets')
+    @include('shared::main-header-assets')
     @vite('resources/css/shared/main.css')
     @yield('styles')
 </head>
@@ -330,7 +330,7 @@
         </div>
     </aside>
 
-    @include('main-footer-assets')
+    @include('shared::main-footer-assets')
     @yield('scripts')
 </body>
 
