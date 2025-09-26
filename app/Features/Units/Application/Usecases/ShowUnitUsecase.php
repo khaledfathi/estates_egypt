@@ -6,7 +6,6 @@ namespace App\Features\Units\Application\Usecases;
 use App\Features\Units\Application\Contracts\ShowUnitContract;
 use App\Features\Units\Application\Ouputs\ShowUnitOutput;
 use App\Features\Units\Application\Ouputs\ShowUnitPaginateOutput;
-use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\UnitRepository;
 

@@ -3,7 +3,6 @@ declare (strict_types= 1);
 
 namespace  App\Features\Units\Application\Ouputs;
 
-use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 
 interface ShowUnitOutput {

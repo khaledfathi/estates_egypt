@@ -12,4 +12,9 @@ final class SessionKeys {
     public const RENTER_EDIT_PREVIOUS_PAGE = 'renter_edit_last_page';
     public const RENTER_CURRENT_INDEX_PAGE = 'renter_current_index_page';
     // ----------------------
+
+    //for unit features  
+    public const UNIT_EDIT_PREVIOUS_PAGE = 'unit_edit_last_page';
+    public const UNIT_CURRENT_INDEX_PAGE = 'unit_current_index_page';
+    // ----------------------
 }

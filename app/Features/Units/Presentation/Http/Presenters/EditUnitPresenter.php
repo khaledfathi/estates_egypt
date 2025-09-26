@@ -8,6 +8,7 @@ use App\Features\Units\Application\DTOs\UnitFormDTO;
 use App\Features\Units\Application\Ouputs\EditUnitOutput;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -15,21 +16,24 @@ use Illuminate\Support\Facades\Log;
 final class EditUnitPresenter implements EditUnitOutput
 {
    private Closure $response;
-   //  private string $previousURL;
-   //  public function __construct()
-   //  {
-   //      $this->handleSession();
-   //  }
-   //  private function handleSession()
-   //  {
-   //      $previousPage = SessionKeys::OWNER_EDIT_PREVIOUS_PAGE;
-   //      $this->previousURL = session($previousPage) ?? route('owners.index');
-   // }
+   private string $previousURL;
+   private ?int $estateId;
+   public function __construct()
+   {
+      $this->handleSession();
+   }
+   private function handleSession()
+   {
+      $previousPage = SessionKeys::UNIT_EDIT_PREVIOUS_PAGE;
+      $this->previousURL = session($previousPage) 
+         ?? route('units.index');
+   }
    public function onSuccess(UnitFormDTO $unitFormData, UnitEntity $unitEntity): void
    {
+      $this->estateId = $unitEntity->estateId;
       $this->response = fn() => view('units::edit', [
          'estate' => $unitFormData->estateEntity,
-         'unit'=> $unitEntity,
+         'unit' => $unitEntity,
          'unitTypes' => $unitFormData->unitTypes,
          'unitOwnershipTypes' => $unitFormData->unitOwnershipTypes,
          'unitIsEmptyLabels' => $unitFormData->unitIsEmptyLabels,
@@ -56,6 +60,7 @@ final class EditUnitPresenter implements EditUnitOutput
    }
    public function handle()
    {
-      return ($this->response)();
+      // return ($this->response)();
+      return ($this->response)()->with(['previousURL' => $this->previousURL]);
    }
 }

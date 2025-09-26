@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Features\Units\Presentation\Http\Presenters;
 
+use App\Features\Units\Application\Constants\QueryParams;
 use App\Features\Units\Application\Ouputs\ShowUnitPaginateOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -19,16 +21,16 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
      * @inheritDoc 
      */
 
-    // public function __construct()
-    // {
-    //     $this->handleSession();
-    // }
-    // private function handleSession()
-    // {
-    //     $currentPage = url()->current() . '?page=' . request('page');
-    //     session()->put(SessionKeys::OWNER_CURRENT_INDEX_PAGE, $currentPage);
-    //     session()->put(SessionKeys::OWNER_EDIT_PREVIOUS_PAGE, $currentPage);
-    // }
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $currentPage = url()->current() . '?page=' . request('page') . '&' . QueryParams::ESTATE_ID . "=" . request('estate_id');
+        session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, $currentPage);
+        session()->put(SessionKeys::UNIT_EDIT_PREVIOUS_PAGE, $currentPage);
+    }
     public function onSuccess(EntitiesWithPagination $unitEntitiesWithPagination, EstateEntity $estateEntity): void
     {
         $data = [
@@ -36,7 +38,18 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
             'estate' => $estateEntity,
             'pagination' => $unitEntitiesWithPagination->pagination,
         ];
-        $this->response = fn() => view('units::index', $data);
+
+        $pageCounts = $unitEntitiesWithPagination->pagination->getPageCounts();
+        $requestPageNumber = request('page');
+        if ($requestPageNumber > $pageCounts) {
+            // if last page empty or user try to add page string query manually
+            $queryString = '?page=' . $pageCounts . '&' . QueryParams::ESTATE_ID . "=" . $estateEntity->id;
+            session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, url()->current() . $queryString);
+            $this->response = fn() => redirect(route('units.index') . $queryString);
+        } else {
+            // notmal use
+            $this->response = fn() => view('units::index', $data);
+        }
     }
     public function onFailure(string $error): void
     {
@@ -47,8 +60,9 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
         Log::channel(LogChannels::ERROR)->error('Databse failure', ['error' => $error, 'error_source' => __CLASS__ . '::' . __FUNCTION__]);
     }
 
-    public function onEstateNotFound ():void {
-    $this->response = fn() => view('units::index' , ['error' => Messages::DATA_NOT_FOUND ]);
+    public function onEstateNotFound(): void
+    {
+        $this->response = fn() => view('units::index', ['error' => Messages::DATA_NOT_FOUND]);
     }
     public function handle()
     {

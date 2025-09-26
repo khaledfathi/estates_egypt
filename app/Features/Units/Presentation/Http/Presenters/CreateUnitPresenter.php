@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Log;
 
 final class CreateUnitPresenter implements CreateUnitOutput
 {
-
     private Closure $response;
     public function onSuccess(UnitFormDTO $unitFormData)
     {

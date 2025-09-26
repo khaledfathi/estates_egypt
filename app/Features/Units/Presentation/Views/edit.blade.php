@@ -157,7 +157,8 @@
                                 <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-md btn-primary"><i
                                         class="fa fa-ban"></i>
                                     اعادة</a>
-                                <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}"
+                                {{-- <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}" --}}
+                                <a href="{{$previousURL}}"
                                     class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
                                     الغاء</a>
                             </div>

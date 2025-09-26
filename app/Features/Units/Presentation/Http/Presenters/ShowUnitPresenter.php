@@ -5,6 +5,7 @@ namespace App\Features\Units\Presentation\Http\Presenters;
 use App\Features\Units\Application\Ouputs\ShowUnitOutput;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Illuminate\Support\Facades\Log;
 
@@ -12,6 +13,16 @@ final class ShowUnitPresenter implements ShowUnitOutput
 {
 
     private $response;
+
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $previousPage = SessionKeys::UNIT_EDIT_PREVIOUS_PAGE;
+        session()->put($previousPage, url()->current());
+    }
     public function onSuccess(UnitEntity $unitEntity): void
     {
         $this->response = view('units::show', ['unit' => $unitEntity, 'estate' => $unitEntity->estate]);
