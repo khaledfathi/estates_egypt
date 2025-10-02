@@ -12,6 +12,11 @@ interface EstateRepositroy {
      * @return array<EstateEntity> 
      */
     public function index ():array;
+    /**
+     *  
+     * @param int $perPage
+     * @return EntitiesWithPagination<EstateEntity> 
+     */
     public function indexWithPaginate(int $perPage): EntitiesWithPagination;
     public function store (EstateEntity $estateEntity):EstateEntity;
 

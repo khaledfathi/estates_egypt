@@ -12,7 +12,7 @@ use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Domain\ValueObjects\Pagination;
 use App\Shared\Infrastructure\Models\Estate\Estate;
 
-class EloquentEstateRepository implements EstateRepositroy
+final class EloquentEstateRepository implements EstateRepositroy
 {
     /**
      * 
@@ -22,6 +22,10 @@ class EloquentEstateRepository implements EstateRepositroy
     {
         return [];
     }
+    /**
+     * 
+     * @inheritDoc
+     */
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
         //Query 

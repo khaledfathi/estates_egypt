@@ -12,11 +12,13 @@ interface RenterRepositroy {
      * @return array<RenterEntity> 
      */
     public function index ():array;
+    /**
+     * 
+     * @param int $perPage
+     * @return EntitiesWithPagination<RenterEntity> 
+     */
     public function indexWithPaginate(int $perPage): EntitiesWithPagination;
-
-
     public function store (RenterEntity $renterEntities):RenterEntity;
-
     public function show (int $renterId):RenterEntity|null;
     public function update (RenterEntity$renterEntity):bool;
     public function destroy (int $renterId):bool; 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 150);
             $table->text('description')->nullable();
-            $table->text('file')->nullable();
+            $table->text('file');
             $table->timestamps();
             //FK
             $table->foreignId('estate_id')->references('id')->on('estates')->onUpdate('cascade')->onDelete('cascade');

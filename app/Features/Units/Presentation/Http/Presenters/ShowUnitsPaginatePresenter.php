@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Features\Units\Presentation\Http\Presenters;
 
-use App\Features\Units\Application\Constants\QueryParams;
 use App\Features\Units\Application\Ouputs\ShowUnitPaginateOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
@@ -27,7 +26,7 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
     }
     private function handleSession()
     {
-        $currentPage = url()->current() . '?page=' . request('page') . '&' . QueryParams::ESTATE_ID . "=" . request('estate_id');
+        $currentPage = url()->current() . '?page=' . request('page');
         session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::UNIT_EDIT_PREVIOUS_PAGE, $currentPage);
     }
@@ -43,9 +42,9 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
         $requestPageNumber = request('page');
         if ($requestPageNumber > $pageCounts) {
             // if last page empty or user try to add page string query manually
-            $queryString = '?page=' . $pageCounts . '&' . QueryParams::ESTATE_ID . "=" . $estateEntity->id;
-            session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, url()->current() . $queryString);
-            $this->response = fn() => redirect(route('units.index') . $queryString);
+            $queryString = '?page=' . $pageCounts;
+            session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, url()->current());
+            $this->response = fn() => redirect(route('estates.units.index', $estateEntity->id));
         } else {
             // notmal use
             $this->response = fn() => view('units::index', $data);

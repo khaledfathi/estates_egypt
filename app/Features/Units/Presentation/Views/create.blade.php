@@ -1,6 +1,3 @@
-@php
-    use App\Features\Units\Application\Constants\QueryParams;
-@endphp
 @extends('shared::main-layout')
 @section('title', 'الوحدات | اضافة وحدة')
 @section('active-estates', 'active')
@@ -61,7 +58,7 @@
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}" type="button"
+                    <a href="{{ route('estates.units.index', $estate->id) }}" type="button"
                         class="btn btn-primary">
                         <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
                 </div>
@@ -71,17 +68,13 @@
 
         <div class="row" style="display:flex; justify-content: center;">
             <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"
-                action="{{ route('units.store') }}">
+                action="{{ route('estates.units.store' , $estate->id)  }}">
                 <div class="card">
                     <div class="card-header">
                         <strong>اضافة وحدة</strong>
                     </div>
                     <div class="card-block">
                         @csrf
-                        {{-- estate id --}}
-                        <input type="hidden" name="estate_id" value="{{ old('estate_id',$estate->id) }}">
-                        {{-- / estate id --}}
-
                         {{-- unit type --}}
                         <div class="form-group">
                             <label for="type">نوع الوحدة<span class="required">*</span></label>
@@ -151,7 +144,7 @@
                             <button id="submit-btn" type="submit" class="btn btn-md btn-success"><i
                                     class="fa fa-dot-circle-o"></i>
                                 اضافة</button>
-                            <a href="{{route('units.index', [QueryParams::ESTATE_ID => $estate->id])}}" class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
+                            <a href="{{route('estates.units.index', $estate->id)}}" class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
                                 الغاء</a>
                         </div>
                         {{-- / buttons --}}

@@ -36,6 +36,10 @@ final class EloquentOwnerRepository implements OwnerRepository
         return $arrayOfOwners;
     }
 
+    /**
+     * 
+     * @inheritDoc
+     */
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
         //Query 
@@ -50,10 +54,10 @@ final class EloquentOwnerRepository implements OwnerRepository
             $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
                 $ownerPhones[]  =  new OwnerPhoneEntity(
-                     (int)$phone->id,
-                     (int)$phone->owner_id,
-                     $phone->phone,
-                 );
+                    (int)$phone->id,
+                    (int)$phone->owner_id,
+                    $phone->phone,
+                );
             }
             //owner DTO
             $arrayOfOwners[] = new OwnerEntity(
@@ -90,7 +94,7 @@ final class EloquentOwnerRepository implements OwnerRepository
         ]);
         foreach ($ownerEntity->phones as $phone) {
             OwnerPhone::create([
-                'owner_id' => $ownerRecord->id, 
+                'owner_id' => $ownerRecord->id,
                 'phone' => $phone->phone,
             ]);
         }
@@ -101,7 +105,7 @@ final class EloquentOwnerRepository implements OwnerRepository
     {
         $record = Owner::with('phones')->find($ownerId);
         if ($record) {
-            $ownerPhones=[];
+            $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
                 $ownerPhones[]  =  new OwnerPhoneEntity(
                     (int)$phone->id,

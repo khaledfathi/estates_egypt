@@ -1,7 +1,9 @@
 <?php
 declare (strict_types= 1);
 
-namespace App\Shared\Domain\Entities\Estate; 
+namespace App\Shared\Domain\Entities\EstateDocument;
+
+use App\Shared\Domain\Entities\Estate\EstateEntity;
 
 final class EstateDocumentEntity {
     public function __construct(

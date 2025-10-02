@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
-use App\Features\Units\Application\Constants\QueryParams;
 use App\Features\Units\Domain\ValueObjects\UnitEntitiesWithPagination;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
@@ -26,6 +25,11 @@ final class EloquentUnitRepository implements UnitRepository
     {
         return [];
     }
+
+    /**
+     * 
+     * @inheritDoc
+     */
     public function indexWithPaginate(int $estateId, int $perPage): EntitiesWithPagination
     {
         //Query 
@@ -55,7 +59,6 @@ final class EloquentUnitRepository implements UnitRepository
             path: $unitsRecords->path(),
             pageName: $unitsRecords->getPageName(),
             total: $unitsRecords->total(),
-            queryParameters: [QueryParams::ESTATE_ID => $estateId],
         );
         //Final DTO
         return  new UnitEntitiesWithPagination(
@@ -118,22 +121,5 @@ final class EloquentUnitRepository implements UnitRepository
     public function destroy(int $unitId): bool
     {
         return Unit::find($unitId)->delete();
-    }
-
-    public function countWhereEstaetId(int $estateId): int
-    {
-        return Unit::where('estate_id', $estateId)->count() ?? 0;
-    }
-    public function countResidentialWhereEstateId(int $estateId): int
-    {
-        return Unit::where('estate_id', $estateId)
-            ->where('type', UnitType::RESDENTIAL->value)
-            ->count() ?? 0;
-    }
-    public function countCommercialWhereEstateId(int $estateId): int
-    {
-        return Unit::where('estate_id', $estateId)
-            ->where('type', UnitType::COMMERCIAL->value)
-            ->count() ?? 0;
     }
 }

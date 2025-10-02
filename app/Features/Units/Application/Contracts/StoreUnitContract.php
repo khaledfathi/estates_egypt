@@ -10,6 +10,6 @@ use App\Shared\Domain\Entities\Unit\UnitEntity;
 
 interface StoreUnitContract
 {
-    public function create(int $estateId, CreateUnitOutput $presenter) ;
-    public function store(UnitEntity $unitEntity, StoreUnitOutput $presenter) ;
+    public function create(int $estateId, CreateUnitOutput $presenter):void ;
+    public function store(UnitEntity $unitEntity, StoreUnitOutput $presenter):void ;
 }

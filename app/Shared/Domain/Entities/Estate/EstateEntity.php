@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Entities\Estate;
 
+use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 
 final class EstateEntity

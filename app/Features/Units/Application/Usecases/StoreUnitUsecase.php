@@ -22,7 +22,7 @@ final class StoreUnitUsecase implements StoreUnitContract
         private readonly EstateRepositroy $estateRepositroy,
         private readonly UnitRepository $unitRepository,
     ) {}
-    public function create(int $estateId, CreateUnitOutput $presenter)
+    public function create(int $estateId, CreateUnitOutput $presenter):void
     {
         try {
             $estate = $this->estateRepositroy->show($estateId);
@@ -41,7 +41,7 @@ final class StoreUnitUsecase implements StoreUnitContract
         }
     }
 
-    public function store(UnitEntity $unitEntity, StoreUnitOutput $presenter)
+    public function store(UnitEntity $unitEntity, StoreUnitOutput $presenter):void
     {
         try {
             $unitEntity = $this->unitRepository->store($unitEntity);

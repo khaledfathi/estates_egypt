@@ -35,26 +35,26 @@ class UnitController extends Controller
     public function index(Request $request)
     {
         $presenter = new ShowUnitsPaginatePresenter();
-        $this->showUnitUsecase->allWithPaginate($presenter, (int) $request->estate_id, 10);
+        $this->showUnitUsecase->allWithPaginate($presenter, (int) $request->route('estate'), 10);
         return $presenter->handle();
     }
-    public function show(string $id)
+    public function show(string $estateId , string $unitId)
     {
         $presenter = new ShowUnitPresenter();
-        $this->showUnitUsecase->showById((int)$id, $presenter);
+        $this->showUnitUsecase->showById((int) $unitId, $presenter);
         return $presenter->handle();
     }
 
-    public function edit(string $id, Request $request)
+    public function edit(string $estaetId , string $unitId)
     {
         $presenter = new EditUnitPresenter();
-        $this->updateUnitUsecase->edit((int) $id, $presenter);
+        $this->updateUnitUsecase->edit((int) $unitId, $presenter);
         return $presenter->handle();
     }
-    public function update(UpdateUnitRequest $request, string $id)
+    public function update(UpdateUnitRequest $request, string $estateId, string $unitId )
     {
         //prepeare data
-        $unitEntity = $this->formToUnitEntity([...$request->all(), 'id' => (int) $id]);
+        $unitEntity = $this->formToUnitEntity([...$request->all(), 'id' => (int) $unitId]);
         //action
         $presenter = new UpdateUnitPresenter();
         $this->updateUnitUsecase->update($unitEntity, $presenter);
@@ -63,23 +63,23 @@ class UnitController extends Controller
     public function create(Request $request)
     {
         $presenter = new CreateUnitPresenter();
-        $this->storeUnitUsecase->create((int)$request->estate_id, $presenter);
+        $this->storeUnitUsecase->create((int)$request->route('estate'), $presenter);
         return $presenter->handle();
     }
 
     public function store(StoreUnitRequest $request)
     {
         //prepeare data
-        $unitEntity = $this->formToUnitEntity($request->all());
+        $unitEntity = $this->formToUnitEntity([...$request->all(), 'estate_id'=> $request->route('estate')]);
         //action
         $presenter = new StoreUnitPresenter((int) $request->estate_id);
         $this->storeUnitUsecase->store($unitEntity, $presenter);
         return $presenter->handle();
     }
-    public function destroy(string $id)
+    public function destroy( string $unitId)
     {
         $presenter = new DestroyUnitPresenter();
-        $this->destroyUnitUsecase->destroy((int)$id, $presenter);
+        $this->destroyUnitUsecase->destroy((int)$unitId, $presenter);
         return $presenter->handle();
     }
 

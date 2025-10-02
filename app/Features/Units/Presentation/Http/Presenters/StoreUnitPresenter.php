@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Features\Units\Presentation\Http\Presenters;
 
-use App\Features\Units\Application\Constants\QueryParams;
 use App\Features\Units\Application\Ouputs\StoreUnitOutput;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
@@ -20,7 +19,7 @@ final class StoreUnitPresenter implements StoreUnitOutput
     ) {}
     public function onSuccess(UnitEntity $unitEntity): void
     {
-        $this->response = fn()=> redirect(route('units.index', [QueryParams::ESTATE_ID => $this->estateId]))
+        $this->response = fn()=> redirect(route('estates.units.index', ['estate' => $unitEntity->estate->id]))
             ->with('success', Messages::STORE_SUCCESS);
     }
     public function onFailure(string $error): void

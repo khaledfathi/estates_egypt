@@ -1,6 +1,3 @@
-@php
-    use App\Features\Units\Application\Constants\QueryParams;
-@endphp
 @extends('shared::main-layout')
 @section('title', 'العقارات | عرض عقار')
 @section('active-estates', 'active')
@@ -38,9 +35,9 @@
         @if (isset($estate))
             <div class=" container">
                 <div class="manage-btn-box">
-                    <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}"
+                    <a href="{{ route('estates.units.index',  $estate->id)  }}"
                         class="btn btn-primary"><i class="fa fa-home fa-lg"></i>&nbsp; وحدات</a>
-                    <a href="#" class="btn btn-primary"> <i class="icon-docs icons fa-lg"></i>&nbsp; مستندات</a>
+                    <a href="{{ route('estates.documents.index' , $estate->id)}}" class="btn btn-primary"> <i class="icon-docs icons fa-lg"></i>&nbsp; مستندات</a>
                     <a href="#" class="btn btn-primary"><i class="fa fa-bolt fa-lg "></i>&nbsp; مرافق</a>
                 </div>
             </div>

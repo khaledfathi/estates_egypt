@@ -1,6 +1,3 @@
-@php
-    use App\Features\Units\Application\Constants\QueryParams;
-@endphp
 
 @extends('shared::main-layout')
 @section('title', 'الوحدات')
@@ -79,7 +76,7 @@
             </div>
             {{-- / unit header title --}}
             <div class="card-block row">
-                <a href="{{ route('units.create', [QueryParams::ESTATE_ID => $estate->id]) }}"
+                <a href="{{ route('estates.units.create', $estate->id ) }}"
                     class="btn btn-md btn-primary my-5">
                     <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
                     <span> اضافة وحدة</span>
@@ -131,15 +128,15 @@
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('units.show', ['unit' => $unit->id]) }}">
+                                                        href="{{ route('estates.units.show', ['estate'=>$estate->id , 'unit' => $unit->id]) }}">
                                                         <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
                                                     </a>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('units.edit', ['unit' => $unit->id]) }}">
+                                                        href="{{ route('estates.units.edit', ['estate' => $estate->id ,'unit' => $unit->id]) }}">
                                                         <i
                                                             class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
                                                     </a>
-                                                    <form class="d-inline" action="{{ route('units.destroy', $unit->id) }}"
+                                                    <form class="d-inline" action="{{ route('estates.units.destroy', ['estate'=> $estate->id , 'unit' => $unit->id]) }}"
                                                         method="post">
                                                         @method('DELETE')
                                                         @csrf

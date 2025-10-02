@@ -1,6 +1,3 @@
-@php
-    use App\Features\Units\Application\Constants\QueryParams;
-@endphp
 @extends('shared::main-layout')
 @section('title', 'الوحدات | تحديث وحدة')
 @section('active-estates', 'active')
@@ -63,7 +60,7 @@
                         </ul>
                         <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                             <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                        <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}" type="button"
+                        <a href="{{ route('estates.units.index', $estate->id) }}" type="button"
                             class="btn btn-primary">
                             <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
                     </div>
@@ -73,7 +70,7 @@
 
             <div class="row" style="display:flex; justify-content: center;">
                 <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"
-                    action="{{ route('units.update', $unit->id) }}">
+                    action="{{ route('estates.units.update', ['estate'=>$estate->id, 'unit'=>$unit->id]) }}">
                     @csrf
                     @method('PUT')
                     <div class="card">
@@ -154,7 +151,7 @@
                                 <button id="submit-btn" type="submit" class="btn btn-md btn-success"><i
                                         class="fa fa-dot-circle-o"></i>
                                     تحديث</button>
-                                <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-md btn-primary"><i
+                                <a href="{{ route('estates.units.edit', ['estate'=>$estate->id , 'unit'=>$unit->id]) }}" class="btn btn-md btn-primary"><i
                                         class="fa fa-ban"></i>
                                     اعادة</a>
                                 {{-- <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}" --}}

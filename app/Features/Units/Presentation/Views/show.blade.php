@@ -1,5 +1,4 @@
 @php
-    use App\Features\Units\Application\Constants\QueryParams;
     use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
 @endphp
 @extends('shared::main-layout')
@@ -52,7 +51,7 @@
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('units.index', [QueryParams::ESTATE_ID => $estate->id]) }}" type="button"
+                    <a href="{{ route('estates.units.index',  $estate->id ) }}" type="button"
                         class="btn btn-primary">
                         <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
                 </div>
@@ -65,10 +64,10 @@
                         <div class="edit-box-header">
                             <strong>بيانات الوحدة</strong>
                             <div>
-                                <a style="margin-left:10px;text-decoration:none" href="{{ route('units.edit', $unit->id) }}">
+                                <a style="margin-left:10px;text-decoration:none" href="{{ route('estates.units.edit', ['estate' => $estate->id ,'unit'=> $unit->id]) }}">
                                     <i class="action-icon action-icon--edit fa fa-pencil fa-lg "></i>
                                 </a>
-                                <form class="d-inline" action="{{ route('units.destroy', $unit->id) }}" method="post">
+                                <form class="d-inline" action="{{ route('estates.units.destroy',['estate'=> $estate->id , 'unit' => $unit->id] ) }}" method="post">
                                     @method('DELETE')
                                     @csrf
                                     <i id="delete-owner-btn"

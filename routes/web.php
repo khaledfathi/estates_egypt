@@ -1,5 +1,6 @@
 <?php
 
+use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
@@ -28,7 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/owners', OwnerController::class);
     Route::resource('/renters' , RenterController::class );
     Route::resource('/estates' , EstateController::class );
-    Route::resource('/units' , UnitController::class );
+    Route::resource('/estates.units' , UnitController::class );
+    Route::resource('/estates.units' , UnitController::class );
+    Route::resource('/estates.documents' , EstateDocumentController::class );
     Route::resource('/settings', SettingController::class)->only('index');
 });
 

@@ -11,6 +11,12 @@ interface UnitRepository{
      * @return array<UnitEntity> 
      */
     public function index ():array;
+    /**
+     * 
+     * @param int $estateId
+     * @param int $perPage
+     * @return EntitiesWithPagination<UnitEntity> 
+     */
     public function indexWithPaginate(int $estateId , int $perPage): EntitiesWithPagination;
 
 
@@ -25,8 +31,4 @@ interface UnitRepository{
     public function show (int $unitId , bool $unitOnly=false):UnitEntity|null;
     public function update (UnitEntity $unitEntity):bool;
     public function destroy (int $unitId):bool; 
-    public function countWhereEstaetId(int $estateId):int;
-    public function countResidentialWhereEstateId(int $estateId): int;
-    public function countCommercialWhereEstateId(int $estateId): int;
-
 }

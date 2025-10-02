@@ -26,6 +26,7 @@ class  StoreUnitRequest extends FormRequest
      */
     public function rules(): array
     {
+        $estateId = $this->route('estate');
         return [
             'type' => ['required', new Enum(UnitType::class)],
             'number' => [
@@ -33,9 +34,9 @@ class  StoreUnitRequest extends FormRequest
                 'numeric',
                 'min:1',
                 Rule::unique('units')->where(fn ($query)=> 
-                    $query->where('estate_id', $this->estate_id)->where('type', $this->type )
+                    $query->where('estate_id', $estateId)->where('type', $this->type )
                 ),
-                new LastUnitNumber(estateId: $this->estate_id, unitType: UnitType::from($this->type)),    
+                new LastUnitNumber(estateId: $estateId, unitType: UnitType::from($this->type)),    
             ],
             'floor_number' => 'required|numeric',
             'ownership_type' => ['required', new Enum(UnitOwnershipType::class)],

@@ -1,5 +1,6 @@
 <?php
 
+
 return [
     App\Providers\AppServiceProvider::class,
     App\Shared\Infrastructure\Providers\SharedServiceProvider::class,
@@ -11,4 +12,5 @@ return [
     App\Features\Queries\Infrastructure\Providers\QueryServiceProvider::class,
     App\Features\Settings\Infrastructure\Providers\SettingServiceProvider::class,
     App\Features\Transactions\Infrastructure\Providers\TransactionServiceProvider::class,
+    App\Features\EstateDocuments\Infrastructure\Providers\EstateDocumentServiceProvider::class,
 ];
