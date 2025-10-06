@@ -1,20 +1,20 @@
 
 // UI ELEMENTS
 const 
-    deleteOwnerButton:HTMLElement = document.querySelector("#delete-owner-btn")!,
-    delteOwnerSubmitButton:HTMLElement = document.querySelector("#delete-owner-submit-btn")!;
+    deleteRenterButton:HTMLElement = document.querySelector("#delete-renter-btn")!,
+    deleteRenterSubmitButton:HTMLElement = document.querySelector("#delete-renter-submit-btn")!;
 // ---------------
 
 // CORE
 // ---------------
 
 // EVENTS
-deleteOwnerButton.addEventListener('click', handleDeleteOwnerButtonClick )
+deleteRenterButton.addEventListener('click', handleDeleteRenterButtonClick)
 // ---------------
 
 // EVENT HANDLER
-function handleDeleteOwnerButtonClick(){
-    delteOwnerSubmitButton.click();
+function handleDeleteRenterButtonClick(){
+    deleteRenterSubmitButton.click();
 }
 // ---------------
 

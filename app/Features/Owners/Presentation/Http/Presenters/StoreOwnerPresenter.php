@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Features\Owners\Presentation\Http\Presenters;
 
 use App\Features\Owners\Application\Outputs\StoreOwnerOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;

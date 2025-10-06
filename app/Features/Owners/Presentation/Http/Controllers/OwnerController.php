@@ -61,7 +61,7 @@ class  OwnerController extends Controller
     }
     public function create()
     {
-        return view("owners.create");
+        return view("owners::create");
     }
 
     public function store(StoreOwnerRequest $request)
@@ -70,7 +70,7 @@ class  OwnerController extends Controller
         $ownerEntity = $this->formToOwnerEntity($request->all());
         //action
         $presenter = new StoreOwnerPresenter();
-        $this->createOwnerUsecase->create($ownerEntity, $presenter);
+        $this->createOwnerUsecase->store($ownerEntity, $presenter);
         return $presenter->handle();
     }
     public function destroy(string $id)

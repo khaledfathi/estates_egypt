@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Features\Owners\Presentation\Http\Presenters;
 
 use App\Features\Owners\Application\Outputs\ShowOwnerOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -25,17 +25,17 @@ final class ShowOwnerPresenter implements ShowOwnerOutput
     }
     public function onSuccess(OwnerEntity $ownerEntity): void
     {
-        $this->response = view('owners.show', ['owner' => $ownerEntity]);
+        $this->response = view('owners::show', ['owner' => $ownerEntity]);
     }
-    public function onNotFount(): void
+    public function onNotFound(): void
     {
-        $this->response = view("owners.show", [
+        $this->response = view("owners::show", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }
     public function onFailure(String $error): void
     {
-        $this->response = view("owners.show", [
+        $this->response = view("owners::show", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log

@@ -17,7 +17,7 @@ final class StoreRenterUsecase implements  StoreRenterContract{
      * 
      * @inheritDoc
      */
-    public function create(RenterEntity $renterEntity, StoreRenterOutput $presenter): void{
+    public function store(RenterEntity $renterEntity, StoreRenterOutput $presenter): void{
         try {
             $presenter->onSuccess($this->renterRepositroy->store($renterEntity));
         } catch (\Exception $e) {

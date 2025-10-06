@@ -7,6 +7,6 @@ use App\Shared\Domain\Entities\Owner\OwnerEntity;
 
 interface  ShowOwnerOutput{
     public function onSuccess(OwnerEntity $ownerEntity):void;
-    public function onNotFount():void;
+    public function onNotFound():void;
     public function onFailure(String $error):void;
 }

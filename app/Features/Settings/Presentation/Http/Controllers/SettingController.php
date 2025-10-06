@@ -12,6 +12,6 @@ class  SettingController extends Controller
       $settings =[
          'settingPageCounts' => 20,
       ];
-      return view("settings.index", $settings);
+      return view("settings::index", $settings);
    }
 }

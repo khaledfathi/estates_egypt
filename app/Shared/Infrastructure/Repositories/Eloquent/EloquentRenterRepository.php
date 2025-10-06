@@ -24,6 +24,11 @@ final class EloquentRenterRepository implements RenterRepositroy
     {
         return []; 
     }
+
+    /**
+     * 
+     * @inheritDoc
+     */
     public function indexWithPaginate(int $perPage): EntitiesWithPagination{
         $renterRecords= Renter::with('phones')
             ->orderBy('created_at', 'desc')

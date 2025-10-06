@@ -5,11 +5,10 @@ namespace App\Features\Owners\Presentation\Http\Presenters;
 
 
 use App\Features\Owners\Application\Outputs\ShowOwnersPaginateOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
-
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
@@ -28,7 +27,7 @@ final class ShowOwnersPaginatePresenter implements ShowOwnersPaginateOutput
         session()->put(SessionKeys::OWNER_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::OWNER_EDIT_PREVIOUS_PAGE, $currentPage);
     }
-    public function onSucces(EntitiesWithPagination $ownerEntities): void
+    public function onSuccess(EntitiesWithPagination $ownerEntities): void
     {
         $data = [ 
             'owners' => $ownerEntities->entities,
@@ -44,12 +43,12 @@ final class ShowOwnersPaginatePresenter implements ShowOwnersPaginateOutput
             $this->response = fn() => redirect(route('owners.index') . '?page=' . $pageCounts);
         } else {
             // notmal use
-            $this->response = fn() => view('owners.index', $data);
+            $this->response = fn() => view('owners::index', $data);
         }
     }
     public function onFailure(string $error): void
     {
-        $this->response = fn() => view('owners.index', [
+        $this->response = fn() => view('owners::index', [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log

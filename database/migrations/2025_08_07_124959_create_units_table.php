@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedSmallInteger('number');
             $table->unsignedTinyInteger('floor_number');
-            $table->enum ('ownership_type', ['single, shared']);
+            $table->enum ('ownership_type', ['single','shared']);
             $table->enum ('type', ['commercial','residential']);
             $table->boolean('is_empty')->default(true);
             $table->timestamps();

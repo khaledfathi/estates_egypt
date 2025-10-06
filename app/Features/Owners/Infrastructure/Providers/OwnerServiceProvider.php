@@ -11,6 +11,7 @@ use App\Features\Owners\Application\Usecases\DestroyOwnerUsecase;
 use App\Features\Owners\Application\Usecases\ShowOwnerUsecase;
 use App\Features\Owners\Application\Usecases\StoreOwnerUsecase;
 use App\Features\Owners\Application\Usecases\UpdateOwnerUsecase;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class OwnerServiceProvider extends ServiceProvider
@@ -32,6 +33,6 @@ class OwnerServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::addNamespace( 'owners', base_path('app/Features/Owners/Presentation/Views'));
     }
 }

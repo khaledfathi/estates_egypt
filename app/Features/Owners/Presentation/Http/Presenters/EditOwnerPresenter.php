@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Features\Owners\Presentation\Http\Presenters;
 
 use App\Features\Owners\Application\Outputs\EditOwnerOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
-use App\Shared\Contstants\SessionKeys;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -32,11 +32,11 @@ final class EditOwnerPresenter implements EditOwnerOutput
             $ownerPhones[] =  $phone->phone;
         }
         //
-        $this->response = view('owners.edit', ['owner' => $ownerEntity , 'ownerPhones'=>$ownerPhones]);
+        $this->response = view('owners::edit', ['owner' => $ownerEntity , 'ownerPhones'=>$ownerPhones]);
     }
     public function onFailure(string $error): void
     {
-        $this->response = view("owners.edit", [
+        $this->response = view("owners::edit", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -47,7 +47,7 @@ final class EditOwnerPresenter implements EditOwnerOutput
     }
     public function onNotFound(): void
     {
-        $this->response = view("owners.edit", [
+        $this->response = view("owners::edit", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }

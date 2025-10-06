@@ -1,3 +1,6 @@
+@php
+    use App\Helper\Helper;
+@endphp
 <!--
  * CoreUI - Open Source Bootstrap Admin Template
  * @version v1.0.0-alpha.2
@@ -17,7 +20,7 @@
     <meta name="keyword" content="CoreUI Bootstrap 4 Admin Template">
     <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
     <title>@yield('title')</title>
-    @include('main-header-assets')
+    @include('shared::main-header-assets')
     @vite('resources/css/shared/main.css')
     @yield('styles')
 </head>
@@ -56,7 +59,7 @@
 
                     <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="hidden-md-down">{{ \App\Helper\Helper::getFirstWord(Auth::user()->name) }}</span>
+                        <span class="hidden-md-down">{{ Helper::getFirstWord(Auth::user()->name) }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="fa fa-user"></i> حسابى</a>
@@ -330,7 +333,7 @@
         </div>
     </aside>
 
-    @include('main-footer-assets')
+    @include('shared::main-footer-assets')
     @yield('scripts')
 </body>
 

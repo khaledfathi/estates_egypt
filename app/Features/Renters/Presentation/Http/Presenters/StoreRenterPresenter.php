@@ -3,8 +3,8 @@ declare(strict_types= 1);
 namespace App\Features\Renters\Presentation\Http\Presenters;
 
 use App\Features\Renters\Application\Outputs\StoreRenterOutput;
-use App\Shared\Contstants\LogChannels;
-use App\Shared\Contstants\Messages;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Renter\RenterEntity;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;

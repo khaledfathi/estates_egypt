@@ -1,11 +1,17 @@
-* text=auto eol=lf
+# .gitattributes
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+# Ignore Blade templates for language stats (they are mostly HTML)
+# *.blade.php linguist-vendored
 
-/.github export-ignore
-CHANGELOG.md export-ignore
-.styleci.yml export-ignore
+
+# Also ignore common frontend files that skew the count
+*.css linguist-vendored
+*.html linguist-vendored
+*.js linguist-vendored
+*.ts linguist-vendored
+/public/** linguist-vendored
+/Planing/** linguist-vendored
+/resources/** linguist-vendored
+
+# Treat all .blade.php files as PHP for language statistics
+*.blade.php linguist-language=PHP

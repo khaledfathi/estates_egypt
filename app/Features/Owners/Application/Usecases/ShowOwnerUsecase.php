@@ -17,7 +17,7 @@ final  class ShowOwnerUsecase implements ShowOwnerContract{
     public function allWithPaginate(ShowOwnersPaginateOutput $presenter , int $perPage=5):void
     {
         try {
-            $presenter->onSucces($this->ownerRepository->indexWithPaginate($perPage));
+            $presenter->onSuccess($this->ownerRepository->indexWithPaginate($perPage));
 
         } catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
@@ -29,7 +29,7 @@ final  class ShowOwnerUsecase implements ShowOwnerContract{
             $record = $this->ownerRepository->show($ownerId);
             $record 
                 ? $presenter->onSuccess($record)
-                : $presenter->onNotFount();
+                : $presenter->onNotFound();
 
         }catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
