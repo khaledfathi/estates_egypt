@@ -19,7 +19,7 @@ final class  DestroyUnitUsecase implements DestroyUnitContract
         try {
             $estateId = $this->unitRepository->show($unitId)?->estate?->id;
             $destroyUnitStatus= $this->unitRepository->destroy($unitId) ;
-            $presenter->onSuccess($destroyUnitStatus , $estateId);
+            $presenter->onSuccess($destroyUnitStatus );
         } catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
         }

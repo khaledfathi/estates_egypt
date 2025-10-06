@@ -4,8 +4,10 @@ declare (strict_types=1);
 namespace App\Shared\Application\Contracts\Storage; 
 
 interface StorageDir {
-    public static function estateDocuments (int $estateId);
-    public static function estateUtilityServices(int $estateId);
-    public static function unitDocuments (int $estateId , int $unitId);
-    public static function unitUtilityServices ($estateId , $unitId);
+    public function privatePath():StorageDir;
+    public function publicPath():StorageDir;
+    public function estateDocuments (int $estateId):string;
+    public function estateUtilityServices(int $estateId):string;
+    public function unitDocuments (int $estateId , int $unitId):string;
+    public function unitUtilityServices ($estateId , $unitId):string;
 }

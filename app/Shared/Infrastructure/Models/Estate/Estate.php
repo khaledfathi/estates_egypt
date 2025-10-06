@@ -16,4 +16,7 @@ class Estate extends Model
     public function units() {
         return $this->hasMany(Unit::class );
     }
+    public function documents(){
+        return $this->hasMany(EstateDocument::class);
+    }
 }

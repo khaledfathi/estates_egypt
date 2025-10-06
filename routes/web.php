@@ -2,6 +2,7 @@
 
 use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
+use App\Features\EstateUtilityServices\Presentation\Http\Controllers\EstateUtilityServicesController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
@@ -31,8 +32,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('/estates' , EstateController::class );
     Route::resource('/estates.units' , UnitController::class );
     Route::resource('/estates.units' , UnitController::class );
+
+    Route::get('/estates/{estate}/documents/view-file/{file}', [EstateDocumentController::class, 'viewFile'])
+        ->name('estates.documents.view-file');
+    Route::get('/estates/{estate}/documents/download/{file}', [EstateDocumentController::class, 'download'])
+        ->name('estates.documents.download'); 
     Route::resource('/estates.documents' , EstateDocumentController::class );
+
+    Route::resource('/estates.utility-services' , EstateUtilityServicesController::class );
+
     Route::resource('/settings', SettingController::class)->only('index');
+
 });
 
 /* FOR TEST  */

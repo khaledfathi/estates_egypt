@@ -17,7 +17,6 @@ final class EditUnitPresenter implements EditUnitOutput
 {
    private Closure $response;
    private string $previousURL;
-   private ?int $estateId;
    public function __construct()
    {
       $this->handleSession();
@@ -30,7 +29,6 @@ final class EditUnitPresenter implements EditUnitOutput
    }
    public function onSuccess(UnitFormDTO $unitFormData, UnitEntity $unitEntity): void
    {
-      $this->estateId = $unitEntity->estateId;
       $this->response = fn() => view('units::edit', [
          'estate' => $unitFormData->estateEntity,
          'unit' => $unitEntity,

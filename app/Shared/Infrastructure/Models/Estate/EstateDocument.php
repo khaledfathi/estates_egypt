@@ -12,4 +12,8 @@ class EstateDocument extends Model
         'description',
         'file'
     ];
+
+    public function estate(){
+        return $this->belongsTo(Estate::class);
+    }
 }

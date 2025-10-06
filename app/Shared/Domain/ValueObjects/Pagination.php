@@ -49,7 +49,7 @@ final class Pagination
         $pageNumber = $this->currentPage > 1 ? $this->currentPage - 1 : $this->currentPage;
         return $this->generatePageURL($pageNumber) . $this->queires;
     }
-    public function setQueryParameters()
+    public function setQueryParameters():void
     {
         foreach ($this->queryParameters as $key => $value) {
             $this->queires .= "&$key=$value";

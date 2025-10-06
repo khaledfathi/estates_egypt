@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Features\EstateDocuments\Domain\ValueObjects\EstateDocumentEntitiesWithPagination;
+use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
@@ -68,24 +69,47 @@ final class EloquentEstateDocumentRepository implements EstateDocumentRepository
         $estateDocumentEntity->id = $record->id;
         return $estateDocumentEntity;
     }
-    public function show(int $estateDocumentId): EstateDocumentEntity|null
+    public function show(int $estateDocumentId, bool $estateDocumentOnly = false): EstateDocumentEntity|null
     {
 
-        $record = EstateDocument::find($estateDocumentId);
+        $record = $estateDocumentOnly
+            ? EstateDocument::find($estateDocumentId)
+            : EstateDocument::with('estate')->find($estateDocumentId);
+        if (!$record) return null;
+
+        $estateEntity = $record->estate
+            ? new EstateEntity(
+                $record->estate->id,
+                $record->estate->name,
+                $record->estate->address,
+                $record->estate->floor_count,
+                $record->estate->unit_count,
+                $record->estate->commercial_unit,
+                $record->estate->residential_unit,
+            ) : null;
         if ($record) {
             return new EstateDocumentEntity(
                 id: $record->id,
-                estateId:$record->estate_id,
+                estateId: $record->estate_id,
                 title: $record->title,
                 description: $record->description,
                 file: $record->file,
+                estate: $estateEntity
+
             );
         }
         return null;
     }
-    public function update(EstateDocumentEntity $estateEntity): bool
+    public function update(EstateDocumentEntity $estateDocumentEntity): bool
     {
-        return false;
+        $data = [
+            'estate_id' => $estateDocumentEntity->estateId,
+            'title' => $estateDocumentEntity->title,
+            'description' => $estateDocumentEntity->description,
+        ];
+        if ($estateDocumentEntity->file) $data['file'] = $estateDocumentEntity->file;
+        $found = EstateDocument::find($estateDocumentEntity->id);
+        return $found->update($data);
     }
     public function destroy(int $estateId): bool
     {

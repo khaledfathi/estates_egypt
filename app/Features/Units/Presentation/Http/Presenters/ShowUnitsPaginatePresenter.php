@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Log;
 final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
 {
     private Closure $response;
-    /**
-     * @inheritDoc 
-     */
-
     public function __construct()
     {
         $this->handleSession();
@@ -37,14 +33,13 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
             'estate' => $estateEntity,
             'pagination' => $unitEntitiesWithPagination->pagination,
         ];
-
+        //handle session & response
         $pageCounts = $unitEntitiesWithPagination->pagination->getPageCounts();
         $requestPageNumber = request('page');
         if ($requestPageNumber > $pageCounts) {
             // if last page empty or user try to add page string query manually
-            $queryString = '?page=' . $pageCounts;
-            session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, url()->current());
-            $this->response = fn() => redirect(route('estates.units.index', $estateEntity->id));
+            session()->put(SessionKeys::UNIT_CURRENT_INDEX_PAGE, url()->current() . '?page=' . $pageCounts);
+            $this->response = fn() => redirect(route('estates.units.index' , $estateEntity->id) . '?page=' . $pageCounts);
         } else {
             // notmal use
             $this->response = fn() => view('units::index', $data);
@@ -52,7 +47,7 @@ final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
     }
     public function onFailure(string $error): void
     {
-        $this->response = fn() => view('owners::index', [
+        $this->response = fn() => view('units::index', [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log

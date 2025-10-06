@@ -1,3 +1,6 @@
+@php
+    use App\Helper\Helper;
+@endphp
 <!--
  * CoreUI - Open Source Bootstrap Admin Template
  * @version v1.0.0-alpha.2
@@ -56,7 +59,7 @@
 
                     <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="hidden-md-down">{{ \App\Helper\Helper::getFirstWord(Auth::user()->name) }}</span>
+                        <span class="hidden-md-down">{{ Helper::getFirstWord(Auth::user()->name) }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="fa fa-user"></i> حسابى</a>

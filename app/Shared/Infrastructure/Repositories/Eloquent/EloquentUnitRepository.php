@@ -85,8 +85,8 @@ final class EloquentUnitRepository implements UnitRepository
     {
 
         $record = $unitOnly
-            ? Unit::with('estate')->find($unitId)
-            : Unit::find($unitId);
+            ? Unit::find($unitId)
+            : Unit::with('estate')->find($unitId);
         if (!$record) return null;
 
         $estateEntity = $record->estate

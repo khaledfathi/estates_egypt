@@ -8,6 +8,7 @@ use App\Features\EstateDocuments\Application\Outputs\ShowEstateDocumentsPaginate
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -15,10 +16,16 @@ use Illuminate\Support\Facades\Log;
 final class ShowEstateDocumentsPaginatePresenter implements ShowEstateDocumentsPaginateOutput
 {
     private Closure $response;
-    /**
-     * 
-     * @inheritDoc
-     */
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $currentPage = url()->current() . '?page=' . request('page');
+        session()->put(SessionKeys::ESTATE_DOCUMENT_CURRENT_INDEX_PAGE, $currentPage);
+        session()->put(SessionKeys::ESTATE_DOCUMENT_EDIT_PREVIOUS_PAGE, $currentPage);
+    }
     public function onSuccess(EntitiesWithPagination $estateDocumentsEntitiesWithPagination, EstateEntity $estateEntity): void
     {
         $data = [
@@ -26,7 +33,17 @@ final class ShowEstateDocumentsPaginatePresenter implements ShowEstateDocumentsP
             'estate' => $estateEntity,
             'pagination' => $estateDocumentsEntitiesWithPagination->pagination,
         ];
-        $this->response = fn() => view('estates.documents::index')->with($data);
+        //handle session & response
+        $pageCounts = $estateDocumentsEntitiesWithPagination->pagination->getPageCounts();
+        $requestPageNumber = request('page');
+        if ($requestPageNumber > $pageCounts) {
+            // if last page empty or user try to add page string query manually
+            session()->put(SessionKeys::ESTATE_DOCUMENT_CURRENT_INDEX_PAGE, url()->current() . '?page=' . $pageCounts);
+            $this->response = fn() => redirect(route('estates.documents.index' , $estateEntity->id) . '?page=' . $pageCounts);
+        } else {
+            // notmal use
+            $this->response = fn() => view('estates.documents::index', $data);
+        }
     }
     public function onFailure(string $error): void
     {
@@ -42,6 +59,6 @@ final class ShowEstateDocumentsPaginatePresenter implements ShowEstateDocumentsP
     }
     public function handle()
     {
-        return  ($this->response)();
+        return ($this->response)();
     }
 }

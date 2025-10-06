@@ -110,13 +110,34 @@
                                 <thead>
                                     <tr>
                                         <th>عنوان المستند</th>
+                                        <th>الملف</th>
                                         <th>تحكم</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($estateDocuments as $document)
                                         <tr>
-                                            <td width="70%">{{ $document->title}}</td>
+                                            <td width="60%">{{ $document->title}}</td>
+                                            <td>
+                                                <div>
+                                                    @if ($document->isImage())
+                                                        <a href="{{route('estates.documents.view-file', ['estate'=>$estate->id , 'file'=>$document->file] ) }}"
+                                                            style="text-decoration:none" >
+                                                            <i class="action-icon action-icon--file fa fa-file-image-o fa-lg"></i>
+                                                        </a>
+                                                    @elseif($document->isPdf())
+                                                        <a href="{{route('estates.documents.view-file', ['estate'=>$estate->id , 'file'=>$document->file] )}}"
+                                                            style="text-decoration:none" >
+                                                            <i class="action-icon action-icon--file fa fa-file-pdf-o fa-lg "></i>
+                                                        </a>
+                                                    @endif
+                                                    <a href="{{route('estates.documents.download' , ['estate'=> $estate->id , 'file'=>$document->file])}}" 
+                                                        style="margin-right:20px;text-decoration:none">
+                                                        <i class="action-icon action-icon--file fa fa-download fa-lg m-t-2"></i>
+                                                    </a>
+                                                </div>
+
+                                            </td>
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"

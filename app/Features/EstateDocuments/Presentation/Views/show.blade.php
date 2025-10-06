@@ -1,50 +1,42 @@
+@php
+    use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
+@endphp
 @extends('shared::main-layout')
-@section('title', 'مستندات العقار | تحديث مستند')
+@section('title', 'مستندات العقار | عرض مستند')
 @section('active-estates', 'active')
+@section('styles')
+    @vite('resources/css/features/estate-documents/show.css')
+@endsection
+@section('scripts')
+    @vite('resources/ts/features/estate-documents/show.ts')
+@endsection
 
 @section('content')
     <div class="container-fluid ">
-
         {{-- Errors --}}
-        @if ($errors->any() || session()->has('error'))
+        @if ($errors->any() || isset($error))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
-                    <div class="card card-inverse card-danger ">
+                    <div class="card card-inverse card-danger">
                         <div class="card-block">
                             <ul>
                                 @if ($errors->any())
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
-                                @elseif (session('error'))
-                                    <li>{{ session('error') }}</li>
+                                @elseif(isset($error))
+                                    <li>{{ $error }}</li>
                                 @endif
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        @endisset
+        @endif
         {{-- / Errors --}}
 
-        {{-- success message  --}}
-        @if (session('success'))
-            <div class="row" style="display:flex; justify-content:center;">
-                <div class="col-sm-12 col-md-10 col-lg-8">
-                    <div class="card card-inverse card-success">
-                        <div class="card-block">
-                            <ul>
-                                <li>{{ session('success') }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-        {{-- / success message  --}}
-
-        {{-- estaet information  --}}
-        @isset($estate)
+        @isset($estateDocument)
+            {{-- estaet information  --}}
             <div class="card">
                 <div class="card-header">
                     بيانات العقار
@@ -53,8 +45,9 @@
                     <ul>
                         <li>اسم العقار : {{ $estate->name }}</li>
                         <li>عدد الطوابق : {{ $estate->floorCount }}</li>
-                        <li>عدد الوحدات : {{ $estate->unitCount }} ( سكنى {{ $estate->residentialUnitCount }} ) - ( تجارى
-                            {{ $estate->commercialUnitCount }})</li>
+                        <li> العنوان :
+                            <pre>{{ $estate->address }}</pre>
+                        </li>
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
@@ -62,54 +55,71 @@
                         <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مستندات العقار</a>
                 </div>
             </div>
-        @endisset
-        {{-- / estaet information  --}}
+            {{-- / estaet information  --}}
 
-        <div class="row" style="display:flex; justify-content: center;">
-            <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"
-                action="{{ route('estates.documents.store', $estate->id) }}" enctype="multipart/form-data">
-                <div class="card">
-                    <div class="card-header">
-                        <strong>اضافة مستند</strong>
-                    </div>
-                    <div class="card-block">
-                        @csrf
-                        {{-- title --}}
-                        <div class="form-group">
-                            <label for="title">عنوان المستند<span class="required">*</span></label>
-                            <input name="title" type="text" class="form-control" id="title"
-                                placeholder="اسم بسيط للمستند" value="{{old('title')}}">
+            <div class="row" style="display:flex; justify-content: center;">
+                <div id="form" class="col-sm-12 col-md-10 col-lg-6">
+                    <div class="card">
+                        <div class="edit-box-header">
+                            <strong>بيانات المستند</strong>
+                            <div>
+                                <a style="margin-left:10px;text-decoration:none"
+                                    href="{{ route('estates.documents.edit', ['estate' => $estate->id, 'document' => $estateDocument->id]) }}">
+                                    <i class="action-icon action-icon--edit fa fa-pencil fa-lg "></i>
+                                </a>
+                                <form class="d-inline"
+                                    action="{{ route('estates.documents.destroy', ['estate'=>$estate->id , 'document'=> $estateDocument->id]) }}"
+                                    method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <i id="delete-owner-btn"
+                                        class="action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                    <input id="delete-owner-submit-btn" type="submit" hidden>
+                                </form>
+                            </div>
                         </div>
-                        {{-- / title --}}
+                        <form class="card-block"  metho="post" action="{{ route('estates.documents.update', ['estate' => $estate->id , 'document', $estateDocument->id]) }}" enctype="multipart/form-data" >
+                            @csrf
+                            {{-- title --}}
+                            <div class="form-group">
+                                <label for="title">عنوان المستند<span class="required">*</span></label>
+                                <input name="title" type="text" class="form-control" id="title"
+                                    placeholder="اسم بسيط للمستند" value="{{ $estateDocument->title }}" readonly>
+                            </div>
+                            {{-- / title --}}
 
-                        {{-- description --}}
-                        <div class="form-group">
-                            <label for="description">وصف المستند</label>
-                            <textarea name="description" type="text" class="form-control" id="description" placeholder="وصف دقيق للمستند">{{old('description')}}</textarea>
-                        </div>
-                        {{-- / description --}}
+                            {{-- description --}}
+                            <div class="form-group">
+                                <label for="description">وصف المستند</label>
+                                <textarea name="description" type="text" class="form-control" id="description" placeholder="وصف دقيق للمستند"
+                                    readonly>{{ $estateDocument->description }}</textarea>
+                            </div>
+                            {{-- / description --}}
 
-                        {{-- file --}}
-                        <div class="form-group">
-                            <label for="description">الملف <span class="required">*</span></label>
-                            <input class="form-control" name="file" type="file" id="file" name="file-input">
-                        </div>
-                        {{-- / file --}}
 
-                        {{-- buttons --}}
-                        <div class="form-group" style="margin-top: 40px">
-                            <button id="submit-btn" type="submit" class="btn btn-md btn-success"><i
-                                    class="fa fa-dot-circle-o"></i>
-                                اضافة</button>
-                            <a href="{{ route('estates.documents.index', $estate->id) }}" class="btn btn-md btn-danger"><i
-                                    class="fa fa-ban"></i>
-                                الغاء</a>
-                        </div>
-                        {{-- / buttons --}}
+                            {{-- buttons --}}
+                            <div class="form-group" style="margin-top: 40px">
+                                {{-- view file --}}
+                                <a href="{{ route('estates.documents.view-file', ['estate' => $estate->id, 'file' => $estateDocument->file]) }}"
+                                    target="_blank" class="btn btn-md btn-primary">
+                                    <i class="fa fa-eye "></i>
+                                    عرض الملف</a>
+                                {{-- / view file --}}
+
+                                {{-- download file --}}
+                                <a href="{{ route('estates.documents.download', ['estate' => $estate->id, 'file' => $estateDocument->file]) }}"
+                                    class="btn btn-md btn-primary">
+
+                                    <i class="fa fa-download "></i>
+                                    تحميل الملف</a>
+                                {{-- / download file --}}
+                            </div>
+                            {{-- / buttons --}}
+                        </form>
                     </div>
                 </div>
-            </form>
-        </div>
 
-</div>
+            </div>
+        @endisset
+    </div>
 @endsection

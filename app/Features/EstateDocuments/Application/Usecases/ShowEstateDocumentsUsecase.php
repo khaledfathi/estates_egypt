@@ -32,6 +32,13 @@ class ShowEstateDocumentsUsecase implements ShowEstateDocumentContract
         }
     }
     public function showById(int $estateDocuemntId, ShowEstateDocumentOutput $presenter): void{
-
+        try{
+            $estateDocumentRecord= $this->estateDocumentRepository->show($estateDocuemntId); 
+            $estateDocuemntId
+                ?  $presenter->onSuccess( $estateDocumentRecord)
+                : $presenter->onNotFount();
+        }catch (\Exception $e){
+            $presenter->onFailure($e->getMessage());
+        }
     }
 }

@@ -141,8 +141,8 @@
 
                         {{-- buttons --}}
                         <div class="form-group" style="margin-top: 40px">
-                            <button id="submit-btn" type="submit" class="btn btn-md btn-success"><i
-                                    class="fa fa-dot-circle-o"></i>
+                            <button id="submit-btn" type="submit" class="btn btn-md btn-success">
+                                <i class="fa fa-plus-circle "></i>
                                 اضافة</button>
                             <a href="{{route('estates.units.index', $estate->id)}}" class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
                                 الغاء</a>

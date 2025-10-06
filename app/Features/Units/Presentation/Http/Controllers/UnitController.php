@@ -76,7 +76,7 @@ class UnitController extends Controller
         $this->storeUnitUsecase->store($unitEntity, $presenter);
         return $presenter->handle();
     }
-    public function destroy( string $unitId)
+    public function destroy( string $estateId , string $unitId)
     {
         $presenter = new DestroyUnitPresenter();
         $this->destroyUnitUsecase->destroy((int)$unitId, $presenter);

@@ -34,7 +34,7 @@ final class OwnerEntity
     {
         return array_map(fn(OwnerEntity $owner) => $owner->toArray(), $data);
     }
-    public function toArray()
+    public function toArray():array
     {
         return [
             'id' => $this->id,

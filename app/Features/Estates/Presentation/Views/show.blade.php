@@ -38,7 +38,7 @@
                     <a href="{{ route('estates.units.index',  $estate->id)  }}"
                         class="btn btn-primary"><i class="fa fa-home fa-lg"></i>&nbsp; وحدات</a>
                     <a href="{{ route('estates.documents.index' , $estate->id)}}" class="btn btn-primary"> <i class="icon-docs icons fa-lg"></i>&nbsp; مستندات</a>
-                    <a href="#" class="btn btn-primary"><i class="fa fa-bolt fa-lg "></i>&nbsp; مرافق</a>
+                    <a href="{{ route('estates.utility-services.index', $estate->id)}}" class="btn btn-primary"><i class="fa fa-bolt fa-lg "></i>&nbsp; مرافق</a>
                 </div>
             </div>
         @endif

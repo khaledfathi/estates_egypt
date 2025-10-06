@@ -1,0 +1,18 @@
+.action-icon {
+    cursor: pointer;
+    font-size: 25px;
+    transition: color 0.3s ease;
+    margin:0 !important; 
+    color:#157294;
+    vertical-align: middle !important ;
+}
+.action-icon--edit {
+    color: #008200;
+}
+.action-icon--delete{
+    color: red ;
+}
+.action-icon--file{
+    font-weight: bold;
+    color:#157294;
+}

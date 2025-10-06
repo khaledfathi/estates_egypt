@@ -19,3 +19,7 @@ tr:hover{
 .action-icon--delete{
     color: red ;
 }
+.action-icon--file{
+    font-weight: bold;
+    color:#157294;
+}

@@ -15,7 +15,7 @@ final class DestroyUnitPresenter implements DestroyUnitOutput
 {
 
     private Closure $response;
-    public function onSuccess(bool $status, int $estateId): void
+    public function onSuccess(bool $status): void
     {
         $url = session(SessionKeys::UNIT_CURRENT_INDEX_PAGE);
         $this->response = fn() =>

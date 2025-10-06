@@ -21,7 +21,7 @@ interface EstateDocumentRepository{
     public function store(EstateDocumentEntity $estateDocumentEntity): EstateDocumentEntity;
 
 
-    public function show(int $estateDocumentId): EstateDocumentEntity|null;
+    public function show(int $estateDocumentId , bool $estateDocumentOnly=false): EstateDocumentEntity|null;
     public function update (EstateDocumentEntity $estateDocumentEntity):bool;
     public function destroy (int $estateDocumentId):bool; 
 
