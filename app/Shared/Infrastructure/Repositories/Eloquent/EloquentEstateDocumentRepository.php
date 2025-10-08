@@ -6,7 +6,7 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Features\EstateDocuments\Domain\ValueObjects\EstateDocumentEntitiesWithPagination;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Domain\ValueObjects\Pagination;

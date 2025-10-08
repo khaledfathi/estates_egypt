@@ -19,4 +19,8 @@ class Estate extends Model
     public function documents(){
         return $this->hasMany(EstateDocument::class);
     }
+
+    public function utilityServices (){
+        return $this->hasMany(EstateUtilityService::class);
+    }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\Entities\EstateDocument;
+namespace App\Shared\Domain\Entities\Estate;
 
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 

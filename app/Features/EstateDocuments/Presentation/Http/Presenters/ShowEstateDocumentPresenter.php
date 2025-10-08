@@ -7,7 +7,7 @@ namespace App\Features\EstateDocuments\Presentation\Http\Presenters;
 use App\Features\EstateDocuments\Application\Outputs\ShowEstateDocumentOutput;
 use App\Shared\Application\Contracts\Storage\StorageDir;
 use App\Shared\Application\Utility\UtilityStorageDir;
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;

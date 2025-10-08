@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Features\EstateUtilityServices\Application\Contracts;
+
+use App\Features\EstateUtilityServices\Application\Outputs\EditEstateUtilityServiceOutput;
+use App\Features\EstateUtilityServices\Application\Outputs\UpdateEstateUtilityServiceOutput;
+use App\Shared\Domain\Entities\Estate\EstateUtilityServiceEntity;
+
+interface UpdateEstateUtilityServiceContract 
+{
+    public function Edit(int $estateUtilityServiceId, EditEstateUtilityServiceOutput $presenter): void;
+    public function update(EstateUtilityServiceEntity $estateUtilityServiceEntity, UpdateEstateUtilityServiceOutput $presenter): void;
+}

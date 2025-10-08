@@ -1,7 +1,7 @@
 <?php
 declare (strict_types= 1);
 
-namespace App\Helper; 
+namespace App\Shared\Infrastructure\Utilities;
 
 final class  Helper{
     public static function getFirstWord(string $string): string{

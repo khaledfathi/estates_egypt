@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Entities\Estate;
 
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 
 final class EstateEntity
@@ -19,7 +19,7 @@ final class EstateEntity
      * @param ?int $commercialUnitCount= null,
      * @param ?int $residentialUnitCount= null,
      * @param ?array<EstateDocumentEntity> $documents
-     * @param ?array<EstateUtilityService> $utilityServices
+     * @param ?array<EstateUtilityServiceEntity> $utilityServices
      * @param ?array<EstateUtilityServiceInvoiceEntity> $utilityServiceInvoices
      * @param ?array<UnitEntity> $units
      */

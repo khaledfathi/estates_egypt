@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Entities\Estate;
 
-use App\Shared\Domain\Enum\Renter\EstateUtilityServiceType;
+use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
 
-final class EstateUtilityService
+final class EstateUtilityServiceEntity
 {
     public function __construct(
         public ?int $id = null,
         public ?int $estateId = null,
-        public ?EstateUtilityServiceType $serviceType = null,  
+        public ?EstateUtilityServiceType $type= null,  
         public ?string $ownerName = null,
         public ?string $counterNumber = null,
         public ?string $electronicPaymentNumber = null,
-        public ?string $note = null,
+        public ?string $notes = null,
+        public ?EstateEntity $estate = null,
     ) {}
 }

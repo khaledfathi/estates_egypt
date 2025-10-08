@@ -13,4 +13,5 @@ return [
     App\Features\Settings\Infrastructure\Providers\SettingServiceProvider::class,
     App\Features\Transactions\Infrastructure\Providers\TransactionServiceProvider::class,
     App\Features\EstateDocuments\Infrastructure\Providers\EstateDocumentServiceProvider::class,
+    App\Features\EstateUtilityServices\Infrastructure\Providers\EstateUtilityServicesServiceProvider::class,
 ];

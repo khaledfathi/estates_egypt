@@ -10,7 +10,7 @@ use App\Features\EstateDocuments\Application\Outputs\UpdateEstateDocumentOutput;
 use App\Shared\Application\Contracts\Storage\File;
 use App\Shared\Application\Contracts\Storage\Storage;
 use App\Shared\Application\Contracts\Storage\StorageDir;
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use Exception;
 

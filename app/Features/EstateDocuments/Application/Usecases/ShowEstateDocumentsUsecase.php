@@ -10,7 +10,7 @@ use App\Features\EstateDocuments\Application\Outputs\ShowEstateDocumentsPaginate
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 
-class ShowEstateDocumentsUsecase implements ShowEstateDocumentContract
+final class ShowEstateDocumentsUsecase implements ShowEstateDocumentContract
 {
 
     public function __construct(

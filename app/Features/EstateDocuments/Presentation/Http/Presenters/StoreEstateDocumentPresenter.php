@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Features\EstateDocuments\Presentation\Http\Presenters;
 
 use App\Features\EstateDocuments\Application\Outputs\StoreEstateDocumentOutput;
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
