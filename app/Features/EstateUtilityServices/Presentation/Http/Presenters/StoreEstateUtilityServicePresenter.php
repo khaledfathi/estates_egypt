@@ -17,7 +17,9 @@ final class  StoreEstateUtilityServicePresenter implements StoreEstateUtilitySer
     private Closure $response;
     public function onSuccess(EstateUtilityServiceEntity $estateUtilityServiceEntity)
     {
-        $this->response = fn() => redirect(route('estates.utility-services.index', $estateUtilityServiceEntity->estateId));
+        $this->response = fn() => 
+            redirect(route('estates.utility-services.index', $estateUtilityServiceEntity->estateId))
+            -> with('success' ,  Messages::STORE_SUCCESS);
     }
     public function onFailure(string $error)
     {
