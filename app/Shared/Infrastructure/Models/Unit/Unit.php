@@ -15,7 +15,7 @@ class Unit extends Model
         'type',
         'is_empty'
     ];
-    public function Estate(){
+    public function estate(){
         return $this->belongsTo(Estate::class , 'estate_id');
     }
 

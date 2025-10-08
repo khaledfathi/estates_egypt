@@ -5,7 +5,7 @@ namespace App\Features\EstateDocuments\Application\Contracts;
 use App\Features\EstateDocuments\Application\Outputs\CreateEstateDocumentOutput;
 use App\Features\EstateDocuments\Application\Outputs\StoreEstateDocumentOutput;
 use App\Shared\Application\Contracts\Storage\File;
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 
 interface StoreEstateDocumentContract {
     public function create(int $estateId, CreateEstateDocumentOutput $presenter):void ;

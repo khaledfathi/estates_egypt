@@ -1,5 +1,5 @@
 @php
-    use App\Helper\Helper;
+    use App\Shared\Infrastructure\Utilities\Helper;
 @endphp
 <!--
  * CoreUI - Open Source Bootstrap Admin Template

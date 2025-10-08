@@ -122,17 +122,17 @@
                                                 <div>
                                                     @if ($document->isImage())
                                                         <a href="{{route('estates.documents.view-file', ['estate'=>$estate->id , 'file'=>$document->file] ) }}"
-                                                            style="text-decoration:none" >
+                                                            style="text-decoration:none" target="_blank">
                                                             <i class="action-icon action-icon--file fa fa-file-image-o fa-lg"></i>
                                                         </a>
                                                     @elseif($document->isPdf())
                                                         <a href="{{route('estates.documents.view-file', ['estate'=>$estate->id , 'file'=>$document->file] )}}"
-                                                            style="text-decoration:none" >
+                                                            style="text-decoration:none" target="_blank">
                                                             <i class="action-icon action-icon--file fa fa-file-pdf-o fa-lg "></i>
                                                         </a>
                                                     @endif
                                                     <a href="{{route('estates.documents.download' , ['estate'=> $estate->id , 'file'=>$document->file])}}" 
-                                                        style="margin-right:20px;text-decoration:none">
+                                                        style="margin-right:20px;text-decoration:none" >
                                                         <i class="action-icon action-icon--file fa fa-download fa-lg m-t-2"></i>
                                                     </a>
                                                 </div>

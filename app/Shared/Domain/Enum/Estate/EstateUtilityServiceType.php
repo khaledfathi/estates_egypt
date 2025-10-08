@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\Enum\Renter;
+namespace App\Shared\Domain\Enum\Estate; 
 
 use App\Shared\Domain\Traits\EnumUtilities;
 
@@ -11,7 +11,7 @@ enum EstateUtilityServiceType: string
 
     use EnumUtilities;
     case WATER= 'water';
-    case ELECTRICITY  = 'electriciy';
+    case ELECTRICITY  = 'electricity';
 
     /**
      * 

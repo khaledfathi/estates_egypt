@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Features\EstateDocuments\Infrastructure\Providers;
+namespace App\Features\EstateUtilityServices\Infrastructure\Providers;
 
-use App\Features\EstateDocuments\Application\Contracts\DestroyEstateDocumentContract;
-use App\Features\EstateDocuments\Application\Contracts\DownloadEstateDocumentFileContract;
-use App\Features\EstateDocuments\Application\Contracts\ShowEstateDocumentContract;
-use App\Features\EstateDocuments\Application\Contracts\StoreEstateDocumentContract;
-use App\Features\EstateDocuments\Application\Contracts\UpdateEstateDocumentContract;
-use App\Features\EstateDocuments\Application\Usecases\DestroyEstateDocumentUsecase;
-use App\Features\EstateDocuments\Application\Usecases\DownloadEstateDocumentFileUsecase;
-use App\Features\EstateDocuments\Application\Usecases\ShowEstateDocumentsUsecase;
-use App\Features\EstateDocuments\Application\Usecases\StoreEstateDocumentUsecase;
-use App\Features\EstateDocuments\Application\Usecases\UpdateEstateDocumentUsecase;
+use App\Features\EstateUtilityServices\Application\Contracts\DestroyUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Contracts\ShowEstateUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Contracts\StoreEstateUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Usecases\DestroyUtilityServiceUsecase;
+use App\Features\EstateUtilityServices\Application\Usecases\ShowEstateUtilityServiceUsecase;
+use App\Features\EstateUtilityServices\Application\Usecases\StoreEstateUtilityServiceUsecase;
+use App\Features\EstateUtilityServices\Application\Usecases\UpdateEstateUtilityServiceUsecase;
+use App\Features\EstateUtilityServices\Application\Contracts\UpdateEstateUtilityServiceContract;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +22,11 @@ class EstateUtilityServicesServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(ShowEstateUtilityServiceContract::class, ShowEstateUtilityServiceUsecase::class);
+        $this->app->bind(StoreEstateUtilityServiceContract::class, StoreEstateUtilityServiceUsecase::class);
+        $this->app->bind(DestroyUtilityServiceContract::class , DestroyUtilityServiceUsecase::class);
+        $this->app->bind(UpdateEstateUtilityServiceContract::class , UpdateEstateUtilityServiceUsecase::class);
+        
     }
 
     /**
@@ -31,5 +34,6 @@ class EstateUtilityServicesServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::addNamespace('estates.utility-services', base_path('app/Features/EstateUtilityServices/Presentation/Views'));
     }
 }

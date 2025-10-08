@@ -23,7 +23,7 @@ use App\Features\EstateDocuments\Presentation\Http\Requests\UpdateEstateDocument
 use App\Http\Controllers\Controller;
 use App\Shared\Application\Contracts\Storage\File;
 use App\Shared\Application\Contracts\Storage\StorageDir;
-use App\Shared\Domain\Entities\EstateDocument\EstateDocumentEntity;
+use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 use App\Shared\Infrastructure\Storage\LaravelFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;

@@ -72,9 +72,9 @@
                                     method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <i id="delete-owner-btn"
+                                    <i id="delete-estate-document-btn"
                                         class="action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
-                                    <input id="delete-owner-submit-btn" type="submit" hidden>
+                                    <input id="delete-submit-btn" type="submit" hidden>
                                 </form>
                             </div>
                         </div>

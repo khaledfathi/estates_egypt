@@ -1,4 +1,3 @@
-
 @extends('shared::main-layout')
 @section('title', 'الوحدات')
 @section('active-estates', 'active')
