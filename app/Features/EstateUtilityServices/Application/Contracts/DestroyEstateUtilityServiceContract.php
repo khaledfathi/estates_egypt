@@ -4,6 +4,6 @@ namespace App\Features\EstateUtilityServices\Application\Contracts;
 
 use App\Features\EstateUtilityServices\Application\Outputs\DestroyEstateUtilityServiceOutput;
 
-interface DestroyUtilityServiceContract {
+interface DestroyEstateUtilityServiceContract {
     public function destroy(int $EstateUtilityServiceId, DestroyEstateUtilityServiceOutput $presenter): void;
 }

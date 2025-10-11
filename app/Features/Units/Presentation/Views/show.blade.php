@@ -57,7 +57,13 @@
                 </div>
             </div>
             {{-- / estaet information  --}}
-
+           <div class=" container">
+                <div class="manage-btn-box">
+                    <a href="{{route('estates.units.utility-services.index', ['estate'=>$estate->id , 'unit'=>$unit->id])}}" class="btn btn-primary">
+                        <i class="fa fa-bolt fa-lg "></i> &nbsp; مرافق الوحدة
+                    </a>
+                </div>
+            </div> 
             <div class="row" style="display:flex; justify-content: center;">
                 <div id="form" class="col-sm-12 col-md-10 col-lg-6">
                     <div class="card">
@@ -77,48 +83,13 @@
                             </div>
                         </div>
                         <div class="card-block">
-                            @csrf
-                            {{-- type --}}
-                            <div class="form-group">
-                                <label for="type">نوع الوحدة </label>
-                                <input type="text" name="type" class="form-control " id="type" placeholder="---"
-                                    readonly value="{{ $unit->type->toLabel() }}">
-                            </div>
-                            {{-- / type --}}
-
-                            {{-- number --}}
-                            <div class="form-group">
-                                <label for="number">رقم الوحدة</label>
-                                <input type="text" name="type" class="form-control " id="type" placeholder="---"
-                                    readonly value = "{{ $unit->number }}">
-                            </div>
-                            {{-- / number --}}
-
-                            {{-- floor number --}}
-                            <div class="form-group">
-                                <label for="floor_number">الطابق</label>
-                                <input type="text" name="floor_number" class="form-control " id="floor_number"
-                                    placeholder="---" readonly
-                                    value="{{ $unit->floorNumber == 0 ? 'الارضى' : $unit->floorNumber }}">
-                            </div>
-                            {{-- / floor number --}}
-
-                            {{-- ownershipe type --}}
-                            <div class="form-group">
-                                <label for="ownership_type">نوع الملكية</label>
-                                <input type="text" name="ownership_type" class="form-control " id="ownership_type"
-                                    placeholder="---" readonly value="{{ $unit->ownershipType->toLabel() }}">
-                            </div>
-                            {{-- / ownershipe type --}}
-
-                            {{-- is empty --}}
-                            <div class="form-group">
-                                <label for="is_empty">حالة الاشغال</label>
-                                <input type="" name="is_empty" class="form-control " id="is_empty" placeholder="---"
-                                    readonly value="{{ UnitIsEmpty::from($unit->isEmpty)->toLabel() }}">
-                            </div>
-                            {{--  / is empty --}}
-
+                            <ul>
+                                <li>رقم الوحدة : {{ $unit->number }}</li><hr>
+                                <li>نوع الوحدة {{ $unit->type->toLabel() }}</li><hr>
+                                <li>الطابق : {{ $unit->floorNumber == 0 ? 'الارضى' : $unit->floorNumber }}</li><hr>
+                                <li>نوع الملكية : {{ $unit->ownershipType->toLabel() }}</li><hr>
+                                <li>حالة الاشغال : {{ UnitIsEmpty::from($unit->isEmpty)->toLabel() }}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

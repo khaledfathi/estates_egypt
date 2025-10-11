@@ -78,32 +78,18 @@
                                 </form>
                             </div>
                         </div>
-                        <form class="card-block"  metho="post" action="{{ route('estates.documents.update', ['estate' => $estate->id , 'document', $estateDocument->id]) }}" enctype="multipart/form-data" >
-                            @csrf
-                            {{-- title --}}
-                            <div class="form-group">
-                                <label for="title">عنوان المستند<span class="required">*</span></label>
-                                <input name="title" type="text" class="form-control" id="title"
-                                    placeholder="اسم بسيط للمستند" value="{{ $estateDocument->title }}" readonly>
-                            </div>
-                            {{-- / title --}}
-
-                            {{-- description --}}
-                            <div class="form-group">
-                                <label for="description">وصف المستند</label>
-                                <textarea name="description" type="text" class="form-control" id="description" placeholder="وصف دقيق للمستند"
-                                    readonly>{{ $estateDocument->description }}</textarea>
-                            </div>
-                            {{-- / description --}}
-
-
+                        <div class="card-block"  metho="post" action="{{ route('estates.documents.update', ['estate' => $estate->id , 'document', $estateDocument->id]) }}" enctype="multipart/form-data" >
+                            <ul>
+                                <li>عنوان المستند : {{ $estateDocument->title }}</li><hr>
+                                <li>وصف المستند : {{ $estateDocument->description }}</li><hr>
+                            </ul>
                             {{-- buttons --}}
                             <div class="form-group" style="margin-top: 40px">
                                 {{-- view file --}}
                                 <a href="{{ route('estates.documents.view-file', ['estate' => $estate->id, 'file' => $estateDocument->file]) }}"
                                     target="_blank" class="btn btn-md btn-primary">
                                     <i class="fa fa-eye "></i>
-                                    عرض الملف</a>
+                                    عرض المستند</a>
                                 {{-- / view file --}}
 
                                 {{-- download file --}}
@@ -111,11 +97,11 @@
                                     class="btn btn-md btn-primary">
 
                                     <i class="fa fa-download "></i>
-                                    تحميل الملف</a>
+                                    تحميل المستند</a>
                                 {{-- / download file --}}
                             </div>
                             {{-- / buttons --}}
-                        </form>
+                        </div>
                     </div>
                 </div>
 

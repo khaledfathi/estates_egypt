@@ -3,7 +3,6 @@
 namespace App\Features\EstateUtilityServices\Presentation\Http\Requests;
 
 use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
-use App\Shared\Domain\Enum\Unit\UnitUtilityServiceType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,7 +28,7 @@ class UpdateEstateUtilityServiceRequest extends FormRequest
         return [
 
             'type' => [
-                Rule::enum(UnitUtilityServiceType::class),
+                Rule::enum(EstateUtilityServiceType::class),
                 Rule::unique('estate_utility_services', 'type')
                     ->where(fn($query) => $query->where('estate_id', $estateId))
                     ->ignore($utilityServiceId, 'id'),

@@ -9,6 +9,7 @@ use App\Features\Renters\Presentation\Http\Controllers\RenterController;
 use App\Features\Settings\Presentation\Http\Controllers\SettingController;
 use App\Features\Transactions\Presentation\Http\Controllers\TransactionContoller;
 use App\Features\Units\Presentation\Http\Controllers\UnitController;
+use App\Features\UnitUtilityServices\Presentation\Http\Controllers\UnitUtilityServiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/renters' , RenterController::class );
     Route::resource('/estates' , EstateController::class );
     Route::resource('/estates.units' , UnitController::class );
-    Route::resource('/estates.units' , UnitController::class );
+    Route::resource('/estates.units.utility-services' , UnitUtilityServiceController::class );
 
     Route::get('/estates/{estate}/documents/view-file/{file}', [EstateDocumentController::class, 'viewFile'])
         ->name('estates.documents.view-file');

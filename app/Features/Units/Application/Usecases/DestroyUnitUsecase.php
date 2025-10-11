@@ -6,7 +6,6 @@ namespace App\Features\Units\Application\Usecases;
 
 use App\Features\Units\Application\Contracts\DestroyUnitContract;
 use App\Features\Units\Application\Ouputs\DestroyUnitOutput;
-use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\UnitRepository;
 
 final class  DestroyUnitUsecase implements DestroyUnitContract
@@ -17,7 +16,6 @@ final class  DestroyUnitUsecase implements DestroyUnitContract
     public function destroy(int $unitId, DestroyUnitOutput $presenter): void
     {
         try {
-            $estateId = $this->unitRepository->show($unitId)?->estate?->id;
             $destroyUnitStatus= $this->unitRepository->destroy($unitId) ;
             $presenter->onSuccess($destroyUnitStatus );
         } catch (\Exception $e) {

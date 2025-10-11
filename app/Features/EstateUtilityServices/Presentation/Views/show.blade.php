@@ -77,47 +77,13 @@
                             </div>
                         </div>
                         <div class="card-block">
-                            {{-- service type --}}
-
-                            <div class="form-group">
-                                <label for="type">نوع المرفق<span class="required">*</span></label>
-                                <input name="type" type="text" class="form-control" id="type"
-                                    value="{{$estateUtilityService->type->toLabel() }}" readonly>
-                            </div>
-                            {{-- service type --}}
-
-                            {{-- owner name --}}
-                            <div class="form-group">
-                                <label for="owner_name">اسم مالك العداد<span class="required">*</span></label>
-                                <input name="owner_name" type="text" class="form-control" id="owner_name"
-                                    placeholder="الاسم المسجل على الايصال" value="{{$estateUtilityService->ownerName}}" readonly>
-                            </div>
-                            {{-- / owner name --}}
-
-                            {{-- counter number --}}
-                            <div class="form-group">
-                                <label for="counter_number">رقم العداد</label>
-                                <input name="counter_number" type="text" class="form-control" id="counter_number"
-                                    placeholder="رقم عداد المرفق" value="{{$estateUtilityService->counterNumber}}" readonly>
-                            </div>
-                            {{-- / counter number --}}
-
-                            {{-- electronic payment number --}}
-                            <div class="form-group">
-                                <label for="electronic_payment_number">رقم الدفع الالكترونى</label>
-                                <input name="electronic_payment_number" type="text" class="form-control"
-                                    id="electronic_payment_number" placeholder="رقم الدفع الالكترونى المسجل على الايصال "
-                                    value="{{$estateUtilityService->electronicPaymentNumber}}" readonly>
-                            </div>
-                            {{-- / electronic payment number --}}
-
-                            {{-- notes --}}
-                            <div class="form-group">
-                                <label for="notes">ملاحظات</label>
-                                <textarea name="notes" class="form-control" id="notes" placeholder="تفاصيل اخرى" readonly>{{$estateUtilityService->notes}}</textarea>
-                            </div>
-                            {{-- / notes --}}
-                        
+                            <ul>
+                                <li>نوع المرفق : {{$estateUtilityService->type->toLabel()}}</li><hr>
+                                <li>اسم مالك العداد : {{$estateUtilityService->ownerName}}</li><hr>
+                                <li>رقم العداد : {{$estateUtilityService->counterNumber ?? '---'}}</li><hr>
+                                <li>رقم الدفع الالكترونى : {{$estateUtilityService->electronicPaymentNumber ?? '---'}}</li><hr>
+                                <li>ملاحظات : <pre></pre>{{$estateUtilityService->notes ?? '---'}}</pre></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

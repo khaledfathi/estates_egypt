@@ -10,7 +10,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class EditEstateDocumentPresenter implements EditEstateDocumentOutput {
+final class EditEstateDocumentPresenter implements EditEstateDocumentOutput {
 
    private Closure $response;
    private string $previousURL;

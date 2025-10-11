@@ -7,7 +7,7 @@ namespace App\Features\EstateDocuments\Presentation\Http\Presenters;
 use App\Features\EstateDocuments\Application\Outputs\DownloadEstateDocumentFileOutput;
 use Closure;
 
-final  class ViewEstateDocumentFilePresenter implements DownloadEstateDocumentFileOutput
+final class ViewEstateDocumentFilePresenter implements DownloadEstateDocumentFileOutput
 {
 
 

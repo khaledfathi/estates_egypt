@@ -70,7 +70,7 @@
             {{-- unit header title --}}
             <div class="card card-inverse card-info text-xs-center">
                 <div class="card-block">
-                    <h3>قائمة المرافق</h3>
+                    <h3>قائمة مرافق العقار</h3>
                 </div>
             </div>
             {{-- / unit header title --}}

@@ -10,7 +10,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class UpdateEstateUtilityServicePresenter implements UpdateEstateUtilityServiceOutput
+final class UpdateEstateUtilityServicePresenter implements UpdateEstateUtilityServiceOutput
 {
     private Closure $response;
     public function __construct(

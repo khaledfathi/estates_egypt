@@ -8,7 +8,7 @@
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
-        @if ($errors->any() || session()->has('error'))
+        @if ($errors->any() || session()->has('error') || isset($error))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card card-inverse card-danger ">
@@ -20,6 +20,8 @@
                                     @endforeach
                                 @elseif (session('error'))
                                     <li>{{ session('error') }}</li>
+                                @elseif (isset($error))
+                                        <li>{{ $error }}</li>
                                 @endif
                             </ul>
                         </div>

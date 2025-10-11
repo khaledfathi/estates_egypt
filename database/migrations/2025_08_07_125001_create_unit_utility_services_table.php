@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('unit_utility_services', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',  ['electricity', 'water', 'gas'])->unique();
-            $table->string('owner_name', 100)->unique();
+            $table->enum('type',  ['electricity', 'water', 'gas']);
+            $table->string('owner_name', 100);
             $table->text('counter_number')->nullable();
             $table->text('electronic_payment_number')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
             //FK
             $table->foreignId('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
+            //constrained
+            $table->unique(['unit_id', 'type']);
         });
     }
 

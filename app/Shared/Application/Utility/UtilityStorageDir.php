@@ -4,7 +4,7 @@ namespace App\Shared\Application\Utility;
 
 use App\Shared\Application\Contracts\Storage\StorageDir;
 
-class UtilityStorageDir implements StorageDir {
+final class UtilityStorageDir implements StorageDir {
 
     private string $prefix='';
 

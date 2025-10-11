@@ -113,6 +113,7 @@
                                         <th>نوع الوحدة</th>
                                         <th>نوع الملكية</th>
                                         <th>حالة الاشغال</th>
+                                        <th>المرافق</th>
                                         <th>تحكم</th>
                                     </tr>
                                 </thead>
@@ -124,6 +125,7 @@
                                             <td>{{ $unit->type->toLabel() }}</td>
                                             <td>{{ $unit->ownershipType->toLabel() }}</td>
                                             <td>{{ $unit->isEmpty ? 'فارغة' : 'شاغرة' }}</td>
+                                            <td><a href="{{route('estates.units.utility-services.index' , ['estate'=>$estate->id, 'unit'=>$unit->id])}}"><i class="action-icon fa fa-bolt fa-lg "></i></a></td>
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"

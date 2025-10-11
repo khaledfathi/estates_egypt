@@ -13,12 +13,14 @@ use App\Shared\Domain\Repositories\EstateUtilityServiceRepository;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\Repositories\RenterRepositroy;
 use App\Shared\Domain\Repositories\UnitRepository;
+use App\Shared\Domain\Repositories\UnitUtilityServiceRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateDocumentRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateUtilityServiceRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRenterRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitRepository;
+use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitUtilityServiceRepository;
 use App\Shared\Infrastructure\Storage\LaravelStorage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +39,7 @@ class SharedServiceProvider extends ServiceProvider
         $this->app->bind(UnitRepository::class, EloquentUnitRepository::class);
         $this->app->bind(EstateDocumentRepository::class, EloquentEstateDocumentRepository::class);
         $this->app->bind(EstateUtilityServiceRepository::class, EloquentEstateUtilityServiceRepository::class);
+        $this->app->bind(UnitUtilityServiceRepository::class , EloquentUnitUtilityServiceRepository::class);
 
         // framework services 
         $this->app->bind(Storage::class, LaravelStorage::class);

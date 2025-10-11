@@ -43,7 +43,7 @@ final class EditRenterPresenter implements EditRenterOutput
     }
     public function onFailure(string $error): void
     {
-        $this->response = view("owners::edit", [
+        $this->response = view("renters::edit", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -54,7 +54,7 @@ final class EditRenterPresenter implements EditRenterOutput
     }
     public function onNotFound(): void
     {
-        $this->response = view("owners::edit", [
+        $this->response = view("renters::edit", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }

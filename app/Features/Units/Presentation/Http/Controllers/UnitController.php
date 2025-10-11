@@ -54,7 +54,7 @@ class UnitController extends Controller
     public function update(UpdateUnitRequest $request, string $estateId, string $unitId )
     {
         //prepeare data
-        $unitEntity = $this->formToUnitEntity([...$request->all(), 'id' => (int) $unitId]);
+        $unitEntity = $this->formToUnitEntity([...$request->all(), 'estate_id'=>$estateId ,'unit_id' => (int) $unitId]);
         //action
         $presenter = new UpdateUnitPresenter();
         $this->updateUnitUsecase->update($unitEntity, $presenter);
@@ -67,10 +67,10 @@ class UnitController extends Controller
         return $presenter->handle();
     }
 
-    public function store(StoreUnitRequest $request)
+    public function store(StoreUnitRequest $request ,string $estateId)
     {
         //prepeare data
-        $unitEntity = $this->formToUnitEntity([...$request->all(), 'estate_id'=> $request->route('estate')]);
+        $unitEntity = $this->formToUnitEntity([...$request->all(), 'estate_id'=> (int)$estateId]);
         //action
         $presenter = new StoreUnitPresenter((int) $request->estate_id);
         $this->storeUnitUsecase->store($unitEntity, $presenter);
@@ -86,7 +86,7 @@ class UnitController extends Controller
     private function formToUnitEntity(array $formArray): UnitEntity
     {
         return new UnitEntity(
-            id: $formArray['id'] ?? null,
+            id: $formArray['unit_id'] ?? null,
             estateId: (int)$formArray['estate_id'] ?? null,
             number: (int) $formArray['number'] ?? null,
             floorNumber: (int)$formArray['floor_number'] ?? null,
