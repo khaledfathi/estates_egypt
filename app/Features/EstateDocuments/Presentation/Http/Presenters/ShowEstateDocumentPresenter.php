@@ -36,7 +36,7 @@ final class ShowEstateDocumentPresenter  implements ShowEstateDocumentOutput
         ];
         $this->response = fn() => view('estates.documents::show', $data);
     }
-    public function onNotFount(): void
+    public function onNotFound(): void
     {
         $this->response = fn() => view("estates.documents::show", [
             'error' => Messages::DATA_NOT_FOUND,

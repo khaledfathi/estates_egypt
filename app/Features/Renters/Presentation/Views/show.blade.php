@@ -11,16 +11,16 @@
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
-        @if(isset($error) || session()->has('error'))
+        @if (isset($error) || session()->has('error'))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card card-inverse card-danger ">
                         <div class="card-block">
                             <ul>
                                 @if (isset($error))
-                                    <li>{{$error}}</li>
+                                    <li>{{ $error }}</li>
                                 @elseif (session('error'))
-                                    <li>{{session('error')}}</li>
+                                    <li>{{ session('error') }}</li>
                                 @endif
                             </ul>
                         </div>
@@ -53,7 +53,8 @@
                         <div class="edit-box-header">
                             <strong>بيانات المستأجر</strong>
                             <div>
-                                <a style="margin-left:10px;text-decoration:none" href="{{ route('renters.edit', $renter->id) }}">
+                                <a style="margin-left:10px;text-decoration:none"
+                                    href="{{ route('renters.edit', $renter->id) }}">
                                     <i class="action-icon action-icon--edit fa fa-pencil fa-lg "></i>
                                 </a>
                                 <form class="d-inline" action="{{ route('renters.destroy', $renter->id) }}" method="post">
@@ -65,38 +66,12 @@
                                 </form>
                             </div>
                         </div>
-                        <form class="card-block" method="{{ route('owners.store') }}" method="post">
-                            @method('PUT')
-                            @csrf
-                            {{-- name --}}
-                            <div class="form-group">
-                                <label for="name">الاسم <span class="required">*</span></label>
-                                <input name="name" type="text" class="form-control" id="name"
-                                    placeholder="---" value="{{ $renter->name }}" readonly>
-                            </div>
-                            {{-- / name --}}
-
-
-                            {{-- identity type --}}
-                            <div class="form-group">
-                                <label for="identity_type">نوع الهوية<span class="required">*</span></label>
-                                <input name="identity_type" type="text" class="form-control" id="identity_type"
-                                    placeholder="---" value="{{ $renter->identityType->toLabel()}}" readonly>
-                            </div>
-                            {{-- / identity type --}}
-
-                            {{-- identity number --}}
-                            <div class="form-group">
-                                <label for="identity_number">نوع الهوية<span class="required">*</span></label>
-                                <input name="identity_number" type="text" class="form-control" id="identity_number"
-                                    placeholder="---" value="{{ $renter->identityNumber}}" readonly>
-                            </div>
-                            {{-- / identity number --}}
-
-                            {{-- phones --}}
-                            <div id="phone-form-group" class="form-group ">
-                                <label>التليفون</label>
-                                <div class="form-control readonly-bg">
+                        <div class="card-block">
+                            <ul>
+                                <li>الاسم : {{ $renter->name }}</li><hr>
+                                <li>نوع الهوية : {{ $renter->identityType->toLabel() }}</li><hr>
+                                <li>رقم الهوية : {{ $renter->identityNumber }}</li><hr>
+                                <li>التليفون :
                                     @if (empty($renter->phones))
                                         <span>---</span>
                                     @else
@@ -106,39 +81,16 @@
                                             @endforeach
                                         </ul>
                                     @endif
-                                </div>
-
-                                @php
-                                    $phones = old('phones', []); // Default to one empty input if no old data
-                                @endphp
-                                @foreach ($phones as $index => $phone)
-                                    <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                                        <input type="text" name="phones[]" value="{{ $phone }}"
-                                            class="phones form-control d-inline-block" placeholder="---" disabled />
-                                        <i onclick="removeParent(this)" class="fa fa-trash fa-lg"
-                                            style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"
-                                            hidden></i>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <button id="add-phone-btn" type="button" class="btn" style="margin-bottom: 20px" hidden>اضافة
-                                رقم
-                            </button>
-                            {{-- / phones --}}
-
-
-                            {{-- notes --}}
-                            <div class="form-group">
-                                <label for="notes">ملاحظات</label>
-                                <textarea name="notes" class="form-control readonly-bg" id="notes"
-                                    placeholder="---">{{ $renter->notes }}</textarea>
-                            </div>
-                            {{-- / notes --}}
+                                </li><hr>
+                                <li>ملاحظات :
+                                    <pre>{{ $renter->notes ?? '---' }}</pre>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endisset
-    </div>
+        @endisset
+</div>
 
 @endsection

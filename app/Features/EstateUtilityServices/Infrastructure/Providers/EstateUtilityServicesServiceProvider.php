@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Features\EstateUtilityServices\Infrastructure\Providers;
 
-use App\Features\EstateUtilityServices\Application\Contracts\DestroyUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Contracts\DestroyEstateUtilityServiceContract;
 use App\Features\EstateUtilityServices\Application\Contracts\ShowEstateUtilityServiceContract;
 use App\Features\EstateUtilityServices\Application\Contracts\StoreEstateUtilityServiceContract;
-use App\Features\EstateUtilityServices\Application\Usecases\DestroyUtilityServiceUsecase;
 use App\Features\EstateUtilityServices\Application\Usecases\ShowEstateUtilityServiceUsecase;
 use App\Features\EstateUtilityServices\Application\Usecases\StoreEstateUtilityServiceUsecase;
 use App\Features\EstateUtilityServices\Application\Usecases\UpdateEstateUtilityServiceUsecase;
 use App\Features\EstateUtilityServices\Application\Contracts\UpdateEstateUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Usecases\DestroyEstateUtilityServiceUsecase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,7 +24,7 @@ class EstateUtilityServicesServiceProvider extends ServiceProvider
     {
         $this->app->bind(ShowEstateUtilityServiceContract::class, ShowEstateUtilityServiceUsecase::class);
         $this->app->bind(StoreEstateUtilityServiceContract::class, StoreEstateUtilityServiceUsecase::class);
-        $this->app->bind(DestroyUtilityServiceContract::class , DestroyUtilityServiceUsecase::class);
+        $this->app->bind(DestroyEstateUtilityServiceContract::class , DestroyEstateUtilityServiceUsecase::class);
         $this->app->bind(UpdateEstateUtilityServiceContract::class , UpdateEstateUtilityServiceUsecase::class);
         
     }

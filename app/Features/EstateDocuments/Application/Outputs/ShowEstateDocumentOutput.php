@@ -7,6 +7,6 @@ use App\Shared\Domain\Entities\Estate\EstateDocumentEntity;
 
 interface ShowEstateDocumentOutput {
     public function onSuccess(EstateDocumentEntity $estateDocumentEntity):void;
-    public function onNotFount():void;
+    public function onNotFound():void;
     public function onFailure(String $error):void;
 }

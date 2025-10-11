@@ -3,7 +3,6 @@
 namespace App\Features\EstateUtilityServices\Presentation\Http\Requests;
 
 use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
-use App\Shared\Domain\Enum\Unit\UnitUtilityServiceType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,7 +26,7 @@ class   StoreEstateUtilityServiceRequest extends FormRequest
         $estateId = $this->route('estate');
         return [
             'type' => [
-                Rule::enum(UnitUtilityServiceType::class),
+                Rule::enum(EstateUtilityServiceType::class),
                'unique:estate_utility_services,type,NULL,id,estate_id,' .$estateId ,
             ],
             'owner_name' => 'required'

@@ -65,50 +65,15 @@
                             </div>
                         </div>
 
-                        <form class="card-block">
-                            @csrf
-                            {{-- name --}}
-                            <div class="form-group">
-                                <label for="name">الاسم <span class="required">*</span></label>
-                                <input name="name" type="text" class="form-control" id="name"
-                                    placeholder="اسم رمزى للعقار" value="{{ $estate->name }}" readonly>
-                            </div>
-                            {{-- / name --}}
-
-                            {{-- address --}}
-                            <div class="form-group">
-                                <label for="address">العنوان <span class="required">*</span></label>
-                                <textarea name="address" class="form-control" id="address" placeholder="وصف دقيق للعنوان" readonly>{{ $estate->address }}</textarea>
-                            </div>
-                            {{-- / address --}}
-
-                            {{-- floor counts --}}
-                            <div class="form-group">
-                                <label for="floor_count">عدد الطوابق <span class="required">*</span></label>
-                                <input name="floor_count" type="text" class="form-control" id="floor_count" readonly
-                                    placeholder="عدد الطوابق مع الطابق الارضى" value={{ $estate->floorCount }}>
-                            </div>
-                            {{-- / floor counts --}}
-
-                            {{-- residential unit count --}}
-                            <div class="form-group">
-                                <label for="residential_unit_count">عدد الوحدات السكنية</label>
-                                <input name="residential_unit_count" type="text" class="form-control"
-                                    id="residential_unit_count" readonly placeholder="عدد الوحدات السكنية"
-                                    value={{ $estate->residentialUnitCount }}>
-                            </div>
-                            {{-- / residential unit count --}}
-
-                            {{-- commercial unit count --}}
-                            <div class="form-group">
-                                <label for="commercial_unit_count">عدد الوحدات التجارية</label>
-                                <input name="commercial_unit_count" type="text" class="form-control"
-                                    id="commercial_unit_count" readonly placeholder="عدد الوحدات التجارية"
-                                    value={{ $estate->commercialUnitCount }}>
-                            </div>
-                            {{-- / commercial unit count --}}
-
-                        </form>
+                        <div class="card-block">
+                            <ul>
+                                <li>الاسم : {{ $estate->name }}</li><hr>
+                                <li>العنوان :<pre>{{ $estate->address}}</pre></li><hr>
+                                <li>عدد الطوابق : {{ $estate->floorCount}}</li><hr>
+                                <li>عدد الوحدات السكنة : {{ $estate->residentialUnitCount }}</li><hr>
+                                <li>عدد الوحدات التجارية : {{ $estate->commercialUnitCount }} </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

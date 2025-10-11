@@ -78,9 +78,14 @@
                             <strong>اضافة وحدة</strong>
                         </div>
                         <div class="card-block">
-                            {{-- estate id --}}
-                            <input type="hidden" name="estate_id" value="{{ old('estate_id', $estate->id) }}">
-                            {{-- / estate id --}}
+
+                            {{-- number --}}
+                            <div class="form-group">
+                                <label for="number">رقم الوحدة<span class="required">*</span></label>
+                                <input name="number" type="text" class="form-control" id="number"
+                                    placeholder="رقم اكبر من الصفر" value="{{ old('number', $unit->number) }}">
+                            </div>
+                            {{-- / number --}}
 
                             {{-- unit type --}}
                             <div class="form-group">
@@ -95,14 +100,6 @@
                                 </select>
                             </div>
                             {{-- unit type --}}
-
-                            {{-- number --}}
-                            <div class="form-group">
-                                <label for="number">رقم الوحدة<span class="required">*</span></label>
-                                <input name="number" type="text" class="form-control" id="number"
-                                    placeholder="رقم اكبر من الصفر" value="{{ old('number', $unit->number) }}">
-                            </div>
-                            {{-- / number --}}
 
                             {{-- floor number --}}
                             <div class="form-group">

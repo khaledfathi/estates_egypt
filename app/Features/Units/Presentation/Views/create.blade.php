@@ -75,6 +75,14 @@
                     </div>
                     <div class="card-block">
                         @csrf
+                        {{-- number --}}
+                        <div class="form-group">
+                            <label for="number">رقم الوحدة<span class="required">*</span></label>
+                            <input name="number" type="text" class="form-control" id="number"
+                                placeholder="رقم اكبر من الصفر" value="{{ old('number') }}">
+                        </div>
+                        {{-- / number --}}
+
                         {{-- unit type --}}
                         <div class="form-group">
                             <label for="type">نوع الوحدة<span class="required">*</span></label>
@@ -87,14 +95,6 @@
                             </select>
                         </div>
                         {{-- unit type --}}
-
-                        {{-- number --}}
-                        <div class="form-group">
-                            <label for="number">رقم الوحدة<span class="required">*</span></label>
-                            <input name="number" type="text" class="form-control" id="number"
-                                placeholder="رقم اكبر من الصفر" value="{{ old('number') }}">
-                        </div>
-                        {{-- / number --}}
 
                         {{-- floor number --}}
                         <div class="form-group">

@@ -11,7 +11,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class  StoreEstateUtilityServicePresenter implements StoreEstateUtilityServiceOutput
+final class StoreEstateUtilityServicePresenter implements StoreEstateUtilityServiceOutput
 {
 
     private Closure $response;

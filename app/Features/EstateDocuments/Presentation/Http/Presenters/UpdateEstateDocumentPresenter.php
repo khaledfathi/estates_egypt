@@ -11,7 +11,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class UpdateEstateDocumentPresenter implements UpdateEstateDocumentOutput
+final class UpdateEstateDocumentPresenter implements UpdateEstateDocumentOutput
 {
 
    private Closure $response;
