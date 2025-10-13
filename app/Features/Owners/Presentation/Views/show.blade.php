@@ -118,7 +118,7 @@
                                     <tr>
                                         <td>{{ $unit->estate->name }}</td>
                                         <td>{{ $unit->number }}</td>
-                                        <td>{{ $unit->floorNumber }}</td>
+                                        <td>{{ $unit->floorNumber == 0 ? 'الارضى' : $unit->floorNumber}}</td>
                                         <td><a
                                                 href="{{ route('estates.units.show', ['estate' => $unit->estate->id, 'unit' => $unit->id]) }}">
                                                 <i class="action-icon fa fa-external-link fa-lg m-t-2"></i>
