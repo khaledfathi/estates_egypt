@@ -8,18 +8,19 @@ use App\Features\Estates\Application\Outputs\StoreEstateOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
+use Closure;
 use Illuminate\Support\Facades\Log;
 
 final class StoreEstatePresenter implements StoreEstateOutput
 {
-    private $response;
+    private Closure $response;
     public function onSuccess(EstateEntity $estateEntity): void
     {
-        $this->response = redirect(route('estates.show', $estateEntity->id));
+        $this->response = fn()=> redirect(route('estates.show', $estateEntity->id));
     }
     public function onFailure(string $error): void
     {
-        $this->response = back()->withErrors([
+        $this->response = fn()=> back()->withErrors([
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -31,6 +32,6 @@ final class StoreEstatePresenter implements StoreEstateOutput
 
     public function handle()
     {
-        return $this->response;
+        return ($this->response)();
     }
 }

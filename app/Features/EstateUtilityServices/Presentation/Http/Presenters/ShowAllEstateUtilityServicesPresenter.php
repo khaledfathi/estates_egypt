@@ -7,6 +7,7 @@ namespace App\Features\EstateUtilityServices\Presentation\Http\Presenters;
 use App\Features\EstateUtilityServices\Application\Outputs\ShowAllEstateUtilityServicesOutputs;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -15,6 +16,16 @@ final class ShowAllEstateUtilityServicesPresenter implements ShowAllEstateUtilit
 {
 
     private Closure $response;
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $currentPage = url()->current() ;
+        session()->put(SessionKeys::estate_UTILITY_SERVICE_CURRENT_INDEX_PAGE, $currentPage);
+        session()->put(SessionKeys::estate_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE, $currentPage);
+    }
     /**
      * @inheritDoc
      */
@@ -33,7 +44,6 @@ final class ShowAllEstateUtilityServicesPresenter implements ShowAllEstateUtilit
     }
     public function onFailure(string $error): void
     {
-        dd($error);
         $this->response = fn() =>view("estates.utility-services::index", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);

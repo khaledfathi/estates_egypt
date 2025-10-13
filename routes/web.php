@@ -8,6 +8,7 @@ use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
 use App\Features\Settings\Presentation\Http\Controllers\SettingController;
 use App\Features\Transactions\Presentation\Http\Controllers\TransactionContoller;
+use App\Features\UnitOwnerships\Presentation\Http\Controllers\UnitOwnershipController;
 use App\Features\Units\Presentation\Http\Controllers\UnitController;
 use App\Features\UnitUtilityServices\Presentation\Http\Controllers\UnitUtilityServiceController;
 use App\Http\Controllers\ProfileController;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/estates.documents' , EstateDocumentController::class );
 
     Route::resource('/estates.utility-services' , EstateUtilityServicesController::class );
+    Route::resource('/estates.units.ownerships' , UnitOwnershipController::class );
 
     Route::resource('/settings', SettingController::class)->only('index');
 
@@ -49,7 +51,6 @@ Route::middleware('auth')->group(function () {
 /* FOR TEST  */
 Route::get('/queries' , [QueryContoller::class, 'index'])->name('queries.index');
 Route::get('/transactions' , [TransactionContoller::class, 'index'])->name('transactions.index');
-
 
 
 

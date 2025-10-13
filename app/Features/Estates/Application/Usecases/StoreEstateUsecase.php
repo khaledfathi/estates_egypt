@@ -8,7 +8,6 @@ use App\Features\Estates\Application\Contracts\StoreEstateContract;
 use App\Features\Estates\Application\Outputs\StoreEstateOutput;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\UnitRepository;
@@ -38,7 +37,6 @@ final class StoreEstateUsecase implements StoreEstateContract
                         number: $i + 1,
                         floorNumber: 0,
                         type: UnitType::RESDENTIAL,
-                        ownershipType: UnitOwnershipType::SINGLE,
                         isEmpty: true,
                     )
                 );
@@ -51,7 +49,6 @@ final class StoreEstateUsecase implements StoreEstateContract
                         number: $i + 1,
                         floorNumber: 0,
                         type: UnitType::COMMERCIAL,
-                        ownershipType: UnitOwnershipType::SINGLE,
                         isEmpty: true,
                     )
                 );

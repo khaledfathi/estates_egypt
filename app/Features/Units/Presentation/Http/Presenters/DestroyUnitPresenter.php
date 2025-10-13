@@ -6,7 +6,6 @@ namespace App\Features\Units\Presentation\Http\Presenters;
 
 use App\Features\Units\Application\Ouputs\DestroyUnitOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
-use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -15,11 +14,12 @@ final class DestroyUnitPresenter implements DestroyUnitOutput
 {
 
     private Closure $response;
+    public function __construct(
+        private readonly int $estateId , 
+    ){}
     public function onSuccess(bool $status): void
     {
-        $url = session(SessionKeys::UNIT_CURRENT_INDEX_PAGE);
-        $this->response = fn() =>
-        redirect($url)
+        $this->response = fn() => redirect(route('estates.units.index', ['estate'=>$this->estateId]))
             ->with('success', Messages::DESTROY_SUCCESS);
     }
     public function onFailure($error): void

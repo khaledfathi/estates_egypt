@@ -1,3 +1,10 @@
+
+td {
+    vertical-align: middle !important ;
+}
+tr:hover{
+    background-color: #f5f5f5 !important;
+}
 .readonly-bg {
     background-color: #cfd8dc !important;
 }
@@ -14,14 +21,15 @@
 }
 
 .action-icon {
-	cursor: pointer;
-	font-size: 25px;
-	transition: color 0.3s ease;
-	margin: 0 !important;
-	vertical-align: middle !important;
+    cursor: pointer;
+    font-size: 25px;
+    transition: color 0.3s ease;
+    margin:0 !important; 
+    color:#157294;
+    vertical-align: middle !important ;
 }
 .action-icon--edit {
-    color:#008200;
+    color: #008200;
 }
 .action-icon--delete{
     color: red ;

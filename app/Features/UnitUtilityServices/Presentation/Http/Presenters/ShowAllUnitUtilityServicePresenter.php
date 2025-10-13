@@ -7,12 +7,23 @@ namespace App\Features\UnitUtilityServices\Presentation\Http\Presenters;
 use App\Features\UnitUtilityServices\Application\Outputs\ShowAllUnitUtilityServicesOutput;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 final class ShowAllUnitUtilityServicePresenter implements ShowAllUnitUtilityServicesOutput
 {
     private Closure $response;
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $currentPage = url()->current() ; 
+        session()->put(SessionKeys::UNIT_UTILITY_SERVICE_CURRENT_INDEX_PAGE, $currentPage);
+        session()->put(SessionKeys::UNIT_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE, $currentPage);
+    }
     /**
      * 
      * @inheritDoc
@@ -34,7 +45,6 @@ final class ShowAllUnitUtilityServicePresenter implements ShowAllUnitUtilityServ
     }
     public function onFailure(string $error): void
     {
-        dd($error);
         $this->response = fn() => view("units::show", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);

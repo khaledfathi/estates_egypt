@@ -28,7 +28,7 @@ interface UnitRepository{
      * @param bool $unitOnly query with out estate related data
      * @return void
      */
-    public function show (int $unitId , bool $unitOnly=false):UnitEntity|null;
+    public function show(int $unitId): UnitEntity|null;
     public function update (UnitEntity $unitEntity):bool;
     public function destroy (int $unitId):bool; 
 }

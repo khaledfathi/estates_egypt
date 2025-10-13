@@ -7,7 +7,6 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Domain\Entities\Unit\UnitUtilityServiceEntity;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use App\Shared\Domain\Enum\Unit\UnitUtilityServiceType;
 use App\Shared\Domain\Repositories\UnitUtilityServiceRepository;
@@ -67,7 +66,6 @@ final class EloquentUnitUtilityServiceRepository implements UnitUtilityServiceRe
                 number: $unitUtilityServiceRecord->unit->number,
                 floorNumber: $unitUtilityServiceRecord->unit->floor_number,
                 type: UnitType::from($unitUtilityServiceRecord->unit->type),
-                ownershipType: UnitOwnershipType::from($unitUtilityServiceRecord->unit->ownership_type),
                 isEmpty: $unitUtilityServiceRecord->unit->is_empty ? true : false,
             );
         }

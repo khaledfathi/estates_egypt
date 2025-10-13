@@ -6,7 +6,6 @@ namespace App\Features\EstateDocuments\Presentation\Http\Presenters;
 
 use App\Features\EstateDocuments\Application\Outputs\DestroyEstateDocumentOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
-use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -17,8 +16,7 @@ final class DestroyEstateDocumentPresenter implements DestroyEstateDocumentOutpu
     public  function  __construct(private readonly int $estateId) {}
     public function onSuccess(bool $status): void
     {
-        $url = session(SessionKeys::ESTATE_DOCUMENT_CURRENT_INDEX_PAGE);
-        $this->response = fn() => redirect($url)
+        $this->response = fn() => redirect(route('estates.documents.index', $this->estateId))
             ->with('success', Messages::DESTROY_SUCCESS);
     }
     public function onFailure($error): void

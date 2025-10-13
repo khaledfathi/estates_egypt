@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Entities\Owner;
 
+use App\Shared\Domain\Entities\Unit\UnitEntity;
 
 final class OwnerEntity
 {
@@ -15,6 +16,8 @@ final class OwnerEntity
      * @param ?string $address
      * @param ?array<OwnerPhoneEntity> $phones
      * @param ?string $notes
+     * @param ?int $ownershipId the id of realeationship between (unit and owenr) in table ownerships
+     * @param ?array<UnitEntity> $units uints ownen by this owner
      */
     public function __construct(
         public ?int $id = null,
@@ -23,6 +26,8 @@ final class OwnerEntity
         public ?string $address = null,
         public ?array $phones = null,
         public ?string $notes = null,
+        public ?int $ownershipId=null,
+        public ?array $units = null,
     ) {}
 
     /**

@@ -115,20 +115,6 @@
                             </div>
                             {{-- / floor number --}}
 
-                            {{-- ownershipe type --}}
-                            <div class="form-group">
-                                <label for="ownership_type">نوع الملكية<span class="required">*</span></label>
-                                <select id="ownership_type" name="ownership_type" class="form-control" size="1">
-                                    @foreach ($unitOwnershipTypes as $value => $label)
-                                        <option value="{{ $value }}"
-                                            {{ old('ownership_type', $unit->ownershipType->value) == $value ? 'selected' : '' }}>
-                                            {{ $label }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            {{-- / ownershipe type --}}
-
                             {{--  is empty --}}
                             <div class="form-group">
                                 <label for="is_empty">حالة الاشغال<span class="required">*</span></label>

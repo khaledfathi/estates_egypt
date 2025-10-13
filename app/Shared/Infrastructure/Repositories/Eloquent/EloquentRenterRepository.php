@@ -20,31 +20,32 @@ final class EloquentRenterRepository implements RenterRepositroy
      * 
      * @inheritDoc   
      */
-    public function index ():array
+    public function index(): array
     {
-        return []; 
+        return[]; 
     }
 
     /**
      * 
      * @inheritDoc
      */
-    public function indexWithPaginate(int $perPage): EntitiesWithPagination{
-        $renterRecords= Renter::with('phones')
+    public function indexWithPaginate(int $perPage): EntitiesWithPagination
+    {
+        $renterRecords = Renter::with('phones')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
         //Transform to DTO
-        $arrayOfRenters= [];
+        $arrayOfRenters = [];
         foreach ($renterRecords as $record) {
             //phones DTO
             $renterPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
                 $renterPhones[]  =  new RenterPhoneEntity(
-                     (int)$phone->id,
-                     (int)$phone->renter_id,
-                     $phone->phone,
-                 );
+                    (int)$phone->id,
+                    (int)$phone->renter_id,
+                    $phone->phone,
+                );
             }
             //owner DTO
             $arrayOfRenters[] = new RenterEntity(
@@ -52,7 +53,7 @@ final class EloquentRenterRepository implements RenterRepositroy
                 $record->name,
                 RenterIdentityType::from($record->identity_type),
                 $record->identity_number,
-                $renterPhones, 
+                $renterPhones,
                 $record->notes,
             );
         }
@@ -71,7 +72,8 @@ final class EloquentRenterRepository implements RenterRepositroy
         );
         return $arrayOfRentersWithPagination;
     }
-    public function store (RenterEntity $renterEntity):RenterEntity {
+    public function store(RenterEntity $renterEntity): RenterEntity
+    {
         $renterRecord = Renter::create([
             'name' => $renterEntity->name,
             'identity_type' => $renterEntity->identityType->value,
@@ -90,11 +92,11 @@ final class EloquentRenterRepository implements RenterRepositroy
         return $renterEntity;
     }
 
-    public function show (int $renterId):RenterEntity|null
+    public function show(int $renterId): RenterEntity|null
     {
         $record = Renter::with('phones')->find($renterId);
         if ($record) {
-            $ownerPhones=[];
+            $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
                 $ownerPhones[]  =  new RenterPhoneEntity(
                     (int)$phone->id,
@@ -114,7 +116,8 @@ final class EloquentRenterRepository implements RenterRepositroy
         }
         return null;
     }
-    public function update (RenterEntity $renterEntity):bool{
+    public function update(RenterEntity $renterEntity): bool
+    {
         $find = Renter::with('phones')->find($renterEntity->id);
         if ($find) {
             //update record
@@ -139,7 +142,8 @@ final class EloquentRenterRepository implements RenterRepositroy
         }
         return false;
     }
-    public function destroy (int $renterId):bool{
+    public function destroy(int $renterId): bool
+    {
         return Renter::find($renterId)->delete();
     }
 }

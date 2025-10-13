@@ -7,20 +7,21 @@ use App\Features\Owners\Application\Outputs\StoreOwnerOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
 final class StoreOwnerPresenter implements StoreOwnerOutput
 {
-    private RedirectResponse $response;
+    private Closure $response;
     public function onSuccess(OwnerEntity $ownerEntity): void
     {
-        $this->response = redirect(route('owners.index'))
+        $this->response = fn()=> redirect(route('owners.index'))
             ->with('success' ,  Messages::STORE_SUCCESS);
     }
     public function onFailure(string $error): void
     {
-        $this->response = back()->withErrors([
+        $this->response = fn()=> back()->withErrors([
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -31,6 +32,6 @@ final class StoreOwnerPresenter implements StoreOwnerOutput
     }
     public function handle(): RedirectResponse
     {
-        return $this->response;
+        return ($this->response)();
     }
 }

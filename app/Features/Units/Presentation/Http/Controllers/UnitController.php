@@ -19,7 +19,6 @@ use App\Features\Units\Presentation\Http\Presenters\UpdateUnitPresenter;
 use App\Features\Units\Presentation\Http\Requests\UpdateUnitRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use Illuminate\Http\Request;
 
@@ -78,7 +77,7 @@ class UnitController extends Controller
     }
     public function destroy( string $estateId , string $unitId)
     {
-        $presenter = new DestroyUnitPresenter();
+        $presenter = new DestroyUnitPresenter((int)$estateId);
         $this->destroyUnitUsecase->destroy((int)$unitId, $presenter);
         return $presenter->handle();
     }
@@ -91,7 +90,6 @@ class UnitController extends Controller
             number: (int) $formArray['number'] ?? null,
             floorNumber: (int)$formArray['floor_number'] ?? null,
             type: UnitType::from($formArray['type']),
-            ownershipType: UnitOwnershipType::from($formArray['ownership_type']),
             isEmpty: $formArray['is_empty'] == 'true' ? true : false
         );
     }

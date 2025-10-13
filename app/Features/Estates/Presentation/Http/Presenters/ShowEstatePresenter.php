@@ -8,25 +8,26 @@ use App\Features\Estates\Application\Outputs\ShowEstateOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 
 final class ShowEstatePresenter implements ShowEstateOutput
 {
 
-    private View $response;
+    private Closure $response;
     public function onSuccess(EstateEntity $estateEntity): void
     {
-        $this->response = view('estates::show', ['estate' => $estateEntity]);
+        $this->response = fn ()=> view('estates::show', ['estate' => $estateEntity]);
     }
     public function onNotFound(): void
     {
-        $this->response = view("estates::show", [
+        $this->response = fn()=> view("estates::show", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }
     public function onFailure(string $error): void {
-        $this->response = view("estates::show", [
+        $this->response = fn()=> view("estates::show", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -37,6 +38,6 @@ final class ShowEstatePresenter implements ShowEstateOutput
     }
     public function handle()
     {
-        return $this->response;
+        return ($this->response)();
     }
 }

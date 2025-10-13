@@ -10,7 +10,6 @@ use App\Features\Units\Application\Ouputs\CreateUnitOutput;
 use App\Features\Units\Application\Ouputs\StoreUnitOutput;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\UnitRepository;
@@ -27,12 +26,10 @@ final class StoreUnitUsecase implements StoreUnitContract
         try {
             $estate = $this->estateRepositroy->show($estateId);
             $unitTypes = UnitType::labels();
-            $unitOwnershipTypes = UnitOwnershipType::labels();
             $unitIsEmptyLabels = UnitIsEmpty::labels();
             $unitFormDTO = new UnitFormDTO(
                 $estate,
                 $unitTypes,
-                $unitOwnershipTypes,
                 $unitIsEmptyLabels
             );
             $presenter->onSuccess($unitFormDTO);

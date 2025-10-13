@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Features\Owners\Domain\ValueObjects\OwnerEntitiesWithPagination;
+use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\Entities\Owner\OwnerPhoneEntity;
+use App\Shared\Domain\Entities\Unit\UnitEntity;
+use App\Shared\Domain\Enum\Unit\UnitType;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Domain\ValueObjects\Pagination;
@@ -21,7 +24,7 @@ final class EloquentOwnerRepository implements OwnerRepository
      */
     public function index(): array
     {
-        $ownersRecords = Owner::with('phones')->get();
+        $ownersRecords = Owner::with('phones')->orderBy('name', 'desc')->get();
         $arrayOfOwners = [];
         foreach ($ownersRecords as $record) {
             $arrayOfOwners[] = new OwnerEntity(
@@ -103,7 +106,7 @@ final class EloquentOwnerRepository implements OwnerRepository
     }
     public function show(int $ownerId): OwnerEntity|null
     {
-        $record = Owner::with('phones')->find($ownerId);
+        $record = Owner::with('phones', 'unitOwnerships.unit', 'unitOwnerships.unit.estate')->find($ownerId);
         if ($record) {
             $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
@@ -113,13 +116,39 @@ final class EloquentOwnerRepository implements OwnerRepository
                     $phone->phone,
                 );
             }
+
+            $unitEntities = [];
+            foreach ($record->unitOwnerships as $unitOwnership) {
+                //unit DTO
+                $unitEntity = new UnitEntity(
+                    id: $unitOwnership->unit->id,
+                    estateId: $unitOwnership->unit->estate_id,
+                    number: $unitOwnership->unit->number,
+                    floorNumber: $unitOwnership->unit->floor_number,
+                    type: UnitType::from($unitOwnership->unit->type),
+                    isEmpty: $unitOwnership->unit->is_empty ? true : false,
+                    ownershipId:$unitOwnership->id,
+                );
+                //estate DTO - merged to unit entity
+                $unitEntity->estate = new EstateEntity(
+                    id: $unitOwnership->unit->estate->id,
+                    name: $unitOwnership->unit->estate->name,
+                    address: $unitOwnership->unit->estate->address,
+                    floorCount: $unitOwnership->unit->estate->floor_count,
+                    commercialUnitCount: $unitOwnership->unit->estate->commercial_unit,
+                    residentialUnitCount: $unitOwnership->unit->estate->residential_unit,
+                );
+                $unitEntities[] = $unitEntity;
+            }
+            //owner DTO
             $ownerEntity = new OwnerEntity(
-                $record->id,
-                $record->name,
-                $record->national_id,
-                $record->address,
-                $ownerPhones,
-                $record->notes
+                id: $record->id,
+                name: $record->name,
+                nationalId: $record->national_id,
+                address: $record->address,
+                phones: $ownerPhones,
+                notes: $record->notes,
+                units:$unitEntities
             );
             return $ownerEntity;
         }

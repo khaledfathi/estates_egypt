@@ -137,7 +137,7 @@
                                     class="btn btn-md btn-primary">
                                     <i class="fa fa-refresh "></i>
                                     اعادة</a>
-                                <a href="{{ route('estates.utility-services.index', $estate->id) }}"
+                                <a href="{{$previousURL}}"
                                     class="btn btn-md btn-danger">
                                     <i class="fa fa-ban"></i>
                                     الغاء</a>

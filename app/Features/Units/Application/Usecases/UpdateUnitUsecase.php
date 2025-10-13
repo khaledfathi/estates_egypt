@@ -10,7 +10,6 @@ use App\Features\Units\Application\Ouputs\EditUnitOutput;
 use App\Features\Units\Application\Ouputs\UpdateUnitOutput;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\UnitRepository;
@@ -27,19 +26,17 @@ final class UpdateUnitUsecase implements UpdateUnitContract
     {
         try {
             //unit record 
-            $unitEntity = $this->unitRepository->show($unitId, true);
+            $unitEntity = $this->unitRepository->show($unitId);
             if (!$unitEntity) {
                 $presenter->onNotFound();
                 return;
             }
             $estateEntity = $this->estateRepositroy->show($unitEntity?->estate->id);
             $unitTypes = UnitType::labels();
-            $unitOwnershipTypes = UnitOwnershipType::labels();
             $unitIsEmptyLabels = UnitIsEmpty::labels();
             $unitFormDTO = new UnitFormDTO(
                 $estateEntity,
                 $unitTypes,
-                $unitOwnershipTypes,
                 $unitIsEmptyLabels
             );
             $presenter->onSuccess($unitFormDTO, $unitEntity);

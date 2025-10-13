@@ -12,6 +12,7 @@ use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\EstateUtilityServiceRepository;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\Repositories\RenterRepositroy;
+use App\Shared\Domain\Repositories\UnitOwnershipRepository;
 use App\Shared\Domain\Repositories\UnitRepository;
 use App\Shared\Domain\Repositories\UnitUtilityServiceRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateDocumentRepository;
@@ -19,6 +20,7 @@ use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateUtilityServiceRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRenterRepository;
+use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitOwnershipRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitUtilityServiceRepository;
 use App\Shared\Infrastructure\Storage\LaravelStorage;
@@ -40,6 +42,7 @@ class SharedServiceProvider extends ServiceProvider
         $this->app->bind(EstateDocumentRepository::class, EloquentEstateDocumentRepository::class);
         $this->app->bind(EstateUtilityServiceRepository::class, EloquentEstateUtilityServiceRepository::class);
         $this->app->bind(UnitUtilityServiceRepository::class , EloquentUnitUtilityServiceRepository::class);
+        $this->app->bind(UnitOwnershipRepository::class , EloquentUnitOwnershipRepository::class);
 
         // framework services 
         $this->app->bind(Storage::class, LaravelStorage::class);

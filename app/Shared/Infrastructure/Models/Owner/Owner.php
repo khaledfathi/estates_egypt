@@ -1,7 +1,8 @@
 <?php
 declare (strict_types= 1);
-namespace App\Shared\Infrastructure\Models\Owner; 
+namespace App\Shared\Infrastructure\Models\Owner;
 
+use App\Shared\Infrastructure\Models\Unit\UnitOwnership;
 use Illuminate\Database\Eloquent\Model;
 
 class Owner extends Model
@@ -17,5 +18,8 @@ class Owner extends Model
     public function phones(){
         return $this->hasMany(OwnerPhone::class, 'owner_id', 'id');
     }   
+    public function unitOwnerships (){
+        return $this->hasMany(UnitOwnership::class);
+    }
 }
 

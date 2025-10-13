@@ -21,5 +21,8 @@ class Unit extends Model
     public function unitUtilityServices(){
         return $this->hasMany(UnitUtilityService::class );
     }
+    public function unitOwnerships (){
+        return $this->hasMany(UnitOwnership::class );
+    }
 
 }

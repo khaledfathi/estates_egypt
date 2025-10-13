@@ -58,7 +58,7 @@ class UnitUtilityServiceController extends Controller
     }
     public function edit(string $estateId, string $unitId , string $unitUtilityServiceId )
     {
-        $presenter = new EditUnitUtilityServicePresenter();
+        $presenter = new EditUnitUtilityServicePresenter((int)$estateId , (int)$unitId);
         $this->updateUnitUtilityServiceUsecase->edit((int) $unitUtilityServiceId , $presenter);
         return $presenter->handle();
     }

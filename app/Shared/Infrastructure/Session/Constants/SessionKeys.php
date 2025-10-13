@@ -22,4 +22,14 @@ final class SessionKeys {
     public const ESTATE_DOCUMENT_EDIT_PREVIOUS_PAGE = 'estate_document_edit_last_page';
     public const ESTATE_DOCUMENT_CURRENT_INDEX_PAGE = 'estate_document_current_index_page';
     // ----------------------
+
+    //for estate utility service features  
+    public const estate_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE = 'estate_utility_service_edit_last_page';
+    public const estate_UTILITY_SERVICE_CURRENT_INDEX_PAGE = 'estate_utility_service_current_index_page';
+    // ----------------------
+
+    //for unit utility service features  
+    public const UNIT_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE = 'unit_utility_service_edit_last_page';
+    public const UNIT_UTILITY_SERVICE_CURRENT_INDEX_PAGE = 'unit_utility_service_current_index_page';
+    // ----------------------
 }

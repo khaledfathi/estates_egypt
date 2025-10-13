@@ -24,7 +24,7 @@ final class EditUnitPresenter implements EditUnitOutput
    private function handleSession()
    {
       $previousPage = SessionKeys::UNIT_EDIT_PREVIOUS_PAGE;
-      $this->previousURL = session($previousPage) 
+      $this->previousURL = session($previousPage)
          ?? route('units.index');
    }
    public function onSuccess(UnitFormDTO $unitFormData, UnitEntity $unitEntity): void
@@ -33,9 +33,9 @@ final class EditUnitPresenter implements EditUnitOutput
          'estate' => $unitFormData->estateEntity,
          'unit' => $unitEntity,
          'unitTypes' => $unitFormData->unitTypes,
-         'unitOwnershipTypes' => $unitFormData->unitOwnershipTypes,
          'unitIsEmptyLabels' => $unitFormData->unitIsEmptyLabels,
          'found' => true,
+         'previousURL' => $this->previousURL
       ]);
    }
    public function onNotFound(): void
@@ -58,7 +58,6 @@ final class EditUnitPresenter implements EditUnitOutput
    }
    public function handle()
    {
-      // return ($this->response)();
-      return ($this->response)()->with(['previousURL' => $this->previousURL]);
+      return ($this->response)();
    }
 }

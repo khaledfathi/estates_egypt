@@ -3,6 +3,7 @@
 namespace App\Shared\Infrastructure\Models\Estate;
 
 use App\Shared\Infrastructure\Models\Unit\Unit;
+use App\Shared\Infrastructure\Models\Unit\UnitOwnership;
 use Illuminate\Database\Eloquent\Model;
 
 class Estate extends Model

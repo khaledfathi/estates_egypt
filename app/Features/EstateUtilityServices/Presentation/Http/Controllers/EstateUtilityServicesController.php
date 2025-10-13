@@ -62,7 +62,7 @@ class EstateUtilityServicesController extends Controller
 
     public function edit(string $estateId, string $estateUtilityServiceId)
     {
-        $presenter = new EditEstateUtilityServicePresenter();
+        $presenter = new EditEstateUtilityServicePresenter((int)$estateId);
         $this->updateEstateUtilityServiceUsecase->Edit((int)$estateUtilityServiceId, $presenter);
         return $presenter->handle();
     }
