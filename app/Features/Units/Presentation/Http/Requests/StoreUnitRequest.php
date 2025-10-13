@@ -35,7 +35,6 @@ class  StoreUnitRequest extends FormRequest
                 Rule::unique('units')->where(fn ($query)=> 
                     $query->where('estate_id', $estateId)->where('type', $this->type )
                 ),
-                new LastUnitNumber(estateId: $estateId, unitType: UnitType::from($this->type)),    
             ],
             'floor_number' => 'required|numeric',
             'is_empty' => 'required|in:true,false',

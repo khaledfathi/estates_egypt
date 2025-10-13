@@ -37,7 +37,6 @@ class  UpdateUnitRequest extends FormRequest
                 ->where(fn ($query)=> 
                     $query->where('estate_id', $estateId)->where('type', $this->type )->where('id', '!=', $this->id)
                 ),
-                new LastUnitNumber(estateId: $estateId, unitType: UnitType::from($this->type),) 
             ],
             'floor_number' => 'required|numeric',
             'is_empty' => 'required|in:true,false',
