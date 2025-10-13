@@ -21,8 +21,8 @@ return new class extends Migration
             $table->unsignedTinyInteger('water_invoice_precentage');
             $table->timestamps();
             //FK
-            $table->foreignId('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('renter_id')->references('id')->on('renters')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('renter_id')->references('id')->on('renters')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

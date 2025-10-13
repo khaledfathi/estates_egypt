@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('invoice_image')->nullable();
             $table->timestamps();
             //FK
-            $table->foreignId('contract_id')->references('id')->on('contracts')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('contract_id')->references('id')->on('contracts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

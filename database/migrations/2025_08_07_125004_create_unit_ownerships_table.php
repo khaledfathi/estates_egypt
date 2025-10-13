@@ -17,10 +17,10 @@ return new class extends Migration
             //FK
             $table->foreignId('unit_id')
                 ->references('id')->on('units')
-                ->onUpdate('restrict')->onDelete('restrict');
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('owner_id')
                 ->references('id')->on('owners')
-                ->onUpdate('restrict')->onDelete('restrict');
+                ->onUpdate('cascade')->onDelete('cascade');
             //constrain
             $table->unique(['unit_id', 'owner_id']);
         });
