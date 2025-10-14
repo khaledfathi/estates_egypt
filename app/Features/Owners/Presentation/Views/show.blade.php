@@ -110,7 +110,7 @@
                                     <th width="25%">رقم الوحدة</th>
                                     <th width="25%">الطابق</th>
                                     <th width="10%">صفحة الوحدة</th>
-                                    <th width="10%">صفحة الوحدة</th>
+                                    <th width="10%">حذف الملكية</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -16,4 +16,5 @@ return [
     App\Features\EstateUtilityServices\Infrastructure\Providers\EstateUtilityServicesServiceProvider::class,
     App\Features\UnitUtilityServices\Infrastructure\Providers\UnitUtilityServicesServiceProvider::class,
     App\Features\UnitOwnerships\Infrastructure\Providers\UnitOwnershipProvider::class,
+    App\Features\OwnerGroups\Infrastructure\Providers\OwnerGroupServiceProvider::class,
 ];

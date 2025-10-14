@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
+            //FK
+            $table->foreignId('owner_group_id')->default(1)->references('id')->on('owner_groups')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

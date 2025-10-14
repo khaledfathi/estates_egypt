@@ -1,5 +1,5 @@
 @extends('shared::main-layout')
-@section('title', 'الملاك')
+@section('title', 'مجموعات الملاك')
 @section('active-owners', 'active')
 @section('styles')
     @vite('resources/css/features/owners/index.css')
@@ -12,13 +12,13 @@
     <div class="container-fluid">
 
         {{-- error message  --}}
-        @if(session()->has('error'))
+        @if (session()->has('error'))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card card-inverse card-danger ">
                         <div class="card-block">
                             <ul>
-                                <li>{{ session('error')}}</li>
+                                <li>{{ session('error') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -44,13 +44,13 @@
         {{-- / success message  --}}
 
         <div class="card-block row">
-            <a href="{{ route('owners.create') }}" class="btn btn-md btn-primary my-5">
+            <a href="{{ route('owner-groups.create') }}" class="btn btn-md btn-primary my-5">
                 <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
-                <span> اضافة مالك</span>
+                <span>اضافة مجموعة للملاك</span>
             </a>
-            <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-primary my-5">
-                <i class="fa fa-users fa-lg d-inline-block"></i>
-                <span>المجموعات</span>
+            <a href="{{ route('owners.index') }}" class="btn btn-md btn-primary my-5">
+                <i class="icon-people fa-lg d-inline-block"></i>
+                <span>الملاك</span>
             </a>
             <div class="container-fluid">
 
@@ -74,57 +74,48 @@
                 {{-- top pagination  --}}
 
                 <div class="row">
-                    @if (count($owners))
+                    @if ($ownerGroups)
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>الاسم</th>
-                                    <th>الرقم القومى</th>
-                                    <th>تليفون</th>
+                                    <th>اسم المجموعة</th>
+                                    <th>افراد المجموعة</th>
                                     <th>تحكم</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($owners as $owner)
-                                    <tr>
-                                        <td>{{ $owner->name }}</td>
-                                        <td>{{ $owner->nationalId ?? '----' }}</td>
-                                        <td>
-                                            @if ($owner->phones)
-                                                @foreach ($owner->phones as $phone)
-                                                    {{ $phone->phone}} <br>
-                                                @endforeach
-                                            @else
-                                                {{ '----' }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <a style="margin-left:20px;text-decoration:none"
-                                                    href="{{ route('owners.show', ['owner' => $owner->id]) }}">
-                                                    <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
-                                                </a>
-                                                <a style="margin-left:20px;text-decoration:none"
-                                                    href="{{ route('owners.edit', ['owner' => $owner->id]) }}">
-                                                    <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
-                                                </a>
-                                                <form class="d-inline" action="{{ route('owners.destroy', $owner->id) }}"
-                                                    method="post">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <i class="delete-owner-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
-                                                    <input class="delete-submit-btn" type="submit" hidden>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                @foreach ($ownerGroups as $ownerGroup)
+                                <tr>
+                                    <td>{{ $ownerGroup->name }}</td>
+                                    <td> N/A</td>
+                                    <td>
+                                        <div>
+                                            <a style="margin-left:20px;text-decoration:none"
+                                            href="{{ route('owner-groups.show', $ownerGroup->id) }}">
+                                            <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
+                                        </a>
+                                        <a style="margin-left:20px;text-decoration:none"
+                                            href="{{ route('owner-groups.edit', $ownerGroup->id) }}">
+                                            <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
+                                        </a>
+                                        <form class="d-inline" action="{{ route('owner-groups.destroy', $ownerGroup->id) }}"
+                                            method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <i
+                                                class="delete-owner-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                            <input class="delete-submit-btn" type="submit" hidden>
+                                        </form>
+                                        </div>
+                                    </td>
+                                </tr>
                                 @endforeach
                         </table>
                     @else
                         <div class="card card-inverse card-primary text-xs-center">
                             <div class="card-block">
                                 <blockquote class="card-blockquote">
-                                    لا يوجد ملاك مسجلين حتى الان - قم باضافة مالك 
+                                    لا توجد مجموعات ملاك مسجلين حتى الان - قم باضافة مجموعة 
                                 </blockquote>
                             </div>
                         </div>
@@ -137,8 +128,7 @@
                 @isset($pagination)
                     @if ($pagination->getPageCounts() > 1)
                         <ul class="pagination row">
-                            <li class="page-item"><a class="page-link"
-                                    href="{{ $pagination->getPreviousPageURL() }}">السابق</a>
+                            <li class="page-item"><a class="page-link" href="{{ $pagination->getPreviousPageURL() }}">السابق</a>
                             </li>
                             @foreach ($pagination->getLinks() as $index => $link)
                                 <li class="page-item {{ $pagination->currentPage == $index + 1 ? 'active' : null }}"><a

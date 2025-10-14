@@ -3,6 +3,7 @@
 use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
 use App\Features\EstateUtilityServices\Presentation\Http\Controllers\EstateUtilityServicesController;
+use App\Features\OwnerGroups\Presentation\Http\Controllers\OwnerGroupController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::resource('/owners', OwnerController::class);
+    Route::resource('/owner-groups', OwnerGroupController::class);
     Route::resource('/renters' , RenterController::class );
     Route::resource('/estates' , EstateController::class );
     Route::resource('/estates.units' , UnitController::class );

@@ -94,7 +94,7 @@ final class EloquentRenterRepository implements RenterRepositroy
 
     public function show(int $renterId): RenterEntity|null
     {
-        $record = Renter::with('phones')->find($renterId);
+        $record = Renter::find($renterId);
         if ($record) {
             $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
