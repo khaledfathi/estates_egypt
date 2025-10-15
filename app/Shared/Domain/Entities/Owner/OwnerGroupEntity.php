@@ -19,10 +19,4 @@ final class OwnerGroupEntity
         public ?int $ownersCount = null,
         public ?array $owners = null,
     ) {}
-
-    /**
-     * prevent delete the default ownerGroup 
-     * @param int $ownerGroupOId
-     * @return bool
-     */
 }
