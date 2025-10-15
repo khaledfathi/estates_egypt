@@ -15,9 +15,6 @@ class DestroyOwnerGroupPresenter implements DestroyOwnerGroupOutput {
          redirect(route('owner-groups.index'))
          ->with('success', Messages::STORE_SUCCESS);
     }
-    public function onDeleteDefaultGroup():void{
-        $this->response = fn() => back()->with('error', Messages::CAN_NOT_DELETE_DEFAULT_GROUP);
-    }
     public function onFailure(string $error):void{
         $this->response = fn() => redirect(route('owner-groups.index'))->with('error', Messages::INTERNAL_SERVER_ERROR);
         //log

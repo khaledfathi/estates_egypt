@@ -18,10 +18,6 @@ final class DestroyOwnerGroupUsecase implements DestroyOwnerGroupContract
     public function destroy(int $ownerGroupId, DestroyOwnerGroupOutput $presneter): void
     {
         try {
-            if (! OwnerGroupEntity::canBeDeleted($ownerGroupId)) {
-                $presneter->onDeleteDefaultGroup();
-                return;
-            }
             $presneter->onSuccess($this->ownerGroupRepository->destroy($ownerGroupId));
         } catch (Exception $e) {
             $presneter->onFailure($e->getMessage());

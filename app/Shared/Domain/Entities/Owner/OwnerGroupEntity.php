@@ -25,8 +25,4 @@ final class OwnerGroupEntity
      * @param int $ownerGroupOId
      * @return bool
      */
-    public static function canBeDeleted(int $ownerGroupOId): bool
-    {
-        return $ownerGroupOId == 1 ? false :  true;
-    }
 }
