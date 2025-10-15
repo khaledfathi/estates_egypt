@@ -8,10 +8,12 @@ use App\Features\OwnerGroups\Application\Contracts\DestroyOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\StoreOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
-use App\Features\OwnerGroups\Presentation\Http\Presenters\DestroyOwnerGroupPresnter;
+use App\Features\OwnerGroups\Presentation\Http\Presenters\DestroyOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\EditOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\ShowOwnerGroupPaginatePresenter;
+use App\Features\OwnerGroups\Presentation\Http\Presenters\ShowOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\StoreOwnerGroupPresenter;
+use App\Features\OwnerGroups\Presentation\Http\Presenters\UpdateOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Requests\StoreOwnerGroupRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
@@ -32,9 +34,11 @@ class OwnerGroupController extends Controller
         $this->showOwnerGroupUsecase->allWithPaginate($presenter, 10);
         return  $presenter->handle();
     }
-    public function show()
+    public function show(string $ownerGroupId)
     {
-        return __CLASS__ . "::" . __FUNCTION__;
+        $presenter = new ShowOwnerGroupPresenter();
+        $this->showOwnerGroupUsecase->showById((int)$ownerGroupId, $presenter);
+        return $presenter->handle();
     }
     public function create()
     {
@@ -49,25 +53,31 @@ class OwnerGroupController extends Controller
         $this->storeOwnerGroupUsecase->store($ownerGroupEntity, $presenter);
         return $presenter->handle();
     }
-    public function edit(Request $request ,string $ownerGroupId)
+    public function edit(Request $request, string $ownerGroupId)
     {
-        $presenter = new EditOwnerGroupPresenter(); 
-        $this->updateOwnerGroupUsecase->edit((int)$ownerGroupId , $presenter);
+        $presenter = new EditOwnerGroupPresenter();
+        $this->updateOwnerGroupUsecase->edit((int)$ownerGroupId, $presenter);
         return $presenter->handle();
     }
-    public function update()
+    public function update(Request $request, string $ownerGroupId)
     {
-        return __CLASS__ . "::" . __FUNCTION__;
+        $presenter = new UpdateOwnerGroupPresenter();
+        $this->updateOwnerGroupUsecase->update(
+            $this->formToUnitEntity([...$request->all(), 'owner_group_id' => (int)$ownerGroupId]),
+            $presenter
+        );
+        return $presenter->handle();
     }
     public function destroy(string $ownerGroupId)
     {
-        $presenter = new DestroyOwnerGroupPresnter();
-        $this->destroyOwnerGroupUsecase->destroy((int)$ownerGroupId , $presenter);
-        return $presenter->handle(); 
+        $presenter = new DestroyOwnerGroupPresenter();
+        $this->destroyOwnerGroupUsecase->destroy((int)$ownerGroupId, $presenter);
+        return $presenter->handle();
     }
     private function formToUnitEntity(array $formArray): OwnerGroupEntity
     {
         return new OwnerGroupEntity(
+            id: $formArray['owner_group_id'] ?? null,
             name: $formArray['name'] ?? null,
         );
     }

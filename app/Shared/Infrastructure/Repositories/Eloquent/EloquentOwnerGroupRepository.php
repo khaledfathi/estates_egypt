@@ -88,7 +88,9 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
     }
     public function update(OwnerGroupEntity $ownerGroupEntity): bool
     {
-        return false;
+        return OwnerGroup::find($ownerGroupEntity->id)->update([
+            'name' => $ownerGroupEntity->name,
+        ]);
     }
     public function destroy(int $OwnerGroupId): bool
     {

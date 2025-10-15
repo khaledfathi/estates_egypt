@@ -24,5 +24,14 @@ final class ShowOwnerGroupUsecase implements ShowOwnerGroupContract
             $presenter->onFailure($e->getMessage());
         }
     }
-    public function  show(ShowOwnerGroupOutput $presneter) {}
+    public function  showById (int $ownerGroupId , ShowOwnerGroupOutput $presneter){
+        try{
+            $record = $this->ownerGroupRepository->show($ownerGroupId);
+            $record
+                ? $presneter->onSuccess($record)
+                : $presneter->onNotFound();
+        }catch(Exception $e){
+            $presneter->onFailure($e->getMessage());
+        }
+    }
 }
