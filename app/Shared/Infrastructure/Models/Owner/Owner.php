@@ -2,6 +2,7 @@
 declare (strict_types= 1);
 namespace App\Shared\Infrastructure\Models\Owner;
 
+use App\Models\OwnerGroup;
 use App\Shared\Infrastructure\Models\Unit\UnitOwnership;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Owner extends Model
     protected $fillable = [
         "name",
         "national_id",
+        "owner_group_id",
         "address",
         "notes",
     ];
@@ -20,6 +22,9 @@ class Owner extends Model
     }   
     public function unitOwnerships (){
         return $this->hasMany(UnitOwnership::class);
+    }
+    public function ownerGroups (){
+        return $this->belongsTo(OwnerGroup::class, 'owner_group_id' , 'id');
     }
 }
 

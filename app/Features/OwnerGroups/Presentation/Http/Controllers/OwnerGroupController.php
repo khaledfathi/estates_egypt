@@ -7,12 +7,15 @@ namespace App\Features\OwnerGroups\Presentation\Http\Controllers;
 use App\Features\OwnerGroups\Application\Contracts\DestroyOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\StoreOwnerGroupContract;
+use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\DestroyOwnerGroupPresnter;
+use App\Features\OwnerGroups\Presentation\Http\Presenters\EditOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\ShowOwnerGroupPaginatePresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\StoreOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Requests\StoreOwnerGroupRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
+use Illuminate\Http\Request;
 
 class OwnerGroupController extends Controller
 {
@@ -20,6 +23,7 @@ class OwnerGroupController extends Controller
         private readonly ShowOwnerGroupContract $showOwnerGroupUsecase,
         private readonly StoreOwnerGroupContract $storeOwnerGroupUsecase,
         private readonly DestroyOwnerGroupContract $destroyOwnerGroupUsecase,
+        private readonly UpdateOwnerGroupContrat $updateOwnerGroupUsecase,
     ) {}
     public function index()
     {
@@ -45,9 +49,11 @@ class OwnerGroupController extends Controller
         $this->storeOwnerGroupUsecase->store($ownerGroupEntity, $presenter);
         return $presenter->handle();
     }
-    public function edit()
+    public function edit(Request $request ,string $ownerGroupId)
     {
-        return __CLASS__ . "::" . __FUNCTION__;
+        $presenter = new EditOwnerGroupPresenter(); 
+        $this->updateOwnerGroupUsecase->edit((int)$ownerGroupId , $presenter);
+        return $presenter->handle();
     }
     public function update()
     {

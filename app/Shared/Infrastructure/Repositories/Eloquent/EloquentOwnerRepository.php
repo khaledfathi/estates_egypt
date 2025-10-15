@@ -106,7 +106,8 @@ final class EloquentOwnerRepository implements OwnerRepository
     }
     public function show(int $ownerId): OwnerEntity|null
     {
-        $record = Owner::with('phones', 'unitOwnerships.unit', 'unitOwnerships.unit.estate')->find($ownerId);
+        $record = Owner::with('phones', 'unitOwnerships.unit', 'unitOwnerships.unit.estate', 'ownerGroups')
+            ->find($ownerId);
         if ($record) {
             $ownerPhones = [];
             foreach ($record?->phones ?? [] as $phone) {
