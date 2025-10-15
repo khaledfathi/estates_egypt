@@ -7,10 +7,12 @@ namespace App\Shared\Infrastructure\Providers;
 use App\Shared\Application\Contracts\Storage\Storage;
 use App\Shared\Application\Contracts\Storage\StorageDir;
 use App\Shared\Application\Utility\UtilityStorageDir;
+use App\Shared\Domain\Repositories\EloquentOwnerInGroupRepository;
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\EstateUtilityServiceRepository;
 use App\Shared\Domain\Repositories\OwnerGroupRepository;
+use App\Shared\Domain\Repositories\OwnerInGroupRepository;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\Repositories\RenterRepositroy;
 use App\Shared\Domain\Repositories\UnitOwnershipRepository;
@@ -46,6 +48,7 @@ class SharedServiceProvider extends ServiceProvider
         $this->app->bind(UnitUtilityServiceRepository::class , EloquentUnitUtilityServiceRepository::class);
         $this->app->bind(UnitOwnershipRepository::class , EloquentUnitOwnershipRepository::class);
         $this->app->bind(OwnerGroupRepository::class , EloquentOwnerGroupRepository::class);
+        $this->app->bind(OwnerInGroupRepository::class , EloquentOwnerInGroupRepository::class);
 
         // framework services 
         $this->app->bind(Storage::class, LaravelStorage::class);

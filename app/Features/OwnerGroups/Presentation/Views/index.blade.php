@@ -47,7 +47,6 @@
         @endif
         {{-- / success message  --}}
 
-
         @isset($ownerGroups)
             <div class="card-block row">
                 <a href="{{ route('owner-groups.create') }}" class="btn btn-md btn-primary my-5">

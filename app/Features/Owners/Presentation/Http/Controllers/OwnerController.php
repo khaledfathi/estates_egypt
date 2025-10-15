@@ -7,6 +7,7 @@ use App\Features\Owners\Application\Contracts\DestroyOwnerContract;
 use App\Features\Owners\Application\Contracts\ShowOwnerContract;
 use App\Features\Owners\Application\Contracts\StoreOwnerContract;
 use App\Features\Owners\Application\Contracts\UpdateOwnerContract;
+use App\Features\Owners\Presentation\API\Presenters\CreateOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Presenters\DestroyOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Presenters\EditOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Presenters\ShowOwnerPresenter;
@@ -23,7 +24,7 @@ class  OwnerController extends Controller
 {
     public function __construct(
         private readonly ShowOwnerContract $showOwnerUsecase,
-        private readonly StoreOwnerContract $createOwnerUsecase,
+        private readonly StoreOwnerContract $storeOwnerUsecase,
         private readonly UpdateOwnerContract $updateOwnerUsecase,
         private readonly DestroyOwnerContract $destroyOwnerUsecase
 
@@ -61,7 +62,9 @@ class  OwnerController extends Controller
     }
     public function create()
     {
-        return view("owners::create");
+        $presenter = new CreateOwnerPresenter();
+        $this->storeOwnerUsecase->create($presenter);
+        return $presenter->handle();
     }
 
     public function store(StoreOwnerRequest $request)
@@ -70,7 +73,7 @@ class  OwnerController extends Controller
         $ownerEntity = $this->formToOwnerEntity($request->all());
         //action
         $presenter = new StoreOwnerPresenter();
-        $this->createOwnerUsecase->store($ownerEntity, $presenter);
+        $this->storeOwnerUsecase->store($ownerEntity, $presenter);
         return $presenter->handle();
     }
     public function destroy(string $id)

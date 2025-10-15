@@ -20,7 +20,16 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
      */
     public function index(): array
     {
-        return [];
+        //Query 
+        $ownerGroupsRecords = OwnerGroup::orderBy('name')->get();
+        $arrayOfOwnerGroups = [];
+        foreach($ownerGroupsRecords as $record){
+            $arrayOfOwnerGroups[] = new OwnerGroupEntity(
+                $record->id,
+                $record->name,
+            );
+        }
+        return $arrayOfOwnerGroups;
     }
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {

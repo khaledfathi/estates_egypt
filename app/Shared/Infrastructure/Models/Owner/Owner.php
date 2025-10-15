@@ -22,5 +22,9 @@ class Owner extends Model
     public function unitOwnerships (){
         return $this->hasMany(UnitOwnership::class);
     }
+
+    public function ownerInGroups (){
+        return $this->hasMany(OwnerInGroup::class, 'owner_id', 'id');
+    }
 }
 
