@@ -25,7 +25,7 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
         //Query 
-        $ownerGroupsRecords = OwnerGroup::orderBy('created_at', 'desc')->withCount('owners')
+        $ownerGroupsRecords = OwnerGroup::orderBy('created_at', 'desc')
             ->paginate($perPage);
         //Transform to DTO
         $arrayOfOwnerGroups = [];
@@ -34,7 +34,6 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
             $arrayOfOwnerGroups[] = new OwnerGroupEntity(
                 (int) $record->id,
                 $record->name,
-                $record->owners_count,
             );
         }
         //Pagination DTO
@@ -53,26 +52,13 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
     }
     public function show(int $OwnerGroupId): OwnerGroupEntity|null
     {
-        $record = OwnerGroup::with('owners','owners.phones')->withCount('owners')->find($OwnerGroupId);
+        $record = OwnerGroup::find($OwnerGroupId);
         if ($record) {
-            //Owners DTO
-            $arrayOfOwners = [];
-            foreach($record->owners as $owner){
-                $arrayOfOwners[] = new OwnerEntity(
-                    $owner->id,
-                    $owner->name,
-                    $owner->nationalId,
-                    $owner->address,
-                    $owner->phones->pluck('phones')->toArray(),
-                    $owner->notes,
-                );
-            }
             //OwnerGroup DTO
             $ownerGroupEntity  = new OwnerGroupEntity(
                 $record->id,
                 $record->name,
                 $record->ownersCount,
-                $arrayOfOwners,
             );
             return $ownerGroupEntity;
         }

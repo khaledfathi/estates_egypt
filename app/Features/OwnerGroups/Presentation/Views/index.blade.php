@@ -91,7 +91,7 @@
                                     @foreach ($ownerGroups as $ownerGroup)
                                         <tr>
                                             <td>{{ $ownerGroup->name }}</td>
-                                            <td>{{ $ownerGroup->ownersCount }}</td>
+                                            <td>NA</td>
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"
@@ -120,7 +120,7 @@
                             <div class="card card-inverse card-primary text-xs-center">
                                 <div class="card-block">
                                     <blockquote class="card-blockquote">
-                                        لا توجد مجموعات ملاك مسجلين حتى الان - قم باضافة مجموعة
+                                        لا توجد مجموعات ملاك مسجلة حتى الان - قم باضافة مجموعة
                                     </blockquote>
                                 </div>
                             </div>

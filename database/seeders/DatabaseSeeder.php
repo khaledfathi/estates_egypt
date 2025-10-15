@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
     }
     private function callSeeders()
     {
-        $this->call(OwnerGroupSeeder::class);
+        // call another seeders 
     }
 }

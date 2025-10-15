@@ -15,6 +15,7 @@ use App\Features\OwnerGroups\Presentation\Http\Presenters\ShowOwnerGroupPresente
 use App\Features\OwnerGroups\Presentation\Http\Presenters\StoreOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\UpdateOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Requests\StoreOwnerGroupRequest;
+use App\Features\OwnerGroups\Presentation\Http\Requests\UpdateOwnerGroupRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use Illuminate\Http\Request;
@@ -59,7 +60,7 @@ class OwnerGroupController extends Controller
         $this->updateOwnerGroupUsecase->edit((int)$ownerGroupId, $presenter);
         return $presenter->handle();
     }
-    public function update(Request $request, string $ownerGroupId)
+    public function update(UpdateOwnerGroupRequest $request, string $ownerGroupId)
     {
         $presenter = new UpdateOwnerGroupPresenter();
         $this->updateOwnerGroupUsecase->update(
