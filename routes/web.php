@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/owners', OwnerController::class);
     Route::resource('/owner-groups', OwnerGroupController::class);
+    Route::delete('/owner-groups/{owner_group}/unlink-owner/{owner_in_group}' , [OwnerGroupController::class, 'unlinkOwner'])->name('owner-groups.unlink');
+
     Route::resource('/renters' , RenterController::class );
     Route::resource('/estates' , EstateController::class );
     Route::resource('/estates.units' , UnitController::class );

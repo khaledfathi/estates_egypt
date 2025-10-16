@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Log;
 class ShowOwnerGroupPresenter implements ShowOwnerGroupOutput
 {
     private Closure  $response;
+    public function __construct(
+        private readonly int $ownerGroupId,
+    ){}
     public function onSuccess(OwnerGroupEntity $ownerGroupEntity): void
     {
         $this->response = fn() => 
-            view("owner-groups::show", ['ownerGroup'=> $ownerGroupEntity]);
+            view("owner-groups::show", ['ownerGroup'=> $ownerGroupEntity , 'ownerGroupId' => $this->ownerGroupId]);
     }
     public function onNotFound(): void
     {

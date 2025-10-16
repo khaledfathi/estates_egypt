@@ -18,6 +18,8 @@ final class OwnerEntity
      * @param ?string $notes
      * @param ?int $ownershipId the id of realeationship between (unit and owenr) in table ownerships
      * @param ?array<UnitEntity> $units uints ownen by this owner
+     * @param ?array<OwnerGroupEntity> $ownerGroups
+     * @param ?OwnerInGroupEntity $ownerInGroup pivot between this owner and ownerGroup
      */
     public function __construct(
         public ?int $id = null,
@@ -28,6 +30,8 @@ final class OwnerEntity
         public ?string $notes = null,
         public ?int $ownershipId = null,
         public ?array $units = null,
+        public ?array $ownerGroups = null, 
+        public ?OwnerInGroupEntity $ownerInGroup= null,
     ) {}
 
     /**

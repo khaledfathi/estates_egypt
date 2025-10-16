@@ -7,7 +7,6 @@ namespace App\Shared\Infrastructure\Providers;
 use App\Shared\Application\Contracts\Storage\Storage;
 use App\Shared\Application\Contracts\Storage\StorageDir;
 use App\Shared\Application\Utility\UtilityStorageDir;
-use App\Shared\Domain\Repositories\EloquentOwnerInGroupRepository;
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\EstateUtilityServiceRepository;
@@ -22,6 +21,7 @@ use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateDocumentReposi
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateUtilityServiceRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerGroupRepository;
+use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerInGroupRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRenterRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitOwnershipRepository;

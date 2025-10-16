@@ -10,7 +10,6 @@ use App\Shared\Domain\Entities\Renter\RenterEntity;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Illuminate\View\View;
 
 final class ShowRenterPresenter implements ShowRenterOutput {
     private Closure $response;

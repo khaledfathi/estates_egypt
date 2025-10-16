@@ -90,7 +90,7 @@
                                     @foreach ($ownerGroups as $ownerGroup)
                                         <tr>
                                             <td>{{ $ownerGroup->name }}</td>
-                                            <td>NA</td>
+                                            <td>{{ $ownerGroup->ownersCount }}</td>
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"

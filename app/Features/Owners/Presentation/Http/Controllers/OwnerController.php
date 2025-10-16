@@ -17,7 +17,9 @@ use App\Features\Owners\Presentation\Http\Presenters\UpdateOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Requests\StoreOwnerRequest;
 use App\Features\Owners\Presentation\Http\Requests\UpdateOwnerRequest;
 use App\Http\Controllers\Controller;
+use App\Models\OwnerGroup;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use App\Shared\Domain\Entities\Owner\OwnerPhoneEntity;
 
 class  OwnerController extends Controller
@@ -85,21 +87,29 @@ class  OwnerController extends Controller
 
     private function formToOwnerEntity(array $formArray): OwnerEntity
     {
-        //phones 
+        //----
         $ownerPhones = [];
         if (isset($formArray["phones"])) {
             foreach ($formArray["phones"] as $phone) {
                 $ownerPhones[] = new OwnerPhoneEntity(phone: $phone);
             }
         }
+        //----
+        $ownerGroups = [];
+        if (isset($formArray["owner_groups"])) {
+            foreach ($formArray["owner_groups"] as $ownerGroupId) {
+                $ownerGroups[] = new OwnerGroupEntity((int)$ownerGroupId);
+            }
+        }
         //return owner entity with phones if exist
         return new OwnerEntity(
-            $formArray['id'] ?? null,
-            $formArray['name'] ?? null,
-            $formArray['national_id'] ?? null,
-            $formArray['address'] ?? null,
-            $ownerPhones,
-            $formArray['notes'] ?? null,
+            id:$formArray['id'] ?? null,
+            name:$formArray['name'] ?? null,
+            nationalId:$formArray['national_id'] ?? null,
+            address:$formArray['address'] ?? null,
+            phones:$ownerPhones,
+            notes:$formArray['notes'] ?? null,
+            ownerGroups:$ownerGroups 
         );
     }
 }

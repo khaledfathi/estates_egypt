@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OwnerInGroup extends Model
 {
+    protected $table = 'owner_in_group';
     protected $fillable = [
         'owner_id',
         'group_id',

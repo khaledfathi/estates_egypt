@@ -7,12 +7,14 @@ namespace App\Features\OwnerGroups\Presentation\Http\Controllers;
 use App\Features\OwnerGroups\Application\Contracts\DestroyOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\StoreOwnerGroupContract;
+use App\Features\OwnerGroups\Application\Contracts\UnlinkOwnerFromGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\DestroyOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\EditOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\ShowOwnerGroupPaginatePresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\ShowOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\StoreOwnerGroupPresenter;
+use App\Features\OwnerGroups\Presentation\Http\Presenters\UnlinkOwnerFromGroupPresneter;
 use App\Features\OwnerGroups\Presentation\Http\Presenters\UpdateOwnerGroupPresenter;
 use App\Features\OwnerGroups\Presentation\Http\Requests\StoreOwnerGroupRequest;
 use App\Features\OwnerGroups\Presentation\Http\Requests\UpdateOwnerGroupRequest;
@@ -27,6 +29,7 @@ class OwnerGroupController extends Controller
         private readonly StoreOwnerGroupContract $storeOwnerGroupUsecase,
         private readonly DestroyOwnerGroupContract $destroyOwnerGroupUsecase,
         private readonly UpdateOwnerGroupContrat $updateOwnerGroupUsecase,
+        private readonly UnlinkOwnerFromGroupContract $unlinkOwnerFromGroupUsecase
     ) {}
     public function index()
     {
@@ -37,7 +40,7 @@ class OwnerGroupController extends Controller
     }
     public function show(string $ownerGroupId)
     {
-        $presenter = new ShowOwnerGroupPresenter();
+        $presenter = new ShowOwnerGroupPresenter((int)$ownerGroupId);
         $this->showOwnerGroupUsecase->showById((int)$ownerGroupId, $presenter);
         return $presenter->handle();
     }
@@ -73,6 +76,11 @@ class OwnerGroupController extends Controller
     {
         $presenter = new DestroyOwnerGroupPresenter();
         $this->destroyOwnerGroupUsecase->destroy((int)$ownerGroupId, $presenter);
+        return $presenter->handle();
+    }
+    public function unlinkOwner(string $ownerGroupId , string $ownerInGroupId){
+        $presenter = new UnlinkOwnerFromGroupPresneter((int)$ownerGroupId);
+        $this->unlinkOwnerFromGroupUsecase->unlink((int) $ownerInGroupId , $presenter);
         return $presenter->handle();
     }
     private function formToUnitEntity(array $formArray): OwnerGroupEntity

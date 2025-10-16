@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('owner_in_group', function (Blueprint $table) {
             $table->id();
             //FK
-            $table->foreignId('owner_id')->references('id')->on('owenrs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('owner_id')->references('id')->on('owners')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('group_id')->references('id')->on('owner_groups')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

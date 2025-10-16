@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Features\Owners\Domain\ValueObjects\OwnerEntitiesWithPagination;
+use App\Models\OwnerGroup;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use App\Shared\Domain\Entities\Owner\OwnerPhoneEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Domain\Enum\Unit\UnitType;
@@ -106,15 +108,25 @@ final class EloquentOwnerRepository implements OwnerRepository
     }
     public function show(int $ownerId): OwnerEntity|null
     {
-        $record = Owner::with('phones', 'unitOwnerships.unit', 'unitOwnerships.unit.estate')
+        $record = Owner::with('phones', 'unitOwnerships.unit', 'unitOwnerships.unit.estate',  'ownerInGroups', 'ownerInGroups.group')
+            ->withCount('ownerInGroups')
             ->find($ownerId);
         if ($record) {
             $ownerPhones = [];
-            foreach ($record?->phones ?? [] as $phone) {
+            foreach ($record->phones ?? [] as $phone) {
                 $ownerPhones[]  =  new OwnerPhoneEntity(
                     (int)$phone->id,
                     (int)$phone->owner_id,
                     $phone->phone,
+                );
+            }
+
+            $ownerGroups = [];
+            foreach ($record->ownerInGroups as $ownerGroup) {
+                $ownerGroups[] = new OwnerGroupEntity(
+                    id : $ownerGroup->group->id,
+                    name :$ownerGroup->group->name,
+                    ownersCount : $ownerGroup->owner_in_groups_count,
                 );
             }
 
@@ -149,7 +161,8 @@ final class EloquentOwnerRepository implements OwnerRepository
                 address: $record->address,
                 phones: $ownerPhones,
                 notes: $record->notes,
-                units:$unitEntities
+                units:$unitEntities,
+                ownerGroups:$ownerGroups
             );
             return $ownerEntity;
         }

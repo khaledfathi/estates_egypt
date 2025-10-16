@@ -8,9 +8,13 @@ use App\Features\OwnerGroups\Domain\ValueObjects\OwnerGroupEntitiesWithPaginatio
 use App\Models\OwnerGroup;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
+use App\Shared\Domain\Entities\Owner\OwnerInGroupEntity;
 use App\Shared\Domain\Repositories\OwnerGroupRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Domain\ValueObjects\Pagination;
+use App\Shared\Infrastructure\Models\Owner\Owner;
+use App\Shared\Infrastructure\Models\Owner\OwnerInGroup;
+use Exception;
 
 class EloquentOwnerGroupRepository implements OwnerGroupRepository
 {
@@ -23,7 +27,7 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
         //Query 
         $ownerGroupsRecords = OwnerGroup::orderBy('name')->get();
         $arrayOfOwnerGroups = [];
-        foreach($ownerGroupsRecords as $record){
+        foreach ($ownerGroupsRecords as $record) {
             $arrayOfOwnerGroups[] = new OwnerGroupEntity(
                 $record->id,
                 $record->name,
@@ -34,7 +38,7 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
     public function indexWithPaginate(int $perPage): EntitiesWithPagination
     {
         //Query 
-        $ownerGroupsRecords = OwnerGroup::orderBy('created_at', 'desc')
+        $ownerGroupsRecords = OwnerGroup::withCount('ownerInGroups')->orderBy('created_at', 'desc')
             ->paginate($perPage);
         //Transform to DTO
         $arrayOfOwnerGroups = [];
@@ -43,6 +47,7 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
             $arrayOfOwnerGroups[] = new OwnerGroupEntity(
                 (int) $record->id,
                 $record->name,
+                $record->owner_in_groups_count
             );
         }
         //Pagination DTO
@@ -61,13 +66,31 @@ class EloquentOwnerGroupRepository implements OwnerGroupRepository
     }
     public function show(int $OwnerGroupId): OwnerGroupEntity|null
     {
-        $record = OwnerGroup::find($OwnerGroupId);
+        $record = OwnerGroup::with('ownerInGroups', 'ownerInGroups.owner')->withCount('ownerInGroups')->find($OwnerGroupId);
         if ($record) {
+            //Owner DTO 
+            $owners = [];
+            foreach ($record->ownerInGroups as $ownerInGroup) {
+                $owners[] = new OwnerEntity(
+                    id: $ownerInGroup->owner->id,
+                    name: $ownerInGroup->owner->name,
+                    nationalId: $ownerInGroup->owner->national_id,
+                    phones: $ownerInGroup->owner->phones->pluck('phone')->toArray(),
+                    ownerInGroup: new OwnerInGroupEntity (
+                        $ownerInGroup->id,
+                        $ownerInGroup->owner_id,
+                        $ownerInGroup->group_id,
+                    ),
+
+                );
+            }
+
             //OwnerGroup DTO
             $ownerGroupEntity  = new OwnerGroupEntity(
                 $record->id,
                 $record->name,
-                $record->ownersCount,
+                $record->owner_in_groups_count,
+                $owners,
             );
             return $ownerGroupEntity;
         }
