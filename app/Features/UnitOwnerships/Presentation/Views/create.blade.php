@@ -1,6 +1,9 @@
 @extends('shared::main-layout')
-@section('title', 'الوحدات | تسجيل مالك')
+@section('title', 'الوحدات | تسجيل الملاك')
 @section('active-estates', 'active')
+@section('scripts')
+    @vite('resources/ts/features/unit-ownerships/create.ts');
+@endsection
 
 @section('content')
     <div class="container-fluid ">
@@ -81,18 +84,35 @@
                 <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"
                     action="{{ route('estates.units.ownerships.store', ['estate' => $estate->id, 'unit' => $unit->id]) }}">
                     @csrf
+                    {{-- store options --}}
+                    <div class="form-group row" style="text-align:center">
+                        <div class="col">
+                            <label class="radio-inline" for="inline-radio1">
+                                <input type="radio" id="inline-radio1" name="store-option" value="single-owner"> مالك واحد
+                            </label>
+                            <label class="radio-inline" for="inline-radio2">
+                                <input type="radio" id="inline-radio2" name="store-option" value="multiple-owners"> متعدد الملاك
+                            </label>
+                            <label class="radio-inline" for="inline-radio3">
+                                <input type="radio" id="inline-radio3" name="store-option" value="groups-of-owners" checked> مجموعات الملاك 
+                            </label>
+                        </div>
+                    </div>
+                    {{-- store options --}}
+
                     <div class="card">
                         <div class="card-header">
                             <strong>تسجيل مالك للوحدة </strong>
                         </div>
-                        <div class="card-block">
 
+                        {{-- SINGLE OWNER OPTION --}}
+                        <div class="card-block" id ="single-owner-section">
                             {{-- owner name --}}
                             <div class="form-group">
                                 <label for="owner_id">اسم المالك <span class="required">*</span></label>
                                 <select id="owner_id" name="owner_id" class="form-control" size="1">
                                     @foreach ($owners as $owner)
-                                        <option value="{{$owner->id}}">
+                                        <option value="{{ $owner->id }}">
                                             {{ $owner->name }}
                                         </option>
                                     @endforeach
@@ -111,6 +131,19 @@
                             </div>
                             {{-- / buttons --}}
                         </div>
+                        {{-- / SINGLE OWNER OPTION --}}
+
+                        {{-- MULTIPLE OWNERS OPTION  --}}
+                        <div class="card-block" id="multiple-owners-section">
+                            <h3>MULTIPLE OWNERS OPTION</h3>
+                        </div>
+                        {{-- / MULTIPLE OWNERS OPTION--}}
+
+                        {{-- GROUPS OF OWNERS OPTION --}}
+                        <div class="card-block" id="groups-of-owners-section">
+                            <h3>GROUPS OF OWNERS </h3>
+                        </div>
+                        {{-- / GROUPS OF OWNERS OPTION --}}
                     </div>
                 </form>
             </div>

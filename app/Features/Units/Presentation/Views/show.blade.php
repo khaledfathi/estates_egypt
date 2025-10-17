@@ -64,7 +64,7 @@
                     </a>
                     <a href="{{ route('estates.units.ownerships.create', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
                         class="btn btn-primary">
-                        <i class="fa fa-bolt fa-lg "></i> &nbsp; تسجيل مالك الوحدة
+                        <i class="icon-people fa-lg"></i>&nbsp; تسجيل مالك/ملاك الوحدة
                     </a>
                 </div>
             </div>
