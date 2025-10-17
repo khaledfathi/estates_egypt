@@ -81,8 +81,7 @@
 
         @isset($unit)
             <div class="row" style="display:flex; justify-content: center;">
-                <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"
-                    action="{{ route('estates.units.ownerships.store', ['estate' => $estate->id, 'unit' => $unit->id]) }}">
+                <div id="" class="col-sm-12 col-md-10 col-lg-6" method="post">
                     @csrf
                     {{-- store options --}}
                     <div class="form-group row" style="text-align:center">
@@ -91,10 +90,12 @@
                                 <input type="radio" id="inline-radio1" name="store-option" value="single-owner"> مالك واحد
                             </label>
                             <label class="radio-inline" for="inline-radio2">
-                                <input type="radio" id="inline-radio2" name="store-option" value="multiple-owners"> متعدد الملاك
+                                <input type="radio" id="inline-radio2" name="store-option" value="multiple-owners"> متعدد
+                                الملاك
                             </label>
                             <label class="radio-inline" for="inline-radio3">
-                                <input type="radio" id="inline-radio3" name="store-option" value="groups-of-owners" checked> مجموعات الملاك 
+                                <input type="radio" id="inline-radio3" name="store-option" value="groups-of-owners"
+                                    checked> مجموعات الملاك
                             </label>
                         </div>
                     </div>
@@ -106,7 +107,8 @@
                         </div>
 
                         {{-- SINGLE OWNER OPTION --}}
-                        <div class="card-block" id ="single-owner-section">
+                        <form class="card-block" id ="single-owner-section" method="post" action="">
+                            @csrf
                             {{-- owner name --}}
                             <div class="form-group">
                                 <label for="owner_id">اسم المالك <span class="required">*</span></label>
@@ -130,11 +132,12 @@
                                     الغاء</a>
                             </div>
                             {{-- / buttons --}}
-                        </div>
+                        </form>
                         {{-- / SINGLE OWNER OPTION --}}
 
                         {{-- MULTIPLE OWNERS OPTION  --}}
-                        <div class="card-block" id="multiple-owners-section">
+                        <form class="card-block" id="multiple-owners-section" method="post" action="">
+                            @csrf
                             <h3>MULTIPLE OWNERS OPTION</h3>
                             {{-- buttons --}}
                             <div class="form-group" style="margin-top: 40px">
@@ -146,11 +149,12 @@
                                     الغاء</a>
                             </div>
                             {{-- / buttons --}}
-                        </div>
-                        {{-- / MULTIPLE OWNERS OPTION--}}
+                        </form>
+                        {{-- / MULTIPLE OWNERS OPTION --}}
 
                         {{-- GROUPS OF OWNERS OPTION --}}
-                        <div class="card-block" id="groups-of-owners-section">
+                        <form class="card-block" id="groups-of-owners-section" method="post" action="">
+                            @csrf
                             <h3>GROUPS OF OWNERS </h3>
                             {{-- buttons --}}
                             <div class="form-group" style="margin-top: 40px">
@@ -163,10 +167,10 @@
                             </div>
                             {{-- / buttons --}}
 
-                        </div>
+                        </form>
                         {{-- / GROUPS OF OWNERS OPTION --}}
                     </div>
-                </form>
+                </div>
             </div>
         @endisset
 </div>

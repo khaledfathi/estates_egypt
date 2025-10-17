@@ -12,5 +12,5 @@ interface ShowEstateDocumentContract
 
     public function allWithPaginate(ShowEstateDocumentsPaginateOutput $presenter, int $estateId, int $perPage = 5): void;
 
-    public function showById(int $estateDocuemntId, ShowEstateDocumentOutput $presenter): void;
+    public function showById(int $estateDocumentId, ShowEstateDocumentOutput $presenter): void;
 }
