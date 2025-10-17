@@ -7,5 +7,5 @@ use App\Features\OwnerGroups\Application\Outputs\StoreOwnerGroupOutput;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 
 interface StoreOwnerGroupContract { 
-    public function store (OwnerGroupEntity $ownerGroupEntity ,  StoreOwnerGroupOutput $presenter):void;
+    public function execute (OwnerGroupEntity $ownerGroupEntity ,  StoreOwnerGroupOutput $presenter):void;
 }

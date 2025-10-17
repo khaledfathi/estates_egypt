@@ -5,5 +5,5 @@ namespace App\Features\OwnerGroups\Application\Contracts;
 use App\Features\OwnerGroups\Application\Outputs\DestroyOwnerGroupOutput;
 
 interface DestroyOwnerGroupContract {
-    public function destroy(int $ownerGroupId , DestroyOwnerGroupOutput $presneter):void;
+    public function execute(int $ownerGroupId , DestroyOwnerGroupOutput $presneter):void;
 }

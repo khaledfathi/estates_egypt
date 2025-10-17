@@ -3,8 +3,10 @@ declare (strict_types= 1);
 
 namespace App\Features\UnitOwnerships\Infrastructure\Providers;
 
+use App\Features\UnitOwnerships\Application\Contracts\CreateUnitOwnershipContract;
 use App\Features\UnitOwnerships\Application\Contracts\DestroyUnitOwnershipContract;
 use App\Features\UnitOwnerships\Application\Contracts\StoreUnitOwnershipContract;
+use App\Features\UnitOwnerships\Application\Usecases\CreateUnitOwnershipUsecase;
 use App\Features\UnitOwnerships\Application\Usecases\DestroyUnitOwnershipUsecase;
 use App\Features\UnitOwnerships\Application\Usecases\StoreUnitOwnershipUsecase;
 use Illuminate\Support\Facades\View;
@@ -20,6 +22,7 @@ class UnitOwnershipProvider extends ServiceProvider
         // Usecases 
         $this->app->bind(StoreUnitOwnershipContract::class , StoreUnitOwnershipUsecase::class);
         $this->app->bind(DestroyUnitOwnershipContract::class , DestroyUnitOwnershipUsecase::class);
+        $this->app->bind(CreateUnitOwnershipContract::class , CreateUnitOwnershipUsecase::class);
     }
 
     /**

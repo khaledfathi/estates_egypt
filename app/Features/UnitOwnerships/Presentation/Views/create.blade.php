@@ -107,7 +107,8 @@
                         </div>
 
                         {{-- SINGLE OWNER OPTION --}}
-                        <form class="card-block" id ="single-owner-section" method="post" action="">
+                        <form class="card-block" id ="single-owner-section" method="post" 
+                            action="{{ route('estates.units.ownerships.store' , ['estate'=>$estate->id, 'unit' => $unit->id]) }}">
                             @csrf
                             {{-- owner name --}}
                             <div class="form-group">

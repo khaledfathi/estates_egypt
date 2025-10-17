@@ -14,5 +14,5 @@ interface StoreRenterContract {
      * @param StoreRenterOutput $presenter
      * @return void
      */
-    public function store(RenterEntity $renterEntity, StoreRenterOutput $presenter): void;
+    public function execute(RenterEntity $renterEntity, StoreRenterOutput $presenter): void;
 }

@@ -22,20 +22,8 @@ final class StoreUnitOwnershipUsecase implements StoreUnitOwnershipContract
     ) {}
     public function create(int $unitId, CreateUnitOwnershipOutput $presnter): void
     {
-        try {
-            $unitEntity = $this->unitRepository->show($unitId);
-            $ownerEntities= $this->ownerRepository->index();
-            if($unitEntity){
-                 $unitEntity->owners = $ownerEntities;
-                 $presnter->onSuccess($unitEntity);
-            }else{
-                $presnter->onUnitNotFound();
-            }
-        } catch (Exception $e) {
-            $presnter->onFailure($e->getMessage());
-        }
     }
-    public function store (UnitOwnershipEntity $unitOwnershipEntity, StoreUnitOwnershipOutput $presnter): void
+    public function execute (UnitOwnershipEntity $unitOwnershipEntity, StoreUnitOwnershipOutput $presnter): void
     {
         try {
             $record = $this->unitOwnershipRepository->store($unitOwnershipEntity);

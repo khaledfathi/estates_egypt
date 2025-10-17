@@ -84,7 +84,7 @@ class EstateUtilityServicesController extends Controller
     public function destroy(string $estaetId, string $estateUtilityServiceId)
     {
         $presenter = new DestroyEstateUtilityServicePresenter((int)$estaetId);
-        $this->destroyEstateUtilityServiceUsecase->destroy((int)$estateUtilityServiceId, $presenter);
+        $this->destroyEstateUtilityServiceUsecase->execute((int)$estateUtilityServiceId, $presenter);
         return $presenter->handle();
     }
     private function formToUnitEntity(array $formArray): EstateUtilityServiceEntity

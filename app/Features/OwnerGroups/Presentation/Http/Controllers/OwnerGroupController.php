@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Features\OwnerGroups\Presentation\Http\Controllers;
 
 use App\Features\OwnerGroups\Application\Contracts\DestroyOwnerGroupContract;
+use App\Features\OwnerGroups\Application\Contracts\EditOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupContract;
+use App\Features\OwnerGroups\Application\Contracts\ShowPaginateOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\StoreOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UnlinkOwnerFromGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
@@ -26,22 +28,24 @@ class OwnerGroupController extends Controller
 {
     public function __construct(
         private readonly ShowOwnerGroupContract $showOwnerGroupUsecase,
+        private readonly ShowPaginateOwnerGroupContract $showPaginateOwnerGroupUsecase,
         private readonly StoreOwnerGroupContract $storeOwnerGroupUsecase,
         private readonly DestroyOwnerGroupContract $destroyOwnerGroupUsecase,
         private readonly UpdateOwnerGroupContrat $updateOwnerGroupUsecase,
+        private readonly EditOwnerGroupContract $editOwnerGroupUsecase,
         private readonly UnlinkOwnerFromGroupContract $unlinkOwnerFromGroupUsecase
     ) {}
     public function index()
     {
 
         $presenter = new ShowOwnerGroupPaginatePresenter();
-        $this->showOwnerGroupUsecase->allWithPaginate($presenter, 10);
+        $this->showPaginateOwnerGroupUsecase->execute($presenter, 10);
         return  $presenter->handle();
     }
     public function show(string $ownerGroupId)
     {
         $presenter = new ShowOwnerGroupPresenter((int)$ownerGroupId);
-        $this->showOwnerGroupUsecase->showById((int)$ownerGroupId, $presenter);
+        $this->showOwnerGroupUsecase->execute((int)$ownerGroupId, $presenter);
         return $presenter->handle();
     }
     public function create()
@@ -54,19 +58,19 @@ class OwnerGroupController extends Controller
         $ownerGroupEntity = $this->formToUnitEntity($request->all());
         //action
         $presenter = new StoreOwnerGroupPresenter();
-        $this->storeOwnerGroupUsecase->store($ownerGroupEntity, $presenter);
+        $this->storeOwnerGroupUsecase->execute($ownerGroupEntity, $presenter);
         return $presenter->handle();
     }
     public function edit(Request $request, string $ownerGroupId)
     {
         $presenter = new EditOwnerGroupPresenter();
-        $this->updateOwnerGroupUsecase->edit((int)$ownerGroupId, $presenter);
+        $this->editOwnerGroupUsecase->execute((int)$ownerGroupId, $presenter);
         return $presenter->handle();
     }
     public function update(UpdateOwnerGroupRequest $request, string $ownerGroupId)
     {
         $presenter = new UpdateOwnerGroupPresenter();
-        $this->updateOwnerGroupUsecase->update(
+        $this->updateOwnerGroupUsecase->execute(
             $this->formToUnitEntity([...$request->all(), 'owner_group_id' => (int)$ownerGroupId]),
             $presenter
         );
@@ -75,12 +79,12 @@ class OwnerGroupController extends Controller
     public function destroy(string $ownerGroupId)
     {
         $presenter = new DestroyOwnerGroupPresenter();
-        $this->destroyOwnerGroupUsecase->destroy((int)$ownerGroupId, $presenter);
+        $this->destroyOwnerGroupUsecase->execute((int)$ownerGroupId, $presenter);
         return $presenter->handle();
     }
     public function unlinkOwner(string $ownerGroupId , string $ownerInGroupId){
         $presenter = new UnlinkOwnerFromGroupPresneter((int)$ownerGroupId);
-        $this->unlinkOwnerFromGroupUsecase->unlink((int) $ownerInGroupId , $presenter);
+        $this->unlinkOwnerFromGroupUsecase->execute((int) $ownerInGroupId , $presenter);
         return $presenter->handle();
     }
     private function formToUnitEntity(array $formArray): OwnerGroupEntity

@@ -6,5 +6,5 @@ namespace App\Features\OwnerGroups\Application\Contracts;
 use App\Features\OwnerGroups\Application\Outputs\UnlinkOwnerFromGroupOutput;
 
 interface UnlinkOwnerFromGroupContract {
-    public function unlink(int $ownerInGroupId , UnlinkOwnerFromGroupOutput $presenter);
+    public function execute(int $ownerInGroupId , UnlinkOwnerFromGroupOutput $presenter);
 }

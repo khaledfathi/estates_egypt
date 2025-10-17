@@ -6,6 +6,7 @@ use App\Features\Owners\Application\Contracts\DestroyOwnerContract;
 use App\Features\Owners\Application\Contracts\ShowOwnerContract;
 use App\Features\Owners\Application\Contracts\StoreOwnerContract;
 use App\Features\Owners\Application\Contracts\UpdateOwnerContract;
+use App\Features\Owners\Application\Usecases\ShowPaginateOwnerUsecase;
 use App\Features\Owners\Presentation\API\Presenters\DestroyOwnerPresenter;
 use App\Features\Owners\Presentation\API\Presenters\ShowOwnerPresenter;
 use App\Features\Owners\Presentation\API\Presenters\ShowOwnersPaginatePresenter;
@@ -19,6 +20,7 @@ class OwnerController extends Controller
 
     public function __construct(
         private readonly ShowOwnerContract $showOwnerUsecase,
+        private readonly ShowPaginateOwnerUsecase $showPaginateOwnerUsecase,
         private readonly StoreOwnerContract $createOwnerUsecase,
         private readonly UpdateOwnerContract $updateOwnerUsecase,
         private readonly DestroyOwnerContract $destroyOwnerUsecase
@@ -27,13 +29,11 @@ class OwnerController extends Controller
     public function index()
     {
         $presenter = new ShowOwnersPaginatePresenter();
-        $this->showOwnerUsecase->allWithPaginate($presenter , 10);
+        $this->showPaginateOwnerUsecase->execute($presenter, 10);
         return $presenter->handle();
     }
 
-    public function create()
-    {
-    }
+    public function create() {}
 
     public function store(Request $request)
     {
@@ -44,13 +44,11 @@ class OwnerController extends Controller
     public function show(string $id)
     {
         $presenter = new ShowOwnerPresenter();
-        $this->showOwnerUsecase->showById((int) $id ,$presenter);
+        $this->showOwnerUsecase->execute((int) $id, $presenter);
         return $presenter->handle();
     }
 
-    public function edit(string $id)
-    {
-    }
+    public function edit(string $id) {}
 
     public function update(Request $request, string $id)
     {

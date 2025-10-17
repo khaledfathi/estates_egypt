@@ -12,7 +12,7 @@ final class  UnlinkOwnerFromGroupUsecase implements UnlinkOwnerFromGroupContract
     public function __construct(
         private readonly OwnerInGroupRepository $ownerInGroupRepository
     ){}
-    public function unlink(int $ownerInGroupId , UnlinkOwnerFromGroupOutput $presenter){
+    public function execute(int $ownerInGroupId , UnlinkOwnerFromGroupOutput $presenter){
         try {
             $status =  $this->ownerInGroupRepository->destroy($ownerInGroupId);
             $presenter->onSuccess($status);

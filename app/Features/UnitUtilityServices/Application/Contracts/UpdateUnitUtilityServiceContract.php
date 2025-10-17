@@ -10,6 +10,5 @@ use App\Shared\Domain\Entities\Unit\UnitUtilityServiceEntity;
 
 interface  UpdateUnitUtilityServiceContract
 {
-    public function edit(int $unitUtilityServiceId, EditUnitUtilityServiceOutput $presenter): void;
-    public function update(UnitUtilityServiceEntity $unitUtilityServiceEntity, UpdateUnitUtilityServiceOutput $presenter): void;
+    public function execute(UnitUtilityServiceEntity $unitUtilityServiceEntity, UpdateUnitUtilityServiceOutput $presenter): void;
 }

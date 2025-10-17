@@ -13,7 +13,7 @@ final class DestroyUnitUtilityServiceUsecase implements DestroyUnitUtilityServic
     public function __construct(
         private readonly UnitUtilityServiceRepository $unitUtilityServiceRepository
     ){}
-    public function destroy(int $unitUtilityServiceId,  DestroyUnitUtilityServiceOutput $presenter):void
+    public function execute(int $unitUtilityServiceId,  DestroyUnitUtilityServiceOutput $presenter):void
     {
         try{
             $status = $this->unitUtilityServiceRepository->destroy($unitUtilityServiceId);

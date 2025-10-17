@@ -13,7 +13,7 @@ final class  DestroyUnitUsecase implements DestroyUnitContract
     public function __construct(
         private readonly UnitRepository $unitRepository,
     ) {}
-    public function destroy(int $unitId, DestroyUnitOutput $presenter): void
+    public function execute(int $unitId, DestroyUnitOutput $presenter): void
     {
         try {
             $destroyUnitStatus= $this->unitRepository->destroy($unitId) ;

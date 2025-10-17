@@ -7,6 +7,5 @@ use App\Features\UnitUtilityServices\Application\Outputs\ShowUnitUtilityServiceO
 
 interface ShowUnitUtilityServiceContract {
 
-    public function all(int $unitId, ShowAllUnitUtilityServicesOutput $presenter):void;
-    public function showById(int $unitUtilitServiceId , ShowUnitUtilityServiceOutput $presenter):void;
+    public function execute(int $unitUtilitServiceId , ShowUnitUtilityServiceOutput $presenter):void;
 }

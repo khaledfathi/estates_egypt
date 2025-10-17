@@ -12,7 +12,7 @@ final class DestroyOwnerUsecase implements DestroyOwnerContract
     public function __construct(
         private readonly OwnerRepository $ownerRepository
     ) {}
-    public function destroy(int $ownerId, DestroyOwnerOutput $presenter): void
+    public function execute(int $ownerId, DestroyOwnerOutput $presenter): void
     {
         try {
             $presenter->onSuccess($this->ownerRepository->destroy($ownerId));

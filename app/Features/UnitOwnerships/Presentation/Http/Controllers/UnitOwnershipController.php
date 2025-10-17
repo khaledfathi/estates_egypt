@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Features\UnitOwnerships\Presentation\Http\Controllers;
 
+use App\Features\UnitOwnerships\Application\Contracts\CreateUnitOwnershipContract;
 use App\Features\UnitOwnerships\Application\Contracts\DestroyUnitOwnershipContract;
 use App\Features\UnitOwnerships\Application\Contracts\StoreUnitOwnershipContract;
 use App\Features\UnitOwnerships\Presentation\Http\Presenters\CreateUnitOwnershipPresenter;
@@ -18,12 +19,13 @@ class UnitOwnershipController extends Controller
 
     public function __construct(
         private readonly StoreUnitOwnershipContract $storeUnitOwnershipUsecase,
+        private readonly CreateUnitOwnershipContract $createUnitOwnershipUsecase,
         private readonly DestroyUnitOwnershipContract $destroyUnitOwnershipUsecase,
     ) {}
     public function create(string $estateId, string $unitId)
     {
         $presenter = new CreateUnitOwnershipPresenter();
-        $this->storeUnitOwnershipUsecase->create((int)$unitId, $presenter);
+        $this->createUnitOwnershipUsecase->execute((int)$unitId, $presenter);
         return $presenter->handle();
     }
     public function store(StoreUnitOwnershipReques $request, string $estateId, string $unitId)
@@ -33,12 +35,12 @@ class UnitOwnershipController extends Controller
         $unitOwnershipEntity = $this->formToUnitEntity([...$request->all() , 'unit_id'=>(int)$unitId]);
         //action
         $presenter = new StoreUnitOwnershipPresenter((int)$estateId , (int)$unitId);
-        $this->storeUnitOwnershipUsecase->store($unitOwnershipEntity , $presenter);
+        $this->storeUnitOwnershipUsecase->execute($unitOwnershipEntity , $presenter);
         return $presenter->handle();
     }
     public function destroy(int $estateId, int $unitId, int $unitOwnershipId){
         $presenter = new DestroyUnitOwnershipPresenter();
-        $this->destroyUnitOwnershipUsecase->destroy($unitOwnershipId , $presenter);
+        $this->destroyUnitOwnershipUsecase->execute($unitOwnershipId , $presenter);
         return $presenter->handle();
     }
     private function formToUnitEntity(array $formArray)

@@ -8,6 +8,5 @@ use App\Features\UnitUtilityServices\Application\Outputs\StoreUnitUtilityService
 use App\Shared\Domain\Entities\Unit\UnitUtilityServiceEntity;
 
 interface StoreUnitUtilityServiceContract {
-    public function create(int $unitId , CreateUnitUtilityServiceOutput $presenter):void;
-    public function store (UnitUtilityServiceEntity $unitUtilityServiceEntity , StoreUnitUtilityServiceOutput $presenter):void;
+    public function execute (UnitUtilityServiceEntity $unitUtilityServiceEntity , StoreUnitUtilityServiceOutput $presenter):void;
 }

@@ -10,6 +10,5 @@ use App\Shared\Domain\Entities\Unit\UnitOwnershipEntity;
 
 interface StoreUnitOwnershipContract
 {
-    public function create(int $unitId , CreateUnitOwnershipOutput $presnter): void;
-    public function store (UnitOwnershipEntity $unitOwnershipEntity, StoreUnitOwnershipOutput $presnter): void;
+    public function execute (UnitOwnershipEntity $unitOwnershipEntity, StoreUnitOwnershipOutput $presnter): void;
 }

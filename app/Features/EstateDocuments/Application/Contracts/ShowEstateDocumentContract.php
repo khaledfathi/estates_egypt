@@ -9,8 +9,5 @@ use App\Features\EstateDocuments\Application\Outputs\ShowEstateDocumentsPaginate
 
 interface ShowEstateDocumentContract
 {
-
-    public function allWithPaginate(ShowEstateDocumentsPaginateOutput $presenter, int $estateId, int $perPage = 5): void;
-
-    public function showById(int $estateDocumentId, ShowEstateDocumentOutput $presenter): void;
+    public function execute(int $estateDocumentId, ShowEstateDocumentOutput $presenter): void;
 }

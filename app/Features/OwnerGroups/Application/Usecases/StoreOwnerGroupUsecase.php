@@ -12,7 +12,7 @@ final class StoreOwnerGroupUsecase implements StoreOwnerGroupContract{
     public function __construct(
         private readonly OwnerGroupRepository $ownerGroupRepository,
     ){}
-    public function store (OwnerGroupEntity $ownerGroupEntity ,  StoreOwnerGroupOutput $presenter):void{
+    public function execute (OwnerGroupEntity $ownerGroupEntity ,  StoreOwnerGroupOutput $presenter):void{
         try {
             $record = $this->ownerGroupRepository->store($ownerGroupEntity);
             $presenter->onSuccess($record);

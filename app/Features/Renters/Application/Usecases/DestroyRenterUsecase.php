@@ -12,7 +12,7 @@ final class DestroyRenterUsecase implements DestroyRenterContract {
     public function __construct(
         private readonly RenterRepositroy $renterRepositroy
     ){ }
-    public function destroy(int $renterId , DestroyRenterOutput $presenter): void{
+    public function execute(int $renterId , DestroyRenterOutput $presenter): void{
         try {
             $presenter->onSuccess($this->renterRepositroy->destroy($renterId));
         } catch (\Exception $e) {
