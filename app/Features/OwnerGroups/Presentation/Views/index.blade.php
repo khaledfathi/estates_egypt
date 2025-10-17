@@ -18,10 +18,10 @@
                     <div class="card card-inverse card-danger ">
                         <div class="card-block">
                             <ul>
-                                @if(session()->has('error'))
+                                @if (session()->has('error'))
                                     <li>{{ session('error') }}</li>
                                 @elseif (isset($error))
-                                    <li>{{$error}}</li>
+                                    <li>{{ $error }}</li>
                                 @endif
                             </ul>
                         </div>
@@ -47,15 +47,21 @@
         @endif
         {{-- / success message  --}}
 
+        {{-- header buttons section --}}
+        <div class="container">
+            <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
+                <i class="icon-people fa-lg d-inline-block"></i>
+                <span>الملاك</span>
+            </a>
+        </div>
+        <hr>
+        {{-- / header buttons section --}}
+
         @isset($ownerGroups)
             <div class="card-block row">
                 <a href="{{ route('owner-groups.create') }}" class="btn btn-md btn-primary my-5">
                     <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
                     <span>اضافة مجموعة للملاك</span>
-                </a>
-                <a href="{{ route('owners.index') }}" class="btn btn-md btn-primary my-5">
-                    <i class="icon-people fa-lg d-inline-block"></i>
-                    <span>الملاك</span>
                 </a>
 
                 <div class="container-fluid">

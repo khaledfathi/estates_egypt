@@ -44,4 +44,7 @@ class EloquentOwnerInGroupRepository implements OwnerInGroupRepository
     {
         return OwnerInGroup::find($ownerInGroupId)->delete();
     }
+    public function destroyWhereOwnerId(int $ownerId): bool{
+        return OwnerInGroup::where('owner_id', $ownerId)->delete() ? true : false ;
+    }
 }

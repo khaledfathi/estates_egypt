@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Features\Owners\Presentation\Http\Presenters;
@@ -25,23 +26,30 @@ final class EditOwnerPresenter implements EditOwnerOutput
         $previousPage = SessionKeys::OWNER_EDIT_PREVIOUS_PAGE;
         $this->previousURL = session($previousPage) ?? route('owners.index');
     }
-    public function onSuccess(OwnerEntity $ownerEntity): void
+    public function onSuccess(OwnerEntity $ownerEntity, array $ownerGroupEnitites): void
     {
-        //this section done because old() mothod in blade dosen't accept array of objects
-        $ownerPhones= []; 
-        foreach($ownerEntity->phones ?? [] as $phone) {
+        //this section done because old() method in blade dosen't accept array of objects,
+        //only primative datatypes 
+        $oldOwnerGroups = []; 
+        foreach ($ownerEntity->ownerGroups ?? [] as $ownerGroup){
+            $oldOwnerGroups[]= $ownerGroup->id ;
+        }
+        $ownerPhones = [];
+        foreach ($ownerEntity->phones ?? [] as $phone) {
             $ownerPhones[] =  $phone->phone;
         }
         //
-        $this->response = fn()=> view('owners::edit', [
-            'owner' => $ownerEntity ,
-            'ownerPhones'=>$ownerPhones,
+        $this->response = fn() => view('owners::edit', [
+            'owner' => $ownerEntity,
+            'ownerPhones' => $ownerPhones,
+            'ownerGroups' => $ownerGroupEnitites,
+            'oldOwnerGroups' => $oldOwnerGroups,
             'previousURL' => $this->previousURL,
         ]);
     }
     public function onFailure(string $error): void
     {
-        $this->response = fn()=> view("owners::edit", [
+        $this->response = fn() => view("owners::edit", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -52,7 +60,7 @@ final class EditOwnerPresenter implements EditOwnerOutput
     }
     public function onNotFound(): void
     {
-        $this->response = fn()=> view("owners::edit", [
+        $this->response = fn() => view("owners::edit", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }

@@ -15,4 +15,5 @@ interface OwnerInGroupRepository {
      */
     public function storeManyGroups(int $ownerId, array $groupsIds): array;
     public function destroy (int $ownerInGroupId):bool;
+    public function destroyWhereOwnerId(int $ownerId): bool;
 }

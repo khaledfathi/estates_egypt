@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('owner_id')->references('id')->on('owners')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('group_id')->references('id')->on('owner_groups')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            //constraints
+            $table->unique(['owner_id', 'group_id']);
         });
     }
 

@@ -48,7 +48,7 @@
                         @method('put')
                         <div class="card">
                             <div class="card-header">
-                                <strong>اضافة مجموعة</strong>
+                                <strong>تحديث بيانات المجموعة</strong>
                             </div>
                             <div class="card-block">
                                 {{-- name --}}

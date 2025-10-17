@@ -120,7 +120,7 @@
                                                     {{ $ownerGroup->name }}</option>
                                             @endforeach
                                         </select>
-                                        <i class="remove-owner-group-btn fa fa-trash fa-lg"
+                                        <i class="remove-owner-group-buttons fa fa-trash fa-lg"
                                             style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
                                     </div>
                                 @endforeach

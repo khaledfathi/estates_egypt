@@ -33,26 +33,45 @@
         @endif
         {{-- / Errors --}}
 
+        {{-- header buttons section --}}
+        <div class="container">
+            <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
+                <i class="icon-people fa-lg d-inline-block"></i>
+                <span>الملاك</span>
+            </a>
+        </div>
+        <hr>
+        {{-- / header buttons section --}}
+
         @isset($ownerGroup)
             <div class="container-fluid">
                 <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-primary my-5">
                     <i class="fa fa-users fa-lg d-inline-block"></i>
                     <span> المجموعات </span>
                 </a>
-                <a href="{{ route('owners.index') }}" class="btn btn-md btn-primary my-5">
-                    <i class="icon-people fa-lg d-inline-block"></i>
-                    <span> الملاك </span>
-                </a>
                 <div class="row" style="display:flex; justify-content: center;">
                     <div id="" class="col-sm-12 col-md-10 col-lg-6">
                         <div class="card">
-                            <div class="card-header">
-                                <strong>بيانات المجموعة</strong>
+                            <div class="edit-box-header">
+                                <strong>بيانات المالك</strong>
+                                <div>
+                                    <a style="margin-left:10px;text-decoration:none"
+                                        href="{{ route('owner-groups.edit', $ownerGroup->id) }}">
+                                        <i class="action-icon action-icon--edit fa fa-pencil fa-lg "></i>
+                                    </a>
+                                    <form class="d-inline" action="{{ route('owner-groups.destroy', $ownerGroup->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <i id="delete-owner-btn"
+                                            class="action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                        <input id="delete-owner-submit-btn" type="submit" hidden>
+                                    </form>
+                                </div>
                             </div>
                             <div class="card-block">
                                 <ul>
                                     <li>اسم المجموعة : {{ $ownerGroup->name }}</li>
-                                    <li>عدد الاعضاء : {{ $ownerGroup->ownersCount}}</li>
+                                    <li>عدد الاعضاء : {{ $ownerGroup->ownersCount }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -90,14 +109,17 @@
                                                 @endforeach
                                             @endif
                                         </td>
-                                        <td><a href="{{ route('owners.show', $owner->id) }}" >
+                                        <td><a href="{{ route('owners.show', $owner->id) }}">
                                                 <i class="action-icon fa fa-external-link fa-lg m-t-2"></i>
                                             </a></td>
                                         <td>
-                                            <form action="{{ route('owner-groups.unlink' , ['owner_group'=> $ownerGroupId , 'owner_in_group'=>$owner->ownerInGroup->id ])}}" method="post">
+                                            <form
+                                                action="{{ route('owner-groups.unlink', ['owner_group' => $ownerGroupId, 'owner_in_group' => $owner->ownerInGroup->id]) }}"
+                                                method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <i class="delete-owner-btn action-icon action-icon--delete fa fa-chain-broken fa-lg m-t-2"></i>
+                                                <i
+                                                    class="delete-owner-btn action-icon action-icon--delete fa fa-chain-broken fa-lg m-t-2"></i>
                                                 <input class="delete-submit-btn" type="submit" hidden="">
                                             </form>
                                         </td>
