@@ -136,12 +136,33 @@
                         {{-- MULTIPLE OWNERS OPTION  --}}
                         <div class="card-block" id="multiple-owners-section">
                             <h3>MULTIPLE OWNERS OPTION</h3>
+                            {{-- buttons --}}
+                            <div class="form-group" style="margin-top: 40px">
+                                <button id="submit-btn" type="submit" class="btn btn-md btn-success">
+                                    <i class="fa fa-plus-circle "></i>
+                                    اضافة</button>
+                                <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
+                                    class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
+                                    الغاء</a>
+                            </div>
+                            {{-- / buttons --}}
                         </div>
                         {{-- / MULTIPLE OWNERS OPTION--}}
 
                         {{-- GROUPS OF OWNERS OPTION --}}
                         <div class="card-block" id="groups-of-owners-section">
                             <h3>GROUPS OF OWNERS </h3>
+                            {{-- buttons --}}
+                            <div class="form-group" style="margin-top: 40px">
+                                <button id="submit-btn" type="submit" class="btn btn-md btn-success">
+                                    <i class="fa fa-plus-circle "></i>
+                                    اضافة</button>
+                                <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
+                                    class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
+                                    الغاء</a>
+                            </div>
+                            {{-- / buttons --}}
+
                         </div>
                         {{-- / GROUPS OF OWNERS OPTION --}}
                     </div>
