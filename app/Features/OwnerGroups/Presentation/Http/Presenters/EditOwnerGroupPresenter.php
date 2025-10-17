@@ -1,26 +1,47 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Features\OwnerGroups\Presentation\Http\Presenters;
 
 use App\Features\OwnerGroups\Application\Outputs\EditOwnerGroupsOutput;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class EditOwnerGroupPresenter implements EditOwnerGroupsOutput {
+final class EditOwnerGroupPresenter implements EditOwnerGroupsOutput
+{
     private Closure $response;
-    public function onSuccess (OwnerGroupEntity $ownerGroupEntity):void{
-        $this->response= fn()=> view('owner-groups::edit',  ['ownerGroup'=>$ownerGroupEntity]);
+    private string $previousURL;
+    public function __construct()
+    {
+        $this->handleSession();
     }
-    public function onNotFound():void{
-        $this->response =fn()=> view("owner-groups::edit", [
+    private function handleSession()
+    {
+        $previousPage = SessionKeys::OWNER_GROUP_EDIT_PREVIOUS_PAGE;
+        $this->previousURL = session($previousPage)
+            ?? route('owner-groups.index');
+    }
+    public function onSuccess(OwnerGroupEntity $ownerGroupEntity): void
+    {
+        $this->response = fn() => view('owner-groups::edit',  [
+            'ownerGroup' => $ownerGroupEntity,
+            'previousURL' => $this->previousURL,
+        ]);
+    }
+    public function onNotFound(): void
+    {
+        $this->response = fn() => view("owner-groups::edit", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }
-    public function onFailure(string $error):void{
-        $this->response = fn()=> view("owners::edit", [
+    public function onFailure(string $error): void
+    {
+        $this->response = fn() => view("owners::edit", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -29,7 +50,8 @@ final class EditOwnerGroupPresenter implements EditOwnerGroupsOutput {
             ['error' => $error,  'error_source' => __CLASS__ . '::' . __FUNCTION__]
         );
     }
-    public function handle(){
+    public function handle()
+    {
         return ($this->response)();
     }
 }

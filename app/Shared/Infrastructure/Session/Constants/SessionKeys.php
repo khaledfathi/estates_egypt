@@ -32,4 +32,9 @@ final class SessionKeys {
     public const UNIT_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE = 'unit_utility_service_edit_last_page';
     public const UNIT_UTILITY_SERVICE_CURRENT_INDEX_PAGE = 'unit_utility_service_current_index_page';
     // ----------------------
+
+    //for owner group features  
+    public const OWNER_GROUP_EDIT_PREVIOUS_PAGE = 'owner_group_edit_last_page';
+    public const OWNER_GROUP_CURRENT_INDEX_PAGE = 'owner_group_current_index_page';
+    // ----------------------
 }

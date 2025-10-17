@@ -7,6 +7,7 @@ namespace App\Features\OwnerGroups\Presentation\Http\Presenters;
 use App\Features\OwnerGroups\Application\Outputs\ShowOwnerGroupOutput;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,14 @@ class ShowOwnerGroupPresenter implements ShowOwnerGroupOutput
     private Closure  $response;
     public function __construct(
         private readonly int $ownerGroupId,
-    ){}
+    ){
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $previousPage = SessionKeys::OWNER_GROUP_EDIT_PREVIOUS_PAGE;
+        session()->put($previousPage, url()->current());
+    }
     public function onSuccess(OwnerGroupEntity $ownerGroupEntity): void
     {
         $this->response = fn() => 

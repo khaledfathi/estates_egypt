@@ -31,6 +31,20 @@
         {{-- / Errors --}}
 
         @isset($owner)
+            {{-- header buttons section --}}
+            <div class="container">
+                <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
+                    <i class="icon-people fa-lg d-inline-block"></i>
+                    <span>الملاك</span>
+                </a>
+                <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
+                    <i class="fa fa-users fa-lg d-inline-block"></i>
+                    <span>المجموعات</span>
+                </a>
+            </div>
+            <hr>
+            {{-- / header buttons section --}}
+
             <div class="row" style="display:flex; justify-content: center;">
                 <div class="col-sm-12 col-md-10 col-lg-6">
                     <div class="card">
@@ -122,7 +136,7 @@
                                             <select class="owner-groups form-control d-inline-block" name="owner_groups[]">
                                                 @foreach ($ownerGroups as $ownerGroup)
                                                     <option value="{{ $ownerGroup->id }}"
-                                                        {{ $oldOwnerGroupId  == $ownerGroup->id ? 'selected' : null }}>
+                                                        {{ $oldOwnerGroupId == $ownerGroup->id ? 'selected' : null }}>
                                                         {{ $ownerGroup->name }}</option>
                                                 @endforeach
                                             </select>

@@ -6,6 +6,7 @@ namespace App\Features\OwnerGroups\Presentation\Http\Presenters;
 
 use App\Features\OwnerGroups\Application\Outputs\UpdateOwnerGroupOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -14,9 +15,19 @@ class UpdateOwnerGroupPresenter implements UpdateOwnerGroupOutput
 {
 
     private Closure $response;
+
+    private $lastPage;
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $this->lastPage = session(SessionKeys::OWNER_GROUP_EDIT_PREVIOUS_PAGE);
+    }
     public function onSuccess(bool $status): void
     {
-        $this->response = fn() => redirect(route('owner-groups.index'));
+        $this->response = fn() => redirect($this->lastPage);
     }
     public function onFailure(string $error): void
     {

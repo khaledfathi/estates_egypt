@@ -48,6 +48,19 @@
         {{-- / success message  --}}
 
         @isset($owner)
+            {{-- header buttons section --}}
+            <div class="container">
+                <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
+                    <i class="icon-people fa-lg d-inline-block"></i>
+                    <span>الملاك</span>
+                </a>
+                <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
+                    <i class="fa fa-users fa-lg d-inline-block"></i>
+                    <span>المجموعات</span>
+                </a>
+            </div>
+            <hr>
+            {{-- / header buttons section --}}
             <div class="row" style="display:flex; justify-content: center;">
                 <div id="form" class="col-sm-12 col-md-10 col-lg-6">
                     <div class="card">
@@ -97,7 +110,9 @@
                                     <li>المجموعات
                                         @foreach ($owner->ownerGroups as $ownerGroup)
                                             <ul>
-                                                <li><a href="{{ route('owner-groups.show', $ownerGroup->id) }}" >{{ $ownerGroup->name }}</a></li>
+                                                <li><a
+                                                        href="{{ route('owner-groups.show', $ownerGroup->id) }}">{{ $ownerGroup->name }}</a>
+                                                </li>
                                             </ul>
                                         @endforeach
                                     </li>

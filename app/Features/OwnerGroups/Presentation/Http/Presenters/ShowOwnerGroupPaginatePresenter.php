@@ -7,6 +7,7 @@ namespace App\Features\OwnerGroups\Presentation\Http\Presenters;
 use App\Features\OwnerGroups\Application\Outputs\ShowOwnerGroupsPaginateOutput;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +15,17 @@ use Illuminate\Support\Facades\Log;
 class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPaginateOutput
 {
     private Closure $response;
+
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $currentPage = url()->current() . '?page=' . request('page');
+        session()->put(SessionKeys::OWNER_GROUP_CURRENT_INDEX_PAGE, $currentPage);
+        session()->put(SessionKeys::OWNER_GROUP_EDIT_PREVIOUS_PAGE, $currentPage);
+    }
     public function onSuccess(EntitiesWithPagination $ownerGroupsEntitiesWithPagination)
     {
         $data = [
