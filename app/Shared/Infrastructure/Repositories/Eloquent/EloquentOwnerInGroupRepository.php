@@ -9,7 +9,7 @@ use App\Shared\Domain\Entities\Owner\OwnerInGroupEntity;
 use App\Shared\Domain\Repositories\OwnerInGroupRepository;
 use App\Shared\Infrastructure\Models\Owner\OwnerInGroup;
 
-class EloquentOwnerInGroupRepository implements OwnerInGroupRepository
+final class EloquentOwnerInGroupRepository implements OwnerInGroupRepository
 {
 
     public function store(OwnerInGroupEntity $ownerInGroupEntity): OwnerInGroupEntity

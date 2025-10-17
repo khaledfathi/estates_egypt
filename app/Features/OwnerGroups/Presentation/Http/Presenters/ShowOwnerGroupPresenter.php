@@ -12,7 +12,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class ShowOwnerGroupPresenter implements ShowOwnerGroupOutput
+final class ShowOwnerGroupPresenter implements ShowOwnerGroupOutput
 {
     private Closure  $response;
     public function __construct(

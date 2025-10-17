@@ -8,7 +8,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class DestroyOwnerGroupPresenter implements DestroyOwnerGroupOutput {
+final class DestroyOwnerGroupPresenter implements DestroyOwnerGroupOutput {
     private Closure $response;
     public function onSuccess (bool $status):void{
         $this->response = fn() =>

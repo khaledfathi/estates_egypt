@@ -2,7 +2,7 @@
 @section('title', 'مجموعة الملاك | اضافة مجموعة')
 @section('active-owners', 'active')
 @section('scripts')
-    @vite('resources/ts/features/owners/create.ts')
+    @vite('resources/ts/features/owner-groups/create.ts')
 @endsection
 
 @section('content')

@@ -11,7 +11,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class UpdateOwnerGroupPresenter implements UpdateOwnerGroupOutput
+final class UpdateOwnerGroupPresenter implements UpdateOwnerGroupOutput
 {
 
     private Closure $response;

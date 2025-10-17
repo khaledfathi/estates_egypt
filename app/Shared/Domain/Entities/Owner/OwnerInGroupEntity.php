@@ -5,7 +5,7 @@ namespace App\Shared\Domain\Entities\Owner;
 
 use App\Models\OwnerGroup;
 
-class OwnerInGroupEntity {
+final class OwnerInGroupEntity {
     public function __construct(
         public ?int $id = null,
         public ?int $ownerId= null,

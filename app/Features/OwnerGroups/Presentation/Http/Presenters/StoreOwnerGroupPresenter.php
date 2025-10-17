@@ -11,7 +11,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class StoreOwnerGroupPresenter implements StoreOwnerGroupOutput
+final class StoreOwnerGroupPresenter implements StoreOwnerGroupOutput
 {
     private Closure $response;
     public function onSuccess(OwnerGroupEntity $ownerGroupEntity): void

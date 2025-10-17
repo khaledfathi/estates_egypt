@@ -12,7 +12,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPaginateOutput
+final class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPaginateOutput
 {
     private Closure $response;
 

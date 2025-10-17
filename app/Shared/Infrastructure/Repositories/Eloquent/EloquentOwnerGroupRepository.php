@@ -16,7 +16,7 @@ use App\Shared\Infrastructure\Models\Owner\Owner;
 use App\Shared\Infrastructure\Models\Owner\OwnerInGroup;
 use Exception;
 
-class EloquentOwnerGroupRepository implements OwnerGroupRepository
+final class EloquentOwnerGroupRepository implements OwnerGroupRepository
 {
     /**
      * 

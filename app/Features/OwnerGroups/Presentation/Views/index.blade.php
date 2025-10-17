@@ -2,10 +2,10 @@
 @section('title', 'مجموعات الملاك')
 @section('active-owners', 'active')
 @section('styles')
-    @vite('resources/css/features/owners/index.css')
+    @vite('resources/css/features/owner-groups/index.css')
 @endsection
 @section('scripts')
-    @vite('resources/ts/features/owners/index.ts')
+    @vite('resources/ts/features/owner-groups/index.ts')
 @endsection
 
 @section('content')

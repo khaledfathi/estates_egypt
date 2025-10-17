@@ -2,7 +2,7 @@
 @section('title', 'مجموعة الملاك | عرض مجموعة ')
 @section('active-owners', 'active')
 @section('styles')
-    @vite('resources/css/features/owners/show.css')
+    @vite('resources/css/features/owner-groups/show.css')
 @endsection
 @section('scripts')
     @vite('resources/ts/features/owner-groups/show.ts')

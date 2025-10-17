@@ -8,7 +8,7 @@ use App\Shared\Domain\Entities\Unit\UnitOwnershipEntity;
 use App\Shared\Domain\Repositories\UnitOwnershipRepository;
 use App\Shared\Infrastructure\Models\Unit\UnitOwnership;
 
-class EloquentUnitOwnershipRepository implements UnitOwnershipRepository
+final class EloquentUnitOwnershipRepository implements UnitOwnershipRepository
 {
 
     public function store(UnitOwnershipEntity $unitOwnershipEntity): UnitOwnershipEntity
