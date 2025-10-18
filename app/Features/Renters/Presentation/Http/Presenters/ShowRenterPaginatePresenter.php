@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Features\Renters\Presentation\Http\Presenters;
 
-use App\Features\Renters\Application\Outputs\ShowRentersPaginateOutput;
+use App\Features\Renters\Application\Outputs\ShowRentersPaginationOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
@@ -12,7 +12,7 @@ use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class ShowRenterPaginatePresenter implements ShowRentersPaginateOutput
+final class ShowRenterPaginatePresenter implements ShowRentersPaginationOutput
 {
 
     private Closure $response;

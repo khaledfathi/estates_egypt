@@ -6,7 +6,7 @@ namespace App\Features\Renters\Application\Outputs;
 use App\Shared\Domain\Entities\Renter\RenterEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 
-interface   ShowRentersPaginateOutput {
+interface   ShowRentersPaginationOutput {
 
     /**
      * of onSuccess

@@ -30,7 +30,6 @@ class UnitOwnershipController extends Controller
     }
     public function store(StoreUnitOwnershipReques $request, string $estateId, string $unitId)
     {
-        dd($request->all());
         //prepeare data 
         $unitOwnershipEntity = $this->formToUnitEntity([...$request->all() , 'unit_id'=>(int)$unitId]);
         //action

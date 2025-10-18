@@ -3,7 +3,7 @@
 namespace App\Features\Estates\Presentation\Http\Controllers;
 
 use App\Features\Estates\Application\Contracts\ShowEstateContract;
-use App\Features\Estates\Application\Contracts\ShowPaginateEstateContract;
+use App\Features\Estates\Application\Contracts\ShowEstatesPaginationContract;
 use App\Features\Estates\Application\Contracts\StoreEstateContract;
 use App\Features\Estates\Presentation\Http\Presenters\ShowEstaetsPaginatePresenter;
 use App\Features\Estates\Presentation\Http\Presenters\ShowEstatePresenter;
@@ -17,7 +17,7 @@ class EstateController extends Controller
 
    public function __construct(
       private readonly ShowEstateContract $showEstatetUsecase,
-      private readonly ShowPaginateEstateContract $showPaginateEstateUsecase,
+      private readonly ShowEstatesPaginationContract $showPaginateEstateUsecase,
       private readonly StoreEstateContract $storeEstateUsecase
    ) {}
    public function index()

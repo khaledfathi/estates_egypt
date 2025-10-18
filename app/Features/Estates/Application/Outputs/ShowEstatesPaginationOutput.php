@@ -4,7 +4,7 @@ namespace  App\Features\Estates\Application\Outputs;
 
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 
-interface ShowEstatesPaginateOutput {
+interface ShowEstatesPaginationOutput {
 
     public function onSucces(EntitiesWithPagination $estateEntities): void;
 

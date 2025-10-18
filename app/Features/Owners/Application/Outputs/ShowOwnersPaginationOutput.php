@@ -6,7 +6,7 @@ namespace App\Features\Owners\Application\Outputs;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 
-interface  ShowOwnersPaginateOutput {
+interface  ShowOwnersPaginationOutput {
 
     /**
      * 

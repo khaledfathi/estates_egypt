@@ -6,7 +6,7 @@ use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 
-interface ShowUnitPaginateOutput {
+interface ShowUnitsPaginationOutput {
     /**
      * of onSuccess
      * @param EntitiesWithPagination<UnitEntity> $unitEntitiesWithPagination

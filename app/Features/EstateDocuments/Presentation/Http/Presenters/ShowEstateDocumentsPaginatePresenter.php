@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Features\EstateDocuments\Presentation\Http\Presenters;
 
-use App\Features\EstateDocuments\Application\Outputs\ShowEstateDocumentsPaginateOutput;
+use App\Features\EstateDocuments\Application\Outputs\ShowEstateDocumentsPaginationOutput;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
@@ -13,7 +13,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class ShowEstateDocumentsPaginatePresenter implements ShowEstateDocumentsPaginateOutput
+final class ShowEstateDocumentsPaginatePresenter implements ShowEstateDocumentsPaginationOutput
 {
     private Closure $response;
     public function __construct()

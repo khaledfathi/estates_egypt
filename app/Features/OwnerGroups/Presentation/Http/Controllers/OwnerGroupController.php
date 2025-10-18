@@ -7,7 +7,7 @@ namespace App\Features\OwnerGroups\Presentation\Http\Controllers;
 use App\Features\OwnerGroups\Application\Contracts\DestroyOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\EditOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupContract;
-use App\Features\OwnerGroups\Application\Contracts\ShowPaginateOwnerGroupContract;
+use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupsPaginationContract;
 use App\Features\OwnerGroups\Application\Contracts\StoreOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UnlinkOwnerFromGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
@@ -28,7 +28,7 @@ class OwnerGroupController extends Controller
 {
     public function __construct(
         private readonly ShowOwnerGroupContract $showOwnerGroupUsecase,
-        private readonly ShowPaginateOwnerGroupContract $showPaginateOwnerGroupUsecase,
+        private readonly ShowOwnerGroupsPaginationContract $showPaginateOwnerGroupUsecase,
         private readonly StoreOwnerGroupContract $storeOwnerGroupUsecase,
         private readonly DestroyOwnerGroupContract $destroyOwnerGroupUsecase,
         private readonly UpdateOwnerGroupContrat $updateOwnerGroupUsecase,

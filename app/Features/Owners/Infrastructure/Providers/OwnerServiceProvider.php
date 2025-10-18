@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Features\Owners\Infrastructure\Providers;
 
+use App\Features\Owners\Application\Contracts\CreateOwnerContract;
 use App\Features\Owners\Application\Contracts\DestroyOwnerContract;
+use App\Features\Owners\Application\Contracts\EditOwnerContract;
 use App\Features\Owners\Application\Contracts\ShowOwnerContract;
-use App\Features\Owners\Application\Contracts\ShowPaginateOwnerContract;
+use App\Features\Owners\Application\Contracts\ShowOwnersPaginationContract;
 use App\Features\Owners\Application\Contracts\StoreOwnerContract;
 use App\Features\Owners\Application\Contracts\UpdateOwnerContract;
+use App\Features\Owners\Application\Usecases\CreateOwnerUsecase;
 use App\Features\Owners\Application\Usecases\DestroyOwnerUsecase;
+use App\Features\Owners\Application\Usecases\EditOwnerUsecase;
 use App\Features\Owners\Application\Usecases\ShowOwnerUsecase;
 use App\Features\Owners\Application\Usecases\ShowPaginateOwnerUsecase;
 use App\Features\Owners\Application\Usecases\StoreOwnerUsecase;
@@ -25,9 +29,11 @@ class OwnerServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Usecases 
+        $this->app->bind(CreateOwnerContract::class ,CreateOwnerUsecase::class);
         $this->app->bind(StoreOwnerContract::class, StoreOwnerUsecase::class);
         $this->app->bind(ShowOwnerContract::class, ShowOwnerUsecase::class);
-        $this->app->bind(ShowPaginateOwnerContract::class, ShowPaginateOwnerUsecase::class);
+        $this->app->bind(ShowOwnersPaginationContract::class, ShowPaginateOwnerUsecase::class);
+        $this->app->bind(EditOwnerContract::class , EditOwnerUsecase::class);
         $this->app->bind(UpdateOwnerContract::class, UpdateOwnerUsecase::class);
         $this->app->bind(DestroyOwnerContract::class, DestroyOwnerUsecase::class);
     }

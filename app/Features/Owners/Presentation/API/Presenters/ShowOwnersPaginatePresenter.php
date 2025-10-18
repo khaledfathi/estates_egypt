@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Features\Owners\Presentation\API\Presenters;
 
-use App\Features\Owners\Application\Outputs\ShowOwnersPaginateOutput;
+use App\Features\Owners\Application\Outputs\ShowOwnersPaginationOutput;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use Closure;
 
-final class ShowOwnersPaginatePresenter implements ShowOwnersPaginateOutput
+final class ShowOwnersPaginatePresenter implements ShowOwnersPaginationOutput
 {
     
     private Closure $response;

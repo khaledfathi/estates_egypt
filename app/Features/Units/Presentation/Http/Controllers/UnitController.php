@@ -7,7 +7,7 @@ namespace App\Features\Units\Presentation\Http\Controllers;
 use App\Features\Units\Application\Contracts\CreateUnitContract;
 use App\Features\Units\Application\Contracts\DestroyUnitContract;
 use App\Features\Units\Application\Contracts\EditUnitContract;
-use App\Features\Units\Application\Contracts\ShowPaginateUnitContract;
+use App\Features\Units\Application\Contracts\ShowUnitsPaginationContract;
 use App\Features\Units\Application\Contracts\ShowUnitContract;
 use App\Features\Units\Application\Contracts\StoreUnitContract;
 use App\Features\Units\Application\Contracts\UpdateUnitContract;
@@ -29,7 +29,7 @@ class UnitController extends Controller
 {
     public function __construct(
         private readonly ShowUnitContract $showUnitUsecase,
-        private readonly ShowPaginateUnitContract $showPaginateUnitUsecase,
+        private readonly ShowUnitsPaginationContract $showPaginateUnitUsecase,
         private readonly CreateUnitContract $createUnitUsecase,
         private readonly StoreUnitContract $storeUnitUsecase,
         private readonly UpdateUnitContract $updateUnitUsecase,

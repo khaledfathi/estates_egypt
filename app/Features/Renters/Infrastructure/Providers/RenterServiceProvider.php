@@ -3,7 +3,7 @@ namespace App\Features\Renters\Infrastructure\Providers;
 
 use App\Features\Renters\Application\Contracts\DestroyRenterContract;
 use App\Features\Renters\Application\Contracts\EditRenterContract;
-use App\Features\Renters\Application\Contracts\ShowPaginateRenterContract;
+use App\Features\Renters\Application\Contracts\ShowRentersPaginationContract;
 use App\Features\Renters\Application\Contracts\ShowRenterContract;
 use App\Features\Renters\Application\Contracts\StoreRenterContract;
 use App\Features\Renters\Application\Contracts\UpdateRenterContract;
@@ -25,7 +25,7 @@ class RenterServiceProvider extends ServiceProvider
     {
         $this->app->bind(StoreRenterContract::class , StoreRenterUsecase::class);
         $this->app->bind(ShowRenterContract::class , ShowRenterUsecase::class);
-        $this->app->bind(ShowPaginateRenterContract::class , ShowPaginateRenterUsecase::class);
+        $this->app->bind(ShowRentersPaginationContract::class , ShowPaginateRenterUsecase::class);
         $this->app->bind(DestroyRenterContract::class , DestroyRenterUsecase::class);
         $this->app->bind(EditRenterContract::class , EditRenterUsecase::class);
         $this->app->bind(UpdateRenterContract::class , UpdateRenterUsecase::class);

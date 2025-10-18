@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Features\OwnerGroups\Presentation\Http\Presenters;
 
-use App\Features\OwnerGroups\Application\Outputs\ShowOwnerGroupsPaginateOutput;
+use App\Features\OwnerGroups\Application\Outputs\ShowOwnerGroupsPaginationOutput;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
@@ -12,7 +12,7 @@ use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPaginateOutput
+final class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPaginationOutput
 {
     private Closure $response;
 

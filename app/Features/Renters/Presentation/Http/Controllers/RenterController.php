@@ -4,7 +4,7 @@ namespace App\Features\Renters\Presentation\Http\Controllers;
 
 use App\Features\Renters\Application\Contracts\DestroyRenterContract;
 use App\Features\Renters\Application\Contracts\EditRenterContract;
-use App\Features\Renters\Application\Contracts\ShowPaginateRenterContract;
+use App\Features\Renters\Application\Contracts\ShowRentersPaginationContract;
 use App\Features\Renters\Application\Contracts\ShowRenterContract;
 use App\Features\Renters\Application\Contracts\StoreRenterContract;
 use App\Features\Renters\Application\Contracts\UpdateRenterContract;
@@ -26,7 +26,7 @@ class RenterController extends Controller
    public function __construct(
       private readonly StoreRenterContract $storeRenterUsecase,
       private readonly ShowRenterContract $showRenterUsecase,
-      private readonly ShowPaginateRenterContract $showPaginateRenterContract,
+      private readonly ShowRentersPaginationContract $ShowRentersPaginationContract,
       private readonly DestroyRenterContract $destroyRenterUsecase,
       private readonly EditRenterContract $editRenterUsecase,
       private readonly UpdateRenterContract $updateRenterUsecase
@@ -35,7 +35,7 @@ class RenterController extends Controller
    public function index()
    {
       $presenter = new ShowRenterPaginatePresenter();
-      $this->showPaginateRenterContract->execute($presenter, 5);
+      $this->ShowRentersPaginationContract->execute($presenter, 5);
       return $presenter->handel();
    }
    public function show(string $id)

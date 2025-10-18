@@ -9,7 +9,7 @@ use App\Features\EstateDocuments\Application\Contracts\DestroyEstateDocumentCont
 use App\Features\EstateDocuments\Application\Contracts\DownloadEstateDocumentFileContract;
 use App\Features\EstateDocuments\Application\Contracts\EditEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Contracts\ShowEstateDocumentContract;
-use App\Features\EstateDocuments\Application\Contracts\ShowPaginateEstateDocumentContract;
+use App\Features\EstateDocuments\Application\Contracts\ShowEstateDocumentsPaginationContract;
 use App\Features\EstateDocuments\Application\Contracts\StoreEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Contracts\UpdateEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Usecases\CreateEstateDocumentUsecase;
@@ -31,7 +31,7 @@ class EstateDocumentServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ShowEstateDocumentContract::class, ShowEstateDocumentsUsecase::class);
-        $this->app->bind(ShowPaginateEstateDocumentContract::class ,ShowPaginateEstateDocumentUsecase::class);
+        $this->app->bind(ShowEstateDocumentsPaginationContract::class ,ShowPaginateEstateDocumentUsecase::class);
         $this->app->bind(CreateEstateDocumentContract::class , CreateEstateDocumentUsecase::class);
         $this->app->bind(StoreEstateDocumentContract::class , StoreEstateDocumentUsecase::class);
         $this->app->bind(DestroyEstateDocumentContract::class , DestroyEstateDocumentUsecase::class);

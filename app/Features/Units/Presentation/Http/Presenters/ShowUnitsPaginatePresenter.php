@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Features\Units\Presentation\Http\Presenters;
 
-use App\Features\Units\Application\Ouputs\ShowUnitPaginateOutput;
+use App\Features\Units\Application\Ouputs\ShowUnitsPaginationOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
@@ -13,7 +13,7 @@ use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class ShowUnitsPaginatePresenter implements ShowUnitPaginateOutput
+final class ShowUnitsPaginatePresenter implements ShowUnitsPaginationOutput
 {
     private Closure $response;
     public function __construct()

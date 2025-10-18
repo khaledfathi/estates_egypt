@@ -7,7 +7,7 @@ namespace App\Features\OwnerGroups\Infrastructure\Providers;
 use App\Features\OwnerGroups\Application\Contracts\DestroyOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\EditOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupContract;
-use App\Features\OwnerGroups\Application\Contracts\ShowPaginateOwnerGroupContract;
+use App\Features\OwnerGroups\Application\Contracts\ShowOwnerGroupsPaginationContract;
 use App\Features\OwnerGroups\Application\Contracts\StoreOwnerGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UnlinkOwnerFromGroupContract;
 use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
@@ -29,7 +29,7 @@ class OwnerGroupServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ShowOwnerGroupContract::class, ShowOwnerGroupUsecase::class);
-        $this->app->bind(ShowPaginateOwnerGroupContract::class, ShowPaginateOwnerGroupUsecase::class);
+        $this->app->bind(ShowOwnerGroupsPaginationContract::class, ShowPaginateOwnerGroupUsecase::class);
         $this->app->bind(StoreOwnerGroupContract::class, StoreOwnerGroupUsecase::class);
         $this->app->bind(DestroyOwnerGroupContract::class, DestroyOwnerGroupUsecase::class);
         $this->app->bind(UpdateOwnerGroupContrat::class, UpdateOwnerGroupUsecase::class);

@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Features\Owners\Presentation\Http\Controllers;
 
+use App\Features\Owners\Application\Contracts\CreateOwnerContract;
 use App\Features\Owners\Application\Contracts\DestroyOwnerContract;
+use App\Features\Owners\Application\Contracts\EditOwnerContract;
 use App\Features\Owners\Application\Contracts\ShowOwnerContract;
 use App\Features\Owners\Application\Contracts\StoreOwnerContract;
 use App\Features\Owners\Application\Contracts\UpdateOwnerContract;
@@ -18,7 +20,6 @@ use App\Features\Owners\Presentation\Http\Presenters\UpdateOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Requests\StoreOwnerRequest;
 use App\Features\Owners\Presentation\Http\Requests\UpdateOwnerRequest;
 use App\Http\Controllers\Controller;
-use App\Models\OwnerGroup;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use App\Shared\Domain\Entities\Owner\OwnerPhoneEntity;
@@ -28,7 +29,9 @@ class  OwnerController extends Controller
     public function __construct(
         private readonly ShowOwnerContract $showOwnerUsecase,
         private readonly ShowPaginateOwnerUsecase $showPaginateOwnerUsecase,
+        private readonly CreateOwnerContract $createOwnerUsecase,
         private readonly StoreOwnerContract $storeOwnerUsecase,
+        private readonly EditOwnerContract $editOwnerUsecase,
         private readonly UpdateOwnerContract $updateOwnerUsecase,
         private readonly DestroyOwnerContract $destroyOwnerUsecase
 
@@ -52,7 +55,7 @@ class  OwnerController extends Controller
     public function edit(string $id)
     {
         $presenter = new EditOwnerPresenter();
-        $this->updateOwnerUsecase->edit((int) $id, $presenter);
+        $this->editOwnerUsecase->execute((int) $id, $presenter);
         return $presenter->handle();
     }
     public function update(UpdateOwnerRequest $request, string $id)
@@ -61,13 +64,13 @@ class  OwnerController extends Controller
         $ownerEntity = $this->formToOwnerEntity([...$request->all(), 'id' => (int) $id]);
         //action
         $presenter = new UpdateOwnerPresenter();
-        $this->updateOwnerUsecase->update($ownerEntity, $presenter);
+        $this->updateOwnerUsecase->execute($ownerEntity, $presenter);
         return $presenter->handle();
     }
     public function create()
     {
         $presenter = new CreateOwnerPresenter();
-        $this->storeOwnerUsecase->create($presenter);
+        $this->createOwnerUsecase->execute($presenter);
         return $presenter->handle();
     }
 
@@ -77,7 +80,7 @@ class  OwnerController extends Controller
         $ownerEntity = $this->formToOwnerEntity($request->all());
         //action
         $presenter = new StoreOwnerPresenter();
-        $this->storeOwnerUsecase->store($ownerEntity, $presenter);
+        $this->storeOwnerUsecase->execute($ownerEntity, $presenter);
         return $presenter->handle();
     }
     public function destroy(string $id)
