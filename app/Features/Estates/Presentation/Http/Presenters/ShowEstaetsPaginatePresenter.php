@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Features\Estates\Presentation\Http\Presenters;
 
-use App\Features\Estates\Application\Outputs\ShowEstatesPaginateOutput;
+use App\Features\Estates\Application\Outputs\ShowEstatesPaginationOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class ShowEstaetsPaginatePresenter implements ShowEstatesPaginateOutput
+final class ShowEstaetsPaginatePresenter implements ShowEstatesPaginationOutput
 {
 
     public Closure $response;

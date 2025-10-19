@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Log;
 class CreateUnitOwnershipPresenter implements CreateUnitOwnershipOutput {
 
     public Closure $response ;
-    public function onSuccess (UnitEntity $unitEntity) :void
+    public function onSuccess (UnitEntity $unitEntity , array $ownerGroupEntities) :void
     {
         $data =[
             'estate'=> $unitEntity->estate,
             'unit'=>$unitEntity,
             'owners'=>$unitEntity->owners,
+            'ownerGroups' =>$ownerGroupEntities,
         ];
         $this->response = fn()=> view('units.ownerships::create' , $data) ;
     }

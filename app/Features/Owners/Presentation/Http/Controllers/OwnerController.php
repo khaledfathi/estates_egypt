@@ -3,10 +3,14 @@ declare(strict_types=1);
 
 namespace App\Features\Owners\Presentation\Http\Controllers;
 
+use App\Features\Owners\Application\Contracts\CreateOwnerContract;
 use App\Features\Owners\Application\Contracts\DestroyOwnerContract;
+use App\Features\Owners\Application\Contracts\EditOwnerContract;
 use App\Features\Owners\Application\Contracts\ShowOwnerContract;
 use App\Features\Owners\Application\Contracts\StoreOwnerContract;
 use App\Features\Owners\Application\Contracts\UpdateOwnerContract;
+use App\Features\Owners\Application\Usecases\ShowPaginateOwnerUsecase;
+use App\Features\Owners\Presentation\API\Presenters\CreateOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Presenters\DestroyOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Presenters\EditOwnerPresenter;
 use App\Features\Owners\Presentation\Http\Presenters\ShowOwnerPresenter;
@@ -17,13 +21,17 @@ use App\Features\Owners\Presentation\Http\Requests\StoreOwnerRequest;
 use App\Features\Owners\Presentation\Http\Requests\UpdateOwnerRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
+use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
 use App\Shared\Domain\Entities\Owner\OwnerPhoneEntity;
 
 class  OwnerController extends Controller
 {
     public function __construct(
         private readonly ShowOwnerContract $showOwnerUsecase,
-        private readonly StoreOwnerContract $createOwnerUsecase,
+        private readonly ShowPaginateOwnerUsecase $showPaginateOwnerUsecase,
+        private readonly CreateOwnerContract $createOwnerUsecase,
+        private readonly StoreOwnerContract $storeOwnerUsecase,
+        private readonly EditOwnerContract $editOwnerUsecase,
         private readonly UpdateOwnerContract $updateOwnerUsecase,
         private readonly DestroyOwnerContract $destroyOwnerUsecase
 
@@ -32,7 +40,7 @@ class  OwnerController extends Controller
     public function index()
     {
         $presenter = new ShowOwnersPaginatePresenter();
-        $this->showOwnerUsecase->allWithPaginate($presenter, 5);
+        $this->showPaginateOwnerUsecase->execute($presenter, 5);
 
         return $presenter->handle();
     }
@@ -40,14 +48,14 @@ class  OwnerController extends Controller
     public function show(string $id)
     {
         $presenter = new ShowOwnerPresenter();
-        $this->showOwnerUsecase->showById((int) $id, $presenter);
+        $this->showOwnerUsecase->execute((int) $id, $presenter);
         return $presenter->handle();
     }
 
     public function edit(string $id)
     {
         $presenter = new EditOwnerPresenter();
-        $this->updateOwnerUsecase->edit((int) $id, $presenter);
+        $this->editOwnerUsecase->execute((int) $id, $presenter);
         return $presenter->handle();
     }
     public function update(UpdateOwnerRequest $request, string $id)
@@ -56,12 +64,14 @@ class  OwnerController extends Controller
         $ownerEntity = $this->formToOwnerEntity([...$request->all(), 'id' => (int) $id]);
         //action
         $presenter = new UpdateOwnerPresenter();
-        $this->updateOwnerUsecase->update($ownerEntity, $presenter);
+        $this->updateOwnerUsecase->execute($ownerEntity, $presenter);
         return $presenter->handle();
     }
     public function create()
     {
-        return view("owners::create");
+        $presenter = new CreateOwnerPresenter();
+        $this->createOwnerUsecase->execute($presenter);
+        return $presenter->handle();
     }
 
     public function store(StoreOwnerRequest $request)
@@ -70,33 +80,41 @@ class  OwnerController extends Controller
         $ownerEntity = $this->formToOwnerEntity($request->all());
         //action
         $presenter = new StoreOwnerPresenter();
-        $this->createOwnerUsecase->store($ownerEntity, $presenter);
+        $this->storeOwnerUsecase->execute($ownerEntity, $presenter);
         return $presenter->handle();
     }
     public function destroy(string $id)
     {
         $presenter = new DestroyOwnerPresenter();
-        $this->destroyOwnerUsecase->destroy((int) $id, $presenter);
+        $this->destroyOwnerUsecase->execute((int) $id, $presenter);
         return $presenter->handle();
     }
 
     private function formToOwnerEntity(array $formArray): OwnerEntity
     {
-        //phones 
+        //----
         $ownerPhones = [];
         if (isset($formArray["phones"])) {
             foreach ($formArray["phones"] as $phone) {
                 $ownerPhones[] = new OwnerPhoneEntity(phone: $phone);
             }
         }
+        //----
+        $ownerGroups = [];
+        if (isset($formArray["owner_groups"])) {
+            foreach ($formArray["owner_groups"] as $ownerGroupId) {
+                $ownerGroups[] = new OwnerGroupEntity((int)$ownerGroupId);
+            }
+        }
         //return owner entity with phones if exist
         return new OwnerEntity(
-            $formArray['id'] ?? null,
-            $formArray['name'] ?? null,
-            $formArray['national_id'] ?? null,
-            $formArray['address'] ?? null,
-            $ownerPhones,
-            $formArray['notes'] ?? null,
+            id:$formArray['id'] ?? null,
+            name:$formArray['name'] ?? null,
+            nationalId:$formArray['national_id'] ?? null,
+            address:$formArray['address'] ?? null,
+            phones:$ownerPhones,
+            notes:$formArray['notes'] ?? null,
+            ownerGroups:$ownerGroups 
         );
     }
 }

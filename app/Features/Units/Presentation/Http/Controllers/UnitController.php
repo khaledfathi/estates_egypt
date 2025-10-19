@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Features\Units\Presentation\Http\Controllers;
 
+use App\Features\Units\Application\Contracts\CreateUnitContract;
 use App\Features\Units\Application\Contracts\DestroyUnitContract;
+use App\Features\Units\Application\Contracts\EditUnitContract;
+use App\Features\Units\Application\Contracts\ShowUnitsPaginationContract;
 use App\Features\Units\Application\Contracts\ShowUnitContract;
 use App\Features\Units\Application\Contracts\StoreUnitContract;
 use App\Features\Units\Application\Contracts\UpdateUnitContract;
@@ -26,28 +29,31 @@ class UnitController extends Controller
 {
     public function __construct(
         private readonly ShowUnitContract $showUnitUsecase,
+        private readonly ShowUnitsPaginationContract $showPaginateUnitUsecase,
+        private readonly CreateUnitContract $createUnitUsecase,
         private readonly StoreUnitContract $storeUnitUsecase,
         private readonly UpdateUnitContract $updateUnitUsecase,
+        private readonly EditUnitContract $editUnitUsecase,
         private readonly DestroyUnitContract $destroyUnitUsecase,
     ) {}
 
     public function index(Request $request)
     {
         $presenter = new ShowUnitsPaginatePresenter();
-        $this->showUnitUsecase->allWithPaginate($presenter, (int) $request->route('estate'), 10);
+        $this->showPaginateUnitUsecase->execute($presenter, (int) $request->route('estate'), 10);
         return $presenter->handle();
     }
     public function show(string $estateId , string $unitId)
     {
         $presenter = new ShowUnitPresenter();
-        $this->showUnitUsecase->showById((int) $unitId, $presenter);
+        $this->showUnitUsecase->execute((int) $unitId, $presenter);
         return $presenter->handle();
     }
 
     public function edit(string $estaetId , string $unitId)
     {
         $presenter = new EditUnitPresenter();
-        $this->updateUnitUsecase->edit((int) $unitId, $presenter);
+        $this->editUnitUsecase->execute((int) $unitId, $presenter);
         return $presenter->handle();
     }
     public function update(UpdateUnitRequest $request, string $estateId, string $unitId )
@@ -56,13 +62,13 @@ class UnitController extends Controller
         $unitEntity = $this->formToUnitEntity([...$request->all(), 'estate_id'=>$estateId ,'unit_id' => (int) $unitId]);
         //action
         $presenter = new UpdateUnitPresenter();
-        $this->updateUnitUsecase->update($unitEntity, $presenter);
+        $this->updateUnitUsecase->execute($unitEntity, $presenter);
         return $presenter->handle();
     }
     public function create(Request $request)
     {
         $presenter = new CreateUnitPresenter();
-        $this->storeUnitUsecase->create((int)$request->route('estate'), $presenter);
+        $this->createUnitUsecase->execute((int)$request->route('estate'), $presenter);
         return $presenter->handle();
     }
 
@@ -72,13 +78,13 @@ class UnitController extends Controller
         $unitEntity = $this->formToUnitEntity([...$request->all(), 'estate_id'=> (int)$estateId]);
         //action
         $presenter = new StoreUnitPresenter((int) $request->estate_id);
-        $this->storeUnitUsecase->store($unitEntity, $presenter);
+        $this->storeUnitUsecase->execute($unitEntity, $presenter);
         return $presenter->handle();
     }
     public function destroy( string $estateId , string $unitId)
     {
         $presenter = new DestroyUnitPresenter((int)$estateId);
-        $this->destroyUnitUsecase->destroy((int)$unitId, $presenter);
+        $this->destroyUnitUsecase->execute((int)$unitId, $presenter);
         return $presenter->handle();
     }
 

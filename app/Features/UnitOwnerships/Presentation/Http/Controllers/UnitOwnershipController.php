@@ -4,47 +4,61 @@ declare(strict_types=1);
 
 namespace App\Features\UnitOwnerships\Presentation\Http\Controllers;
 
+use App\Features\UnitOwnerships\Application\Contracts\CreateUnitOwnershipContract;
 use App\Features\UnitOwnerships\Application\Contracts\DestroyUnitOwnershipContract;
-use App\Features\UnitOwnerships\Application\Contracts\StoreUnitOwnershipContract;
+use App\Features\UnitOwnerships\Application\Contracts\StoreUnitOwnershipsByOwnersContract;
+use App\Features\UnitOwnerships\Application\DTOs\OwnershipByOwnersFormDTO;
+use App\Features\UnitOwnerships\Application\DTOs\OwnershipByOwnersGroupsDTO;
+use App\Features\UnitOwnerships\Application\Usecases\StoreUnitOwnershipsByOwnerGoupsUsecase;
 use App\Features\UnitOwnerships\Presentation\Http\Presenters\CreateUnitOwnershipPresenter;
 use App\Features\UnitOwnerships\Presentation\Http\Presenters\DestroyUnitOwnershipPresenter;
 use App\Features\UnitOwnerships\Presentation\Http\Presenters\StoreUnitOwnershipPresenter;
-use App\Features\UnitOwnerships\Presentation\Http\Requests\StoreUnitOwnershipReques;
+use App\Features\UnitOwnerships\Presentation\Http\Requests\StoreUnitOwnershipRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Unit\UnitOwnershipEntity;
+use Illuminate\Http\Request;
 
 class UnitOwnershipController extends Controller
 {
 
+    public const STORE_TYPE_OWNERS = 'owners_list';
+    public const STORE_TYPE_OWNERS_GROUPS = 'owners_groups';
     public function __construct(
-        private readonly StoreUnitOwnershipContract $storeUnitOwnershipUsecase,
+        private readonly StoreUnitOwnershipsByOwnersContract $storeUnitOwnershipsByOwnersContract,
+        private readonly StoreUnitOwnershipsByOwnerGoupsUsecase $storeUnitOwnershipsByOwnerGoupsUsecase,
+        private readonly CreateUnitOwnershipContract $createUnitOwnershipUsecase,
         private readonly DestroyUnitOwnershipContract $destroyUnitOwnershipUsecase,
     ) {}
     public function create(string $estateId, string $unitId)
     {
         $presenter = new CreateUnitOwnershipPresenter();
-        $this->storeUnitOwnershipUsecase->create((int)$unitId, $presenter);
+        $this->createUnitOwnershipUsecase->execute((int)$unitId, $presenter);
         return $presenter->handle();
     }
-    public function store(StoreUnitOwnershipReques $request, string $estateId, string $unitId)
+    public function store(StoreUnitOwnershipRequest $request, string $estateId, string $unitId)
     {
-        //prepeare data 
-        $unitOwnershipEntity = $this->formToUnitEntity([...$request->all() , 'unit_id'=>(int)$unitId]);
-        //action
-        $presenter = new StoreUnitOwnershipPresenter((int)$estateId , (int)$unitId);
-        $this->storeUnitOwnershipUsecase->store($unitOwnershipEntity , $presenter);
+        $presenter = new StoreUnitOwnershipPresenter((int)$estateId, (int)$unitId);
+        //
+        if ($request?->store_type == self::STORE_TYPE_OWNERS) {
+            $this->storeUnitOwnershipsByOwnersContract->execute(
+                new OwnershipByOwnersFormDTO(
+                    (int)$unitId,
+                    $request->owners ?? []
+                ),
+                $presenter
+            );
+        } elseif ($request?->store_type == self::STORE_TYPE_OWNERS_GROUPS) {
+            $this->storeUnitOwnershipsByOwnerGoupsUsecase->execute(new OwnershipByOwnersGroupsDTO(
+                (int)$unitId,
+                $request->groups ?? []
+            ), $presenter);
+        }
         return $presenter->handle();
     }
-    public function destroy(int $estateId, int $unitId, int $unitOwnershipId){
+    public function destroy(int $estateId, int $unitId, int $unitOwnershipId)
+    {
         $presenter = new DestroyUnitOwnershipPresenter();
-        $this->destroyUnitOwnershipUsecase->destroy($unitOwnershipId , $presenter);
+        $this->destroyUnitOwnershipUsecase->execute($unitOwnershipId, $presenter);
         return $presenter->handle();
-    }
-    private function formToUnitEntity(array $formArray)
-    {
-        return new UnitOwnershipEntity(
-            unitId: $formArray['unit_id'] ?? null,
-            ownerId: (int)$formArray['owner_id'] ?? null,
-        );
     }
 }

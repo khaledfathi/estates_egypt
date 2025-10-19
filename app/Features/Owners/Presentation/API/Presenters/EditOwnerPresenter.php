@@ -8,7 +8,7 @@ use App\Shared\Domain\Entities\Owner\OwnerEntity;
 
 final class EditOwnerPresenter implements EditOwnerOutput
 {
-    public function onSuccess(OwnerEntity $ownerEntity): void
+    public function onSuccess (OwnerEntity $ownerEntity , array $ownerGroupEnitites):void
     {
     }
     public function onFailure(string $error): void

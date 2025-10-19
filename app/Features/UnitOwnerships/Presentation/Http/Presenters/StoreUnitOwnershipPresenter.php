@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace App\Features\UnitOwnerships\Presentation\Http\Presenters;
 
-use App\Features\UnitOwnerships\Application\Outputs\StoreUnitOwnershipOutput;
-use App\Shared\Domain\Entities\Unit\UnitOwnershipEntity;
+use App\Features\UnitOwnerships\Application\Outputs\StoreUnitOwnershipsOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class StoreUnitOwnershipPresenter implements StoreUnitOwnershipOutput
+final class StoreUnitOwnershipPresenter implements StoreUnitOwnershipsOutput
 {
     public Closure $response;
     public function __construct(
         private readonly int $estateId,
         private readonly int $unitId,
     ) {}
-    public function onSuccess(UnitOwnershipEntity $unitOwnershipEntity): void
+    public function onSuccess(array $unitOwnershipEntities): void
     {
-        $this->response = fn() => 
-            redirect(route('estates.units.show', ['estate' => $this->estateId, 'unit' => $this->unitId]));
+        $this->response = fn() =>
+        redirect(route('estates.units.show', ['estate' => $this->estateId, 'unit' => $this->unitId]))
+            ->with('success', Messages::STORE_SUCCESS);
     }
     public function onFailure(string $error): void
     {

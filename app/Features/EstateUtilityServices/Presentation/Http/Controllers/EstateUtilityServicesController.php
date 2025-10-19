@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Features\EstateUtilityServices\Presentation\Http\Controllers;
 
+use App\Features\EstateUtilityServices\Application\Contracts\CreateEstateUtilityServiceContract;
 use App\Features\EstateUtilityServices\Application\Contracts\DestroyEstateUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Contracts\EditEstateUtilityServiceContract;
+use App\Features\EstateUtilityServices\Application\Contracts\ShowAllEstateUtilityServicesContract;
 use App\Features\EstateUtilityServices\Application\Contracts\ShowEstateUtilityServiceContract;
 use App\Features\EstateUtilityServices\Application\Contracts\StoreEstateUtilityServiceContract;
 use App\Features\EstateUtilityServices\Application\Contracts\UpdateEstateUtilityServiceContract;
@@ -24,22 +27,25 @@ use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
 class EstateUtilityServicesController extends Controller
 {
     public function __construct(
-        private ShowEstateUtilityServiceContract $showEstateUtilityServiceUsecase,
-        private StoreEstateUtilityServiceContract $storeEstateUtilityServiceUsecase,
-        private DestroyEstateUtilityServiceContract $destroyEstateUtilityServiceUsecase,
-        private UpdateEstateUtilityServiceContract $updateEstateUtilityServiceUsecase,
+        private readonly ShowEstateUtilityServiceContract $showEstateUtilityServiceUsecase,
+        private readonly ShowAllEstateUtilityServicesContract $showAllEstateUtilityServicesUsecase, 
+        private readonly StoreEstateUtilityServiceContract $storeEstateUtilityServiceUsecase,
+        private readonly CreateEstateUtilityServiceContract $createEstateUtilityServiceUsecase,
+        private readonly DestroyEstateUtilityServiceContract $destroyEstateUtilityServiceUsecase,
+        private readonly EditEstateUtilityServiceContract $editEstateUtilityServiceUsecase,
+        private readonly UpdateEstateUtilityServiceContract $updateEstateUtilityServiceUsecase,
     ) {}
     public function index(string $estaetId)
     {
         $presenter = new ShowAllEstateUtilityServicesPresenter();
-        $this->showEstateUtilityServiceUsecase->all((int)$estaetId, $presenter);
+        $this->showAllEstateUtilityServicesUsecase->execute((int)$estaetId, $presenter);
         return $presenter->handle();
     }
 
     public function create(string $estateId)
     {
         $presenter = new CreateEstateUtilityServicePresenter();
-        $this->storeEstateUtilityServiceUsecase->create((int)$estateId, $presenter);
+        $this->createEstateUtilityServiceUsecase->execute((int)$estateId, $presenter);
         return $presenter->handle();
     }
 
@@ -49,21 +55,21 @@ class EstateUtilityServicesController extends Controller
         $estateUtilityServiceEntity = $this->formToUnitEntity([...$request->all(), 'estate_id' => (int)$request->route('estate')]);
         //action 
         $presenter = new StoreEstateUtilityServicePresenter();
-        $this->storeEstateUtilityServiceUsecase->store($estateUtilityServiceEntity, $presenter);
+        $this->storeEstateUtilityServiceUsecase->execute($estateUtilityServiceEntity, $presenter);
         return $presenter->handle();
     }
 
     public function show(string $estateId, string $utilityServiceId)
     {
         $presenter = new ShowEstateUtilityServicePresenter();
-        $this->showEstateUtilityServiceUsecase->showById((int)$utilityServiceId, $presenter);
+        $this->showEstateUtilityServiceUsecase->execute((int)$utilityServiceId, $presenter);
         return $presenter->handle();
     }
 
     public function edit(string $estateId, string $estateUtilityServiceId)
     {
         $presenter = new EditEstateUtilityServicePresenter((int)$estateId);
-        $this->updateEstateUtilityServiceUsecase->Edit((int)$estateUtilityServiceId, $presenter);
+        $this->editEstateUtilityServiceUsecase->execute((int)$estateUtilityServiceId, $presenter);
         return $presenter->handle();
     }
 
@@ -77,14 +83,14 @@ class EstateUtilityServicesController extends Controller
         ]);
         //action
         $presnter = new UpdateEstateUtilityServicePresenter((int)$estateId);
-        $this->updateEstateUtilityServiceUsecase->update($estateUtilityServiceEntity, $presnter);
+        $this->updateEstateUtilityServiceUsecase->execute($estateUtilityServiceEntity, $presnter);
         return $presnter->handle();
     }
 
     public function destroy(string $estaetId, string $estateUtilityServiceId)
     {
         $presenter = new DestroyEstateUtilityServicePresenter((int)$estaetId);
-        $this->destroyEstateUtilityServiceUsecase->destroy((int)$estateUtilityServiceId, $presenter);
+        $this->destroyEstateUtilityServiceUsecase->execute((int)$estateUtilityServiceId, $presenter);
         return $presenter->handle();
     }
     private function formToUnitEntity(array $formArray): EstateUtilityServiceEntity

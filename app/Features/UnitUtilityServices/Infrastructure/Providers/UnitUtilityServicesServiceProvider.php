@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Features\UnitUtilityServices\Infrastructure\Providers;
 
+use App\Features\UnitUtilityServices\Application\Contracts\CreateUnitUtilityServiceContract;
 use App\Features\UnitUtilityServices\Application\Contracts\DestroyUnitUtilityServiceContract;
+use App\Features\UnitUtilityServices\Application\Contracts\EditUnitUtilityServiceContract;
+use App\Features\UnitUtilityServices\Application\Contracts\ShowAllUnitUtilityServiceContract;
 use App\Features\UnitUtilityServices\Application\Contracts\ShowUnitUtilityServiceContract;
 use App\Features\UnitUtilityServices\Application\Contracts\StoreUnitUtilityServiceContract;
 use App\Features\UnitUtilityServices\Application\Contracts\UpdateUnitUtilityServiceContract;
+use App\Features\UnitUtilityServices\Application\Usecases\CreateUnitUtilityServiceUsecase;
 use App\Features\UnitUtilityServices\Application\Usecases\DestroyUnitUtilityServiceUsecase;
+use App\Features\UnitUtilityServices\Application\Usecases\EditUnitUtilityServiceUsecase;
+use App\Features\UnitUtilityServices\Application\Usecases\ShowAllUnitUtilityServiceUsecase;
 use App\Features\UnitUtilityServices\Application\Usecases\ShowUnitUtilityServiceUsecase;
 use App\Features\UnitUtilityServices\Application\Usecases\StroreUnitUtilityServicesUsecase;
 use App\Features\UnitUtilityServices\Application\Usecases\UpdateUnitUtilityServiceUsecase;
@@ -24,8 +30,11 @@ class UnitUtilityServicesServiceProvider extends ServiceProvider
     {
         // Usecases 
         $this->app->bind(ShowUnitUtilityServiceContract::class, ShowUnitUtilityServiceUsecase::class);
+        $this->app->bind(ShowAllUnitUtilityServiceContract::class , ShowAllUnitUtilityServiceUsecase::class);
+        $this->app->bind(CreateUnitUtilityServiceContract::class , CreateUnitUtilityServiceUsecase::class);
         $this->app->bind(StoreUnitUtilityServiceContract::class , StroreUnitUtilityServicesUsecase::class);
         $this->app->bind(DestroyUnitUtilityServiceContract::class ,DestroyUnitUtilityServiceUsecase::class);
+        $this->app->bind(EditUnitUtilityServiceContract::class , EditUnitUtilityServiceUsecase::class);
         $this->app->bind(UpdateUnitUtilityServiceContract::class , UpdateUnitUtilityServiceUsecase::class);
     }
 

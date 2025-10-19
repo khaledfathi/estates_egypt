@@ -37,7 +37,8 @@ class StoreOwnerRequest extends FormRequest
                 'digits_between:1,25',
                 Rule::unique('renter_phones' , 'phone'),
                 Rule::unique('owner_phones' , 'phone'),
-            ]
+            ],
+            'owner_groups.*'=> 'exists:owner_groups,id'
         ];
     }
 
@@ -50,6 +51,7 @@ class StoreOwnerRequest extends FormRequest
             'national_id.digits' => 'الرقم القومى غير صالح - يجب ان يكون 14 رقم.',
             'phones.*.unique' => 'رقم التليفون (:input) مسجل مسبقاً.',
             'phones.*.digits_between' => 'رقم التليفون (:input) غير صالح',
+            'owner_groups.*.exists' => 'مجموعة او اكثر غير صالحة',
         ];
     }
 
@@ -58,8 +60,12 @@ class StoreOwnerRequest extends FormRequest
         $phones = array_filter($this->input('phones', [])); // remove empty
         $phones = array_values(array_unique($phones));      // remove duplicates
 
+        $ownerGroups = array_filter($this->input('owner_groups', [])); // remove empty
+        $ownerGroups= array_values(array_unique($ownerGroups));      // remove duplicates
+
         $this->merge([
             'phones' => $phones,
+            'owner_groups'=> $ownerGroups
         ]);
     }
 }

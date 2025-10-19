@@ -14,15 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //create admin user
+        $this->createAdminUser();
+        $this->callSeeders();
+    }
+    private function createAdminUser()
+    {
         User::create([
-            "name"=> "admin",
-            "email"=> "admin@admin.com",
-            "password"=> Hash::make("admin"),
-            "is_admin"=>true
+            "name" => "admin",
+            "email" => "admin@admin.com",
+            "password" => Hash::make("admin"),
+            "is_admin" => true
         ]);
-
-        //for test only
-        // User::factory(10)->create();
+    }
+    private function callSeeders()
+    {
+        // call another seeders 
     }
 }

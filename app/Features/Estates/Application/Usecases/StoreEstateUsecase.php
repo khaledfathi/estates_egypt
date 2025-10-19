@@ -22,7 +22,7 @@ final class StoreEstateUsecase implements StoreEstateContract
      * 
      * @inheritDoc
      */
-    public function store(EstateEntity $estateEntity, StoreEstateOutput $presenter): void
+    public function execute(EstateEntity $estateEntity, StoreEstateOutput $presenter): void
     {
         try {
             //store estate

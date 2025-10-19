@@ -12,7 +12,7 @@ final class DestroyEstateUtilityServiceUsecase implements DestroyEstateUtilitySe
     public function __construct(
         private readonly EstateUtilityServiceRepository $estateUtilityServiceRepository
     ){}
-    public function destroy(int $EstateUtilityServiceId, DestroyEstateUtilityServiceOutput $presenter): void{
+    public function execute(int $EstateUtilityServiceId, DestroyEstateUtilityServiceOutput $presenter): void{
         try {
             $status= $this->estateUtilityServiceRepository->destroy($EstateUtilityServiceId);
             $presenter->onSuccess($status);

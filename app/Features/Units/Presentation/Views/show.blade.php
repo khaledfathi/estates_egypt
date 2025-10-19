@@ -35,6 +35,22 @@
         @endif
         {{-- / Errors --}}
 
+        {{-- success message  --}}
+        @if (session('success'))
+            <div class="row" style="display:flex; justify-content:center;">
+                <div class="col-sm-12 col-md-10 col-lg-8">
+                    <div class="card card-inverse card-success">
+                        <div class="card-block">
+                            <ul>
+                                <li>{{ session('success') }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        {{-- / success message  --}}
+
         @isset($unit)
             {{-- estaet information  --}}
             <div class="card">
@@ -64,7 +80,7 @@
                     </a>
                     <a href="{{ route('estates.units.ownerships.create', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
                         class="btn btn-primary">
-                        <i class="fa fa-bolt fa-lg "></i> &nbsp; تسجيل مالك الوحدة
+                        <i class="icon-people fa-lg"></i>&nbsp; تسجيل مالك/ملاك الوحدة
                     </a>
                 </div>
             </div>
@@ -138,10 +154,13 @@
                                                 <i class="action-icon fa fa-external-link fa-lg m-t-2"></i>
                                             </a></td>
                                         <td>
-                                            <form action="{{ route('estates.units.ownerships.destroy', ['estate'=>$estate->id, 'unit'=>$unit->id, 'ownership'=>$owner->ownershipId]) }}" method="post">
+                                            <form
+                                                action="{{ route('estates.units.ownerships.destroy', ['estate' => $estate->id, 'unit' => $unit->id, 'ownership' => $owner->ownershipId]) }}"
+                                                method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <i id="delete-ownership-btn" class="action-icon action-icon--delete fa fa-chain-broken fa-lg m-t-2"></i>
+                                                <i id="delete-ownership-btn"
+                                                    class="action-icon action-icon--delete fa fa-chain-broken fa-lg m-t-2"></i>
                                                 <input class="delete-submit-btn" type="submit" hidden="">
                                             </form>
                                         </td>
