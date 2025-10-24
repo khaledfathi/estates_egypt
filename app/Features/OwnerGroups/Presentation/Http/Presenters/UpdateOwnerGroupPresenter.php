@@ -27,7 +27,8 @@ final class UpdateOwnerGroupPresenter implements UpdateOwnerGroupOutput
     }
     public function onSuccess(bool $status): void
     {
-        $this->response = fn() => redirect($this->lastPage);
+        $this->response = fn() => redirect($this->lastPage)
+            ->with('success', Messages::UPDATE_SUCCESS);
     }
     public function onFailure(string $error): void
     {

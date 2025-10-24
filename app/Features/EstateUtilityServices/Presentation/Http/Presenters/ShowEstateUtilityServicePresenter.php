@@ -10,14 +10,16 @@ use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
 final class ShowEstateUtilityServicePresenter implements ShowEstateUtilityServiceOutput
 {
     public Closure $response;
-    public function __construct()
-    {
+    public function __construct(
+        private readonly ?int $invoicesYear,
+    ) {
         $this->handleSession();
     }
     private function handleSession()
@@ -27,12 +29,14 @@ final class ShowEstateUtilityServicePresenter implements ShowEstateUtilityServic
     }
     public function onSuccess(EstateUtilityServiceEntity $estateUtilityServiceEntity): void
     {
-        $data= [
+        $data = [
             'estate' => $estateUtilityServiceEntity->estate,
             'estateUtilityService' => $estateUtilityServiceEntity,
             'utilityServiceTypes' => EstateUtilityServiceType::labels(),
+            'utilityServiceInvoices' => $estateUtilityServiceEntity->invoices,
+            'currentYear' => $this->invoicesYear,
         ];
-        $this->response = fn () => view('estates.utility-services::show', $data);
+        $this->response = fn() => view('estates.utility-services::show', $data);
     }
     public function onNotFound(): void
     {
@@ -53,6 +57,6 @@ final class ShowEstateUtilityServicePresenter implements ShowEstateUtilityServic
     }
     public function handle()
     {
-        return ($this->response)(); 
+        return ($this->response)();
     }
 }

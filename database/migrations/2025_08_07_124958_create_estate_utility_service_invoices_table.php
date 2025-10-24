@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('estate_utility_service_invoices', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['electriciy, water']);
             $table->unsignedTinyInteger('for_month');
             $table->unsignedSmallInteger('for_year');
+            $table->integer('amount');
+            $table->text('file')->nullable();
             $table->timestamps();
             //FK
-            $table->foreignId('estate_id')->references('id')->on('estates')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('estate_utility_service_id')->references('id')->on('estate_utility_services')->onUpdate('cascade')->onDelete('cascade');
             //constrains
-            $table->unique(['estate_id', 'type', 'for_month', 'for_year']);
+            $table->unique(['estate_utility_service_id', 'for_month', 'for_year']);
         });
     }
 

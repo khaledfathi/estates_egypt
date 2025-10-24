@@ -23,7 +23,8 @@ final class UpdateUnitPresenter implements UpdateUnitOutput {
         $this->lastPage = session(SessionKeys::UNIT_EDIT_PREVIOUS_PAGE);
     }
     public function onSuccess(bool $status , UnitEntity $unitEntity): void{
-        $this->response =  fn() =>   redirect($this->lastPage);
+        $this->response =  fn() =>   redirect($this->lastPage)
+        ->with('success' , Messages::UPDATE_SUCCESS);
     }
     public function onFailure($error):void{
         $this->response = fn() =>

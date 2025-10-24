@@ -33,6 +33,22 @@
         @endif
         {{-- / Errors --}}
 
+        {{-- success message  --}}
+        @if (session('success'))
+            <div class="row" style="display:flex; justify-content:center;">
+                <div class="col-sm-12 col-md-10 col-lg-8">
+                    <div class="card card-inverse card-success">
+                        <div class="card-block">
+                            <ul>
+                                <li>{{ session('success') }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        {{-- / success message  --}}
+
         @isset($ownerGroup)
             {{-- header buttons section --}}
             <div class="container">

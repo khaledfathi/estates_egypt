@@ -23,7 +23,10 @@ final class ViewEstateDocumentFilePresenter implements DownloadEstateDocumentFil
             ]
         );
     }
-    public function onFailure(): void
+    public function onNotFound(): void{
+        $this->response = fn() => abort(404);
+    }
+    public function onFailure(string $error): void
     {
         $this->response = fn() => abort(404);
     }

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Features\OwnerGroups\Presentation\Http\Presenters;
@@ -16,7 +15,8 @@ final class StoreOwnerGroupPresenter implements StoreOwnerGroupOutput
     private Closure $response;
     public function onSuccess(OwnerGroupEntity $ownerGroupEntity): void
     {
-        $this->response = fn() => redirect(route('owner-groups.index'));
+        $this->response = fn() => redirect(route('owner-groups.index'))
+            ->with('success', Messages::STORE_SUCCESS);
     }
     public function onFailure($error): void
     {

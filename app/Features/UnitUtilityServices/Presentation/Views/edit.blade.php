@@ -87,7 +87,7 @@
                     @method('PUT')
                     <div class="card">
                         <div class="card-header">
-                            <strong>اضافة مرفق</strong>
+                            <strong>تحديث بيانات مرفق الوحدة</strong>
                         </div>
                         <div class="card-block">
                             {{-- service type --}}

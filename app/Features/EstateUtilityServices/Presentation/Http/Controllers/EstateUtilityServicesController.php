@@ -23,12 +23,13 @@ use App\Features\EstateUtilityServices\Presentation\Http\Requests\UpdateEstateUt
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Estate\EstateUtilityServiceEntity;
 use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
+use Carbon\Carbon;
 
 class EstateUtilityServicesController extends Controller
 {
     public function __construct(
         private readonly ShowEstateUtilityServiceContract $showEstateUtilityServiceUsecase,
-        private readonly ShowAllEstateUtilityServicesContract $showAllEstateUtilityServicesUsecase, 
+        private readonly ShowAllEstateUtilityServicesContract $showAllEstateUtilityServicesUsecase,
         private readonly StoreEstateUtilityServiceContract $storeEstateUtilityServiceUsecase,
         private readonly CreateEstateUtilityServiceContract $createEstateUtilityServiceUsecase,
         private readonly DestroyEstateUtilityServiceContract $destroyEstateUtilityServiceUsecase,
@@ -61,8 +62,9 @@ class EstateUtilityServicesController extends Controller
 
     public function show(string $estateId, string $utilityServiceId)
     {
-        $presenter = new ShowEstateUtilityServicePresenter();
-        $this->showEstateUtilityServiceUsecase->execute((int)$utilityServiceId, $presenter);
+        $year = request()->query('year') ?? Carbon::now()->year;
+        $presenter = new ShowEstateUtilityServicePresenter( (int)$year);
+        $this->showEstateUtilityServiceUsecase->execute((int)$utilityServiceId, (int)$year, $presenter);
         return $presenter->handle();
     }
 

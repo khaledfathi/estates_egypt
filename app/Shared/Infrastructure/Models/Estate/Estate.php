@@ -24,4 +24,7 @@ class Estate extends Model
     public function utilityServices (){
         return $this->hasMany(EstateUtilityService::class);
     }
+    public function estateUtilityServiceInvoices (){
+        return $this->hasMany(EstateUtilityServiceInvoice::class);
+    }
 }

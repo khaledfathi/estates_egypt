@@ -80,7 +80,7 @@
                 action="{{ route('estates.units.utility-services.store', ['estate'=>$estate->id , 'unit'=>$unit->id]) }}">
                 <div class="card">
                     <div class="card-header">
-                        <strong>اضافة مرفق</strong>
+                        <strong>اضافة مرفق للوحدة</strong>
                     </div>
                     <div class="card-block">
                         @csrf

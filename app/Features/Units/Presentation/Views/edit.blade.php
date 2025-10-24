@@ -75,7 +75,7 @@
                     @method('PUT')
                     <div class="card">
                         <div class="card-header">
-                            <strong>اضافة وحدة</strong>
+                            <strong>تحديث بيانات الوحدة</strong>
                         </div>
                         <div class="card-block">
 

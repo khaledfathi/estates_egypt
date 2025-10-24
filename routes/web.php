@@ -2,6 +2,7 @@
 
 use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
+use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Controllers\EstateUtilityServiceInvoiceController;
 use App\Features\EstateUtilityServices\Presentation\Http\Controllers\EstateUtilityServicesController;
 use App\Features\OwnerGroups\Presentation\Http\Controllers\OwnerGroupController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
@@ -24,7 +25,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::group(['prefix'=>'/profile'], function (){
+    Route::group(['prefix' => '/profile'], function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -32,31 +33,37 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/owners', OwnerController::class);
     Route::resource('/owner-groups', OwnerGroupController::class);
-    Route::delete('/owner-groups/{owner_group}/unlink-owner/{owner_in_group}' , [OwnerGroupController::class, 'unlinkOwner'])->name('owner-groups.unlink');
+    Route::delete('/owner-groups/{owner_group}/unlink-owner/{owner_in_group}', [OwnerGroupController::class, 'unlinkOwner'])->name('owner-groups.unlink');
 
-    Route::resource('/renters' , RenterController::class );
-    Route::resource('/estates' , EstateController::class );
-    Route::resource('/estates.units' , UnitController::class );
-    Route::resource('/estates.units.utility-services' , UnitUtilityServiceController::class );
+    Route::resource('/renters', RenterController::class);
+    Route::resource('/estates', EstateController::class);
+    Route::resource('/estates.units', UnitController::class);
+    Route::resource('/estates.units.utility-services', UnitUtilityServiceController::class);
 
     Route::get('/estates/{estate}/documents/view-file/{file}', [EstateDocumentController::class, 'viewFile'])
         ->name('estates.documents.view-file');
     Route::get('/estates/{estate}/documents/download/{file}', [EstateDocumentController::class, 'download'])
-        ->name('estates.documents.download'); 
-    Route::resource('/estates.documents' , EstateDocumentController::class );
+        ->name('estates.documents.download');
+    Route::resource('/estates.documents', EstateDocumentController::class);
 
-    Route::resource('/estates.utility-services' , EstateUtilityServicesController::class );
-    Route::resource('/estates.units.ownerships' , UnitOwnershipController::class );
+    Route::resource('/estates.utility-services', EstateUtilityServicesController::class);
+
+    Route::get('/estates/{estate}/utility-services/{utility_service}/invoices/{invoice}/view-file/{file}', [EstateUtilityServiceInvoiceController::class, 'viewFile'])
+        ->name('estates.utility-services.invoices.view-file');
+    Route::get('/estates/{estate}/utility-services/{utility_service}/invoices/{invoice}/download/{file}', [EstateUtilityServiceInvoiceController::class, 'download'])
+        ->name('estates.utility-services.invoices.download');
+    Route::resource('/estates.utility-services.invoices', EstateUtilityServiceInvoiceController::class);
+
+    Route::resource('/estates.units.ownerships', UnitOwnershipController::class);
 
     Route::resource('/settings', SettingController::class)->only('index');
-
 });
 
 /* FOR TEST  */
-Route::get('/queries' , [QueryContoller::class, 'index'])->name('queries.index');
-Route::get('/transactions' , [TransactionContoller::class, 'index'])->name('transactions.index');
+Route::get('/queries', [QueryContoller::class, 'index'])->name('queries.index');
+Route::get('/transactions', [TransactionContoller::class, 'index'])->name('transactions.index');
 
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

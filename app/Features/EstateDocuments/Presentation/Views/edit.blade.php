@@ -79,7 +79,7 @@
                     @method('PUT')
                     <div class="card">
                         <div class="card-header">
-                            <strong>تحدث مستند</strong>
+                            <strong>تحديث مستند</strong>
                         </div>
                         <div class="card-block">
                             {{-- title --}}

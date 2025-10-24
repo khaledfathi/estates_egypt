@@ -12,7 +12,6 @@ use App\Shared\Domain\Repositories\EstateDocumentRepository;
 
 final class DestroyEstateDocumentUsecase implements DestroyEstateDocumentContract
 {
-
     public function __construct(
         private readonly EstateDocumentRepository $estateDocumentRepository,
         private readonly StorageDir $storageDir,

@@ -29,7 +29,8 @@ final class UpdateUnitUtilityServicePresenter implements UpdateUnitUtilityServic
     }
     public function onSuccess(bool $status): void
     {
-        $this->response = fn() => redirect($this->lastPage);
+        $this->response = fn() => redirect($this->lastPage)
+            ->with('success', Messages::UPDATE_SUCCESS);
     }
     public function onFailure(string $error): void
     {

@@ -70,7 +70,7 @@
                 action="{{ route('estates.utility-services.store', $estate->id) }}">
                 <div class="card">
                     <div class="card-header">
-                        <strong>اضافة مرفق</strong>
+                        <strong>اضافة مرفق للعقار</strong>
                     </div>
                     <div class="card-block">
                         @csrf
@@ -105,7 +105,7 @@
 
                         {{-- electronic payment number --}}
                         <div class="form-group">
-                            <label for="electronic_payment_number">رقم الدفع الالكترونى</label>
+                            <label for="electronic_payment_number">رقم السداد الالكترونى</label>
                             <input name="electronic_payment_number" type="text" class="form-control"
                                 id="electronic_payment_number" placeholder="رقم الدفع الالكترونى المسجل على الايصال "
                                 value="{{ old('electronic_payment_number') }}">
