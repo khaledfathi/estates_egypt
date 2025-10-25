@@ -17,6 +17,7 @@
 	cursor: pointer;
 	font-size: 25px;
 	transition: color 0.3s ease;
+    color:#157294;
 	margin: 0 !important;
 	vertical-align: middle !important;
 }
@@ -25,4 +26,12 @@
 }
 .action-icon--delete{
     color: red ;
+}
+
+/* ------ */
+.manage-btn-box {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 2em;
 }

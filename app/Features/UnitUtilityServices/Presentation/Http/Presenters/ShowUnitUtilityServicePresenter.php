@@ -5,12 +5,23 @@ namespace App\Features\UnitUtilityServices\Presentation\Http\Presenters;
 use App\Features\UnitUtilityServices\Application\Outputs\ShowUnitUtilityServiceOutput;
 use App\Shared\Domain\Entities\Unit\UnitUtilityServiceEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
 final class ShowUnitUtilityServicePresenter implements ShowUnitUtilityServiceOutput {
     private Closure $response;
+
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $previousPage = SessionKeys::UNIT_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE;
+        session()->put($previousPage, url()->current());
+    }
     public function onSuccess(UnitUtilityServiceEntity $unitUtilityServiceEntity):void{
         $data = [
             'estate'=>$unitUtilityServiceEntity->estate,

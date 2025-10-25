@@ -9,4 +9,5 @@ final class Messages {
     public const STORE_SUCCESS = 'تم الحفظ بنجاح';
     public const UPDATE_SUCCESS = 'تم التحديث بنجاح';
     public const DESTROY_SUCCESS= 'تم الحذف بنجاح';
+    public const CAN_NOT_DELETE_DEFAULT_GROUP=   'لا يمكن حذف المجموعة الافتراضية';
 }

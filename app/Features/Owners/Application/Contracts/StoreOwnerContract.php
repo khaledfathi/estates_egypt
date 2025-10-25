@@ -12,5 +12,5 @@ interface StoreOwnerContract {
      * @param OwnerEntity $data
      * @return void
      */
-    public function store (OwnerEntity $ownerEntity, StoreOwnerOutput $presenter): void;
+    public function execute (OwnerEntity $ownerEntity, StoreOwnerOutput $presenter): void;
 }

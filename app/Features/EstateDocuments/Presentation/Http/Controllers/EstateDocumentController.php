@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Features\EstateDocuments\Presentation\Http\Controllers;
 
+use App\Features\EstateDocuments\Application\Contracts\CreateEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Contracts\DestroyEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Contracts\DownloadEstateDocumentFileContract;
+use App\Features\EstateDocuments\Application\Contracts\EditEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Contracts\ShowEstateDocumentContract;
+use App\Features\EstateDocuments\Application\Contracts\ShowEstateDocumentsPaginationContract;
 use App\Features\EstateDocuments\Application\Contracts\StoreEstateDocumentContract;
 use App\Features\EstateDocuments\Application\Contracts\UpdateEstateDocumentContract;
 use App\Features\EstateDocuments\Presentation\Http\Presenters\CreateEstateDocumentPresenter;
@@ -32,8 +35,11 @@ class EstateDocumentController extends Controller
 {
     public function __construct(
         private readonly ShowEstateDocumentContract $showEstateDocumentUsecase,
+        private readonly ShowEstateDocumentsPaginationContract $showPaginateEstateDocumentUsecase, 
+        private readonly CreateEstateDocumentContract $createEstateDocumentUsecase,
         private readonly StoreEstateDocumentContract $storeEstateDocumentUsecase,
         private readonly DestroyEstateDocumentContract $destroyEstateDocumentUsecase,
+        private readonly EditEstateDocumentContract $editEstateDocumentUsecase,
         private readonly UpdateEstateDocumentContract $updateEstateDocumentUsecase,
         private readonly DownloadEstateDocumentFileContract $downloadEstateDocumentFileUsecase,
         private readonly StorageDir $storageDir
@@ -41,14 +47,14 @@ class EstateDocumentController extends Controller
     public function index(Request $request)
     {
         $presenter = new ShowEstateDocumentsPaginatePresenter();
-        $this->showEstateDocumentUsecase->allWithPaginate($presenter, (int)$request->route('estate'), 5);
+        $this->showPaginateEstateDocumentUsecase->execute($presenter, (int)$request->route('estate'), 5);
         return $presenter->handle();
     }
 
     public function create(Request $request)
     {
         $presenter = new CreateEstateDocumentPresenter();
-        $this->storeEstateDocumentUsecase->create((int) $request->route('estate'), $presenter);
+        $this->createEstateDocumentUsecase->execute((int) $request->route('estate'), $presenter);
         return $presenter->handle();
     }
 
@@ -59,21 +65,21 @@ class EstateDocumentController extends Controller
         $file = $this->fileDTO($request->file('file'));
         //action 
         $presenter = new StoreEstateDocumentPresenter();
-        $this->storeEstateDocumentUsecase->store($estateDocumentEntity, $file,  $presenter);
+        $this->storeEstateDocumentUsecase->execute($estateDocumentEntity, $file,  $presenter);
         return $presenter->handle();
     }
 
     public function show(string $estateId, string $estateDocumentId)
     {
         $presenter = new ShowEstateDocumentPresenter();
-        $this->showEstateDocumentUsecase->showById((int) $estateDocumentId, $presenter);
+        $this->showEstateDocumentUsecase->execute((int) $estateDocumentId, $presenter);
         return  $presenter->handle();
     }
 
     public function edit(string $estateId, string $estateDocumentId)
     {
         $presenter = new EditEstateDocumentPresenter();
-        $this->updateEstateDocumentUsecase->edit((int) $estateDocumentId, $presenter);
+        $this->editEstateDocumentUsecase->execute((int) $estateDocumentId, $presenter);
         return $presenter->handle();
     }
 
@@ -86,28 +92,28 @@ class EstateDocumentController extends Controller
         $file = $this->fileDTO($request->file('file'));
         //action 
         $presenter = new UpdateEstateDocumentPresenter((int)$estateId, (int)$estateDocumentId);
-        $this->updateEstateDocumentUsecase->update($estateDocumentEntity, $file ,  $presenter);
+        $this->updateEstateDocumentUsecase->execute($estateDocumentEntity, $file ,  $presenter);
         return $presenter->handle();
     }
 
     public function destroy(string $estateId, string $estateDocumentId)
     {
         $presenter = new DestroyEstateDocumentPresenter((int)$estateId);
-        $this->destroyEstateDocumentUsecase->destroy((int) $estateDocumentId, $presenter);
+        $this->destroyEstateDocumentUsecase->execute((int) $estateDocumentId, $presenter);
         return $presenter->handle();
     }
 
     public function download(string $estateId, string $file)
     {
         $presenter = new DownloadEstateDocumentFilePresenter();
-        $this->downloadEstateDocumentFileUsecase->download((int)$estateId, $file, $presenter);
+        $this->downloadEstateDocumentFileUsecase->execute((int)$estateId, $file, $presenter);
         return $presenter->handle();
     }
 
     public function viewFile(string $estateId, string $file)
     {
         $presenter = new ViewEstateDocumentFilePresenter();
-        $this->downloadEstateDocumentFileUsecase->download((int)$estateId, $file, $presenter);
+        $this->downloadEstateDocumentFileUsecase->execute((int)$estateId, $file, $presenter);
         return $presenter->handle();
     }
 

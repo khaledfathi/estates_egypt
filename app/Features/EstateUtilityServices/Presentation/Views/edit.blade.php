@@ -76,7 +76,7 @@
                     @method('PUT')
                     <div class="card">
                         <div class="card-header">
-                            <strong>اضافة مرفق</strong>
+                            <strong>تحديث بيانات مرفق العقار</strong>
                         </div>
                         <div class="card-block">
                             {{-- service type --}}
@@ -113,7 +113,7 @@
 
                             {{-- electronic payment number --}}
                             <div class="form-group">
-                                <label for="electronic_payment_number">رقم الدفع الالكترونى</label>
+                                <label for="electronic_payment_number">رقم السداد الالكترونى</label>
                                 <input name="electronic_payment_number" type="text" class="form-control"
                                     id="electronic_payment_number"
                                     placeholder="رقم الدفع الالكترونى المسجل على الايصال "
@@ -137,7 +137,7 @@
                                     class="btn btn-md btn-primary">
                                     <i class="fa fa-refresh "></i>
                                     اعادة</a>
-                                <a href="{{ route('estates.utility-services.index', $estate->id) }}"
+                                <a href="{{$previousURL}}"
                                     class="btn btn-md btn-danger">
                                     <i class="fa fa-ban"></i>
                                     الغاء</a>

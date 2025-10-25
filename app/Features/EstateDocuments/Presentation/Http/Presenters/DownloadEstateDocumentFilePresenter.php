@@ -12,7 +12,10 @@ final class DownloadEstateDocumentFilePresenter implements DownloadEstateDocumen
     public function onSuccess(string $filePath):void{
         $this->response = fn()=> response()->download($filePath);
     }
-    public function onFailure():void{
+    public function onNotFound():void{
+        $this->response = fn() => abort(404);
+    }
+    public function onFailure(string $error):void{
         $this->response = fn() => abort(404);
     }
     public function handle(){

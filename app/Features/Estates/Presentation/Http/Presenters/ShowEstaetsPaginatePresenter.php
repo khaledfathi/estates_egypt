@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace App\Features\Estates\Presentation\Http\Presenters;
 
-use App\Features\Estates\Application\Outputs\ShowEstatesPaginateOutput;
+use App\Features\Estates\Application\Outputs\ShowEstatesPaginationOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
-final class ShowEstaetsPaginatePresenter implements ShowEstatesPaginateOutput
+final class ShowEstaetsPaginatePresenter implements ShowEstatesPaginationOutput
 {
 
-    public $response;
+    public Closure $response;
     public function onSucces(EntitiesWithPagination $estateEntities): void
     {
         $data = [
             'estates' => $estateEntities->entities,
             'pagination' => $estateEntities->pagination,
         ];
-        $this->response = view('estates::index',$data);
+        $this->response = fn() => view('estates::index',$data);
     }
 
     public function onFailure(string $error): void
     {
-        $this->response = view('estates::index', [
+        $this->response = fn ()=> view('estates::index', [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -36,6 +36,6 @@ final class ShowEstaetsPaginatePresenter implements ShowEstatesPaginateOutput
 
     public function handle()
     {
-        return $this->response; 
+        return ($this->response)(); 
     }
 }

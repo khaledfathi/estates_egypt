@@ -12,13 +12,13 @@
     <div class="container-fluid">
 
         {{-- error message  --}}
-        @if(session()->has('error'))
+        @if (session()->has('error'))
             <div class="row" style="display:flex; justify-content:center;">
                 <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card card-inverse card-danger ">
                         <div class="card-block">
                             <ul>
-                                <li>{{ session('error')}}</li>
+                                <li>{{ session('error') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -43,13 +43,21 @@
         @endif
         {{-- / success message  --}}
 
+        {{-- header buttons section --}}
+        <div class="container">
+            <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
+                <i class="fa fa-users fa-lg d-inline-block"></i>
+                <span>المجموعات</span>
+            </a>
+        </div> <hr>
+        {{-- / header buttons section --}}
+
         <div class="card-block row">
             <a href="{{ route('owners.create') }}" class="btn btn-md btn-primary my-5">
                 <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
                 <span> اضافة مالك</span>
             </a>
             <div class="container-fluid">
-
                 {{-- top pagination  --}}
 
                 @isset($pagination)
@@ -88,7 +96,7 @@
                                         <td>
                                             @if ($owner->phones)
                                                 @foreach ($owner->phones as $phone)
-                                                    {{ $phone->phone}} <br>
+                                                    {{ $phone->phone }} <br>
                                                 @endforeach
                                             @else
                                                 {{ '----' }}
@@ -108,7 +116,8 @@
                                                     method="post">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <i class="delete-owner-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                                    <i
+                                                        class="delete-owner-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
                                                     <input class="delete-submit-btn" type="submit" hidden>
                                                 </form>
                                             </div>
@@ -120,7 +129,7 @@
                         <div class="card card-inverse card-primary text-xs-center">
                             <div class="card-block">
                                 <blockquote class="card-blockquote">
-                                    لا يوجد ملاك مسجلين حتى الان - قم باضافة مالك 
+                                    لا يوجد ملاك مسجلين حتى الان - قم باضافة مالك
                                 </blockquote>
                             </div>
                         </div>
@@ -148,7 +157,6 @@
                 @endisset($pagination)
 
             </div>
-
             {{-- botom pagination  --}}
         </div>
     </div>

@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Features\OwnerGroups\Application\Usecases;
+
+use App\Features\OwnerGroups\Application\Contracts\UpdateOwnerGroupContrat;
+use App\Features\OwnerGroups\Application\Outputs\UpdateOwnerGroupOutput;
+use App\Shared\Domain\Entities\Owner\OwnerGroupEntity;
+use App\Shared\Domain\Repositories\OwnerGroupRepository;
+use Exception;
+
+final class UpdateOwnerGroupUsecase implements UpdateOwnerGroupContrat
+{
+
+    public function __construct(
+        private readonly OwnerGroupRepository $ownerGroupRepository
+    ) {}
+    public function execute(OwnerGroupEntity $ownerGroupEntity, UpdateOwnerGroupOutput $presneter): void
+    {
+        try {
+            $status = $this->ownerGroupRepository->update($ownerGroupEntity);
+            $presneter->onSuccess($status);
+        } catch (Exception $e) {
+            $presneter->onFailure($e->getMessage());
+        }
+    }
+}

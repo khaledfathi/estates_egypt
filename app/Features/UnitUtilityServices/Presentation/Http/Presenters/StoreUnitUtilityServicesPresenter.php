@@ -23,7 +23,6 @@ final class StoreUnitUtilityServicesPresenter implements StoreUnitUtilityService
         ]));
     }
     public function onFailure(string $error):void{
-        dd($error);
         $this->response = fn() => back()
             ->withInput()
             ->with('error', Messages::INTERNAL_SERVER_ERROR);

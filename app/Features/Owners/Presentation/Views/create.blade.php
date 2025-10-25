@@ -26,6 +26,19 @@
         @endif
         {{-- / Errors --}}
 
+        {{-- header buttons section --}}
+        <div class="container">
+            <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
+                <i class="icon-people fa-lg d-inline-block"></i>
+                <span>الملاك</span>
+            </a>
+            <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
+                <i class="fa fa-users fa-lg d-inline-block"></i>
+                <span>المجموعات</span>
+            </a>
+        </div>
+        <hr>
+        {{-- / header buttons section --}}
         <div class="row" style="display:flex; justify-content: center;">
             <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post" action="{{ route('owners.store') }}">
                 <div class="card">
@@ -59,13 +72,14 @@
                         {{-- / address --}}
 
                         {{-- phones --}}
+                        <hr>
                         <div id="phone-form-group" class="form-group">
                             <label>التليفون</label>
                             {{-- ||| TO BE CLONED |||  --}}
                             <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px"
                                 hidden>
-                                <input type="text" class="phones form-control d-inline-block"
-                                    placeholder="رقم التليفون" maxlength="25">
+                                <input type="text" class="phones form-control d-inline-block" placeholder="رقم التليفون"
+                                    maxlength="25">
                                 <i class="remove-phone-btn fa fa-trash fa-lg"
                                     style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
                             </div>
@@ -75,16 +89,61 @@
                                 $phones = old('phones', []); // Default to one empty input if no old data
                             @endphp
                             @foreach ($phones as $index => $phone)
-                            <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                                <input type="text" name="phones[]" value="{{ $phone }}"  class="phones form-control d-inline-block" placeholder="رقم التليفون" maxlength="25"/>
-                                <i class="remove-phone-btn fa fa-trash fa-lg"
-                                    style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
-                            </div>
+                                <div class="phone-box" style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+                                    <input type="text" name="phones[]" value="{{ $phone }}"
+                                        class="phones form-control d-inline-block" placeholder="رقم التليفون"
+                                        maxlength="25" />
+                                    <i class="remove-phone-btn fa fa-trash fa-lg"
+                                        style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
+                                </div>
                             @endforeach
                         </div>
                         <button id="add-phone-btn" type="button" class="btn" style="margin-bottom: 20px">اضافة رقم
                         </button>
                         {{-- / phones --}}
+
+                        {{-- owner  groups --}}
+                        @if (count($ownerGroups))
+                            <hr>
+                            <div id="owner-group-form-group" class="form-group">
+                                <label>المجموعات</label>
+                                {{-- ||| TO BE CLONED |||  --}}
+                                <div class="owner-group-box"
+                                    style="display:flex;align-items:center;gap:10px;margin-bottom:10px" hidden>
+                                    <select class="owner-groups form-control d-inline-block" name="owner-groups">
+                                        @foreach ($ownerGroups as $ownerGroup)
+                                            <option value="{{ $ownerGroup->id }}">{{ $ownerGroup->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <i class="remove-owner-group-btn fa fa-trash fa-lg"
+                                        style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
+                                </div>
+                                {{-- \ ||| TO BE CLONED |||  --}}
+
+                                @php
+                                    $oldInputOwnerGroups = old('owner_groups', []); // Default to one empty input if no old data
+                                @endphp
+                                @foreach ($oldInputOwnerGroups as $oldOwnerGroup)
+                                    <div class="owner-group-box"
+                                        style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+                                        <select class="owner-groups form-control d-inline-block" name="owner_groups[]">
+                                            @foreach ($ownerGroups as $ownerGroup)
+                                                <option value="{{ $ownerGroup->id }}"
+                                                    {{ $oldOwnerGroup == $ownerGroup->id ? 'selected' : null }}>
+                                                    {{ $ownerGroup->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <i class="remove-owner-group-buttons fa fa-trash fa-lg"
+                                            style="display:inline ; vertical-align: middle; font-size: 1.5rem;color:red;cursor:pointer"></i>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button id="add-owner-group-btn" type="button" class="btn" style="margin-bottom: 20px">اضافة
+                                مجموعة
+                            </button>
+                            <hr>
+                        @endif
+                        {{-- / owner  groups --}}
 
 
                         {{-- notes --}}
@@ -99,7 +158,8 @@
                             <button id="submit-btn" type="submit" class="btn btn-md btn-success">
                                 <i class="fa fa-plus-circle "></i>
                                 اضافة</button>
-                            <a href="{{ route('owners.index') }}" class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
+                            <a href="{{ route('owners.index') }}" class="btn btn-md btn-danger"><i
+                                    class="fa fa-ban"></i>
                                 الغاء</a>
                         </div>
                         {{-- / buttons --}}

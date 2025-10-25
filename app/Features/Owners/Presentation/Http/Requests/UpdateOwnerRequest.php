@@ -32,7 +32,8 @@ class UpdateOwnerRequest extends FormRequest
                 'digits_between:1,25',
                 Rule::unique('owner_phones' , 'phone')->ignore($this->owner,  'owner_id'),
                 Rule::unique('renter_phones' , 'phone'),
-            ]
+            ],
+            'owner_groups.*'=> 'exists:owner_groups,id'
         ];
     }
 
@@ -46,6 +47,7 @@ class UpdateOwnerRequest extends FormRequest
             'phones.*.unique' => 'رقم التليفون (:input) مسجل مسبقاً.',
             'phones.*.numeric' => 'رقم التليفون (:input) غير صالح - يجب أن يكون رقمًا.',
             'phones.*.digits_between' => 'رقم التليفون (:input) غير صالح',
+            'owner_groups.*.exists' => 'مجموعة او اكثر غير صالحة',
         ];
     }
 
@@ -54,8 +56,11 @@ class UpdateOwnerRequest extends FormRequest
         $phones = array_filter($this->input('phones', [])); // remove empty
         $phones = array_values(array_unique($phones));      // remove duplicates
 
+        $ownerGroups = array_filter($this->input('owner_groups', [])); // remove empty
+        $ownerGroups= array_values(array_unique($ownerGroups));      // remove duplicates
         $this->merge([
             'phones' => $phones,
+            'owner_groups'=> $ownerGroups
         ]);
     }
 }

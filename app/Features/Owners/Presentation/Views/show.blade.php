@@ -48,6 +48,19 @@
         {{-- / success message  --}}
 
         @isset($owner)
+            {{-- header buttons section --}}
+            <div class="container">
+                <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
+                    <i class="icon-people fa-lg d-inline-block"></i>
+                    <span>الملاك</span>
+                </a>
+                <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
+                    <i class="fa fa-users fa-lg d-inline-block"></i>
+                    <span>المجموعات</span>
+                </a>
+            </div>
+            <hr>
+            {{-- / header buttons section --}}
             <div class="row" style="display:flex; justify-content: center;">
                 <div id="form" class="col-sm-12 col-md-10 col-lg-6">
                     <div class="card">
@@ -69,11 +82,14 @@
                         </div>
                         <div class="card-block">
                             <ul>
-                                <li>الاسم : {{ $owner->name }}</li><hr>
-                                <li>الرقم القومى : {{ $owner->nationalId ?? '---'}}</li><hr>
+                                <li>الاسم : {{ $owner->name }}</li>
+                                <hr>
+                                <li>الرقم القومى : {{ $owner->nationalId ?? '---' }}</li>
+                                <hr>
                                 <li>العنوان :
                                     <pre>{{ $owner->address ?? '---' }}</pre>
-                                </li><hr>
+                                </li>
+                                <hr>
                                 <li>التليفون :
                                     @if (empty($owner->phones))
                                         <span>---</span>
@@ -84,15 +100,75 @@
                                             @endforeach
                                         </ul>
                                     @endif
-                                </li><hr>
+                                </li>
+                                <hr>
                                 <li>ملاحظات :
                                     <pre> {{ $owner->notes ?? '---' }} </pre>
                                 </li>
+                                <hr>
+                                @if (count($owner->ownerGroups))
+                                    <li>المجموعات
+                                        @foreach ($owner->ownerGroups as $ownerGroup)
+                                            <ul>
+                                                <li><a
+                                                        href="{{ route('owner-groups.show', $ownerGroup->id) }}">{{ $ownerGroup->name }}</a>
+                                                </li>
+                                            </ul>
+                                        @endforeach
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            {{-- unit  list  --}}
+            @if (count($owner->units))
+                <hr>
+                <div class ="container-fluid ">
+                    <h5 style="text-align:center">قائمة الوحدات المملوكة</h5>
+                    <div class="card-block">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>اسم العقار</th>
+                                    <th width="25%">رقم الوحدة</th>
+                                    <th width="25%">الطابق</th>
+                                    <th width="10%">صفحة الوحدة</th>
+                                    <th width="10%">حذف الملكية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($owner->units as $unit)
+                                    <tr>
+                                        <td>{{ $unit->estate->name }}</td>
+                                        <td>{{ $unit->number }}</td>
+                                        <td>{{ $unit->floorNumber == 0 ? 'الارضى' : $unit->floorNumber }}</td>
+                                        <td><a
+                                                href="{{ route('estates.units.show', ['estate' => $unit->estate->id, 'unit' => $unit->id]) }}">
+                                                <i class="action-icon fa fa-external-link fa-lg m-t-2"></i>
+                                            </a></td>
+
+                                        <td>
+                                            <form
+                                                action="{{ route('estates.units.ownerships.destroy', ['estate' => $unit->estate->id, 'unit' => $unit->id, 'ownership' => $unit->ownershipId]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <i id="delete-ownership-btn"
+                                                    class="action-icon action-icon--delete fa fa-chain-broken fa-lg m-t-2"></i>
+                                                <input class="delete-submit-btn" type="submit" hidden="">
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
+            {{-- / units  list  --}}
         @endisset
 </div>
 

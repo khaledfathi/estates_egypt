@@ -8,12 +8,13 @@ use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
+use Closure;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 final class ShowOwnerPresenter implements ShowOwnerOutput
 {
-    private View $response;
+    private Closure $response;
     public function __construct()
     {
         $this->handleSession();
@@ -25,17 +26,17 @@ final class ShowOwnerPresenter implements ShowOwnerOutput
     }
     public function onSuccess(OwnerEntity $ownerEntity): void
     {
-        $this->response = view('owners::show', ['owner' => $ownerEntity]);
+        $this->response = fn()=> view('owners::show', ['owner' => $ownerEntity]);
     }
     public function onNotFound(): void
     {
-        $this->response = view("owners::show", [
+        $this->response = fn()=> view("owners::show", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }
     public function onFailure(String $error): void
     {
-        $this->response = view("owners::show", [
+        $this->response = fn()=> view("owners::show", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log
@@ -47,6 +48,6 @@ final class ShowOwnerPresenter implements ShowOwnerOutput
 
     public function handle(): View
     {
-        return $this->response;
+        return ($this->response)();
     }
 }

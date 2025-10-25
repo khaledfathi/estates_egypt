@@ -87,7 +87,7 @@
                     @method('PUT')
                     <div class="card">
                         <div class="card-header">
-                            <strong>اضافة مرفق</strong>
+                            <strong>تحديث بيانات مرفق الوحدة</strong>
                         </div>
                         <div class="card-block">
                             {{-- service type --}}
@@ -147,7 +147,7 @@
                                     class="btn btn-md btn-primary">
                                     <i class="fa fa-refresh "></i>
                                     اعادة</a>
-                                <a href="{{ route('estates.units.utility-services.index', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
+                                <a href="{{$previousURL}}"
                                     class="btn btn-md btn-danger">
                                     <i class="fa fa-ban"></i>
                                     الغاء</a>

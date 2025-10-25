@@ -6,8 +6,8 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Features\Units\Domain\ValueObjects\UnitEntitiesWithPagination;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
+use App\Shared\Domain\Entities\Owner\OwnerEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use App\Shared\Domain\Repositories\UnitRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
@@ -47,7 +47,6 @@ final class EloquentUnitRepository implements UnitRepository
                 number: $record->number,
                 floorNumber: $record->floor_number,
                 type: UnitType::from($record->type),
-                ownershipType: UnitOwnershipType::from($record->ownership_type),
                 utilityServices: null,
                 isEmpty: $record->is_empty ? true : false,
             );
@@ -73,7 +72,6 @@ final class EloquentUnitRepository implements UnitRepository
             'estate_id' => $unitEntity->estateId,
             'number' => $unitEntity->number,
             'floor_number' => $unitEntity->floorNumber,
-            'ownership_type' => $unitEntity->ownershipType->value, //enum
             'type' => $unitEntity->type->value, //enum
             'is_empty' => $unitEntity->isEmpty,
         ]);
@@ -81,14 +79,28 @@ final class EloquentUnitRepository implements UnitRepository
         return $unitEntity;
     }
 
-    public function show(int $unitId, bool $unitOnly = false): UnitEntity|null
+    public function show(int $unitId): UnitEntity|null
     {
 
-        $record = $unitOnly
-            ? Unit::find($unitId)
-            : Unit::with('estate')->find($unitId);
+        $record =  Unit::with('estate', 'unitOwnerships.owner')->find($unitId);
         if (!$record) return null;
 
+        //unit ownerships entity DTO 
+        $unitOwnershipsList = [];
+        if ($record->unitOwnerships) {
+            foreach ($record->unitOwnerships as $unitOwnership) {
+                $unitOwnershipsList[] = new OwnerEntity(
+                    id: $unitOwnership->owner->id,
+                    name: $unitOwnership->owner->name,
+                    nationalId: $unitOwnership->owner->national_id,
+                    address: $unitOwnership->owner->address,
+                    phones: $unitOwnership->owner->phones->pluck('phone')->toArray(),
+                    notes: $unitOwnership->owner->notes,
+                    ownershipId: $unitOwnership->id
+                );
+            }
+        }
+        //estate entity DTO 
         $estateEntity = $record->estate
             ?  new EstateEntity(
                 id: $record->estate->id,
@@ -102,9 +114,10 @@ final class EloquentUnitRepository implements UnitRepository
             number: $record->number,
             floorNumber: $record->floor_number,
             type: UnitType::from($record->type),
-            ownershipType: UnitOwnershipType::from($record->ownership_type),
             isEmpty: $record->is_empty ? true : false,
-            estate: $estateEntity
+            estate: $estateEntity,
+            owners: $unitOwnershipsList
+
         );
     }
     public function update(UnitEntity $unitEntity): bool
@@ -113,7 +126,6 @@ final class EloquentUnitRepository implements UnitRepository
             ->update([
                 'number' => $unitEntity->number,
                 'floor_number' => $unitEntity->floorNumber,
-                'ownership_type' => $unitEntity->ownershipType->value, //enum
                 'type' => $unitEntity->type->value, //enum
                 'is_empty' => $unitEntity->isEmpty,
             ]);

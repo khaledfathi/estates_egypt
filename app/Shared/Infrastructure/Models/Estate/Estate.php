@@ -3,6 +3,7 @@
 namespace App\Shared\Infrastructure\Models\Estate;
 
 use App\Shared\Infrastructure\Models\Unit\Unit;
+use App\Shared\Infrastructure\Models\Unit\UnitOwnership;
 use Illuminate\Database\Eloquent\Model;
 
 class Estate extends Model
@@ -22,5 +23,8 @@ class Estate extends Model
 
     public function utilityServices (){
         return $this->hasMany(EstateUtilityService::class);
+    }
+    public function estateUtilityServiceInvoices (){
+        return $this->hasMany(EstateUtilityServiceInvoice::class);
     }
 }

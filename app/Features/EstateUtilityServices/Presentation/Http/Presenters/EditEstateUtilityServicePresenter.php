@@ -8,6 +8,7 @@ use App\Features\EstateUtilityServices\Application\Outputs\EditEstateUtilityServ
 use App\Shared\Domain\Entities\Estate\EstateUtilityServiceEntity;
 use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -16,12 +17,25 @@ final class EditEstateUtilityServicePresenter implements EditEstateUtilityServic
 {
 
     private Closure $response;
+    private string $previousURL;
+    public function __construct(
+        private  readonly int $estateId,
+    ) {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $previousPage = SessionKeys::estate_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE;
+        $this->previousURL = session($previousPage)
+            ?? route('estates.utility-service.index', ['estate' => $this->estateId]);
+    }
     public function onSuccess(EstateUtilityServiceEntity $estateUtilityServiceEntity): void
     {
         $data = [
             'estate' => $estateUtilityServiceEntity->estate,
             'estateUtilityService' => $estateUtilityServiceEntity,
             'utilityServiceTypes' => EstateUtilityServiceType::labels(),
+            'previousURL' => $this->previousURL
         ];
         $this->response = fn() => view("estates.utility-services::edit", $data);
     }
@@ -44,7 +58,6 @@ final class EditEstateUtilityServicePresenter implements EditEstateUtilityServic
     }
     public function handle()
     {
-
         return ($this->response)();
     }
 }

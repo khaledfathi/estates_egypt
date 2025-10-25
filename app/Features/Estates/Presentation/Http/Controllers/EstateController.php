@@ -3,6 +3,7 @@
 namespace App\Features\Estates\Presentation\Http\Controllers;
 
 use App\Features\Estates\Application\Contracts\ShowEstateContract;
+use App\Features\Estates\Application\Contracts\ShowEstatesPaginationContract;
 use App\Features\Estates\Application\Contracts\StoreEstateContract;
 use App\Features\Estates\Presentation\Http\Presenters\ShowEstaetsPaginatePresenter;
 use App\Features\Estates\Presentation\Http\Presenters\ShowEstatePresenter;
@@ -16,19 +17,20 @@ class EstateController extends Controller
 
    public function __construct(
       private readonly ShowEstateContract $showEstatetUsecase,
+      private readonly ShowEstatesPaginationContract $showPaginateEstateUsecase,
       private readonly StoreEstateContract $storeEstateUsecase
    ) {}
    public function index()
    {
       $presenter = new ShowEstaetsPaginatePresenter();
-      $this->showEstatetUsecase->allWithPaginate($presenter, 5);
+      $this->showPaginateEstateUsecase->execute($presenter, 5);
       return $presenter->handle();
    }
 
    public function show(string $id)
    {
       $presenter = new ShowEstatePresenter();
-      $this->showEstatetUsecase->showById((int)$id, $presenter);
+      $this->showEstatetUsecase->execute((int)$id, $presenter);
       return $presenter->handle();
    }
    public function create()
@@ -41,7 +43,7 @@ class EstateController extends Controller
       $estateEntity = $this->formToEstateEntity([...$request->all()]);
       //action 
       $presenter = new StoreEstatePresenter();
-      $this->storeEstateUsecase->store($estateEntity , $presenter);
+      $this->storeEstateUsecase->execute($estateEntity, $presenter);
       return $presenter->handle();
    }
    public function edit(string $id)
@@ -50,7 +52,7 @@ class EstateController extends Controller
    }
    public function update(string $id)
    {
-     return __CLASS__ . ":" . __FUNCTION__;
+      return __CLASS__ . ":" . __FUNCTION__;
    }
    public function destroy(string $id)
    {

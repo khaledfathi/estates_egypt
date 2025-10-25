@@ -3,6 +3,8 @@ declare (strict_types= 1);
 namespace App\Features\Renters\Presentation\Http\Controllers;
 
 use App\Features\Renters\Application\Contracts\DestroyRenterContract;
+use App\Features\Renters\Application\Contracts\EditRenterContract;
+use App\Features\Renters\Application\Contracts\ShowRentersPaginationContract;
 use App\Features\Renters\Application\Contracts\ShowRenterContract;
 use App\Features\Renters\Application\Contracts\StoreRenterContract;
 use App\Features\Renters\Application\Contracts\UpdateRenterContract;
@@ -24,20 +26,22 @@ class RenterController extends Controller
    public function __construct(
       private readonly StoreRenterContract $storeRenterUsecase,
       private readonly ShowRenterContract $showRenterUsecase,
+      private readonly ShowRentersPaginationContract $ShowRentersPaginationContract,
       private readonly DestroyRenterContract $destroyRenterUsecase,
+      private readonly EditRenterContract $editRenterUsecase,
       private readonly UpdateRenterContract $updateRenterUsecase
    ) {
    }
    public function index()
    {
       $presenter = new ShowRenterPaginatePresenter();
-      $this->showRenterUsecase->allWithPaginate($presenter, 5);
+      $this->ShowRentersPaginationContract->execute($presenter, 5);
       return $presenter->handel();
    }
    public function show(string $id)
    {
       $presenter = new ShowRenterPresenter();
-      $this->showRenterUsecase->showById((int)$id ,$presenter);
+      $this->showRenterUsecase->execute((int)$id ,$presenter);
       return $presenter->handle(); 
    }
    public function create()
@@ -51,13 +55,13 @@ class RenterController extends Controller
       $renterEntity = $this->formToOwnerEntity($request->all());
       //action
       $presenter = new StoreRenterPresenter();
-      $this->storeRenterUsecase->store($renterEntity, $presenter);
+      $this->storeRenterUsecase->execute($renterEntity, $presenter);
       return $presenter->handle();
    }
    public function edit(string $id)
    {
       $presenter = new EditRenterPresenter();
-      $this->updateRenterUsecase->edit((int) $id , $presenter);
+      $this->editRenterUsecase->execute((int) $id , $presenter);
       return $presenter->handle();
    }
    public function update(UpdateRenterRequest $request , int $id)
@@ -66,13 +70,13 @@ class RenterController extends Controller
       $renterEntity = $this->formToOwnerEntity([...$request->all(), 'id' => (int) $id]);
       //action
       $presenter = new UpdateRenterPresenter();
-      $this->updateRenterUsecase->update($renterEntity , $presenter);
+      $this->updateRenterUsecase->execute($renterEntity , $presenter);
       return $presenter->handle();
    }
    public function destroy(string $id)
    {
       $presenter = new DestroyRenterPresenter();
-      $this->destroyRenterUsecase->destroy((int)$id, $presenter);
+      $this->destroyRenterUsecase->execute((int)$id, $presenter);
       return $presenter->handle();
    }
    private function formToOwnerEntity(array $formArray): RenterEntity

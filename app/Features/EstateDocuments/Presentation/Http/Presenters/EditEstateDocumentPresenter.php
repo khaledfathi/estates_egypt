@@ -14,8 +14,6 @@ final class EditEstateDocumentPresenter implements EditEstateDocumentOutput {
 
    private Closure $response;
    private string $previousURL;
-   private int $estaetId ; 
-   private int $estateDocumentId; 
    private function handleSession()
    {
       $previousPage = SessionKeys::ESTATE_DOCUMENT_EDIT_PREVIOUS_PAGE;
@@ -28,8 +26,6 @@ final class EditEstateDocumentPresenter implements EditEstateDocumentOutput {
          'estateDocument' => $estateDocumentEntity,
          'previousURL' => $this->previousURL
       ]);
-      $this->estaetId = $estateDocumentEntity->estateId;
-      $this->estateDocumentId= $estateDocumentEntity->id;
       $this->handleSession();
    }
    public function onNotFound():void{

@@ -19,13 +19,7 @@ final class UtilityStorageDir implements StorageDir {
     public function estateDocuments (int $estateId):string{
         return  $this->prefix."estaets/$estateId/documents/";
     }
-    public function estateUtilityServices(int $estateId):string{
-        return  $this->prefix."estaets/$estateId/utility_services/";
-    }
-    public function unitDocuments (int $estateId , int $unitId):string{
-        return  $this->prefix."estaets/$estateId/units/$unitId.'/documents/";
-    }
-    public function unitUtilityServices ($estateId , $unitId):string{
-        return  $this->prefix."estaets/$estateId/units/'.$unitId.'/utility_service/";
+    public function estateUtilityServicesInvoice(int $estateId , int $utilityServiceId ):string{
+        return  $this->prefix."estaets/$estateId/utility_services/$utilityServiceId/invoices/";
     }
 }

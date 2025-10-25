@@ -17,7 +17,6 @@ final class CreateUnitPresenter implements CreateUnitOutput
         $this->response = fn() => view('units::create', [
             'estate' => $unitFormData->estateEntity,
             'unitTypes' => $unitFormData->unitTypes,
-            'unitOwnershipTypes' => $unitFormData->unitOwnershipTypes,
             'unitIsEmptyLabels' => $unitFormData->unitIsEmptyLabels
         ]);
     }

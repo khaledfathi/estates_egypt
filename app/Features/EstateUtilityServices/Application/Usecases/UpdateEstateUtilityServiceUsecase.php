@@ -17,20 +17,8 @@ final class  UpdateEstateUtilityServiceUsecase implements UpdateEstateUtilitySer
         private readonly EstateRepositroy $estateRepositroy
     ){}
     public function Edit(int $estateUtilityServiceId, EditEstateUtilityServiceOutput $presenter): void{
-        try {
-            $estateUtilityServiceEntity= $this->estateUtilityServiceRepository->show($estateUtilityServiceId);
-            if($estateUtilityServiceEntity){
-                $estaetEntity= $this->estateRepositroy->show($estateUtilityServiceEntity->estateId);
-                $estateUtilityServiceEntity->estate = $estaetEntity;
-                $presenter->onSuccess($estateUtilityServiceEntity);
-            }else {
-                $presenter->onNotFound();
-            }
-        } catch (Exception $e) {
-            $presenter->onFailure($e->getMessage());
-        }
     }
-    public function update(EstateUtilityServiceEntity $estateUtilityServiceEntity, UpdateEstateUtilityServiceOutput $presenter): void{
+    public function execute(EstateUtilityServiceEntity $estateUtilityServiceEntity, UpdateEstateUtilityServiceOutput $presenter): void{
         try {
             $presenter->onSuccess( $this->estateUtilityServiceRepository->update($estateUtilityServiceEntity));
         } catch (Exception $e) {

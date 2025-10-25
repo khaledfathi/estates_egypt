@@ -12,5 +12,5 @@ interface StoreEstateContract {
      * @param EstateEntity $data
      * @return void
      */
-    public function store(EstateEntity $estateEntity, StoreEstateOutput $presenter): void;
+    public function execute(EstateEntity $estateEntity, StoreEstateOutput $presenter): void;
 }

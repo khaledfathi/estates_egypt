@@ -3,7 +3,6 @@
 namespace App\Features\Units\Presentation\Http\Requests;
 
 use App\Features\Units\Infrastructure\ValidationRules\LastUnitNumber;
-use App\Shared\Domain\Enum\Unit\UnitOwnershipType;
 use App\Shared\Domain\Enum\Unit\UnitType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -36,10 +35,8 @@ class  StoreUnitRequest extends FormRequest
                 Rule::unique('units')->where(fn ($query)=> 
                     $query->where('estate_id', $estateId)->where('type', $this->type )
                 ),
-                new LastUnitNumber(estateId: $estateId, unitType: UnitType::from($this->type)),    
             ],
             'floor_number' => 'required|numeric',
-            'ownership_type' => ['required', new Enum(UnitOwnershipType::class)],
             'is_empty' => 'required|in:true,false',
         ];
     }
@@ -55,8 +52,6 @@ class  StoreUnitRequest extends FormRequest
             'number.unique' => 'رقم الوحدة (:input) موجود مسبقا  للنوع ال'.UnitType::from($this->type)->toLabel(),
             'floor_number.required' => 'رقم الطابق مطلوب',
             'floor_number.numeric' => 'رقم الطابق يجب ان يكون رقم',
-            'ownership_type.required' => 'نوع الملكية مطلوب',
-            'ownership_type.enum' => 'نوع الملكية غير صالح',
             'is_empty.required' => 'حالة الوحدة مطلوبة',
             'is_empty.in' => 'حالة الوحدة غير صالحة',
         ];

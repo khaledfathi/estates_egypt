@@ -12,27 +12,26 @@ use App\Shared\Domain\Repositories\EstateDocumentRepository;
 
 final class DestroyEstateDocumentUsecase implements DestroyEstateDocumentContract
 {
-
     public function __construct(
         private readonly EstateDocumentRepository $estateDocumentRepository,
         private readonly StorageDir $storageDir,
         private readonly Storage $storage
-    ){ }
-    public function destroy(int $estateDocumentId,  DestroyEstateDocumentOutput $presenter): void {
+    ) {}
+    public function execute(int $estateDocumentId,  DestroyEstateDocumentOutput $presenter): void
+    {
         try {
             //get record before delete 
             $estateDocumentEntity = $this->estateDocumentRepository->show($estateDocumentId);
             //delete record
-            $destroyEstateDocumentStatus= $this->estateDocumentRepository->destroy($estateDocumentId) ;
+            $destroyEstateDocumentStatus = $this->estateDocumentRepository->destroy($estateDocumentId);
             //remove file releated to this estate document 
-            if($destroyEstateDocumentStatus){
-                $this->storage->remove($this->storageDir->estateDocuments($estateDocumentEntity->estateId).$estateDocumentEntity->file);
+            if ($destroyEstateDocumentStatus) {
+                $this->storage->remove($this->storageDir->estateDocuments($estateDocumentEntity->estateId) . $estateDocumentEntity->file);
             }
             //
             $presenter->onSuccess($destroyEstateDocumentStatus);
         } catch (\Exception $e) {
             $presenter->onFailure($e->getMessage());
         }
-
     }
 }

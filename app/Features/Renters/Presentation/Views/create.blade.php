@@ -27,14 +27,12 @@
 
         <div class="row" style="display:flex; justify-content: center;">
             <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post" action="{{ route('renters.store') }}">
+                @csrf
                 <div class="card">
                     <div class="card-header">
                         <strong>اضافة مستأجر</strong>
                     </div>
                     <div class="card-block">
-                        @csrf
-
-
                         {{-- name --}}
                         <div class="form-group">
                             <label for="name">الاسم <span class="required">*</span></label>
@@ -64,6 +62,7 @@
                         {{-- / identity number --}}
 
                         {{-- phones --}}
+                        <hr>
                         <div id="phone-form-group" class="form-group">
                             <label>التليفون</label>
                             {{-- ||| TO BE CLONED |||  --}}
@@ -91,6 +90,7 @@
                         </div>
                         <button id="add-phone-btn" type="button" class="btn" style="margin-bottom: 20px">اضافة رقم
                         </button>
+                        <hr>
                         {{-- / phones --}}
 
                         {{-- notes --}}

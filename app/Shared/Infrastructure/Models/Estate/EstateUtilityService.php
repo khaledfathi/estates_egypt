@@ -16,6 +16,10 @@ class EstateUtilityService extends Model
     ];
 
     public function estate(){
-        return $this->belongsTo(Estate::class , 'estate_id');
+        return $this->belongsTo(Estate::class, 'estate_id' );
     }
+    public function estateUtilityServiceInvoices (){
+        return $this->hasMany(EstateUtilityServiceInvoice::class , 'estate_utility_service_id', 'id');
+    }
+
 }
