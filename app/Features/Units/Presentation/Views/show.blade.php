@@ -82,6 +82,10 @@
                         class="btn btn-primary">
                         <i class="icon-people fa-lg"></i>&nbsp; تسجيل مالك/ملاك الوحدة
                     </a>
+                    <a href=""
+                        class="btn btn-primary">
+                        <i class="icon-layers icons fa-lg"></i> &nbsp; سجل التعاقدات 
+                    </a>
                 </div>
             </div>
             <div class="row" style="display:flex; justify-content: center;">
