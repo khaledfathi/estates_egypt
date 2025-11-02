@@ -18,7 +18,6 @@ final class UpdateEstateUtilityServicePresenter implements UpdateEstateUtilitySe
     public function __construct(
         private readonly int $estateId,
     ) {
-
         $this->handleSession();
     }
     private function handleSession()

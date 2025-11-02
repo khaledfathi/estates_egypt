@@ -2,6 +2,9 @@
 @section('title', 'مرافق العقار | تحديث بيانات فاتورة')
 @section('active-estates', 'active')
 
+@section('styles')
+    @vite('resources/css/features/unit-utility-services-invoices/edit.css')
+@endsection
 @section('content')
     <div class="container-fluid ">
 

@@ -22,7 +22,33 @@ final class EloquentRenterRepository implements RenterRepositroy
      */
     public function index(): array
     {
-        return[]; 
+        $renterRecords = Renter::with('phones')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        //Transform to DTO
+        $arrayOfRenters = [];
+        foreach ($renterRecords as $record) {
+            //phones DTO
+            $renterPhones = [];
+            foreach ($record?->phones ?? [] as $phone) {
+                $renterPhones[]  =  new RenterPhoneEntity(
+                    (int)$phone->id,
+                    (int)$phone->renter_id,
+                    $phone->phone,
+                );
+            }
+            //owner DTO
+            $arrayOfRenters[] = new RenterEntity(
+                (int) $record->id,
+                $record->name,
+                RenterIdentityType::from($record->identity_type),
+                $record->identity_number,
+                $renterPhones,
+                $record->notes,
+            );
+        }
+        return $arrayOfRenters;
     }
 
     /**

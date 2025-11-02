@@ -18,6 +18,7 @@ use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Presenters\Store
 use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Presenters\UpdateEstateUtilityServiceInvoicePresenter;
 use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Presenters\ViewEstateUtilityServiceInvoiceFilePresenter;
 use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Requests\StoreEstateUtilityServiceInvoiceRequest;
+use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Requests\UpdateEstateUtilityServiceInvoiceRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Application\Contracts\Storage\File;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
@@ -67,7 +68,7 @@ class EstateUtilityServiceInvoiceController extends Controller
         $this->editEstateUtilityServiceInvoiceUsecase->execute((int)$invoiceId, $presenter);
         return $presenter->handle();
     }
-    public function update(Request $request, string $estateId, string  $utilityServiceId, string $invoiceId)
+    public function update(UpdateEstateUtilityServiceInvoiceRequest $request, string $estateId, string  $utilityServiceId, string $invoiceId)
     {
         //prepeare data 
         $estateUtilityServiceinvoiceEntity = $this->formToUtilityServiceInvoice([

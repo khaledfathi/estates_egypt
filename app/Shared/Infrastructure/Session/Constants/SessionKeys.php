@@ -37,4 +37,9 @@ final class SessionKeys {
     public const OWNER_GROUP_EDIT_PREVIOUS_PAGE = 'owner_group_edit_last_page';
     public const OWNER_GROUP_CURRENT_INDEX_PAGE = 'owner_group_current_index_page';
     // ----------------------
+
+    //for unit contract features  
+    public const UNIT_CONTRACT_EDIT_PREVIOUS_PAGE = 'unit_contract_edit_last_page';
+    public const UNIT_CONTRACT_CURRENT_INDEX_PAGE = 'unit_contract_current_index_page';
+    // ----------------------
 }

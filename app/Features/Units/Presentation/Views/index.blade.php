@@ -1,3 +1,6 @@
+@php
+    use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
+@endphp
 @extends('shared::main-layout')
 @section('title', 'الوحدات')
 @section('active-estates', 'active')
@@ -122,7 +125,7 @@
                                             <td>{{ $unit->number }}</td>
                                             <td>{{ $unit->floorNumber == 0 ? 'الارضى' : $unit->floorNumber }}</td>
                                             <td>{{ $unit->type->toLabel() }}</td>
-                                            <td>{{ $unit->isEmpty ? 'فارغة' : 'شاغرة' }}</td>
+                                            <td>{{ UnitIsEmpty::from($unit->isEmpty)->toLabel()}}</td>
                                             <td><a href="{{route('estates.units.utility-services.index' , ['estate'=>$estate->id, 'unit'=>$unit->id])}}"><i class="action-icon fa fa-bolt fa-lg "></i></a></td>
                                             <td>
                                                 <div>

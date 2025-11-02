@@ -24,5 +24,7 @@ class Unit extends Model
     public function unitOwnerships (){
         return $this->hasMany(UnitOwnership::class );
     }
-
+    public function unitContracts (){
+        return $this->hasMany(UnitContract::class , 'unit_id', 'id');
+    }
 }
