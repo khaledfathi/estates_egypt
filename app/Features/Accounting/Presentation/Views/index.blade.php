@@ -5,10 +5,10 @@
 @section('content')
 
     <div class="container-fluid" style="display:flex;gap:20px;justify-content:center;flex-wrap: wrap">
-        <button type="button" class="btn btn-primary btn-lg">الخزينة</button>
-        <button type="button" class="btn btn-primary btn-lg">تسديد ايجارات</button>
-        <button type="button" class="btn btn-primary btn-lg">تسديد مرافق</button>
-        <button type="button" class="btn btn-primary btn-lg">مصروفات صيانة</button>
+        <a href="{{ route('transactions.index') }}" class="btn btn-primary btn-lg">الخزينة</a>
+        <a href="{{ route('maintenance-payments.index') }}" class="btn btn-primary btn-lg">مصروفات صيانة</a>
+        <a href="" class="btn btn-primary btn-lg">تسديد ايجارات</a>
+        <a href="" class="btn btn-primary btn-lg">تسديد فواتير مرافق</a>
     </div>
     {{-- -------------------------------------------------- --}}
     <hr>

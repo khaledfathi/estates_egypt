@@ -3,5 +3,5 @@
 @section('active-transaction', 'active')
 
 @section('content')
-    <h1>transactions</h1>
+    <h1>مصروفات الصيانة</h1>
 @endsection

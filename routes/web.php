@@ -5,6 +5,7 @@ use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentCon
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
 use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Controllers\EstateUtilityServiceInvoiceController;
 use App\Features\EstateUtilityServices\Presentation\Http\Controllers\EstateUtilityServicesController;
+use App\Features\MaintenancePayments\Presentation\Http\Controllers\MaintenancePaymentController;
 use App\Features\OwnerGroups\Presentation\Http\Controllers\OwnerGroupController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
@@ -62,7 +63,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/settings', SettingController::class)->only('index');
 
-    Route::get('/accounting', [AccountingController::class , 'index']);
+    Route::get('/accounting', [AccountingController::class , 'index'])->name('accounting.index');
+    Route::get('/maintenance-payment', [MaintenancePaymentController::class , 'index'])->name('maintenance-payments.index');
 });
 
 /* FOR TEST  */

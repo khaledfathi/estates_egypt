@@ -20,4 +20,5 @@ return [
     App\Features\EstateUtilityServiceInvoices\Infrastructure\Providers\EstateUtilityServiceInvoiceServiceProvider::class,
     App\Features\UnitContracts\Infrastructure\Providers\UnitContractServiceProvider::class,
     App\Features\Accounting\Infrastructure\Providers\AccountingServiceProvider::class,
+    App\Features\MaintenancePayments\Infrastructure\Providers\MaintenancePaymentServiceProvider::class,
 ];
