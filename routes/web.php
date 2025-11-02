@@ -1,5 +1,6 @@
 <?php
 
+use App\Features\Accounting\Presentation\Http\Controllers\AccountingController;
 use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
 use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Controllers\EstateUtilityServiceInvoiceController;
@@ -60,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/estates.units.ownerships', UnitOwnershipController::class);
 
     Route::resource('/settings', SettingController::class)->only('index');
+
+    Route::get('/accounting', [AccountingController::class , 'index']);
 });
 
 /* FOR TEST  */
