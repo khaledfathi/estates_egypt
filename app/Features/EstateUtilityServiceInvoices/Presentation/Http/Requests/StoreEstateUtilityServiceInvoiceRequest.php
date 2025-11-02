@@ -33,8 +33,6 @@ class   StoreEstateUtilityServiceInvoiceRequest extends FormRequest
                     fn($query) =>
                     $query->where('estate_utility_service_id', (int) $estateUtilityServiceId)
                         ->where('for_year', $this->for_year)
-                    // Optional: Exclude the current record if this is an update request
-                    // ->ignore($this->route('your_model_parameter')); 
                 ),
             ],
             'file'=> 'max:10240|mimes:jpeg,png,jpg,webp,avif,pdf'

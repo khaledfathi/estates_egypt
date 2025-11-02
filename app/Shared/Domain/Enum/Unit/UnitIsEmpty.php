@@ -24,7 +24,7 @@ enum UnitIsEmpty: int
 	{
 		return [
 			self::EMPTY->value => 'فارغة',
-			self::NOT_EMPTY->value => 'شاغرة',
+			self::NOT_EMPTY->value => 'مشغولة',
 		];
 	}
 }

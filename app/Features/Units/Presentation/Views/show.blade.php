@@ -82,7 +82,7 @@
                         class="btn btn-primary">
                         <i class="icon-people fa-lg"></i>&nbsp; تسجيل مالك/ملاك الوحدة
                     </a>
-                    <a href=""
+                    <a href="{{ route('estates.units.contracts.index', ['estate'=> $estate->id, 'unit' => $unit->id, ]) }}"
                         class="btn btn-primary">
                         <i class="icon-layers icons fa-lg"></i> &nbsp; سجل التعاقدات 
                     </a>

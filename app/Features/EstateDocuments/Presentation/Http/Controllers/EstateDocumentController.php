@@ -78,7 +78,7 @@ class EstateDocumentController extends Controller
 
     public function edit(string $estateId, string $estateDocumentId)
     {
-        $presenter = new EditEstateDocumentPresenter();
+        $presenter = new EditEstateDocumentPresenter((int)$estateId );
         $this->editEstateDocumentUsecase->execute((int) $estateDocumentId, $presenter);
         return $presenter->handle();
     }

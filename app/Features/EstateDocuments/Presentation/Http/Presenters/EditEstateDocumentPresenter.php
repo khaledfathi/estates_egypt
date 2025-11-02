@@ -14,11 +14,16 @@ final class EditEstateDocumentPresenter implements EditEstateDocumentOutput {
 
    private Closure $response;
    private string $previousURL;
+   public function __construct(
+      private readonly int $estateId,
+   ){
+      $this->handleSession();
+   }
    private function handleSession()
    {
       $previousPage = SessionKeys::ESTATE_DOCUMENT_EDIT_PREVIOUS_PAGE;
       $this->previousURL = session($previousPage) 
-         ?? route('estates.documents..index');
+         ?? route('estates.documents.index', ['estate'=>$this->estateId]);
    }
    public function onSuccess(EstateDocumentEntity $estateDocumentEntity):void{
       $this->response = fn() => view ("estates.documents::edit",[
@@ -26,7 +31,6 @@ final class EditEstateDocumentPresenter implements EditEstateDocumentOutput {
          'estateDocument' => $estateDocumentEntity,
          'previousURL' => $this->previousURL
       ]);
-      $this->handleSession();
    }
    public function onNotFound():void{
       $this->response = fn() => view("estates.documents::edit", [

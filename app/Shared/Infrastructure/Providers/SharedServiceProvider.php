@@ -7,6 +7,7 @@ namespace App\Shared\Infrastructure\Providers;
 use App\Shared\Application\Contracts\Storage\Storage;
 use App\Shared\Application\Contracts\Storage\StorageDir;
 use App\Shared\Application\Utility\UtilityStorageDir;
+use App\Shared\Domain\Contracts\DateProviderContract;
 use App\Shared\Domain\Repositories\EstateDocumentRepository;
 use App\Shared\Domain\Repositories\EstateRepositroy;
 use App\Shared\Domain\Repositories\EstateUtilityServiceInvoiceRepository;
@@ -15,6 +16,7 @@ use App\Shared\Domain\Repositories\OwnerGroupRepository;
 use App\Shared\Domain\Repositories\OwnerInGroupRepository;
 use App\Shared\Domain\Repositories\OwnerRepository;
 use App\Shared\Domain\Repositories\RenterRepositroy;
+use App\Shared\Domain\Repositories\UnitContractRepository;
 use App\Shared\Domain\Repositories\UnitOwnershipRepository;
 use App\Shared\Domain\Repositories\UnitRepository;
 use App\Shared\Domain\Repositories\UnitUtilityServiceRepository;
@@ -26,10 +28,12 @@ use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerGroupRepository
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerInGroupRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRenterRepository;
+use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitContractRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitOwnershipRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitUtilityServiceRepository;
 use App\Shared\Infrastructure\Storage\LaravelStorage;
+use App\Shared\Infrastructure\Utilities\CarbonDateUtility;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -48,10 +52,11 @@ class SharedServiceProvider extends ServiceProvider
         $this->app->bind(EstateDocumentRepository::class, EloquentEstateDocumentRepository::class);
         $this->app->bind(EstateUtilityServiceRepository::class, EloquentEstateUtilityServiceRepository::class);
         $this->app->bind(EstateUtilityServiceInvoiceRepository::class, EloquentEstateUtilityServiceInvoiceRepository::class);
-        $this->app->bind(UnitUtilityServiceRepository::class , EloquentUnitUtilityServiceRepository::class);
-        $this->app->bind(UnitOwnershipRepository::class , EloquentUnitOwnershipRepository::class);
-        $this->app->bind(OwnerGroupRepository::class , EloquentOwnerGroupRepository::class);
-        $this->app->bind(OwnerInGroupRepository::class , EloquentOwnerInGroupRepository::class);
+        $this->app->bind(UnitUtilityServiceRepository::class, EloquentUnitUtilityServiceRepository::class);
+        $this->app->bind(UnitOwnershipRepository::class, EloquentUnitOwnershipRepository::class);
+        $this->app->bind(OwnerGroupRepository::class, EloquentOwnerGroupRepository::class);
+        $this->app->bind(OwnerInGroupRepository::class, EloquentOwnerInGroupRepository::class);
+        $this->app->bind(UnitContractRepository::class, EloquentUnitContractRepository::class);
 
         // framework services 
         $this->app->bind(Storage::class, LaravelStorage::class);
