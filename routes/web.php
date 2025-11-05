@@ -63,13 +63,14 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/settings', SettingController::class)->only('index');
 
+    Route::resource('/transactions', TransactionContoller::class);
+
     Route::get('/accounting', [AccountingController::class , 'index'])->name('accounting.index');
     Route::get('/maintenance-payment', [MaintenancePaymentController::class , 'index'])->name('maintenance-payments.index');
 });
 
 /* FOR TEST  */
 Route::get('/queries', [QueryContoller::class, 'index'])->name('queries.index');
-Route::get('/transactions', [TransactionContoller::class, 'index'])->name('transactions.index');
 
 
 

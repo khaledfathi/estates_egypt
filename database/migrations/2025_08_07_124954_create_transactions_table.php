@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->dateTime('datetime');
             $table->integer('amount');
-            $table->boolean('is_standalone')->default(false);
             $table->text('description')->nullable();
             $table->timestamps();
         });
