@@ -1,6 +1,8 @@
 <?php
 namespace App\Features\Transactions\Infrastructure\Providers;
 
+use App\Features\Transactions\Application\Contracts\StoreTransactionContract;
+use App\Features\Transactions\Application\Usecases\StoreTransactionUsecase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -11,7 +13,7 @@ class TransactionServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(StoreTransactionContract::class ,StoreTransactionUsecase::class);
     }
 
     /**

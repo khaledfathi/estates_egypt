@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('shared::main-layout')
 @section('title', 'الحسابات')
 @section('active-transaction', 'active')
@@ -15,11 +18,11 @@
                 </div>
                 <div style="display:flex; wrap:wrap; text-align: center;">
                     <div style="padding-top:20px;width:50%; border-left:3px solid white">
-                        <h5>دائن</h5>
+                        <h5>ايرادات</h5>
                         <span>12500</span>
                     </div>
                     <div style="padding-top:20px; width:50%">
-                        <h5>مدين</h5>
+                        <h5>مصروفات</h5>
                         <span>10000</span>
                     </div>
                 </div>
@@ -37,6 +40,14 @@
                 </div>
                 <form class="card-block" id="owners-list-section" method="post" action="{{ route('transactions.store') }}">
                     @csrf
+                    {{--  date --}}
+                    <div class="form-group">
+                        <label for="date">تاريخ العملية <span class="required">*</span></label>
+                        <input name="date" type="date" class="form-control" id="date" value="{{ Carbon::now()->toDateString()}}">
+                    </div>
+                    <hr>
+                    {{--  / date --}}
+
                     {{-- direction --}}
                     <div class="col">
                         <label class="radio-inline" for="inline-radio1">
@@ -52,8 +63,8 @@
                     {{-- amount --}}
                     <div class="form-group">
                         <label for="amount">المبلغ<span class="required">*</span></label>
-                        <input name="amount" type="number" class="form-control" id="amount"
-                            placeholder="المبلغ" value="">
+                        <input name="amount" type="number" class="form-control" id="amount" placeholder="المبلغ"
+                            value="">
                     </div>
                     {{-- / amount --}}
 

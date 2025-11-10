@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('datetime');
+            $table->date('date');
             $table->integer('amount');
             $table->text('description')->nullable();
             $table->timestamps();
