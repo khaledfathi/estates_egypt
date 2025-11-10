@@ -11,7 +11,7 @@ use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
 use App\Features\Settings\Presentation\Http\Controllers\SettingController;
-use App\Features\Transactions\Presentation\Http\Controllers\TransactionContoller;
+use App\Features\Transactions\Presentation\Http\Controllers\TransactionController;
 use App\Features\UnitContracts\Presentation\Http\Controllers\UnitContractController;
 use App\Features\UnitOwnerships\Presentation\Http\Controllers\UnitOwnershipController;
 use App\Features\Units\Presentation\Http\Controllers\UnitController;
@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/settings', SettingController::class)->only('index');
 
-    Route::resource('/transactions', TransactionContoller::class);
+    Route::resource('/transactions', TransactionController::class);
 
     Route::get('/accounting', [AccountingController::class , 'index'])->name('accounting.index');
     Route::get('/maintenance-payment', [MaintenancePaymentController::class , 'index'])->name('maintenance-payments.index');
