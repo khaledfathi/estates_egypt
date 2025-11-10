@@ -2,7 +2,9 @@
 
 namespace App\Features\Transactions\Presentation\Http\Controllers;
 
+use App\Features\Transactions\Application\Contracts\ShowTransactionsPaginationContract;
 use App\Features\Transactions\Application\Contracts\StoreTransactionContract;
+use App\Features\Transactions\Presentation\Http\Presenters\ShowTransactionsPaginationPresenter;
 use App\Features\Transactions\Presentation\Http\Presenters\StoreTransactionPresenter;
 use App\Features\Transactions\Presentation\Http\Requests\StoreTransactionRequest;
 use App\Http\Controllers\Controller;
@@ -15,10 +17,13 @@ class  TransactionController extends Controller
 {
    public function __construct(
       private readonly StoreTransactionContract $storeTransactionUsecase,
+      private readonly ShowTransactionsPaginationContract $showTransactionsPaginationUsecase,
    ) {}
    public function index()
    {
-      return view("transactions::index");
+      $presenter = new ShowTransactionsPaginationPresenter() ;
+      $this->showTransactionsPaginationUsecase->execute($presenter);
+      return $presenter->handle();
    }
    public function show()
    {

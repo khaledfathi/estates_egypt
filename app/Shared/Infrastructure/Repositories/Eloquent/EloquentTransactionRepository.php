@@ -19,6 +19,8 @@ final class EloquentTransactionRepository implements TransactionRepository{
      * @inheritDoc
      */
     public function indexWithPagination(int $perPage): EntitiesWithPagination{
+        $records = Transaction::paginate($perPage);
+        dd($records);
         return new EntitiesWithPagination();
     }
     public function show (int $transactionId):TransactionEntity {
