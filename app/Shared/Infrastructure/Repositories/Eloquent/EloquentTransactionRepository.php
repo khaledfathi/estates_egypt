@@ -23,9 +23,12 @@ final class EloquentTransactionRepository implements TransactionRepository
     /**
      * @inheritDoc
      */
-    public function indexWithPagination(int $perPage): EntitiesWithPagination
+    public function indexWithPaginationByDate(string $date, int $perPage): EntitiesWithPagination
     {
-        $transactionRecords = Transaction::paginate($perPage);
+
+        $transactionRecords = Transaction::where('date', $date)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
         //transaction entities DTO 
         $transactionEntitites = [];
         foreach ($transactionRecords as $record) {
@@ -51,9 +54,20 @@ final class EloquentTransactionRepository implements TransactionRepository
             $transactionEntitites,
         );
     }
-    public function show(int $transactionId): TransactionEntity
+    public function show(int $transactionId): TransactionEntity | null
     {
-        return new TransactionEntity();
+        $record = Transaction::find($transactionId);
+        if ($record) {
+            $transactionEntity = new TransactionEntity(
+                id: $record->id,
+                date: CarbonDateUtility::from($record->date),
+                amount: $record->amount,
+                description: $record->description,
+            );
+            $transactionEntity->setDirection();
+            return $transactionEntity;
+        }
+        return null;
     }
     public function store(TransactionEntity $transactionEntity): TransactionEntity
     {

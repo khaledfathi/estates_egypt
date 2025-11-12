@@ -10,10 +10,11 @@ use Exception;
 final class ShowTransactionsPaginationUsecase implements ShowTransactionsPaginationContract {
    public function __construct(
       private readonly TransactionRepository $transactionRepository,
-   ){}
-   public function execute (ShowTransactionsPaginationOutput $presenter , int $perPage = 10){
+   ){
+   }
+   public function execute (string $date , ShowTransactionsPaginationOutput $presenter , int $perPage = 10){
       try {
-         $entitiesWithPagination = $this->transactionRepository->indexWithPagination($perPage);
+         $entitiesWithPagination = $this->transactionRepository->indexWithPaginationByDate($date, $perPage);
          $presenter->onSuccess($entitiesWithPagination);
       } catch (Exception $e) {
          $presenter->onFailure($e->getMessage());

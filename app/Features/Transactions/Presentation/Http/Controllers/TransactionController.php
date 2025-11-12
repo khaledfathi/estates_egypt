@@ -2,32 +2,47 @@
 
 namespace App\Features\Transactions\Presentation\Http\Controllers;
 
+use App\Features\Transactions\Application\Contracts\EditTransactionContract;
+use App\Features\Transactions\Application\Contracts\ShowTransactionContract;
 use App\Features\Transactions\Application\Contracts\ShowTransactionsPaginationContract;
 use App\Features\Transactions\Application\Contracts\StoreTransactionContract;
+use App\Features\Transactions\Application\Contracts\UpdateTransactionContract;
+use App\Features\Transactions\Presentation\Http\Presenters\EditTransactionPresenter;
+use App\Features\Transactions\Presentation\Http\Presenters\ShowTransactionPresenter;
 use App\Features\Transactions\Presentation\Http\Presenters\ShowTransactionsPaginationPresenter;
 use App\Features\Transactions\Presentation\Http\Presenters\StoreTransactionPresenter;
+use App\Features\Transactions\Presentation\Http\Presenters\UpdateTransactionPresenter;
 use App\Features\Transactions\Presentation\Http\Requests\StoreTransactionRequest;
 use App\Http\Controllers\Controller;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Enum\Transaction\TransactionDirection;
 use App\Shared\Infrastructure\Utilities\CarbonDateUtility;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class  TransactionController extends Controller
 {
    public function __construct(
       private readonly StoreTransactionContract $storeTransactionUsecase,
       private readonly ShowTransactionsPaginationContract $showTransactionsPaginationUsecase,
+      private readonly ShowTransactionContract $showTransactionUsecase,
+      private readonly EditTransactionContract $editTransactionUsecase,
+      private readonly UpdateTransactionContract $updateTransactionUsecase,
    ) {}
-   public function index()
+   public function index(Request $request)
    {
-      $presenter = new ShowTransactionsPaginationPresenter() ;
-      $this->showTransactionsPaginationUsecase->execute($presenter);
+      //prepare 
+      $date = $request['selected_date'] ?? Carbon::now()->toDateString();
+      //action
+      $presenter = new ShowTransactionsPaginationPresenter($date);
+      $this->showTransactionsPaginationUsecase->execute($date, $presenter);
       return $presenter->handle();
    }
-   public function show()
+   public function show(string $transactionId)
    {
-      return __CLASS__ . "::" . __FUNCTION__;
+      $presenter = new ShowTransactionPresenter();
+      $this->showTransactionUsecase->execute((int)$transactionId, $presenter);
+      return $presenter->handle();
    }
    public function create()
    {
@@ -46,13 +61,21 @@ class  TransactionController extends Controller
       $this->storeTransactionUsecase->execute($transactionEntity, $presenter);
       return $presenter->handle();
    }
-   public function edit()
+   public function edit(string $transactionId)
    {
-      return __CLASS__ . "::" . __FUNCTION__;
+      $presenter = new EditTransactionPresenter();
+      $this->editTransactionUsecase->execute((int)$transactionId, $presenter);
+      return $presenter->handle();
    }
-   public function update()
+   public function update(Request $request)
    {
-      return __CLASS__ . "::" . __FUNCTION__;
+      //prepare 
+      $transactionEntity= $this->formToTransactionEntity([...$request->all(), 'transaction_id'=>(int)$request->route('transaction')]);
+      dd($transactionEntity);
+      //aciton
+      $presenter = new UpdateTransactionPresenter();
+      $this->updateTransactionUsecase->execute($transactionEntity, $presenter);
+      return $presenter->handle();
    }
    public function destroy()
    {

@@ -12,11 +12,8 @@ interface TransactionRepository
      * @return array<TransactionEntity>
      */
     public function index(): array;
-    /**
-     * @return EntitiesWithPagination<TransactionEntity>
-     */
-    public function show (int $transactionId):TransactionEntity ;
-    public function indexWithPagination(int $perPage): EntitiesWithPagination;
+    public function show (int $transactionId):TransactionEntity|null ;
+    public function indexWithPaginationByDate(string $date , int $perPage): EntitiesWithPagination;
     public function store(TransactionEntity $transactionEntity): TransactionEntity;
     public function update(TransactionEntity $transactionEntity): bool;
     public function destroy(): bool;
