@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
@@ -6,39 +7,70 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Repositories\TransactionRepository;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+use App\Shared\Domain\ValueObjects\Pagination;
 use App\Shared\Infrastructure\Models\Transaction\Transaction;
+use App\Shared\Infrastructure\Utilities\CarbonDateUtility;
 
-final class EloquentTransactionRepository implements TransactionRepository{
+final class EloquentTransactionRepository implements TransactionRepository
+{
     /**
      * @inheritDoc
      */
-    public function index(): array{
+    public function index(): array
+    {
         return [];
     }
     /**
      * @inheritDoc
      */
-    public function indexWithPagination(int $perPage): EntitiesWithPagination{
-        $records = Transaction::paginate($perPage);
-        dd($records);
-        return new EntitiesWithPagination();
+    public function indexWithPagination(int $perPage): EntitiesWithPagination
+    {
+        $transactionRecords = Transaction::paginate($perPage);
+        //transaction entities DTO 
+        $transactionEntitites = [];
+        foreach ($transactionRecords as $record) {
+            $transaction = new  TransactionEntity(
+                id: $record['id'],
+                date: CarbonDateUtility::from($record['date']),
+                amount: $record['amount'],
+                description: $record['description'],
+            );
+            $transaction->setDirection(); // set value of transaction to be ( withdraw or deposit)
+            $transactionEntitites[] = $transaction;
+        }
+        //Pagination DTO
+        $paginationData = new Pagination(
+            perPage: $transactionRecords->perPage(),
+            currentPage: $transactionRecords->currentPage(),
+            path: $transactionRecords->path(),
+            pageName: $transactionRecords->getPageName(),
+            total: $transactionRecords->total(),
+        );
+        return new EntitiesWithPagination(
+            $paginationData,
+            $transactionEntitites,
+        );
     }
-    public function show (int $transactionId):TransactionEntity {
+    public function show(int $transactionId): TransactionEntity
+    {
         return new TransactionEntity();
     }
-    public function store(TransactionEntity $transactionEntity): TransactionEntity{
+    public function store(TransactionEntity $transactionEntity): TransactionEntity
+    {
         $record = Transaction::create([
-            'date'=> $transactionEntity->date->toDateString(),
+            'date' => $transactionEntity->date->toDateString(),
             'amount' => $transactionEntity->amount,
-            'description'=> $transactionEntity->description,
+            'description' => $transactionEntity->description,
         ]);
         $transactionEntity->id = $record->id;
-        return $transactionEntity; 
+        return $transactionEntity;
     }
-    public function update(TransactionEntity $transactionEntity): bool{
-        return false; 
+    public function update(TransactionEntity $transactionEntity): bool
+    {
+        return false;
     }
-    public function destroy(): bool{
-        return false; 
+    public function destroy(): bool
+    {
+        return false;
     }
 }

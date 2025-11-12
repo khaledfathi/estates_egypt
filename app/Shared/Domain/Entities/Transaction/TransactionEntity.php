@@ -16,8 +16,23 @@ final class TransactionEntity
         public ?int $amount = null,
         public ?string $description = null,
     ) {
-        if($this->amount != null && $direction == TransactionDirection::WITHDRAW){
-            $this->amount *= -1 ; 
+        if ($this->amount != null && $direction == TransactionDirection::WITHDRAW) {
+            $this->amount *= -1;
         }
+    }
+    public function setDirection()
+    {
+        ($this->amount != null && $this->amount < 0)
+            ? $this->direction = TransactionDirection::WITHDRAW
+            : $this->direction = TransactionDirection::DEPOSIT;
+    }
+
+    public function isWithdraw()
+    {
+        return $this->direction == TransactionDirection::WITHDRAW;
+    }
+    public function isDeposit()
+    {
+        return $this->direction == TransactionDirection::DEPOSIT;
     }
 }

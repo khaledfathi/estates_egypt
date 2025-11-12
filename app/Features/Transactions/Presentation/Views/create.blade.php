@@ -63,8 +63,8 @@
                         {{-- direction --}}
                         <div class="col">
                             @foreach ($transactionDirections as $value => $label)
-                                <label class="radio-inline" for="inline-radio1">
-                                    <input type="radio" id="inline-radio1" name="direction"
+                                <label class="radio-inline" style="margin-left:20px" for="radio-{{ $value }}">
+                                    <input type="radio" id="radio-{{ $value }}" name="direction"
                                         value="{{ $value }}"
                                         {{ old('direction', $defaultTransactionDirection) == $value ? 'checked' : null }}>
                                     {{ $label }}

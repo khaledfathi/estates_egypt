@@ -1,7 +1,12 @@
 @extends('shared::main-layout')
 @section('title', 'الحسابات')
 @section('active-transaction', 'active')
-
+@section('styles')
+    @vite('resources/css/features/units/index.css')
+@endsection
+@section('scripts')
+    @vite('resources/ts/features/units/index.ts')
+@endsection
 @section('content')
     {{-- Errors --}}
     @if ($errors->any() || session()->has('error'))
@@ -74,8 +79,15 @@
         </a>
         <div class="container-fluid">
 
-            {{-- top pagination  --}}
+            {{-- date selection --}}
+            <form style="margin-bottom:20px;width:340px;display:flex; flex-direction:row;" method="get" action="{{ route('transactions.index') }}">
+                <label style="width:180px;margin:auto" for="">معاملات يوم</label>
+                <input class="form-control" type="date" name="selected-date" value="{{ $currentDate }}">
+                <input class="btn btn-primary" type="submit" value="عرض">
+            </form>
+            {{-- date selection --}}
 
+            {{-- top pagination  --}}
             @isset($pagination)
                 @if ($pagination->getPageCounts() > 1)
                     <ul class="pagination row">
@@ -94,39 +106,33 @@
             {{-- top pagination  --}}
 
             <div class="row">
-                @if (isset($estates) && count($estates))
+                @if (isset($transactions) && count($transactions))
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>الاسم</th>
-                                <th>عدد الطوابق</th>
-                                <th>عدد الوحدات</th>
-                                <th>وحدات سكنية</th>
-                                <th>وحدات تجارية</th>
+                                <th>تاريخ</th>
+                                <th>نوع العملية</th>
+                                <th>المبلغ</th>
                                 <th>تحكم</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($estates as $estate)
+                            @foreach ($transactions as $transaction)
                                 <tr>
-                                    <td>{{ $estate->name }}</td>
-                                    <td>{{ $estate->floorCount }}</td>
-                                    <td>{{ $estate->unitCount }}</td>
-                                    <td>{{ $estate->residentialUnitCount }}</td>
-                                    <td>{{ $estate->commercialUnitCount }}</td>
-                                    @php
-                                    @endphp
+                                    <td>{{ $transaction->date->toDateString() }}</td>
+                                    <td>{{ $transaction->direction->toLabel() }}</td>
+                                    <td style="color:{{ $transaction->isWithdraw() ? 'red' : 'green' }};">{{ abs($transaction->amount) }}</td>
                                     <td>
                                         <div>
                                             <a style="margin-left:20px;text-decoration:none"
-                                                href="{{ route('estates.show', ['estate' => $estate->id]) }}">
+                                                href="{{ route('transactions.show' , $transaction->id) }}">
                                                 <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
                                             </a>
                                             <a style="margin-left:20px;text-decoration:none"
-                                                href="{{ route('estates.edit', ['estate' => $estate->id]) }}">
+                                                href="{{ route('transactions.edit' , $transaction->id) }}">
                                                 <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
                                             </a>
-                                            <form class="d-inline" action="{{ route('estates.destroy', $estate->id) }}"
+                                            <form class="d-inline" action="{{ route('transactions.destroy', $transaction->id) }}"
                                                 method="post">
                                                 @method('DELETE')
                                                 @csrf
@@ -143,12 +149,10 @@
                     <div class="card card-inverse card-primary text-xs-center">
                         <div class="card-block">
                             <blockquote class="card-blockquote">
-                                لا توجد معاملات مالية مسجلة لهذا اليوم - قم باضافة معاملة 
+                                لا توجد معاملات مالية مسجلة لهذا اليوم - قم باضافة معاملة
                             </blockquote>
                         </div>
                     </div>
-
-                    <p></p>
                 @endif
             </div>
 
