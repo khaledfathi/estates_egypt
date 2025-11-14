@@ -81,10 +81,14 @@ final class EloquentTransactionRepository implements TransactionRepository
     }
     public function update(TransactionEntity $transactionEntity): bool
     {
-        return false;
+        return Transaction::find($transactionEntity->id)->update([
+            'date' => $transactionEntity->date->toDateString(),
+            'amount' => $transactionEntity->amount,
+            'description' => $transactionEntity->description,
+        ]);
     }
-    public function destroy(): bool
+    public function destroy(int $transactionId): bool
     {
-        return false;
+        return Transaction::find($transactionId)->delete();
     }
 }

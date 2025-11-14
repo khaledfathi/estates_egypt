@@ -2,10 +2,10 @@
 @section('title', 'الحسابات')
 @section('active-transaction', 'active')
 @section('styles')
-    @vite('resources/css/features/units/index.css')
+    @vite('resources/css/features/transactions/index.css')
 @endsection
 @section('scripts')
-    @vite('resources/ts/features/units/index.ts')
+    @vite('resources/ts/features/transactions/index.ts')
 @endsection
 @section('content')
     {{-- Errors --}}
@@ -147,7 +147,7 @@
                                                     @method('DELETE')
                                                     @csrf
                                                     <i
-                                                        class="delete-estate-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                                        class="delete-transaction-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
                                                     <input class="delete-submit-btn" type="submit" hidden>
                                                 </form>
                                             </div>

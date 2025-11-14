@@ -1,21 +1,36 @@
 <?php
-declare (strict_types=1);
+
+declare(strict_types=1);
 
 namespace App\Features\Transactions\Presentation\Http\Presenters;
 
 use App\Features\Transactions\Application\Outputs\UpdateTransactionOutput;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
+use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Presentation\Constants\Messages;
 use Closure;
+use Illuminate\Support\Facades\Log;
 
-final class UpdateTransactionPresenter implements UpdateTransactionOutput{
+final class UpdateTransactionPresenter implements UpdateTransactionOutput
+{
    private Closure $response;
-   public function onSuccess (bool $status):void{
-      dd('success', $status);
+   public function onSuccess(bool $status): void
+   {
+      $this->response =  fn() =>   redirect( route('transactions.index'))
+         ->with('success', Messages::UPDATE_SUCCESS);
    }
-   public function onFailure( string $error):void{
-      dd('failure');
+   public function onFailure(string $error): void
+   {
+      $this->response = fn() =>
+      redirect()->back()->withErrors(Messages::INTERNAL_SERVER_ERROR);
+      //log
+      Log::channel(LogChannels::ERROR)->error(
+         'Databse failure',
+         ['error' => $error, 'error_source' => __CLASS__ . '::' . __FUNCTION__]
+      );
    }
-   public function handle(){
-      return __CLASS__."::".__FUNCTION__;
+   public function handle()
+   {
+      return ($this->response)();
    }
-} 
+}

@@ -10,6 +10,8 @@ use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Repositories\TransactionRepository;
 use Exception;
 
+use function PHPUnit\Framework\throwException;
+
 final class UpdateTransactionUsecase implements UpdateTransactionContract
 {
    public function __construct(

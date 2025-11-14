@@ -2,11 +2,13 @@
 
 namespace App\Features\Transactions\Infrastructure\Providers;
 
+use App\Features\Transactions\Application\Contracts\DestroyTransactionContract;
 use App\Features\Transactions\Application\Contracts\EditTransactionContract;
 use App\Features\Transactions\Application\Contracts\ShowTransactionContract;
 use App\Features\Transactions\Application\Contracts\ShowTransactionsPaginationContract;
 use App\Features\Transactions\Application\Contracts\StoreTransactionContract;
 use App\Features\Transactions\Application\Contracts\UpdateTransactionContract;
+use App\Features\Transactions\Application\Usecases\DestroyTransactionUsecase;
 use App\Features\Transactions\Application\Usecases\EditTransactionUsecase;
 use App\Features\Transactions\Application\Usecases\ShowTransactionsPaginationUsecase;
 use App\Features\Transactions\Application\Usecases\ShowTransactionUsecase;
@@ -27,6 +29,7 @@ class TransactionServiceProvider extends ServiceProvider
         $this->app->bind(ShowTransactionContract::class, ShowTransactionUsecase::class);
         $this->app->bind(EditTransactionContract::class, EditTransactionUsecase::class);
         $this->app->bind(UpdateTransactionContract::class, UpdateTransactionUsecase::class);
+        $this->app->bind(DestroyTransactionContract::class, DestroyTransactionUsecase::class);
     }
 
     /**

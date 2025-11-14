@@ -81,7 +81,7 @@
                             <div class="form-group">
                                 <label for="amount">المبلغ<span class="required">*</span></label>
                                 <input name="amount" type="number" class="form-control" id="amount"
-                                    placeholder="المبلغ" value="{{ old('amount', $transaction->amount) }}">
+                                    placeholder="المبلغ" value="{{ old('amount', abs($transaction->amount)) }}">
                             </div>
                             {{-- / amount --}}
 

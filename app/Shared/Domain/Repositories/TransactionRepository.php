@@ -16,5 +16,5 @@ interface TransactionRepository
     public function indexWithPaginationByDate(string $date , int $perPage): EntitiesWithPagination;
     public function store(TransactionEntity $transactionEntity): TransactionEntity;
     public function update(TransactionEntity $transactionEntity): bool;
-    public function destroy(): bool;
+    public function destroy(int $transactionId): bool;
 }
