@@ -17,4 +17,6 @@ interface TransactionRepository
     public function store(TransactionEntity $transactionEntity): TransactionEntity;
     public function update(TransactionEntity $transactionEntity): bool;
     public function destroy(int $transactionId): bool;
+    // ----
+    public function balance ():int;
 }

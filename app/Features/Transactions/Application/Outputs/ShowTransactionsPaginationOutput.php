@@ -10,6 +10,6 @@ interface ShowTransactionsPaginationOutput{
      * @param EntitiesWithPagination<TransactionEntity> $entitiesWithPagination
      * @return void
      */
-    public function onSuccess (EntitiesWithPagination $entitiesWithPagination):void;
+    public function onSuccess (EntitiesWithPagination $entitiesWithPagination , int $balance):void;
     public function onFailure (string $error) :void;
 }

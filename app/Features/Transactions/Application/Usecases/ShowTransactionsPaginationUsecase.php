@@ -15,7 +15,8 @@ final class ShowTransactionsPaginationUsecase implements ShowTransactionsPaginat
    public function execute (string $date , ShowTransactionsPaginationOutput $presenter , int $perPage = 10){
       try {
          $entitiesWithPagination = $this->transactionRepository->indexWithPaginationByDate($date, $perPage);
-         $presenter->onSuccess($entitiesWithPagination);
+         $balance = $this->transactionRepository->balance();
+         $presenter->onSuccess($entitiesWithPagination , $balance);
       } catch (Exception $e) {
          $presenter->onFailure($e->getMessage());
       }

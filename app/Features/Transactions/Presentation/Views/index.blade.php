@@ -1,5 +1,5 @@
 @extends('shared::main-layout')
-@section('title', 'الحسابات')
+@section('title', 'الحسابات | الخزينة')
 @section('active-transaction', 'active')
 @section('styles')
     @vite('resources/css/features/transactions/index.css')
@@ -50,28 +50,11 @@
 
     @if (!isset($error))
         {{-- balance --}}
-        <div class="container" style="margin-top:20px">
-            <div class="card card-inverse card-primary">
-                <div class="card-header">
-                    رصيد الخزينة (كل الوقت)
-                </div>
                 <div class="card-block">
                     <div style="padding:10px 0;text-align:center;border-bottom: 3px solid white">
-                        <h5>الرصيد 2500</h5>
-                    </div>
-                    <div style="display:flex; wrap:wrap; text-align: center;">
-                        <div style="padding-top:20px;width:50%; border-left:3px solid white">
-                            <h5>ايرادات</h5>
-                            <span>12500</span>
-                        </div>
-                        <div style="padding-top:20px; width:50%">
-                            <h5>مصروفات</h5>
-                            <span>10000</span>
-                        </div>
+                        <h4 style="color:{{ $balance <= 0 ? 'red' : 'green' }}">الرصيد الحالى ( {{ $balance == 0 ? 'صفر' : $balance }} ) </h4>
                     </div>
                 </div>
-            </div>
-        </div>
         {{-- / balance --}}
 
         {{--  --}}

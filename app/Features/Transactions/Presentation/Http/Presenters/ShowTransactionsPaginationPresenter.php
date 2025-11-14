@@ -18,10 +18,11 @@ final class ShowTransactionsPaginationPresenter implements ShowTransactionsPagin
     public function __construct(
       private readonly ?string $date=null,
     ){}
-    public function onSuccess (EntitiesWithPagination $entitiesWithPagination):void{
+    public function onSuccess (EntitiesWithPagination $entitiesWithPagination , int $balance):void{
       $currentDate =Carbon::now()->toDateString();
       $data = [
         'transactions' => $entitiesWithPagination->entities,
+        'balance' => $balance,
         'pagination'=> $entitiesWithPagination->pagination,
         'selectedDate' => $this->date ?? $currentDate,
       ];

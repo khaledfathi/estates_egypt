@@ -91,4 +91,7 @@ final class EloquentTransactionRepository implements TransactionRepository
     {
         return Transaction::find($transactionId)->delete();
     }
+    public function balance ():int{
+        return Transaction::sum('amount');
+    }
 }
