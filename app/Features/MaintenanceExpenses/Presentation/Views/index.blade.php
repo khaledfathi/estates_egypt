@@ -6,7 +6,7 @@
     <h1>مصروفات الصيانة</h1>
     <div class="container col-md-5">
         <form action="{{ route('estates-maintenance-expenses.index') }}"  method="get">
-            @csrf
+            {{-- estate  --}}
             <div class="form-group">
                 <label for="estate_id">اختر العقار<span class="required">*</span></label>
                 <select id="estate_id" name="estate_id" class="form-control" size="1">
@@ -18,9 +18,13 @@
                     @endforeach
                 </select>
             </div>
+            {{-- / estate  --}}
+            
+            {{-- buttons --}}
             <button class="btn btn-md btn-primary my-5" {{ count($estates) ? null : 'disabled' }}>
                 <span>عرض المصروفات</span>
             </button>
+            {{-- / buttons --}}
         </form>
     </div>
 

@@ -9,6 +9,7 @@ use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -21,6 +22,7 @@ final class  ShowAllEstateMaintenanceExpensesPresenter implements ShowAllEstateM
             'estate' => $estateEntity,
             'estateMaintenanceExpenses' => $entitiesWithPagination->entities,
             'pagination' => $entitiesWithPagination->pagination,
+            'currentYear' => Carbon::now()->year,
         ];
         $this->response = fn() => view('estates.maintenance-expenses::index', $data);
     }

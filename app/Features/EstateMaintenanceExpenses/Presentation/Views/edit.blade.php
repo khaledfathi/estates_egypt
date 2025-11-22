@@ -5,10 +5,10 @@
 @section('title', 'الحسابات | تحديث مصروف صيانة')
 @section('active-accounting', 'active')
 @section('styles')
-    @vite('resources/css/features/units/show.css')
+    @vite('resources/css/features/estate-maintenance-expenses/show.css')
 @endsection
 @section('scripts')
-    @vite('resources/ts/features/units/show.ts')
+    @vite('resources/ts/features/estate-maintenance-expenses/show.ts')
 @endsection
 
 @section('content')

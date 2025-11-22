@@ -104,7 +104,7 @@
                                 <hr>
                                 <li>مدفوع لـ : {{ $estateMaintenanceExpense->title}}</li>
                                 <hr>
-                                <li>وصف تفصيلى: <pre>{{ $estateMaintenanceExpense->title}}</pre></li>
+                                <li>وصف تفصيلى: <pre>{{ $estateMaintenanceExpense->description}}</pre></li>
                                 <hr>
                             </ul>
                         </div>

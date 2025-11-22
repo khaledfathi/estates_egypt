@@ -4,13 +4,6 @@
 @extends('shared::main-layout')
 @section('title', 'الحسابات | اضافة مصروف صيانة')
 @section('active-accounting', 'active')
-@section('styles')
-    @vite('resources/css/features/units/show.css')
-@endsection
-@section('scripts')
-    @vite('resources/ts/features/units/show.ts')
-@endsection
-
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
