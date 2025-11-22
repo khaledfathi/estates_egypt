@@ -20,7 +20,31 @@ final class EloquentEstateRepository implements EstateRepositroy
      */
     public function index(): array
     {
-        return [];
+
+        //Query 
+        $estateRecords = Estate::withCount([
+            'units as residential_unit_count' => fn($query) => $query->where('type', UnitType::RESDENTIAL->value),
+            'units as commercial_unit_count' => fn($query) => $query->where('type', UnitType::COMMERCIAL->value),
+            'units as total_unit_count'
+        ])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        //Transform to DTO
+        $arrayOfEstates = [];
+        foreach ($estateRecords as $record) {
+            //estate DTO
+            $arrayOfEstates[] = new EstateEntity(
+                id: (int) $record->id,
+                name: $record->name,
+                address: $record->address,
+                floorCount: $record->floor_count,
+                unitCount: $record->total_unit_count,
+                residentialUnitCount: $record->residential_unit_count,
+                commercialUnitCount: $record->commercial_unit_count
+            );
+        }
+        return $arrayOfEstates;
     }
     /**
      * 

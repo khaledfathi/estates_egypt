@@ -42,7 +42,6 @@ class EstateDocumentController extends Controller
         private readonly EditEstateDocumentContract $editEstateDocumentUsecase,
         private readonly UpdateEstateDocumentContract $updateEstateDocumentUsecase,
         private readonly DownloadEstateDocumentFileContract $downloadEstateDocumentFileUsecase,
-        private readonly StorageDir $storageDir
     ) {}
     public function index(Request $request)
     {
