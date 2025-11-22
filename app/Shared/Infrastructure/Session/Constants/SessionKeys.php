@@ -42,4 +42,10 @@ final class SessionKeys {
     public const UNIT_CONTRACT_EDIT_PREVIOUS_PAGE = 'unit_contract_edit_last_page';
     public const UNIT_CONTRACT_CURRENT_INDEX_PAGE = 'unit_contract_current_index_page';
     // ----------------------
+
+    //for transaction features  
+    public const TRANSACTION_EDIT_PREVIOUS_PAGE = 'transaction_edit_last_page';
+    public const TRANSACTION_CURRENT_INDEX_PAGE = 'transaction_current_index_page';
+    // ----------------------
 }
+

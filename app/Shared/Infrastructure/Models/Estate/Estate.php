@@ -2,6 +2,7 @@
 
 namespace App\Shared\Infrastructure\Models\Estate;
 
+use App\Models\EstateMaintenanceExpenses;
 use App\Shared\Infrastructure\Models\Unit\Unit;
 use App\Shared\Infrastructure\Models\Unit\UnitOwnership;
 use Illuminate\Database\Eloquent\Model;
@@ -26,5 +27,8 @@ class Estate extends Model
     }
     public function estateUtilityServiceInvoices (){
         return $this->hasMany(EstateUtilityServiceInvoice::class);
+    }
+    public function EstateMaintenanceExpenses  (){
+        return $this->hasMany(EstateMaintenanceExpenses::class);
     }
 }

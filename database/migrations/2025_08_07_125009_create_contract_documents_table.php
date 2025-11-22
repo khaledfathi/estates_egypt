@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('file');
             $table->timestamps();
             //FK
-            $table->foreignId('contract_id')->constrained('')->references('id')->on('contracts')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('contract_id')->references('id')->on('unit_contracts')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
