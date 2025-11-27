@@ -5,12 +5,11 @@
 @section('title', 'الحسابات | مصروفات صيانة')
 @section('active-accounting', 'active')
 @section('styles')
-    @vite('resources/css/features/units/show.css')
+    @vite('resources/css/features/estate-maintenance-expenses/index.css')
 @endsection
 @section('scripts')
-    @vite('resources/ts/features/units/show.ts')
+    @vite('resources/ts/features/estate-maintenance-expenses/index.ts')
 @endsection
-
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
@@ -67,8 +66,6 @@
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('maintenance-expenses.index') }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لصفحة مصروفات الصيانة</a>
                 </div>
             </div>
             {{-- / estaet information  --}}
@@ -84,15 +81,19 @@
             </div>
             {{-- / title block --}}
             <div class="card-block row">
-                <a href="{{ route('estates-maintenance-expenses.create', ['estate_id' => $estate->id]) }}"
+                <a href="{{ route('estates.maintenance-expenses.create', ['estate' => $estate->id]) }}"
                     class="btn btn-md btn-primary my-5">
                     <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
                     <span> اضافة مصروف صيانة</span>
                 </a>
                 <div class="container-fluid">
-
+                    <form style="margin-bottom:20px;width:340px;display:flex; flex-direction:row;" method="get"
+                        action="{{ route('estates.maintenance-expenses.index', ['estate' => $estate->id]) }}">
+                        <label style="width:180px;margin:auto" for="">معاملات عام</label>
+                        <input class="form-control" type="number" name="selected_year" value="{{ old('selected_year' , $selectedYear) }}">
+                        <input class="btn btn-primary" type="submit" value="عرض">
+                    </form>
                     {{-- top pagination  --}}
-
                     @isset($pagination)
                         @if ($pagination->getPageCounts() > 1)
                             <ul class="pagination row">
@@ -130,20 +131,20 @@
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('estates-maintenance-expenses.show', ['estates_maintenance_expense' => $maintenanceExpense->id]) }}">
+                                                        href="{{ route('estates.maintenance-expenses.show', ['estate'=> $estate->id, 'maintenance_expense' => $maintenanceExpense->id]) }}">
                                                         <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
                                                     </a>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('estates-maintenance-expenses.edit', ['estates_maintenance_expense' => $maintenanceExpense->id]) }}">
+                                                        href="{{ route('estates.maintenance-expenses.edit', ['estate'=> $estate->id , 'maintenance_expense' => $maintenanceExpense->id]) }}">
                                                         <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
                                                     </a>
                                                     <form class="d-inline"
-                                                        action="{{ route('estates-maintenance-expenses.destroy' , ['estates_maintenance_expense' => $maintenanceExpense->id , 'estate_id'=>$maintenanceExpense->estateId]) }}"
+                                                        action="{{ route('estates.maintenance-expenses.destroy', ['estate'=> $estate->id, 'maintenance_expense' => $maintenanceExpense->id, 'estate_id' => $maintenanceExpense->estateId]) }}"
                                                         method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <i
-                                                            class="delete-unit-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                                            class="delete-expense-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
                                                         <input class="delete-submit-btn" type="submit" hidden>
                                                     </form>
                                                 </div>

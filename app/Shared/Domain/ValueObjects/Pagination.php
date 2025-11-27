@@ -14,9 +14,7 @@ final class Pagination
         public readonly ?string $pageName = null,
         public readonly ?int  $total = null,
         private array $queryParameters = [],
-    ) {
-        $this->setQueryParameters();
-    }
+    ) { }
 
     private function generatePageURL(int $pageQueryNumber): mixed
     {
@@ -49,10 +47,12 @@ final class Pagination
         $pageNumber = $this->currentPage > 1 ? $this->currentPage - 1 : $this->currentPage;
         return $this->generatePageURL($pageNumber) . $this->queires;
     }
-    public function setQueryParameters():void
+    public function withQueryParameters(array $parameters): self 
     {
-        foreach ($this->queryParameters as $key => $value) {
+        $this->queryParameters = $parameters;
+        foreach ($parameters as $key => $value) {
             $this->queires .= "&$key=$value";
         }
+        return $this;
     }
 }

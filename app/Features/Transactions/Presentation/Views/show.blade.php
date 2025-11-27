@@ -2,8 +2,8 @@
     use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
 @endphp
 @extends('shared::main-layout')
-@section('title', 'الحسابات | الخزينة - عرض معاملة')
-@section('active-transaction', 'active')
+@section('title', 'الخزينة | عرض معاملة')
+@section('active-transactions', 'active')
 
 @section('styles')
     @vite('resources/css/features/units/show.css')

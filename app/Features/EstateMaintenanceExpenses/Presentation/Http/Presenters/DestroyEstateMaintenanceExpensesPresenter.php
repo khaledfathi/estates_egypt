@@ -18,7 +18,9 @@ final class DestroyEstateMaintenanceExpensesPresenter implements DestroyEstateMa
     ){}
     public function onSuccess(bool $status): void
     {
-        $this->response = fn() => redirect(route('estates-maintenance-expenses.index', ['estate_id' => $this->estateId]));
+        $this->response = fn() => 
+            redirect(route('estates.maintenance-expenses.index', ['estate' => $this->estateId]))
+            ->with('success' , Messages::DESTROY_SUCCESS);
     }
     public function onFailure(string $error): void
     {

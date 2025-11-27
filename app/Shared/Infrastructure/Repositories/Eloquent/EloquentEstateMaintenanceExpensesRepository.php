@@ -26,10 +26,16 @@ final class EloquentEstateMaintenanceExpensesRepository implements EstateMainten
      * @param int $perPage
      * @return EntitiesWithPagination<EstateMaintenanceExpensesEntity> 
      */
-    public function indexWithPaginateByEstateId(int $estateId, int $perPage): EntitiesWithPagination
+    public function indexWithPaginateByEstateIdAndYear(int $estateId, int $year, int $perPage): EntitiesWithPagination
     {
         $records =  EstateMaintenanceExpenses::where('estate_id', $estateId)
-            ->with('estate', 'transaction')->paginate();
+            ->whereHas(
+                'transaction',
+                fn($query) => $query->whereYear('date', $year)
+            )
+            ->with('estate', 'transaction')
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
 
         //estate maintenance expenses DTO 
         $estateMaintenanceExpensesEntities = [];

@@ -1,6 +1,6 @@
 @extends('shared::main-layout')
-@section('title', 'الحسابات | الخزينة')
-@section('active-accounting', 'active')
+@section('title', 'الخزينة')
+@section('active-transactions', 'active')
 @section('styles')
     @vite('resources/css/features/transactions/index.css')
 @endsection

@@ -7,6 +7,7 @@ namespace  App\Features\EstateMaintenanceExpenses\Presentation\Http\Presenters;
 use App\Features\EstateMaintenanceExpenses\Application\Outputs\ShowEstateMaintenanceExpensesOutput;
 use App\Shared\Domain\Entities\Estate\EstateMaintenanceExpensesEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Log;
 final class ShowEstateMaintenanceExpensesPresenter implements ShowEstateMaintenanceExpensesOutput
 {
     private Closure $response;
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $previousPage = SessionKeys::ESTATE_MAINTENANCE_EXPENSE_EDIT_PREVIOUS_PAGE;
+        session()->put($previousPage, url()->current());
+    }
     public function onSuccess(EstateMaintenanceExpensesEntity $estateMaintenanceExpensesEntity): void
     {
         $data = [

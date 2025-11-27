@@ -1,16 +1,17 @@
 <?php
 
 use App\Features\Accounting\Presentation\Http\Controllers\AccountingController;
+use App\Features\AccountingManagement\Presentation\Http\Controllers\AccountingManagementController;
 use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\EstateMaintenanceExpenses\Presentation\Http\Controllers\EstateMaintenanceExpensesController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
 use App\Features\EstateUtilityServiceInvoices\Presentation\Http\Controllers\EstateUtilityServiceInvoiceController;
 use App\Features\EstateUtilityServices\Presentation\Http\Controllers\EstateUtilityServicesController;
-use App\Features\MaintenanceExpenses\Presentation\Http\Controllers\MaintenanceExpensesController;
 use App\Features\OwnerGroups\Presentation\Http\Controllers\OwnerGroupController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
+use App\Features\RentsPayment\Presentation\Http\Controllers\RentsPaymentController;
 use App\Features\Settings\Presentation\Http\Controllers\SettingController;
 use App\Features\Transactions\Presentation\Http\Controllers\TransactionController;
 use App\Features\UnitContracts\Presentation\Http\Controllers\UnitContractController;
@@ -62,14 +63,17 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/estates.units.ownerships', UnitOwnershipController::class);
 
-    Route::resource('/estates-maintenance-expenses',EstateMaintenanceExpensesController::class);
+    Route::resource('/estates.maintenance-expenses',EstateMaintenanceExpensesController::class);
+
 
     Route::resource('/settings', SettingController::class)->only('index');
 
     Route::resource('/transactions', TransactionController::class);
 
+    Route::resource('/rents-payments', RentsPaymentController::class);
+
     Route::get('/accounting', [AccountingController::class , 'index'])->name('accounting.index');
-    Route::get('/maintenance-expenses', [MaintenanceExpensesController::class , 'index'])->name('maintenance-expenses.index');
+    Route::get('/accounting-management', [AccountingManagementController::class , 'index'])->name('accounting-management.index');
 });
 
 /* FOR TEST  */

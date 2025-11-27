@@ -6,5 +6,5 @@ namespace App\Features\EstateMaintenanceExpenses\Application\Contracts;
 use App\Features\EstateMaintenanceExpenses\Application\Outputs\ShowAllEstateMaintenanceExpensesOutput;
 
 interface ShowAllEstateMaintenanceExpensesContract {
-    public function execute(int $estateId , ShowAllEstateMaintenanceExpensesOutput $presenter , int $perPage=10):void;
+    public function execute(int $estateId ,int $year, ShowAllEstateMaintenanceExpensesOutput $presenter , int $perPage=10):void;
 }

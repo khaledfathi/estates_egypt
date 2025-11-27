@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Features\MaintenanceExpenses\Application\Outputs;
+namespace App\Features\AccountingManagement\Application\Outputs; 
 
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 
-interface ShowAllMaintenanceExpensesOutput{
+interface ShowAllAccountingManagementOutput{
 
     /**
      * @param array<EstateEntity> $renterEntities

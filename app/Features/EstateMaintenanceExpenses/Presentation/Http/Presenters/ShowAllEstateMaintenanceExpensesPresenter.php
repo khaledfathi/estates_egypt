@@ -8,19 +8,34 @@ use App\Features\EstateMaintenanceExpenses\Application\Outputs\ShowAllEstateMain
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
 final class  ShowAllEstateMaintenanceExpensesPresenter implements ShowAllEstateMaintenanceExpensesOutput
 {
     private Closure $response;
+    public function __construct(
+        private readonly int $year
+    ){
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $currentPage = request()->fullUrl(); 
+        session()->put(SessionKeys::ESTATE_MAINTENANCE_EXPENSE_CURRENT_INDEX_PAGE, $currentPage);
+        session()->put(SessionKeys::ESTATE_MAINTENANCE_EXPENSE_EDIT_PREVIOUS_PAGE, $currentPage);
+    }
     public function onSucess(EstateEntity $estateEntity,  EntitiesWithPagination $entitiesWithPagination): void
     {
+        $pagination = $entitiesWithPagination->pagination->withQueryParameters(['selected_year'=>$this->year , 'estate_id'=>$estateEntity->id]);
         $data = [
             'estate' => $estateEntity,
             'estateMaintenanceExpenses' => $entitiesWithPagination->entities,
-            'pagination' => $entitiesWithPagination->pagination,
+            'pagination' => $pagination,
+            'selectedYear' => $this->year, 
         ];
         $this->response = fn() => view('estates.maintenance-expenses::index', $data);
     }

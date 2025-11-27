@@ -16,11 +16,11 @@ final class ShowAllEstateMaintenanceExpensesUsecase implements ShowAllEstateMain
         private readonly EstateRepositroy $estateRepositroy,
         private readonly EloquentEstateMaintenanceExpensesRepository $estateMaintenanceExpensesRepository
     ) { }
-    public function execute(int $estateId, ShowAllEstateMaintenanceExpensesOutput $presenter, int $perPage=10): void {
+    public function execute(int $estateId, int $year ,ShowAllEstateMaintenanceExpensesOutput $presenter, int $perPage=10): void {
         try {
             $estateEntity = $this->estateRepositroy->show($estateId);
             if($estateEntity){
-                $entitiesWithPagination = $this->estateMaintenanceExpensesRepository->indexWithPaginateByEstateId($estateId , $perPage);
+                $entitiesWithPagination = $this->estateMaintenanceExpensesRepository->indexWithPaginateByEstateIdAndYear($estateId , $year,$perPage);
                 $presenter->onSucess($estateEntity ,$entitiesWithPagination);
             }else {
                 $presenter->onEstaetNotFound();
