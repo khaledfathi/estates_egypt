@@ -4,13 +4,6 @@
 @extends('shared::main-layout')
 @section('title', 'الحسابات | اضافة مصروف صيانة')
 @section('active-accounting', 'active')
-@section('styles')
-    @vite('resources/css/features/units/show.css')
-@endsection
-@section('scripts')
-    @vite('resources/ts/features/units/show.ts')
-@endsection
-
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
@@ -67,8 +60,8 @@
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('maintenance-expenses.index') }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لصفحة مصروفات الصيانة</a>
+                    <a href="{{ route('accounting-management.index') }}" type="button" class="btn btn-primary">
+                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لإدارة الحسابات </a>
                 </div>
             </div>
             {{-- / estaet information  --}}
@@ -83,7 +76,7 @@
                                 <strong>اضافة مصروف صيانة</strong>
                             </div>
                             <form class="card-block" id="owners-list-section" method="post"
-                                action="{{ route('estates-maintenance-expenses.store') }}">
+                                action="{{ route('estates.maintenance-expenses.store' , ['estate' => $estate->id]) }}">
                                 @csrf
 
                                 {{-- estaet id --}}

@@ -17,7 +17,7 @@ interface EstateMaintenanceExpensesRepository
      * @param int $perPage
      * @return EntitiesWithPagination<EstateMaintenanceExpensesEntity> 
      */
-    public function indexWithPaginateByEstateId(int $estateId , int $perPage): EntitiesWithPagination;
+    public function indexWithPaginateByEstateIdAndYear(int $estateId ,int $year, int $perPage): EntitiesWithPagination;
     public function store(EstateMaintenanceExpensesEntity $estateMaintenanceExpensesEntity): EstateMaintenanceExpensesEntity;
     public function show(int $estateMaintenanceExpensesId): EstateMaintenanceExpensesEntity|null;
     public function update(EstateMaintenanceExpensesEntity $estateMaintenanceExpensesEntity): bool;

@@ -104,9 +104,9 @@
                 <li class="nav-item">
                     <a class="nav-link @yield('active-queries')" href="{{ route('queries.index') }}"><i class="icon-docs"></i>
                         استعلامات</a>
-                    <a class="nav-link @yield('active-accounting')" href="{{ route('accounting.index') }}">
+                    <a class="nav-link @yield('active-transactions')" href="{{ route('transactions.index') }}">
                         <i class="fa fa-dollar"></i>
-                        الحسابات</a>
+                        الخزينة</a>
                 </li>
 
                 <li class="nav-title"> الحساب </li>

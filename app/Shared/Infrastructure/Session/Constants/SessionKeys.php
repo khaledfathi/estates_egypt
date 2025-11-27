@@ -47,5 +47,10 @@ final class SessionKeys {
     public const TRANSACTION_EDIT_PREVIOUS_PAGE = 'transaction_edit_last_page';
     public const TRANSACTION_CURRENT_INDEX_PAGE = 'transaction_current_index_page';
     // ----------------------
+
+    //for estate maintenance expenses features  
+    public const ESTATE_MAINTENANCE_EXPENSE_EDIT_PREVIOUS_PAGE = 'estate_maintenance_expense_edit_last_page';
+    public const ESTATE_MAINTENANCE_EXPENSE_CURRENT_INDEX_PAGE = 'estate_maintenance_expense_current_index_page';
+    // ----------------------
 }
 

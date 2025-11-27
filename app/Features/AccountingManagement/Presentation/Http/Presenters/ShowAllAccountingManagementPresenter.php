@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Features\MaintenanceExpenses\Presentation\Http\Presenters;
+namespace App\Features\AccountingManagement\Presentation\Http\Presenters; 
 
-use App\Features\MaintenanceExpenses\Application\Outputs\ShowAllMaintenanceExpensesOutput;
+use App\Features\AccountingManagement\Application\Outputs\ShowAllAccountingManagementOutput;
 use Closure;
 
-final class ShowAllMaintenanceExpensesPresenter implements ShowAllMaintenanceExpensesOutput
+final class ShowAllAccountingManagementPresenter implements ShowAllAccountingManagementOutput 
 {
     private Closure $response;
     /**
@@ -15,7 +15,7 @@ final class ShowAllMaintenanceExpensesPresenter implements ShowAllMaintenanceExp
      */
     public function onSuccess(array $estateEntities): void
     {
-        $this->response = fn() => view('maintenance-expenses::index', [
+        $this->response = fn() => view('accounting-management::index', [
             'estates' => $estateEntities
         ]);
     }

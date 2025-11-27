@@ -35,10 +35,14 @@
         @if (isset($estate))
             <div class=" container">
                 <div class="manage-btn-box">
-                    <a href="{{ route('estates.units.index',  $estate->id)  }}"
-                        class="btn btn-primary"><i class="fa fa-home fa-lg"></i>&nbsp; وحدات</a>
-                    <a href="{{ route('estates.documents.index' , $estate->id)}}" class="btn btn-primary"> <i class="icon-docs icons fa-lg"></i>&nbsp; مستندات</a>
-                    <a href="{{ route('estates.utility-services.index', $estate->id)}}" class="btn btn-primary"><i class="fa fa-bolt fa-lg "></i>&nbsp; مرافق</a>
+                    <a href="{{ route('estates.units.index', $estate->id) }}" class="btn btn-primary"><i
+                            class="fa fa-home fa-lg"></i>&nbsp; وحدات</a>
+                    <a href="{{ route('estates.documents.index', $estate->id) }}" class="btn btn-primary"> <i
+                            class="icon-docs icons fa-lg"></i>&nbsp; مستندات</a>
+                    <a href="{{ route('estates.utility-services.index', $estate->id) }}" class="btn btn-primary"><i
+                            class="fa fa-bolt fa-lg "></i>&nbsp; مرافق</a>
+                    <a href="{{ route('estates.maintenance-expenses.index', $estate->id) }}" class="btn btn-primary"><i
+                            class="fa fa-dollar fa-lg"></i> &nbsp; مصروفات الصيانة</a>
                 </div>
             </div>
         @endif
@@ -67,10 +71,16 @@
 
                         <div class="card-block">
                             <ul>
-                                <li>الاسم : {{ $estate->name }}</li><hr>
-                                <li>العنوان :<pre>{{ $estate->address}}</pre></li><hr>
-                                <li>عدد الطوابق : {{ $estate->floorCount}}</li><hr>
-                                <li>عدد الوحدات السكنة : {{ $estate->residentialUnitCount }}</li><hr>
+                                <li>الاسم : {{ $estate->name }}</li>
+                                <hr>
+                                <li>العنوان :
+                                    <pre>{{ $estate->address }}</pre>
+                                </li>
+                                <hr>
+                                <li>عدد الطوابق : {{ $estate->floorCount }}</li>
+                                <hr>
+                                <li>عدد الوحدات السكنة : {{ $estate->residentialUnitCount }}</li>
+                                <hr>
                                 <li>عدد الوحدات التجارية : {{ $estate->commercialUnitCount }} </li>
                             </ul>
                         </div>

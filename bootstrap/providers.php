@@ -20,6 +20,7 @@ return [
     App\Features\EstateUtilityServiceInvoices\Infrastructure\Providers\EstateUtilityServiceInvoiceServiceProvider::class,
     App\Features\UnitContracts\Infrastructure\Providers\UnitContractServiceProvider::class,
     App\Features\Accounting\Infrastructure\Providers\AccountingServiceProvider::class,
-    App\Features\MaintenanceExpenses\Infrastructure\Providers\MaintenanceExpensesServiceProvider::class,
+    App\Features\AccountingManagement\Infrastructure\Providers\AccountingManagementServiceProvider::class,
+    App\Features\RentsPayment\Infrastructure\Providers\RentsPaymentServiceProvider::class,
     App\Features\EstateMaintenanceExpenses\Infrastructure\Providers\EstateMaintenanceExpensesServiceProvider::class,
 ];

@@ -67,8 +67,8 @@
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('maintenance-expenses.index') }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لصفحة مصروفات الصيانة</a>
+                    <a href="{{ route('estates.maintenance-expenses.index' , ['estate' => $estate->id]) }}" type="button" class="btn btn-primary">
+                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لقائمة المصروفات</a>
                 </div>
             </div>
             {{-- / estaetapp/Features/EstateMaintenanceExpenses/Presentation/Views/create.blade.php information  --}}
@@ -82,11 +82,11 @@
                             <strong> بيانات مصروف صيانة</strong>
                             <div>
                                 <a style="margin-left:10px;text-decoration:none"
-                                    href="{{ route('estates-maintenance-expenses.edit' , ['estates_maintenance_expense' => $estateMaintenanceExpense->id]) }}">
+                                    href="{{ route('estates.maintenance-expenses.edit' , ['estate'=>$estate->id , 'maintenance_expense' => $estateMaintenanceExpense->id]) }}">
                                     <i class="action-icon action-icon--edit fa fa-pencil fa-lg "></i>
                                 </a>
                                 <form class="d-inline"
-                                    action="{{ route('estates-maintenance-expenses.destroy' , ['estates_maintenance_expense' => $estateMaintenanceExpense->id , 'estate_id'=>$estateMaintenanceExpense->estateId]) }}"
+                                    action="{{ route('estates.maintenance-expenses.destroy' , ['estate'=> $estate->id , 'maintenance_expense' => $estateMaintenanceExpense->id]) }}"
                                     method="post">
                                     @method('DELETE')
                                     @csrf
@@ -104,7 +104,7 @@
                                 <hr>
                                 <li>مدفوع لـ : {{ $estateMaintenanceExpense->title}}</li>
                                 <hr>
-                                <li>وصف تفصيلى: <pre>{{ $estateMaintenanceExpense->title}}</pre></li>
+                                <li>وصف تفصيلى: <pre>{{ $estateMaintenanceExpense->description ?? '----'}}</pre></li>
                                 <hr>
                             </ul>
                         </div>

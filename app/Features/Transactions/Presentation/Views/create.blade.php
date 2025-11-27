@@ -1,6 +1,6 @@
 @extends('shared::main-layout')
-@section('title', 'الحسابات | الخزينة - اضافة معاملة')
-@section('active-transaction', 'active')
+@section('title', 'الخزينة | اضافة معاملة')
+@section('active-transactions', 'active')
 
 @section('content')
     {{-- Errors --}}

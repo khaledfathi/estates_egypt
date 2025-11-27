@@ -5,10 +5,10 @@
 @section('title', 'الحسابات | تحديث مصروف صيانة')
 @section('active-accounting', 'active')
 @section('styles')
-    @vite('resources/css/features/units/show.css')
+    @vite('resources/css/features/estate-maintenance-expenses/show.css')
 @endsection
 @section('scripts')
-    @vite('resources/ts/features/units/show.ts')
+    @vite('resources/ts/features/estate-maintenance-expenses/show.ts')
 @endsection
 
 @section('content')
@@ -67,8 +67,8 @@
                     </ul>
                     <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
                         <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('maintenance-expenses.index') }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لصفحة مصروفات الصيانة</a>
+                    <a href="{{ route('estates.maintenance-expenses.index' , ['estate' => $estate->id]) }}" type="button" class="btn btn-primary">
+                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لقائمة المصروفات</a>
                 </div>
             </div>
             {{-- / estaet information  --}}
@@ -83,7 +83,7 @@
                                 <strong>تحديث مصروف صيانة</strong>
                             </div>
                             <form class="card-block" id="owners-list-section" method="post"
-                                action="{{ route('estates-maintenance-expenses.update', ['estates_maintenance_expense' => $estateMaintenanceExpense->id]) }}">
+                                action="{{ route('estates.maintenance-expenses.update', ['estate' => $estate->id , 'maintenance_expense' => $estateMaintenanceExpense->id]) }}">
                                 @csrf
                                 @method('put')
                                 {{-- estaet id --}}
@@ -136,7 +136,7 @@
                                     <a href="{{ url()->current() }}" class="btn btn-md btn-primary">
                                         <i class="fa fa-refresh "></i>
                                         اعادة</a>
-                                    <a href="{{ route('estates-maintenance-expenses.show', ['estates_maintenance_expense'=> $estateMaintenanceExpense->id]) }}" class="btn btn-md btn-danger">
+                                    <a href="{{ $previousURL }}" class="btn btn-md btn-danger">
                                         <i class="fa fa-ban"></i>
                                         الغاء</a>
                                 </div>

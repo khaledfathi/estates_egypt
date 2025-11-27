@@ -25,6 +25,7 @@ use App\Shared\Domain\Entities\Estate\EstateMaintenanceExpensesEntity;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Enum\Transaction\TransactionDirection;
 use App\Shared\Infrastructure\Utilities\CarbonDateUtility;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EstateMaintenanceExpensesController extends Controller
@@ -38,52 +39,52 @@ class EstateMaintenanceExpensesController extends Controller
         private readonly UpdateEstateMaintenanceExpensesContract $updateEstateMaintenanceExpensesUsecase,
         private readonly DestroyEstateMaintenanceExpensesContract $destroyEstateMaintenanceExpensesUsecase,
     ) {}
-    public function index(Request $request)
+    public function index(Request $request, string $estateId)
     {
-        $presenter = new ShowAllEstateMaintenanceExpensesPresenter();
-        $this->showAllEstateMaintenanceExpensesUsecase->execute((int)$request->estate_id, $presenter);
+        $year = (int) ($request->selected_year ?? Carbon::now()->year);
+        $presenter = new ShowAllEstateMaintenanceExpensesPresenter($year);
+        $this->showAllEstateMaintenanceExpensesUsecase->execute((int)$estateId, $year, $presenter);
         return $presenter->handle();
     }
-    public function show(string $estateMaintenanceExpenseId)
+    public function show(string $estateId , string $estateMaintenanceExpenseId)
     {
         $presenter = new ShowEstateMaintenanceExpensesPresenter();
         $this->showEstateMaintenanceExpensesUsecase->execute((int)$estateMaintenanceExpenseId, $presenter);
         return $presenter->handle();
     }
-    public function create(Request $request)
+    public function create(string $estateId)
     {
-        $estateId = (int) $request->estate_id;
-        $presenter = new CreateEstateMaintenanceExpensesPresenter($estateId);
-        $this->createEstateMaintenanceExpensesUsecase->execute($estateId, $presenter);
+        $presenter = new CreateEstateMaintenanceExpensesPresenter((int)$estateId);
+        $this->createEstateMaintenanceExpensesUsecase->execute((int)$estateId, $presenter);
         return $presenter->handle();
     }
-    public function store(StoreEstateMaintenanceExpensesRequest $request)
+    public function store(StoreEstateMaintenanceExpensesRequest $request , int $estateId)
     {
         //prepeare data  
-        $entity = $this->formToEstateMaintenanceExpensesEnitity([...$request->all()]);
+        $entity = $this->formToEstateMaintenanceExpensesEnitity([...$request->all() , 'estate_id' => $estateId]);
         //action
         $presenter = new StoreEstateMaintenanceExpensesPresenter();
         $this->storeEstateMaintenanceExpensesUsecase->execute($entity, $presenter);
         return $presenter->handle();
     }
-    public function edit(string $estateMaintenanceExpenseId)
+    public function edit(string $estateId , string $estateMaintenanceExpenseId)
     {
         $presenter = new EditEstateMaintenanceExpensesPresenter();
         $this->editEstateMaintenanceExpensesUsecase->execute((int) $estateMaintenanceExpenseId, $presenter);
         return $presenter->handle();
     }
-    public function update(UpdateEstateMaintenanceExpensesRequest $request)
+    public function update(UpdateEstateMaintenanceExpensesRequest $request , string $estateId , string $estatesMaintenanceExpenseId)
     {
         //prepeare data  
-        $entity = $this->formToEstateMaintenanceExpensesEnitity([...$request->all(), 'estate_maintenance_expenses_id' => (int) $request->route('estates_maintenance_expense')]);
+        $entity = $this->formToEstateMaintenanceExpensesEnitity([...$request->all(), 'estate_maintenance_expenses_id' => (int)$estatesMaintenanceExpenseId]);
         //action
         $presenter = new UpdateEstateMaintenanceExpensesPresenter($entity->estateId);
         $this->updateEstateMaintenanceExpensesUsecase->execute($entity, $presenter);
         return $presenter->handle();
     }
-    public function destroy(Request $request, string $estateMaintenanceExpenseId)
+    public function destroy(Request $request,string $estateId ,  string $estateMaintenanceExpenseId)
     {
-        $presenter = new DestroyEstateMaintenanceExpensesPresenter((int)$request->estate_id);
+        $presenter = new DestroyEstateMaintenanceExpensesPresenter((int) $estateId);
         $this->destroyEstateMaintenanceExpensesUsecase->execute((int)$estateMaintenanceExpenseId, $presenter);
         return $presenter->handle();
     }
