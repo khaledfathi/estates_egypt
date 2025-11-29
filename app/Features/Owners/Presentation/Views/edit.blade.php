@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الملاك | تحديث المالك')
 @section('active-owners', 'active')
+@section('breadcrumbs')
+    @isset ($owner)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('owners.edit', $owner->id) }}
+    @endisset
+@endsection
 @section('scripts')
     @vite('resources/ts/features/owners/edit.ts')
 @endsection
@@ -33,10 +38,6 @@
         @isset($owner)
             {{-- header buttons section --}}
             <div class="container">
-                <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
-                    <i class="icon-people fa-lg d-inline-block"></i>
-                    <span>الملاك</span>
-                </a>
                 <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
                     <i class="fa fa-users fa-lg d-inline-block"></i>
                     <span>المجموعات</span>

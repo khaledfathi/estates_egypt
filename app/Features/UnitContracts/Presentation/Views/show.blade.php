@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | عرض عقد ايجار')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($unitContract)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.contracts.show', $estate->id, $unit->id , $unitContract->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/unit-contracts/show.css')
 @endsection
@@ -69,22 +73,16 @@
                         </li>
 
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.units.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
-                    <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-home fa-lg"></i> &nbsp; الذهاب للوحدة</a>
-                    <a href="{{ route('estates.units.contracts.index', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="icon-layers icons fa-lg"></i> &nbsp; الذهاب لقائمة التعاقدات</a>
                 </div>
             </div>
         @endif
         {{-- / unit information --}}
 
         @isset($unitContract)
+            <div class="manage-btn-box">
+                <a href="{{ route('estates.units.contracts.rents-payment.index', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}" class="btn btn-primary">
+                    <i class="icon-notebook icons fa-lg "></i> &nbsp; سجل الايجارات</a>
+            </div>
             <div class="row" style="display:flex; justify-content: center;">
                 <div id="form" class="col-sm-12 col-md-10 col-lg-6">
                     <div class="card">
@@ -123,6 +121,7 @@
                                         </div>
                                     @endif
                                     <hr>
+                                </li>
                                 <li>المستأجر :
                                     @if ($unitContract->renter)
                                         <a style="color:black" href="{{ route('renters.show', $renter->id) }}"

@@ -1,10 +1,14 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | تسجيل الملاك')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($unit)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.ownerships.create', $estate->id, $unit->id) }}
+    @endisset
+@endsection
 @section('scripts')
     @vite('resources/ts/features/unit-ownerships/create.ts');
 @endsection
-
 @section('content')
     <div class="container-fluid ">
 
@@ -67,13 +71,6 @@
                         </li>
 
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.units.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
-                    <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-home fa-lg"></i> &nbsp; الذهاب للوحدة</a>
                 </div>
             </div>
         @endif

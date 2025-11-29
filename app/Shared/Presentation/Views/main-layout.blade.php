@@ -192,26 +192,17 @@
     </div>
 
     <main class="main">
+        {{-- breadcrumbs --}}
+        <div style="position:fixed;z-index:9999;">
+            @yield('breadcrumbs')
+        </div>
+        {{-- breadcrumbs --}}
 
-        <!-- position -->
-        {{-- <ol class="breadcrumb">
-
-            <li class="breadcrumb-item">مجلد 1</li>
-            <li class="breadcrumb-item active"><a href="#">مجلد 2</a> </li>
-            <li class="breadcrumb-item">مجلد 3</li>
-
-            <!-- Breadcrumb Menu-->
-            <li class="breadcrumb-menu">
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <a class="btn btn-secondary" href="{{ route('dashboard') }}"><i class="icon-graph"></i>
-                        &nbsp;لوحة القيادة</a>
-                    <a class="btn btn-secondary" href="{{ route('settings.index') }}"><i class="icon-settings"></i>
-                        &nbsp;اعدادت</a>
-                </div>
-            </li>
-        </ol> --}}
-
-        @yield('content')
+        {{-- content --}}
+        <div style="margin-top:50px;">
+            @yield('content')
+        </div>
+        {{-- / content --}}
     </main>
 
     <aside class="aside-menu">

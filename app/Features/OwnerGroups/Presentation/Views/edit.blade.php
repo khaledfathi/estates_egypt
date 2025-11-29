@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'مجموعة الملاك | تعديل مجموعة')
 @section('active-owners', 'active')
+@section('breadcrumbs')
+    @isset($ownerGroup)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('owner-groups.edit', $ownerGroup->id) }}
+    @endisset
+@endsection
 @section('scripts')
     @vite('resources/ts/features/owner-groups/create.ts')
 @endsection
@@ -32,15 +37,6 @@
 
         @isset($ownerGroup)
             <div class="container-fluid">
-
-                <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-primary my-5">
-                    <i class="fa fa-users fa-lg d-inline-block"></i>
-                    <span> المجموعات </span>
-                </a>
-                <a href="{{ route('owners.index') }}" class="btn btn-md btn-primary my-5">
-                    <i class="icon-people fa-lg d-inline-block"></i>
-                    <span> الملاك </span>
-                </a>
                 <div class="row" style="display:flex; justify-content: center;">
                     <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"
                         action="{{ route('owner-groups.update', $ownerGroup->id) }}">

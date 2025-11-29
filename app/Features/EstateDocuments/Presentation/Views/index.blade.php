@@ -1,7 +1,11 @@
-
 @extends('shared::main-layout')
 @section('title', 'مستندات العقار')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.documents', $estate->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/estate-documents/index.css')
 @endsection
@@ -59,8 +63,6 @@
                         <li>عدد الوحدات : {{ $estate->unitCount }} ( سكنى {{ $estate->residentialUnitCount }} ) - ( تجارى
                             {{ $estate->commercialUnitCount }})</li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
                 </div>
             </div>
         @endisset
@@ -77,8 +79,7 @@
             {{-- estate documents  header title --}}
 
             <div class="card-block row">
-                <a href="{{ route('estates.documents.create', $estate->id ) }}"
-                    class="btn btn-md btn-primary my-5">
+                <a href="{{ route('estates.documents.create', $estate->id) }}" class="btn btn-md btn-primary my-5">
                     <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
                     <span> اضافة مستند</span>
                 </a>
@@ -117,23 +118,26 @@
                                 <tbody>
                                     @foreach ($estateDocuments as $document)
                                         <tr>
-                                            <td width="60%">{{ $document->title}}</td>
+                                            <td width="60%">{{ $document->title }}</td>
                                             <td>
                                                 <div>
                                                     @if ($document->isImage())
-                                                        <a href="{{route('estates.documents.view-file', ['estate'=>$estate->id , 'file'=>$document->file] ) }}"
+                                                        <a href="{{ route('estates.documents.view-file', ['estate' => $estate->id, 'file' => $document->file]) }}"
                                                             style="text-decoration:none" target="_blank">
-                                                            <i class="action-icon action-icon--file fa fa-file-image-o fa-lg"></i>
+                                                            <i
+                                                                class="action-icon action-icon--file fa fa-file-image-o fa-lg"></i>
                                                         </a>
                                                     @elseif($document->isPdf())
-                                                        <a href="{{route('estates.documents.view-file', ['estate'=>$estate->id , 'file'=>$document->file] )}}"
+                                                        <a href="{{ route('estates.documents.view-file', ['estate' => $estate->id, 'file' => $document->file]) }}"
                                                             style="text-decoration:none" target="_blank">
-                                                            <i class="action-icon action-icon--file fa fa-file-pdf-o fa-lg "></i>
+                                                            <i
+                                                                class="action-icon action-icon--file fa fa-file-pdf-o fa-lg "></i>
                                                         </a>
                                                     @endif
-                                                    <a href="{{route('estates.documents.download' , ['estate'=> $estate->id , 'file'=>$document->file])}}" 
-                                                        style="margin-right:20px;text-decoration:none" >
-                                                        <i class="action-icon action-icon--file fa fa-download fa-lg m-t-2"></i>
+                                                    <a href="{{ route('estates.documents.download', ['estate' => $estate->id, 'file' => $document->file]) }}"
+                                                        style="margin-right:20px;text-decoration:none">
+                                                        <i
+                                                            class="action-icon action-icon--file fa fa-download fa-lg m-t-2"></i>
                                                     </a>
                                                 </div>
 
@@ -141,15 +145,16 @@
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('estates.documents.show', ['estate'=>$estate->id , 'document' => $document->id]) }}">
+                                                        href="{{ route('estates.documents.show', ['estate' => $estate->id, 'document' => $document->id]) }}">
                                                         <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
                                                     </a>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('estates.documents.edit', ['estate' => $estate->id ,'document' => $document->id]) }}">
+                                                        href="{{ route('estates.documents.edit', ['estate' => $estate->id, 'document' => $document->id]) }}">
                                                         <i
                                                             class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
                                                     </a>
-                                                    <form class="d-inline" action="{{ route('estates.documents.destroy', ['estate'=> $estate->id , 'document' => $document->id]) }}"
+                                                    <form class="d-inline"
+                                                        action="{{ route('estates.documents.destroy', ['estate' => $estate->id, 'document' => $document->id]) }}"
                                                         method="post">
                                                         @method('DELETE')
                                                         @csrf

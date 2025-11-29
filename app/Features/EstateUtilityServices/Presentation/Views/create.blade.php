@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'المرافق | اضافة مرفق')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.utility-services.create', $estate->id) }}
+    @endisset
+@endsection
 @section('content')
     <div class="container-fluid ">
 
@@ -21,7 +25,11 @@
                                 @endif
                             </ul>
                         </div>
-                    </div>
+                    </div                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
+                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
+                    <a href="{{ route('estates.utility-services.index', $estate->id) }}" type="button"
+                        class="btn btn-primary">
+                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مرافق العقار</a>>
                 </div>
             </div>
         @endisset
@@ -56,11 +64,6 @@
                         <li>عدد الوحدات : {{ $estate->unitCount }} ( سكنى {{ $estate->residentialUnitCount }} ) - ( تجارى
                             {{ $estate->commercialUnitCount }})</li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.utility-services.index', $estate->id) }}" type="button"
-                        class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مرافق العقار</a>
                 </div>
             </div>
         @endisset
@@ -125,8 +128,8 @@
                             <button id="submit-btn" type="submit" class="btn btn-md btn-success">
                                 <i class="fa fa-plus-circle "></i>
                                 اضافة</button>
-                            <a href="{{ route('estates.utility-services.index', $estate->id) }}" class="btn btn-md btn-danger"><i
-                                    class="fa fa-ban"></i>
+                            <a href="{{ route('estates.utility-services.index', $estate->id) }}"
+                                class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
                                 الغاء</a>
                         </div>
                         {{-- / buttons --}}

@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'مرافق العقار | تسجيل فاتورة')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estateUtilityService)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.utility-services.invoices.create', $estate->id, $estateUtilityService->id ) }}
+    @endisset
+@endsection
 
 @section('content')
     <div class="container-fluid ">
@@ -66,11 +71,6 @@
                         <li>رقم العداد : {{ $estateUtilityService->counterNumber ?? '----' }}</li>
                         <li>رقم السداد الالكترونى : {{ $estateUtilityService->electronicPaymentNumber }}</li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.utility-services.index', $estate->id) }}" type="button"
-                        class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مرافق العقار</a>
                 </div>
             </div>
             {{-- / estaet and utilityService information  --}}

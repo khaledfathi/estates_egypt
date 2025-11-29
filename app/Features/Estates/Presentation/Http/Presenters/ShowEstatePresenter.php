@@ -9,7 +9,6 @@ use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 
 final class ShowEstatePresenter implements ShowEstateOutput
@@ -18,7 +17,9 @@ final class ShowEstatePresenter implements ShowEstateOutput
     private Closure $response;
     public function onSuccess(EstateEntity $estateEntity): void
     {
-        $this->response = fn ()=> view('estates::show', ['estate' => $estateEntity]);
+        $this->response = fn ()=> view('estates::show', [
+            'estate' => $estateEntity,
+        ]);
     }
     public function onNotFound(): void
     {

@@ -4,6 +4,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units', $estate->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/units/index.css')
 @endsection
@@ -61,8 +66,6 @@
                         <li>عدد الوحدات : {{ $estate->unitCount }} ( سكنى {{ $estate->residentialUnitCount }} ) - ( تجارى
                             {{ $estate->commercialUnitCount }})</li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
                 </div>
             </div>
         @endisset
@@ -78,8 +81,7 @@
             </div>
             {{-- / unit header title --}}
             <div class="card-block row">
-                <a href="{{ route('estates.units.create', $estate->id ) }}"
-                    class="btn btn-md btn-primary my-5">
+                <a href="{{ route('estates.units.create', $estate->id) }}" class="btn btn-md btn-primary my-5">
                     <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
                     <span> اضافة وحدة</span>
                 </a>
@@ -125,20 +127,23 @@
                                             <td>{{ $unit->number }}</td>
                                             <td>{{ $unit->type->toLabel() }}</td>
                                             <td>{{ $unit->floorNumber == 0 ? 'الارضى' : $unit->floorNumber }}</td>
-                                            <td>{{ UnitIsEmpty::from($unit->isEmpty)->toLabel()}}</td>
-                                            <td><a href="{{route('estates.units.utility-services.index' , ['estate'=>$estate->id, 'unit'=>$unit->id])}}"><i class="action-icon fa fa-bolt fa-lg "></i></a></td>
+                                            <td>{{ UnitIsEmpty::from($unit->isEmpty)->toLabel() }}</td>
+                                            <td><a
+                                                    href="{{ route('estates.units.utility-services.index', ['estate' => $estate->id, 'unit' => $unit->id]) }}"><i
+                                                        class="action-icon fa fa-bolt fa-lg "></i></a></td>
                                             <td>
                                                 <div>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('estates.units.show', ['estate'=>$estate->id , 'unit' => $unit->id]) }}">
+                                                        href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}">
                                                         <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
                                                     </a>
                                                     <a style="margin-left:20px;text-decoration:none"
-                                                        href="{{ route('estates.units.edit', ['estate' => $estate->id ,'unit' => $unit->id]) }}">
+                                                        href="{{ route('estates.units.edit', ['estate' => $estate->id, 'unit' => $unit->id]) }}">
                                                         <i
                                                             class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
                                                     </a>
-                                                    <form class="d-inline" action="{{ route('estates.units.destroy', ['estate'=> $estate->id , 'unit' => $unit->id]) }}"
+                                                    <form class="d-inline"
+                                                        action="{{ route('estates.units.destroy', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
                                                         method="post">
                                                         @method('DELETE')
                                                         @csrf

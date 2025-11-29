@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | المرافق')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($unit)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.utility-services', $estate->id , $unit->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/unit-utility-services/index.css')
 @endsection
@@ -20,7 +24,7 @@
                                 @if (isset($error))
                                     <li>{{ $error }}</li>
                                 @elseif (session('error'))
-                                    <li>{{ session('error') }}</li>
+                                    <li>{{ se>ssion('error') }}</li>
                                 @endif
                             </ul>
                         </div>
@@ -65,14 +69,6 @@
                         </li>
 
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.units.index', $estate->id) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
-                    <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-home fa-lg"></i> &nbsp; الذهاب للوحدة</a>
                 </div>
             </div>
         @endif

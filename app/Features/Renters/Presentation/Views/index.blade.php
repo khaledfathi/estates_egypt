@@ -1,7 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'المستأجرين')
 @section('active-renters', 'active')
-
+@section('breadcrumbs')
+    {{ Diglactic\Breadcrumbs\Breadcrumbs::render('renters') }}
+@endsection
 @section('styles')
     {{-- CHANGE IT  --}}
     @vite('resources/css/features/renters/index.css')

@@ -4,7 +4,11 @@
 @extends('shared::main-layout')
 @section('title', 'الخزينة | عرض معاملة')
 @section('active-transactions', 'active')
-
+@section('breadcrumbs')
+    @if ($transaction)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('transactions.show' , $transaction->id) }}
+    @endif
+@endsection
 @section('styles')
     @vite('resources/css/features/units/show.css')
 @endsection
@@ -53,15 +57,6 @@
         {{-- / success message  --}}
 
         @isset($transaction)
-
-            {{-- header buttons section --}}
-            <div class="container">
-                <a href="{{ route('transactions.index') }}" class="btn btn-md btn-secondary my-5">
-                    <i class="fa fa-dollar fa-lg d-inline-block"></i>
-                    <span>الخزينة</span>
-                </a>
-            </div> <hr>
-            {{-- / header buttons section --}}
             <div class="row" style="display:flex; justify-content: center;">
                 <div id="form" class="col-sm-12 col-md-10 col-lg-6">
                     <div class="card">
@@ -86,12 +81,14 @@
                             <ul>
                                 <li>التاريخ : {{ $transaction->date->toDateString() }}</li>
                                 <hr>
-                                <li>نوع العملية : 
-                                    <span style="color:{{ $transaction->isWithdraw() ? 'red' : 'green' }}">{{ $transaction->direction->toLabel() }}</span>
+                                <li>نوع العملية :
+                                    <span
+                                        style="color:{{ $transaction->isWithdraw() ? 'red' : 'green' }}">{{ $transaction->direction->toLabel() }}</span>
                                 </li>
                                 <hr>
-                                <li>المبلغ : 
-                                    <span style="color:{{ $transaction->isWithdraw() ? 'red' : 'green' }}"> {{ abs($transaction->amount) }} </span>
+                                <li>المبلغ :
+                                    <span style="color:{{ $transaction->isWithdraw() ? 'red' : 'green' }}">
+                                        {{ abs($transaction->amount) }} </span>
                                 </li>
                                 <hr>
                                 <li>وصف العملية :

@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'المستأجرين | عرض مستأجر')
 @section('active-renters', 'active')
+@section('breadcrumbs')
+    @isset($renter)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('renters.show', $renter->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/renters/show.css')
 @endsection
@@ -68,9 +73,12 @@
                         </div>
                         <div class="card-block">
                             <ul>
-                                <li>الاسم : {{ $renter->name }}</li><hr>
-                                <li>نوع الهوية : {{ $renter->identityType->toLabel() }}</li><hr>
-                                <li>رقم الهوية : {{ $renter->identityNumber }}</li><hr>
+                                <li>الاسم : {{ $renter->name }}</li>
+                                <hr>
+                                <li>نوع الهوية : {{ $renter->identityType->toLabel() }}</li>
+                                <hr>
+                                <li>رقم الهوية : {{ $renter->identityNumber }}</li>
+                                <hr>
                                 <li>التليفون :
                                     @if (empty($renter->phones))
                                         <span>---</span>
@@ -81,7 +89,8 @@
                                             @endforeach
                                         </ul>
                                     @endif
-                                </li><hr>
+                                </li>
+                                <hr>
                                 <li>ملاحظات :
                                     <pre>{{ $renter->notes ?? '---' }}</pre>
                                 </li>

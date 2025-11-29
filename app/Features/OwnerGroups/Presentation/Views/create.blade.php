@@ -1,6 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'مجموعة الملاك | اضافة مجموعة')
 @section('active-owners', 'active')
+@section('breadcrumbs')
+    {{ Diglactic\Breadcrumbs\Breadcrumbs::render('owner-groups.create') }}
+@endsection
 @section('scripts')
     @vite('resources/ts/features/owner-groups/create.ts')
 @endsection
@@ -25,20 +28,6 @@
             </div>
         @endif
         {{-- / Errors --}}
-
-        {{-- header buttons section --}}
-        <div class="container">
-            <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
-                <i class="icon-people fa-lg d-inline-block"></i>
-                <span>الملاك</span>
-            </a>
-            <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
-                <i class="fa fa-users fa-lg d-inline-block"></i>
-                <span>المجموعات</span>
-            </a>
-        </div>
-        <hr>
-        {{-- / header buttons section --}}
 
         <div class="row" style="display:flex; justify-content: center;">
             <form id="form" class="col-sm-12 col-md-10 col-lg-6" method="post"

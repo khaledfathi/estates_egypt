@@ -1,6 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'الملاك')
 @section('active-owners', 'active')
+@section('breadcrumbs')
+    {{ Diglactic\Breadcrumbs\Breadcrumbs::render('owners') }}
+@endsection
 @section('styles')
     @vite('resources/css/features/owners/index.css')
 @endsection

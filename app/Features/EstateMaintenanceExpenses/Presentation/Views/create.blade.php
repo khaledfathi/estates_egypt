@@ -1,9 +1,11 @@
-@php
-    use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
-@endphp
 @extends('shared::main-layout')
 @section('title', 'الحسابات | اضافة مصروف صيانة')
 @section('active-accounting', 'active')
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.maintenance-expenses.create', $estate->id) }}
+    @endisset
+@endsection
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
@@ -58,10 +60,6 @@
                             <pre>{{ $estate->address }}</pre>
                         </li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('accounting-management.index') }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لإدارة الحسابات </a>
                 </div>
             </div>
             {{-- / estaet information  --}}

@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'مرافق العقار')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.utility-services', $estate->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/estate-utility-serviecs/index.css')
 @endsection
@@ -58,8 +63,6 @@
                         <li>عدد الوحدات : {{ $estate->unitCount }} ( سكنى {{ $estate->residentialUnitCount }} ) - ( تجارى
                             {{ $estate->commercialUnitCount }})</li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
                 </div>
             </div>
         @endisset
