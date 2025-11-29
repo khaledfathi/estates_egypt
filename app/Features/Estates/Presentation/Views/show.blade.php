@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'العقارات | عرض عقار')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.show', $estate->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/estates/show.css')
 @endsection

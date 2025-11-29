@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | تحديث وحدة')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($unit)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.edit', $estate->id , $unit->id) }}
+    @endisset
+@endsection
 @section('content')
     <div class="container-fluid ">
         @if ($errors->any() || session()->has('error') || isset($error))
@@ -58,11 +62,6 @@
                                 <pre>{{ $estate->address }}</pre>
                             </li>
                         </ul>
-                        <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                            <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                        <a href="{{ route('estates.units.index', $estate->id) }}" type="button"
-                            class="btn btn-primary">
-                            <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
                     </div>
                 </div>
             @endisset

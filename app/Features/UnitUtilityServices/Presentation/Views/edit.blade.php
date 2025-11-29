@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | اضافة مرفق')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($unit)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.utility-services.edit', $estate->id , $unit->id, $unitUtilityService->id) }}
+    @endisset
+@endsection
 @section('content')
     <div class="container-fluid ">
 
@@ -64,16 +68,6 @@
                         </li>
 
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.units.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
-                    <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-home fa-lg"></i> &nbsp; الذهاب للوحدة</a>
-                    <a href="{{ route('estates.units.utility-services.index', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-bolt fa-lg"></i> &nbsp; الذهاب لمرافق الوحدة</a>
                 </div>
             </div>
         @endif

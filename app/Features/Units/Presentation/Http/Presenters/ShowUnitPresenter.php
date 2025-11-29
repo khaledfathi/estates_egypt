@@ -8,6 +8,7 @@ use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Support\Facades\Log;
 
 final class ShowUnitPresenter implements ShowUnitOutput
@@ -26,17 +27,20 @@ final class ShowUnitPresenter implements ShowUnitOutput
     }
     public function onSuccess(UnitEntity $unitEntity): void
     {
-        $this->response = fn()=> view('units::show', ['unit' => $unitEntity, 'estate' => $unitEntity->estate]);
+        $this->response = fn() => view('units::show', [
+            'unit' => $unitEntity,
+            'estate' => $unitEntity->estate,
+        ]);
     }
     public function onNotFount(): void
     {
-        $this->response =fn()=> view("units::show", [
+        $this->response = fn() => view("units::show", [
             'error' => Messages::DATA_NOT_FOUND,
         ]);
     }
     public function onFailure(String $error): void
     {
-        $this->response = fn()=> view("units::show", [
+        $this->response = fn() => view("units::show", [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
         //log

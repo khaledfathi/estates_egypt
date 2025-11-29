@@ -4,6 +4,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | عرض وحدة')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($unit)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.show', $estate->id  , $unit->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/units/show.css')
 @endsection
@@ -65,10 +70,6 @@
                             <pre>{{ $estate->address }}</pre>
                         </li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.units.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
                 </div>
             </div>
             {{-- / estaet information  --}}

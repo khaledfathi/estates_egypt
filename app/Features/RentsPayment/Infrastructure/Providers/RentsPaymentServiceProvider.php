@@ -18,6 +18,6 @@ class RentsPaymentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::addNamespace( 'rents-payment', base_path('app/Features/Renters/Presentation/Views'));
+        View::addNamespace( 'rents-payment', base_path('app/Features/RentsPayment/Presentation/Views'));
     }
 }

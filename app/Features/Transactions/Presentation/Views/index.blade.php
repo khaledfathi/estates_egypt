@@ -1,6 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'الخزينة')
 @section('active-transactions', 'active')
+@section('breadcrumbs')
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('transactions') }}
+@endsection
 @section('styles')
     @vite('resources/css/features/transactions/index.css')
 @endsection

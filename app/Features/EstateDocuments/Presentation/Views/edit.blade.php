@@ -1,10 +1,14 @@
 @extends('shared::main-layout')
 @section('title', 'مستندات العقار | تحديث المستند')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estateDocument)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.documents.edit', $estate->id , $estateDocument->id ) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/estate-documents/edit.css')
 @endsection
-
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}
@@ -61,10 +65,6 @@
                             <pre>{{ $estate->address }}</pre>
                         </li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.documents.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مستندات العقار</a>
                 </div>
             </div>
         @endisset

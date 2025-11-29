@@ -1,7 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'العقارات | اضافة عقار')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.create') }}
+@endsection
 @section('content')
     <div class="container-fluid ">
         {{-- Errors --}}

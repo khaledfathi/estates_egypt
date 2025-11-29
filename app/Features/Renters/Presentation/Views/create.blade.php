@@ -1,6 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'المستأجرين | اضافة مستأجر')
 @section('active-renters', 'active')
+@section('breadcrumbs')
+    {{ Diglactic\Breadcrumbs\Breadcrumbs::render('renters.create') }}
+@endsection
 @section('scripts')
     @vite('resources/ts/features/renters/create.ts')
 @endsection

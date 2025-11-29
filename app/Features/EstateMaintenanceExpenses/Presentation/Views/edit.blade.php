@@ -1,9 +1,11 @@
-@php
-    use App\Shared\Domain\Enum\Unit\UnitIsEmpty;
-@endphp
 @extends('shared::main-layout')
 @section('title', 'الحسابات | تحديث مصروف صيانة')
 @section('active-accounting', 'active')
+@section('breadcrumbs')
+    @isset($estateMaintenanceExpense)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.maintenance-expenses.edit', $estate->id , $estateMaintenanceExpense->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/estate-maintenance-expenses/show.css')
 @endsection
@@ -65,10 +67,6 @@
                             <pre>{{ $estate->address }}</pre>
                         </li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.maintenance-expenses.index' , ['estate' => $estate->id]) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-dollar fa-lg"></i> &nbsp; الذهاب لقائمة المصروفات</a>
                 </div>
             </div>
             {{-- / estaet information  --}}

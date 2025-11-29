@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'مستندات العقار | اضافة مستند')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($estate)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.documents.create', $estate->id) }}
+    @endisset
+@endsection
 @section('content')
     <div class="container-fluid ">
 
@@ -56,10 +60,6 @@
                         <li>عدد الوحدات : {{ $estate->unitCount }} ( سكنى {{ $estate->residentialUnitCount }} ) - ( تجارى
                             {{ $estate->commercialUnitCount }})</li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.documents.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مستندات العقار</a>
                 </div>
             </div>
         @endisset

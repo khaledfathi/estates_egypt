@@ -1,6 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الملاك | عرض مالك')
 @section('active-owners', 'active')
+@section('breadcrumbs')
+    @isset ($owner)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('owners.show', $owner->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/owners/show.css')
 @endsection
@@ -50,10 +55,6 @@
         @isset($owner)
             {{-- header buttons section --}}
             <div class="container">
-                <a href="{{ route('owners.index') }}" class="btn btn-md btn-secondary my-5">
-                    <i class="icon-people fa-lg d-inline-block"></i>
-                    <span>الملاك</span>
-                </a>
                 <a href="{{ route('owner-groups.index') }}" class="btn btn-md btn-secondary my-5">
                     <i class="fa fa-users fa-lg d-inline-block"></i>
                     <span>المجموعات</span>

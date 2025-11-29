@@ -2,6 +2,11 @@
 @section('title', ' المستأجرين | تحديث المستأجر')
 @section('title', 'المستأجرين')
 @section('active-renters', 'active')
+@section('breadcrumbs')
+    @isset($renter)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('renters.edit', $renter->id) }}
+    @endisset
+@endsection
 @section('scripts')
     @vite('resources/ts/features/renters/create.ts')
 @endsection

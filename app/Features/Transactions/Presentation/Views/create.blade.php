@@ -1,7 +1,9 @@
 @extends('shared::main-layout')
 @section('title', 'الخزينة | اضافة معاملة')
 @section('active-transactions', 'active')
-
+@section('breadcrumbs')
+    {{ Diglactic\Breadcrumbs\Breadcrumbs::render('transactions.create') }}
+@endsection
 @section('content')
     {{-- Errors --}}
     @if ($errors->any() || session()->has('error'))

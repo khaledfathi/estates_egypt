@@ -4,6 +4,11 @@
 @extends('shared::main-layout')
 @section('title', 'مستندات العقار | عرض مستند')
 @section('active-estates', 'active')
+@section('breadcrumbs')
+    @isset($estateDocument)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.documents.show', $estate->id , $estateDocument->id ) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/estate-documents/show.css')
 @endsection
@@ -49,10 +54,6 @@
                             <pre>{{ $estate->address }}</pre>
                         </li>
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.documents.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة مستندات العقار</a>
                 </div>
             </div>
             {{-- / estaet information  --}}

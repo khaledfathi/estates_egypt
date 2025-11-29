@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/estates.units.contracts', UnitContractController::class);
 
+    Route::resource('/estates.units.contracts.rents-payment', RentsPaymentController::class);
+
     Route::get('/estates/{estate}/documents/view-file/{file}', [EstateDocumentController::class, 'viewFile'])
         ->name('estates.documents.view-file');
     Route::get('/estates/{estate}/documents/download/{file}', [EstateDocumentController::class, 'download'])
@@ -70,10 +72,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/transactions', TransactionController::class);
 
-    Route::resource('/rents-payments', RentsPaymentController::class);
-
-    Route::get('/accounting', [AccountingController::class , 'index'])->name('accounting.index');
-    Route::get('/accounting-management', [AccountingManagementController::class , 'index'])->name('accounting-management.index');
 });
 
 /* FOR TEST  */

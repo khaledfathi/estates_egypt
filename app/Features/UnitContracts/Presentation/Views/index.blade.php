@@ -1,7 +1,11 @@
 @extends('shared::main-layout')
 @section('title', 'الوحدات | سجل التعاقدات')
 @section('active-estates', 'active')
-
+@section('breadcrumbs')
+    @isset($unit)
+        {{ Diglactic\Breadcrumbs\Breadcrumbs::render('estates.units.contracts', $estate->id, $unit->id) }}
+    @endisset
+@endsection
 @section('styles')
     @vite('resources/css/features/unit-contracts/index.css')
 @endsection
@@ -65,13 +69,6 @@
                         </li>
 
                     </ul>
-                    <a href="{{ route('estates.show', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-building fa-lg"></i>&nbsp; الذهاب للعقار</a>
-                    <a href="{{ route('estates.units.index', $estate->id) }}" type="button" class="btn btn-primary">
-                        <i class="fa fa-list fa-lg "></i> &nbsp; الذهاب لقائمة وحدات العقار</a>
-                    <a href="{{ route('estates.units.show', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
-                        type="button" class="btn btn-primary">
-                        <i class="fa fa-home fa-lg"></i> &nbsp; الذهاب للوحدة</a>
                 </div>
             </div>
         @endif
