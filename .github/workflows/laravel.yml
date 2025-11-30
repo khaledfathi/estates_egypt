@@ -37,4 +37,4 @@ jobs:
     - name : database seed
       run : php artisan db:seed
     - name : run server 
-      run: php artisan serv --host=0.0.0.0 port=8000
+      run: php artisan serv --host 0.0.0.0 port 8000
