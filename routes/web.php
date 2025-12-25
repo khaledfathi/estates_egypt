@@ -1,7 +1,5 @@
 <?php
 
-use App\Features\Accounting\Presentation\Http\Controllers\AccountingController;
-use App\Features\AccountingManagement\Presentation\Http\Controllers\AccountingManagementController;
 use App\Features\EstateDocuments\Presentation\Http\Controllers\EstateDocumentController;
 use App\Features\EstateMaintenanceExpenses\Presentation\Http\Controllers\EstateMaintenanceExpensesController;
 use App\Features\Estates\Presentation\Http\Controllers\EstateController;
@@ -11,7 +9,7 @@ use App\Features\OwnerGroups\Presentation\Http\Controllers\OwnerGroupController;
 use App\Features\Owners\Presentation\Http\Controllers\OwnerController;
 use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
-use App\Features\RentsPayment\Presentation\Http\Controllers\RentsPaymentController;
+use App\Features\RentInvoices\Presentation\Http\Controllers\RentInvoiceController;
 use App\Features\Settings\Presentation\Http\Controllers\SettingController;
 use App\Features\Transactions\Presentation\Http\Controllers\TransactionController;
 use App\Features\UnitContracts\Presentation\Http\Controllers\UnitContractController;
@@ -47,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/estates.units.contracts', UnitContractController::class);
 
-    Route::resource('/estates.units.contracts.rents-payment', RentsPaymentController::class);
+    Route::resource('/estates.units.contracts.rent-invoices', RentInvoiceController::class);
 
     Route::get('/estates/{estate}/documents/view-file/{file}', [EstateDocumentController::class, 'viewFile'])
         ->name('estates.documents.view-file');

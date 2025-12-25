@@ -2,6 +2,7 @@
 
 namespace App\Shared\Infrastructure\Models\Unit;
 
+use App\Models\RentInvoice;
 use App\Shared\Infrastructure\Models\Renter\Renter;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +28,9 @@ class UnitContract  extends Model
     public function renter()
     {
         return $this->belongsTo(Renter::class, 'renter_id');
+    }
+    public function rentInvoices ()
+    {
+        return $this->hasMany(RentInvoice::class);
     }
 }

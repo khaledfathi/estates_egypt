@@ -87,7 +87,6 @@ class UnitController extends Controller
         $this->destroyUnitUsecase->execute((int)$unitId, $presenter);
         return $presenter->handle();
     }
-
     private function formToUnitEntity(array $formArray): UnitEntity
     {
         return new UnitEntity(

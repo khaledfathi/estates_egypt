@@ -154,8 +154,9 @@ final class EloquentUnitContractRepository implements UnitContractRepository
                 unit: $unitEntity,
             );
             //
+            return $unitContractEntity;
         }
-        return $unitContractEntity;
+        return null;
     }
     public function update(UnitContractEntity $unitContractEntity): bool
     {

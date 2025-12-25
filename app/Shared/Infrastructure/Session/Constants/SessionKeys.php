@@ -52,5 +52,10 @@ final class SessionKeys {
     public const ESTATE_MAINTENANCE_EXPENSE_EDIT_PREVIOUS_PAGE = 'estate_maintenance_expense_edit_last_page';
     public const ESTATE_MAINTENANCE_EXPENSE_CURRENT_INDEX_PAGE = 'estate_maintenance_expense_current_index_page';
     // ----------------------
+
+    //for rent invoices features  
+    public const RENT_INVOICE_EDIT_PREVIOUS_PAGE = 'rent_invoies_last_page';
+    public const RENT_INVOICE_CURRENT_INDEX_PAGE = 'rent_invoices_current_index_page';
+    // ----------------------
 }
 

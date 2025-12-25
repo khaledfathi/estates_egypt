@@ -15,8 +15,8 @@ use App\Shared\Domain\Repositories\EstateUtilityServiceRepository;
 use App\Shared\Domain\Repositories\OwnerGroupRepository;
 use App\Shared\Domain\Repositories\OwnerInGroupRepository;
 use App\Shared\Domain\Repositories\OwnerRepository;
-use App\Shared\Domain\Repositories\RenterPaymentRepository;
 use App\Shared\Domain\Repositories\RenterRepositroy;
+use App\Shared\Domain\Repositories\RentInvoiceRepository;
 use App\Shared\Domain\Repositories\TransactionRepository;
 use App\Shared\Domain\Repositories\UnitContractRepository;
 use App\Shared\Domain\Repositories\UnitOwnershipRepository;
@@ -30,8 +30,8 @@ use App\Shared\Infrastructure\Repositories\Eloquent\EloquentEstateUtilityService
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerGroupRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerInGroupRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentOwnerRepository;
-use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRenterPaymentRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRenterRepository;
+use App\Shared\Infrastructure\Repositories\Eloquent\EloquentRentInvoiceRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentTransactionRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitContractRepository;
 use App\Shared\Infrastructure\Repositories\Eloquent\EloquentUnitOwnershipRepository;
@@ -63,7 +63,7 @@ class SharedServiceProvider extends ServiceProvider
         $this->app->bind(UnitContractRepository::class, EloquentUnitContractRepository::class);
         $this->app->bind(TransactionRepository::class, EloquentTransactionRepository::class);
         $this->app->bind(EstateMaintenanceExpensesRepository::class, EloquentEstateMaintenanceExpensesRepository::class);
-        $this->app->bind(RenterPaymentRepository::class, EloquentRenterPaymentRepository::class);
+        $this->app->bind(RentInvoiceRepository::class, EloquentRentInvoiceRepository::class);
 
         // framework services 
         $this->app->bind(Storage::class, LaravelStorage::class);

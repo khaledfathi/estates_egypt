@@ -19,6 +19,6 @@ return [
     App\Features\OwnerGroups\Infrastructure\Providers\OwnerGroupServiceProvider::class,
     App\Features\EstateUtilityServiceInvoices\Infrastructure\Providers\EstateUtilityServiceInvoiceServiceProvider::class,
     App\Features\UnitContracts\Infrastructure\Providers\UnitContractServiceProvider::class,
-    App\Features\RentsPayment\Infrastructure\Providers\RentsPaymentServiceProvider::class,
+    App\Features\RentInvoices\Infrastructure\Providers\RentInvoiceServiceProvider::class,
     App\Features\EstateMaintenanceExpenses\Infrastructure\Providers\EstateMaintenanceExpensesServiceProvider::class,
 ];
