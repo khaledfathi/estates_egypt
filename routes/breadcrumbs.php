@@ -1,4 +1,5 @@
 <?php
+
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -42,7 +43,7 @@ Breadcrumbs::for('owner-groups.create', function (BreadcrumbTrail $trail) {
 });
 // owner-groups > edit  > [ownerGroupId]
 Breadcrumbs::for('owner-groups.edit', function (BreadcrumbTrail $trail, $ownerGroupId) {
-    $trail->parent('owner-groups.show' , $ownerGroupId);
+    $trail->parent('owner-groups.show', $ownerGroupId);
     $trail->push('تحديث', route('owner-groups.edit', $ownerGroupId));
 });
 // ########################################### 
@@ -53,7 +54,7 @@ Breadcrumbs::for('renters', function (BreadcrumbTrail $trail) {
     $trail->push('المستأجرين', route('renters.index'));
 });
 // renters > show > [id]
-Breadcrumbs::for('renters.show', function (BreadcrumbTrail $trail , $renterId) {
+Breadcrumbs::for('renters.show', function (BreadcrumbTrail $trail, $renterId) {
     $trail->parent('renters');
     $trail->push('المستأجر', route('renters.show', $renterId));
 });
@@ -63,7 +64,7 @@ Breadcrumbs::for('renters.create', function (BreadcrumbTrail $trail) {
     $trail->push('اضافة', route('renters.create'));
 });
 // renters > edit > [id]
-Breadcrumbs::for('renters.edit', function (BreadcrumbTrail $trail , $renterId) {
+Breadcrumbs::for('renters.edit', function (BreadcrumbTrail $trail, $renterId) {
     $trail->parent('renters.show', $renterId);
     $trail->push('تحديث', route('renters.edit', $renterId));
 });
@@ -121,22 +122,22 @@ Breadcrumbs::for('estates.units.utility-services', function (BreadcrumbTrail $tr
 });
 // estates > units > utility-services > contracts > show  > [estateId , $unitId , $utilityServiceId]
 Breadcrumbs::for('estates.units.utility-services.show', function (BreadcrumbTrail $trail, $estateId, $unitId, $utilityServiceId) {
-    $trail->parent('estates.units.utility-services', $estateId , $unitId);
+    $trail->parent('estates.units.utility-services', $estateId, $unitId);
     $trail->push('المرفق', route('estates.units.utility-services.show', [$estateId, $unitId, $utilityServiceId]));
 });
 // estates > units > utility-services > contracts > create  > [estateId , $unitId]
-Breadcrumbs::for('estates.units.utility-services.create', function (BreadcrumbTrail $trail, $estateId, $unitId ) {
+Breadcrumbs::for('estates.units.utility-services.create', function (BreadcrumbTrail $trail, $estateId, $unitId) {
     $trail->parent('estates.units.utility-services', $estateId, $unitId);
     $trail->push('اضافة', route('estates.units.utility-services.create', [$estateId, $unitId]));
 });
 // estates > units > utility-services > contracts > edit  >  [estateId , $unitId ,$utilityServiceId]
-Breadcrumbs::for('estates.units.utility-services.edit', function (BreadcrumbTrail $trail, $estateId, $unitId ,$utilityServiceId) {
-    $trail->parent('estates.units.utility-services.show', $estateId, $unitId , $utilityServiceId);
+Breadcrumbs::for('estates.units.utility-services.edit', function (BreadcrumbTrail $trail, $estateId, $unitId, $utilityServiceId) {
+    $trail->parent('estates.units.utility-services.show', $estateId, $unitId, $utilityServiceId);
     $trail->push('تحديث', route('estates.units.utility-services.edit', [$estateId, $unitId, $utilityServiceId]));
 });
 // ########################################### 
 
-// ########## UNITS UTILITY SERVICES ########## 
+// ########## UNITS OWNERSHIPS ########## 
 // estates > units > ownerships > create > [estateId , $unitId] 
 Breadcrumbs::for('estates.units.ownerships.create', function (BreadcrumbTrail $trail, $estateId, $unitId) {
     $trail->parent('estates.units.show', $estateId, $unitId);
@@ -148,104 +149,104 @@ Breadcrumbs::for('estates.units.ownerships.create', function (BreadcrumbTrail $t
 // ########## UNITS CONTRACTS ########## 
 // estates > units > contracts > [estateId , $unitId ]
 Breadcrumbs::for('estates.units.contracts', function (BreadcrumbTrail $trail, $estateId, $unitId) {
-    $trail->parent('estates.units.show' , $estateId , $unitId);
+    $trail->parent('estates.units.show', $estateId, $unitId);
     $trail->push('التعاقدات', route('estates.units.contracts.index', [$estateId, $unitId]));
 });
 // estates > units > contracts > show  > [estateId, $unitId , $contractId]
-Breadcrumbs::for('estates.units.contracts.show', function (BreadcrumbTrail $trail, $estateId, $unitId , $contractId) {
-    $trail->parent('estates.units.contracts' , $estateId , $unitId);
+Breadcrumbs::for('estates.units.contracts.show', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId) {
+    $trail->parent('estates.units.contracts', $estateId, $unitId);
     $trail->push('تعاقد', route('estates.units.contracts.show', [$estateId, $unitId, $contractId]));
 });
 // estates > units > contracts > create  > [estateId , unitId]
-Breadcrumbs::for('estates.units.contracts.create', function (BreadcrumbTrail $trail, $estateId, $unitId ) {
-    $trail->parent('estates.units.contracts' , $estateId , $unitId);
+Breadcrumbs::for('estates.units.contracts.create', function (BreadcrumbTrail $trail, $estateId, $unitId) {
+    $trail->parent('estates.units.contracts', $estateId, $unitId);
     $trail->push('اضافة', route('estates.units.contracts.create', [$estateId, $unitId]));
 });
 // estates > units > contracts > edit  > [estateId , unitId , contractId]
-Breadcrumbs::for('estates.units.contracts.edit', function (BreadcrumbTrail $trail, $estateId, $unitId , $contractId ) {
-    $trail->parent('estates.units.contracts.show' , $estateId , $unitId, $contractId);
-    $trail->push('تحديث', route('estates.units.contracts.edit', [$estateId, $unitId , $contractId]));
+Breadcrumbs::for('estates.units.contracts.edit', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId) {
+    $trail->parent('estates.units.contracts.show', $estateId, $unitId, $contractId);
+    $trail->push('تحديث', route('estates.units.contracts.edit', [$estateId, $unitId, $contractId]));
 });
 // ########################################### 
 
 // ########## ESTATE DOCUMENTS ########## 
 // estates > documents > [estateId] 
 Breadcrumbs::for('estates.documents', function (BreadcrumbTrail $trail, $estateId) {
-    $trail->parent('estates.show' , $estateId ,);
+    $trail->parent('estates.show', $estateId,);
     $trail->push('مستندات', route('estates.documents.index', [$estateId]));
 });
 // estates > documents > show  > [estateId , documentId]
-Breadcrumbs::for('estates.documents.show', function (BreadcrumbTrail $trail, $estateId , $documentId) {
-    $trail->parent('estates.documents' , $estateId );
-    $trail->push('المستند', route('estates.documents.show', [$estateId , $documentId]));
+Breadcrumbs::for('estates.documents.show', function (BreadcrumbTrail $trail, $estateId, $documentId) {
+    $trail->parent('estates.documents', $estateId);
+    $trail->push('المستند', route('estates.documents.show', [$estateId, $documentId]));
 });
 // estates > documents > create  > [estateId]
 Breadcrumbs::for('estates.documents.create', function (BreadcrumbTrail $trail, $estateId) {
-    $trail->parent('estates.documents' , $estateId ,);
+    $trail->parent('estates.documents', $estateId,);
     $trail->push('اضافة', route('estates.documents.create', [$estateId]));
 });
 // estates > documents > edit  > [estateId , $documentId]
-Breadcrumbs::for('estates.documents.edit', function (BreadcrumbTrail $trail, $estateId , $documentId) {
-    $trail->parent('estates.documents.show' , $estateId ,$documentId);
+Breadcrumbs::for('estates.documents.edit', function (BreadcrumbTrail $trail, $estateId, $documentId) {
+    $trail->parent('estates.documents.show', $estateId, $documentId);
     $trail->push('تحديث', route('estates.documents.edit', [$estateId, $documentId]));
 });
 // ########################################### 
 
 // ########## ESTSTATE UTILITY SERVICES ########## 
-// estates > units > contracts > [estateID] 
-Breadcrumbs::for('estates.utility-services', function (BreadcrumbTrail $trail, $estateId ) {
-    $trail->parent('estates.show' , $estateId );
+// estates > utility-services [estateID] 
+Breadcrumbs::for('estates.utility-services', function (BreadcrumbTrail $trail, $estateId) {
+    $trail->parent('estates.show', $estateId);
     $trail->push('المرافق', route('estates.utility-services.index', [$estateId]));
 });
-// estates > units > contracts > rents-payment > show  > [estateId , $utilityServiceId]
-Breadcrumbs::for('estates.utility-services.show', function (BreadcrumbTrail $trail, $estateId , $utilityServiceId) {
-    $trail->parent('estates.utility-services' , $estateId );
+// estates > utility-services > show > [estateId , $utilityServiceId]
+Breadcrumbs::for('estates.utility-services.show', function (BreadcrumbTrail $trail, $estateId, $utilityServiceId) {
+    $trail->parent('estates.utility-services', $estateId);
     $trail->push('المرفق', route('estates.utility-services.show', [$estateId, $utilityServiceId]));
 });
-// estates > units > contracts > rents-payment > create  > [estateId]
-Breadcrumbs::for('estates.utility-services.create', function (BreadcrumbTrail $trail, $estateId ) {
-    $trail->parent('estates.utility-services' , $estateId );
+// estates > utility-services > create > [estateId] 
+Breadcrumbs::for('estates.utility-services.create', function (BreadcrumbTrail $trail, $estateId) {
+    $trail->parent('estates.utility-services', $estateId);
     $trail->push('اضافة', route('estates.utility-services.create', [$estateId]));
 });
-// estates > units > contracts > rents-payment > edit  > [estateId, utilityServiceId]
-Breadcrumbs::for('estates.utility-services.edit', function (BreadcrumbTrail $trail, $estateId , $utilityServiceId) {
-    $trail->parent('estates.utility-services.show' , $estateId, $utilityServiceId );
+// estates > utility-services > edit > [estateId , utilityServiceId ] 
+Breadcrumbs::for('estates.utility-services.edit', function (BreadcrumbTrail $trail, $estateId, $utilityServiceId) {
+    $trail->parent('estates.utility-services.show', $estateId, $utilityServiceId);
     $trail->push('تحديث', route('estates.utility-services.edit', [$estateId, $utilityServiceId]));
 });
 // ########################################### 
 
 // ########## UNITS CONTRACTS ########## 
-// estates > utility-services > invoices > rents-payment > create  > [estateId , utilityServiceId]
-Breadcrumbs::for('estates.utility-services.invoices.create', function (BreadcrumbTrail $trail, $estateId , $utilityServiceId) {
-    $trail->parent('estates.utility-services.show' , $estateId , $utilityServiceId);
+// estates > utility-services > invoices > rent-invoices > create  > [estateId , utilityServiceId]
+Breadcrumbs::for('estates.utility-services.invoices.create', function (BreadcrumbTrail $trail, $estateId, $utilityServiceId) {
+    $trail->parent('estates.utility-services.show', $estateId, $utilityServiceId);
     $trail->push('تسجيل فاتورة', route('estates.utility-services.invoices.create', [$estateId, $utilityServiceId]));
 });
-// estates > utility-services > invoices > rents-payment > edit  > [estateId, utilityServiceId, invoiceId]
-Breadcrumbs::for('estates.utility-services.invoices.edit', function (BreadcrumbTrail $trail, $estateId , $utilityServiceId , $invoiceId) {
-    $trail->parent('estates.utility-services.show' , $estateId , $utilityServiceId);
+// estates > utility-services > invoices > rent-invoices > edit  > [estateId, utilityServiceId, invoiceId]
+Breadcrumbs::for('estates.utility-services.invoices.edit', function (BreadcrumbTrail $trail, $estateId, $utilityServiceId, $invoiceId) {
+    $trail->parent('estates.utility-services.show', $estateId, $utilityServiceId);
     $trail->push('تحديث فاتورة', route('estates.utility-services.invoices.edit', [$estateId, $utilityServiceId, $invoiceId]));
 });
 // ########################################### 
 
 // ########## ESTATE MAINTENANCE EXPENSES ########## 
 // estates > maintenance-expenses > [estateId] 
-Breadcrumbs::for('estates.maintenance-expenses', function (BreadcrumbTrail $trail, $estateId ) {
-    $trail->parent('estates.show' , $estateId );
+Breadcrumbs::for('estates.maintenance-expenses', function (BreadcrumbTrail $trail, $estateId) {
+    $trail->parent('estates.show', $estateId);
     $trail->push('مصروفات الصيانة', route('estates.maintenance-expenses.index', $estateId));
 });
 // estates > maintenance-expenses > show > [estateId , maintenanceExpenseId]
-Breadcrumbs::for('estates.maintenance-expenses.show', function (BreadcrumbTrail $trail, $estateId , $maintenanceExpenseId) {
-    $trail->parent('estates.maintenance-expenses' , $estateId );
+Breadcrumbs::for('estates.maintenance-expenses.show', function (BreadcrumbTrail $trail, $estateId, $maintenanceExpenseId) {
+    $trail->parent('estates.maintenance-expenses', $estateId);
     $trail->push('مصروف صيانة', route('estates.maintenance-expenses.show', [$estateId, $maintenanceExpenseId]));
 });
 // estates > maintenance-expenses > create > [estateId]
-Breadcrumbs::for('estates.maintenance-expenses.create', function (BreadcrumbTrail $trail, $estateId ) {
-    $trail->parent('estates.maintenance-expenses' , $estateId );
+Breadcrumbs::for('estates.maintenance-expenses.create', function (BreadcrumbTrail $trail, $estateId) {
+    $trail->parent('estates.maintenance-expenses', $estateId);
     $trail->push('اضافة', route('estates.maintenance-expenses.index', $estateId));
 });
 // estates > maintenance-expenses > edit > [estateId , maintenanceExpenseId]
-Breadcrumbs::for('estates.maintenance-expenses.edit', function (BreadcrumbTrail $trail, $estateId , $maintenanceExpenseId) {
-    $trail->parent('estates.maintenance-expenses.show' , $estateId , $maintenanceExpenseId);
+Breadcrumbs::for('estates.maintenance-expenses.edit', function (BreadcrumbTrail $trail, $estateId, $maintenanceExpenseId) {
+    $trail->parent('estates.maintenance-expenses.show', $estateId, $maintenanceExpenseId);
     $trail->push('تحديث', route('estates.maintenance-expenses.edit', [$estateId, $maintenanceExpenseId]));
 });
 // ########################################### 
@@ -257,9 +258,9 @@ Breadcrumbs::for('transactions', function (BreadcrumbTrail $trail) {
     $trail->push('الخزينة', route('transactions.index'));
 });
 // transactions > show  > [transactionId]
-Breadcrumbs::for('transactions.show', function (BreadcrumbTrail $trail , $transactionId) {
+Breadcrumbs::for('transactions.show', function (BreadcrumbTrail $trail, $transactionId) {
     $trail->parent('transactions');
-    $trail->push('معاملة', route('transactions.show' , $transactionId));
+    $trail->push('معاملة', route('transactions.show', $transactionId));
 });
 // transactions > create  
 Breadcrumbs::for('transactions.create', function (BreadcrumbTrail $trail) {
@@ -267,26 +268,41 @@ Breadcrumbs::for('transactions.create', function (BreadcrumbTrail $trail) {
     $trail->push('اضافة', route('transactions.create'));
 });
 // transactions > edit  > [transactionId]
-Breadcrumbs::for('transactions.edit', function (BreadcrumbTrail $trail , $transactionId) {
+Breadcrumbs::for('transactions.edit', function (BreadcrumbTrail $trail, $transactionId) {
     $trail->parent('transactions.show', $transactionId);
-    $trail->push('تحديث', route('transactions.edit' , $transactionId));
+    $trail->push('تحديث', route('transactions.edit', $transactionId));
 });
 // ########################################### 
 
-// ########## UNITS CONTRACTS ########## 
-// estates > units > contracts > rents-payment > [estateId , $unitId , $contractId]
-Breadcrumbs::for('estates.units.contracts.rents-payment', function (BreadcrumbTrail $trail, $estateId, $unitId , $contractId) {
-    $trail->parent('estates.units.contracts.show' , $estateId , $unitId, $contractId);
-    $trail->push('سجل الايجارات', route('estates.units.contracts.rents-payment.index', [$estateId, $unitId , $contractId]));
+// ########## RENT INVOICES ########## 
+// estates > units > contracts > rent-invoices > [estateId , $unitId , $contractId]
+Breadcrumbs::for('estates.units.contracts.rent-invoices', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId) {
+    $trail->parent('estates.units.contracts.show', $estateId, $unitId, $contractId);
+    $trail->push('سجل الايجارات', route('estates.units.contracts.rent-invoices.index', [$estateId, $unitId, $contractId]));
 });
-// estates > units > contracts > rents-payment > show  > [id]
-// estates > units > contracts > rents-payment > create  > [id]
-// estates > units > contracts > rents-payment > edit  > [id]
+// estates > units > contracts > rent-invoices > show  > [id]
+Breadcrumbs::for('estates.units.contracts.rent-invoices.show', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId , $rentInvoiceId) {
+    $trail->parent('estates.units.contracts.rent-invoices', $estateId, $unitId, $contractId);
+    $trail->push('ايصال سداد ايجار', route('estates.units.contracts.rent-invoices.show', [$estateId, $unitId, $contractId, $rentInvoiceId]));
+});
+// estates > units > contracts > rent-invoices > create  > [id]
+Breadcrumbs::for('estates.units.contracts.rent-invoices.create', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId) {
+    $trail->parent('estates.units.contracts.rent-invoices', $estateId, $unitId, $contractId);
+    $trail->push('اضافة', route('estates.units.contracts.rent-invoices.create', [$estateId, $unitId, $contractId]));
+});
+// estates > units > contracts > rent-invoices > edit  > [id]
+Breadcrumbs::for('estates.units.contracts.rent-invoices.edit', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId , $rentInvoiceId) {
+    $trail->parent('estates.units.contracts.rent-invoices', $estateId, $unitId, $contractId);
+    $trail->push('تحديث فاتورة سداد ايجار', route('estates.units.contracts.rent-invoices.edit', [$estateId, $unitId, $contractId, $rentInvoiceId]));
+});
 // ########################################### 
 
-// ########## TRANSACTIONS ########## 
-// estates > units > contracts > 
-// estates > units > contracts > rents-payment > show  > [id]
-// estates > units > contracts > rents-payment > create  > [id]
-// estates > units > contracts > rents-payment > edit  > [id]
+
+
+
+// ########## TMPLATE ########## 
+// parent > child1 > child2 > [param1 , param2]
+// parent > child1 > child2 > show > [param1 , param2]
+// parent > child1 > child2 > create > [param1 , param2]
+// parent > child1 > child2 > edit > [param1 , param2]
 // ########################################### 

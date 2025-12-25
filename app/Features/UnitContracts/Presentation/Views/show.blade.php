@@ -80,7 +80,7 @@
 
         @isset($unitContract)
             <div class="manage-btn-box">
-                <a href="{{ route('estates.units.contracts.rents-payment.index', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}" class="btn btn-primary">
+                <a href="{{ route('estates.units.contracts.rent-invoices.index', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}" class="btn btn-primary">
                     <i class="icon-notebook icons fa-lg "></i> &nbsp; سجل الايجارات</a>
             </div>
             <div class="row" style="display:flex; justify-content: center;">

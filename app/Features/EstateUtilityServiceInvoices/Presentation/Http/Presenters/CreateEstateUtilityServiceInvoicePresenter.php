@@ -26,7 +26,7 @@ final class CreateEstateUtilityServiceInvoicePresenter implements CreateEstateUt
             'months'=>Month::list(),
             'currentMonth'=>Month::from(Carbon::now()->month),
         ];
-        $this->response = fn() => view('estates.utility-service-invoices::create', $data);
+        $this->response = fn() => view('estates.utility-service-invoices::create', data: $data);
     }
     public function onNotFound(): void
     {

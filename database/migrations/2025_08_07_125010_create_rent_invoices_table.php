@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedTinyInteger('for_month');
             $table->unsignedSmallInteger('for_year');
-            $table->text('invoice_image')->nullable();
             $table->timestamps();
             //FK
             $table->foreignId('contract_id')->references('id')->on('unit_contracts')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
+            //constrains
+            $table->unique(['contract_id', 'for_month', 'for_year']);
         });
     }
 
