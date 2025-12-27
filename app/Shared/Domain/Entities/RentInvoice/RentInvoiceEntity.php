@@ -1,6 +1,6 @@
 <?php
 declare (strict_types= 1);
-namespace App\Shared\Domain\Entities\RentsPayment; 
+namespace App\Shared\Domain\Entities\RentInvoice; 
 
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Entities\Unit\UnitContractEntity;

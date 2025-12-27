@@ -11,6 +11,7 @@ use App\Features\Queries\Presentation\Http\Controllers\QueryContoller;
 use App\Features\Renters\Presentation\Http\Controllers\RenterController;
 use App\Features\RentInvoices\Presentation\Http\Controllers\RentInvoiceController;
 use App\Features\Settings\Presentation\Http\Controllers\SettingController;
+use App\Features\SharedWaterInvoices\Presentation\Http\Controllers\SharedWaterInvoiceController;
 use App\Features\Transactions\Presentation\Http\Controllers\TransactionController;
 use App\Features\UnitContracts\Presentation\Http\Controllers\UnitContractController;
 use App\Features\UnitOwnerships\Presentation\Http\Controllers\UnitOwnershipController;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/estates.units.contracts', UnitContractController::class);
 
     Route::resource('/estates.units.contracts.rent-invoices', RentInvoiceController::class);
+
+    Route::resource('/estates.units.contracts.shared-water-invoices', SharedWaterInvoiceController::class);
 
     Route::get('/estates/{estate}/documents/view-file/{file}', [EstateDocumentController::class, 'viewFile'])
         ->name('estates.documents.view-file');

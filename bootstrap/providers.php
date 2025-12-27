@@ -21,4 +21,5 @@ return [
     App\Features\UnitContracts\Infrastructure\Providers\UnitContractServiceProvider::class,
     App\Features\RentInvoices\Infrastructure\Providers\RentInvoiceServiceProvider::class,
     App\Features\EstateMaintenanceExpenses\Infrastructure\Providers\EstateMaintenanceExpensesServiceProvider::class,
+    App\Features\SharedWaterInvoices\Infrastructure\Providers\SharedWaterInvoiceServiceProvider::class,
 ];

@@ -6,7 +6,7 @@ namespace App\Features\RentInvoices\Presentation\Http\Presenters;
 
 use App\Features\RentInvoices\Application\Outputs\EditRentInvoiceOutput;
 use App\Shared\Application\Utility\Month;
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;

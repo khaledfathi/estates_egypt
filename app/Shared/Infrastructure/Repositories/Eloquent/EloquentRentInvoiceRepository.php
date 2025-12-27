@@ -7,7 +7,7 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 use App\Models\RentInvoice;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Renter\RenterEntity;
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Entities\Unit\UnitContractEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;

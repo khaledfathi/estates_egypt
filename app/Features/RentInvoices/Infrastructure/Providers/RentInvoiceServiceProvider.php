@@ -33,7 +33,6 @@ class RentInvoiceServiceProvider extends ServiceProvider
         $this->app->bind(DestroyRentInvoiceContract::class , DestroyRentInvoiceUsecase::class);
         $this->app->bind(UpdateRentInvoiceContract::class, UpdateRentInvoiceUsecase::class);
     }
-
     /**
      * Bootstrap services.
      */

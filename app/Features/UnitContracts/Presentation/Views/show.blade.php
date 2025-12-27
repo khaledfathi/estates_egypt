@@ -82,6 +82,8 @@
             <div class="manage-btn-box">
                 <a href="{{ route('estates.units.contracts.rent-invoices.index', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}" class="btn btn-primary">
                     <i class="icon-notebook icons fa-lg "></i> &nbsp; سجل الايجارات</a>
+                <a href="{{ route('estates.units.contracts.shared-water-invoices.index', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}" class="btn btn-primary">
+                    <i class="icon-drop icons font-lg"></i> &nbsp; سجل فواتير المياة المشتركة</a>
             </div>
             <div class="row" style="display:flex; justify-content: center;">
                 <div id="form" class="col-sm-12 col-md-10 col-lg-6">
