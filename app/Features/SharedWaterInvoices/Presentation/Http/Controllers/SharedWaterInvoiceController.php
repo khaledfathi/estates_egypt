@@ -18,7 +18,7 @@ class SharedWaterInvoiceController
         //prepare 
         $year= (int)($request->year ?? Carbon::now()->year);
         //action
-        $presenter = new ShowAllSharedWaterInvoicePresenter();
+        $presenter = new ShowAllSharedWaterInvoicePresenter($year);
         $this->showAllSharedWaterInvoiceUsecase->execute((int)$contractId, $year, $presenter);
         return $presenter->handle();
     }

@@ -10,6 +10,10 @@ interface SharedWaterInvoiceRepository {
      * @return array<SharedWaterInvoiceEntity>
      */
     public function index(): array;
+    /**
+     * @return array<SharedWaterInvoiceEntity>
+     */
+    public function indexByYear (int $contractId , int $year): array;
     public function show (int $sharedWaterInvoiceId):SharedWaterInvoiceEntity|null ;
     public function store(SharedWaterInvoiceEntity $sharedWaterInvoiceEntity): SharedWaterInvoiceEntity;
     public function update(SharedWaterInvoiceEntity $sharedWaterInvoiceEntity): bool;

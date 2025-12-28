@@ -20,6 +20,6 @@ class SharedWaterInvoiceServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::addNamespace('shared-water-invoices', base_path('app/Features/SharedWaterInvoices/presentation/Views'));
+        View::addNamespace('shared-water-invoices', base_path('app/Features/SharedWaterInvoices/Presentation/Views'));
     }
 }

@@ -53,7 +53,6 @@ final class ShowUnitsPaginatePresenter implements ShowUnitsPaginationOutput
         //log
         Log::channel(LogChannels::ERROR)->error('Databse failure', ['error' => $error, 'error_source' => __CLASS__ . '::' . __FUNCTION__]);
     }
-
     public function onEstateNotFound(): void
     {
         $this->response = fn() => view('units::index', ['error' => Messages::DATA_NOT_FOUND]);

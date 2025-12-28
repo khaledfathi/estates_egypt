@@ -5,12 +5,21 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
 use App\Shared\Domain\Repositories\SharedWaterInvoiceRepository;
+use App\Shared\Infrastructure\Models\SharedWaterInvoice\SharedWaterInvoice;
 
 final class EloquentSharedWaterInvoiceRepository implements SharedWaterInvoiceRepository {
     /**
      * @return array<SharedWaterInvoiceEntity>
      */
     public function index(): array{
+        return [];
+    }
+    /**
+     * @return array<SharedWaterInvoiceEntity>
+     */
+    public function indexByYear (int $contractId , int $year): array{
+        $sharedWaterInvoicesRecords = SharedWaterInvoice::where('contract_id' , $contractId)->where('for_year', $year)->get();
+        //----- make entities; 
         return [];
     }
     public function show (int $sharedWaterInvoiceId):SharedWaterInvoiceEntity|null {
