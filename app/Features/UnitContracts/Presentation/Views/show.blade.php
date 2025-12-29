@@ -152,7 +152,7 @@
                                 <li>نسبة تحصيل فاتورة المياة المشتركة : بما يعادل
                                     {{ $unitContract->waterInvoicePercentage }} شقة سكنية</li>
                                 <li>نسبة تحصيل فاتورة الكهرباء المشتركة : بما يعادل
-                                    {{ $unitContract->waterInvoicePercentage }} شقة سكنية</li>
+                                    {{ $unitContract->electricityInvoicePercentage }} شقة سكنية</li>
                                 <hr>
                             </ul>
                         </div>

@@ -99,8 +99,8 @@ class UnitContractController extends Controller
             insuranceValue: (int)$formArray['insurance_value'] ?? null,
             startDate: $formArray['start_date'] ? CarbonDateUtility::from($formArray['start_date']) : null,
             endDate: $formArray['end_date'] ? CarbonDateUtility::from($formArray['end_date']) : null,
-            waterInvoicePercentage: (int)$formArray['water_invoice_percentage'] ?? null,
-            electricityInvoicePercentage: (int)$formArray['electricity_invoice_percentage'] ?? null,
+            waterInvoicePercentage: (float)$formArray['water_invoice_percentage'] ?? null,
+            electricityInvoicePercentage: (float)$formArray['electricity_invoice_percentage'] ?? null,
 
         );
     }

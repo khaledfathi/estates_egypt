@@ -21,8 +21,8 @@ final class UnitContractEntity
         public ?int $insuranceValue = null,
         public ?DateProviderContract $startDate = null,
         public ?DateProviderContract $endDate = null,
-        public ?int $waterInvoicePercentage = null,
-        public ?int $electricityInvoicePercentage = null,
+        public ?float $waterInvoicePercentage = null,
+        public ?float $electricityInvoicePercentage = null,
         public ?RenterEntity $renter = null,
         public ?UnitEntity $unit = null,
     ) {}

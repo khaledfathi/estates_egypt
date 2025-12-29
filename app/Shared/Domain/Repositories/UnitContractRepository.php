@@ -12,6 +12,13 @@ interface UnitContractRepository {
      * @return EntitiesWithPagination<UnitContractEntity>
      */
     public function indexWithPaginateByUnitId(int $unitId, int $perPage): EntitiesWithPagination;
+    /**
+     * Summary of getAllActiveByEstateId
+     * @param int $estateUtilityServiceId
+     * @return array <UnitContractEntity>
+     */
+    public function getAllActiveByEstateId (int $estateId):array;
+    public function sumActiveWaterInvoicesPrecentageByEstateId($estateId);
     public function store (UnitContractEntity $UnitContractEntity):UnitContractEntity;
     public function show (int $UnitContractId):UnitContractEntity|null;
     public function update (UnitContractEntity $unitContractEntity):bool;
