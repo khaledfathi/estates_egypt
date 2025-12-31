@@ -5,6 +5,7 @@ namespace App\Shared\Domain\Repositories;
 
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
+use Countable;
 
 interface TransactionRepository
 {

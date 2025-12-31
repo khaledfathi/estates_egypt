@@ -87,7 +87,7 @@ final class EloquentUnitContractRepository implements UnitContractRepository
         );
     }
 
-    public function getAllActiveByEstateId(int $estateId): array
+    public function getAllActive(int $estateId): array
     {
         $records = UnitContract::with(['renter', 'unit'])
             ->whereDate('end_date', '>=', now()->format('Y-m-d'))
@@ -137,7 +137,7 @@ final class EloquentUnitContractRepository implements UnitContractRepository
         }
         return $unitContractEntities;
     }
-    public function sumActiveWaterInvoicesPrecentageByEstateId($estateId): float
+    public function sumActiveWaterInvoicesPrecentage(int $estateId): float
     {
         $records = UnitContract::with(['renter', 'unit'])
             ->whereDate('end_date', '>=', now()->format('Y-m-d'))

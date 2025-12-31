@@ -13,12 +13,12 @@ interface UnitContractRepository {
      */
     public function indexWithPaginateByUnitId(int $unitId, int $perPage): EntitiesWithPagination;
     /**
-     * Summary of getAllActiveByEstateId
+     * all active contracts , which mean they not expired until now  
      * @param int $estateUtilityServiceId
      * @return array <UnitContractEntity>
      */
-    public function getAllActiveByEstateId (int $estateId):array;
-    public function sumActiveWaterInvoicesPrecentageByEstateId($estateId);
+    public function getAllActive (int $estateId):array;
+    public function sumActiveWaterInvoicesPrecentage(int $estateId):float;
     public function store (UnitContractEntity $UnitContractEntity):UnitContractEntity;
     public function show (int $UnitContractId):UnitContractEntity|null;
     public function update (UnitContractEntity $unitContractEntity):bool;

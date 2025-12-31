@@ -9,6 +9,7 @@ class SharedWaterInvoice extends Model
     protected $fillable = [
         'contract_id',
         'transaction_id',
+        'shared_value',
         'for_month',
         'for_year',
     ];
