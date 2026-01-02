@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Repositories\Eloquent;
 
 use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
+use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Repositories\SharedWaterInvoiceRepository;
 use App\Shared\Infrastructure\Models\SharedWaterInvoice\SharedWaterInvoice;
+use App\Shared\Infrastructure\Utilities\CarbonDateUtility;
 
 final class EloquentSharedWaterInvoiceRepository implements SharedWaterInvoiceRepository
 {
@@ -22,9 +24,29 @@ final class EloquentSharedWaterInvoiceRepository implements SharedWaterInvoiceRe
      */
     public function indexByYear(int $contractId, int $year): array
     {
-        $sharedWaterInvoicesRecords = SharedWaterInvoice::where('contract_id', $contractId)->where('for_year', $year)->get();
-        //----- make entities; 
-        return [];
+        $sharedWaterInvoicesRecords = SharedWaterInvoice::with('transaction')->where('contract_id', $contractId)
+            ->where('for_year', $year)->get();
+
+        $sharedWaterInvoiceEntities = [];
+        foreach ($sharedWaterInvoicesRecords as $record) {
+            $transactionEntity = new TransactionEntity(
+                id: $record->transaction->id,
+                date: CarbonDateUtility::from($record->transaction->date),
+                amount: $record->transaction->amount,
+                description: $record->transaction->description,
+            );
+            $transactionEntity->setDirection(); // set whether it's withdraw or deposit
+            $sharedWaterInvoiceEntities[] = new SharedWaterInvoiceEntity(
+                id: $record->id,
+                contractId: $record->contract_id,
+                transactionId: $record->transaction_id,
+                sharedValue: $record->shared_value,
+                forMonth: $record->for_month,
+                forYear: $record->for_year,
+                transaction: $transactionEntity,
+            );
+        }
+        return $sharedWaterInvoiceEntities;
     }
     public function show(int $sharedWaterInvoiceId): SharedWaterInvoiceEntity|null
     {

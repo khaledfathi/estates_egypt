@@ -9,7 +9,6 @@ use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
 use App\Shared\Domain\Entities\Unit\UnitContractEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -45,6 +44,7 @@ final class ShowAllSharedWaterInvoicePresenter implements ShowAllSharedWaterInvo
     }
     public function onFailure(string $error): void
     {
+        dd('failure ', $error);
         $this->response = fn() => view('units::index', [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
