@@ -21,9 +21,11 @@ final class ShowAllSharedWaterInvoiceUsecase implements ShowAllSharedWaterInvoic
     {
         try {
             $unitContract = $this->unitContractRepository->show($unitContractId);
-            $unitContract
-                ? $presenter->onSuccess($unitContract , $this->sharedWaterInvoiceRepository->indexByYear($unitContractId , $year))
-                : $presenter->onContractNotFound();
+            if ($unitContract) {
+                $presenter->onSuccess($unitContract, $this->sharedWaterInvoiceRepository->indexByYear($unitContractId, $year));
+            } else {
+                $presenter->onContractNotFound();
+            }
         } catch (Exception $e) {
             $presenter->onFailure($e->getMessage());
         }

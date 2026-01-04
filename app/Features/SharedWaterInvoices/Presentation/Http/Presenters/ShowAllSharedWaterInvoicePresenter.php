@@ -33,6 +33,7 @@ final class ShowAllSharedWaterInvoicePresenter implements ShowAllSharedWaterInvo
             'sharedWaterInvoices' => $sharedWaterInvoicesEntities,
             'selectedYear' => $this->selectedYear,
         ];
+        // dd($data);
         $this->response = fn() => view('shared-water-invoices::index', $data);
     }
     public function onContractNotFound(): void

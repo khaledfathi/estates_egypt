@@ -11,7 +11,7 @@ class SharedWaterInvoiceEntity {
         public ?int $id = null,
         public ?int $contractId = null,
         public ?int $transactionId = null,
-        public ?int $sharedValue= null ,
+        public ?float $sharedValue= null ,
         public ?int $forMonth = null ,
         public ?int $forYear = null,
         public ?TransactionEntity $transaction= null,

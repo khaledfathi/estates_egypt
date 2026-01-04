@@ -90,7 +90,8 @@
                         </li>
                         <li>مدة التعاقد :( {{ $unitContract->startDate->toDateString() }} ) الى (
                             {{ $unitContract->endDate->toDateString() }} ) ({{ $unitContract->type->toLabel() }})</li>
-                        <li>نسبة المشاركة فى فاتورة المياة المشتركة : بما يعادل {{ $unitContract->waterInvoicePercentage }} شقة</li>
+                        <li>نسبة المشاركة فى فاتورة المياة المشتركة : بما يعادل {{ $unitContract->waterInvoicePercentage }}
+                            شقة</li>
                     </ul>
                     <hr>
                     <ul>
@@ -113,9 +114,44 @@
             <input class="btn btn-primary" type="submit" value="عرض">
         </form>
 
-        {{-- --}}
-            <br>
-            <h1>Shared Water Invoices</h1> 
-        {{--  --}}
+        {{-- water invoices list  --}}
+        @if (count($sharedWaterInvoices))
+            <hr>
+            <div class ="container-fluid ">
+                <h5 style="text-align:center">قائمة فواتير المياة</h5>
+                <div class="card-block">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>فاتورة شهر</th>
+                                <th>العام</th>
+                                <th>قيمة المشاركة من الفاتورة</th>
+                                <th>المبلغ المسدد</th>
+                                <th>المبلغ المتبقى</th>
+                                <th>تحكم</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sharedWaterInvoices as $invoice)
+                                <tr>
+                                    <td>{{ Month::from($invoice->forMonth)->name }}</td>
+                                    <td>{{ $invoice->forYear }}</td>
+                                    <td>{{ round($invoice->sharedValue) }}</td>
+                                    <td>{{ $invoice->transaction->amount }}</td>
+                                    <td>{{ round($invoice->sharedValue - $invoice->transaction->amount) }}</td>
+                                    <td>
+                                        <div>
+                                            <label>edit | </label>
+                                            <label>delete</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+        {{-- / water invoices list  --}}
     </div>
 @endsection

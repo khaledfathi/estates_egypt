@@ -73,9 +73,9 @@ class StoreEstateUtilityServiceInvoiceUsecase implements StoreEstateUtilityServi
     {
         // get required data
         $utilityServiceType = $this->estateUtilityServiceRepository->show($this->utilityServiceInvoice->estateUtilityServiceId)->type;
-        $invoiceValuePerUnit = match ($utilityServiceType) {
-            UnitUtilityServiceType::WATER => $this->utilityServiceInvoice->amount / $this->unitContractRepository->sumActiveWaterInvoicesPrecentage($this->utilityServiceInvoice->estate->id),
-            UnitUtilityServiceType::ELECTRICITY => 0,
+        $invoiceValuePerUnit = match ($utilityServiceType->name) {
+            UnitUtilityServiceType::WATER->name => $this->utilityServiceInvoice->amount / $this->unitContractRepository->sumActiveWaterInvoicesPrecentage($this->utilityServiceInvoice->estate->id),
+            UnitUtilityServiceType::ELECTRICITY->name => 0,
             default => 0
         };
         $activeUnitContracts = $this->unitContractRepository->getAllActive($this->utilityServiceInvoice->estate->id);
@@ -88,7 +88,7 @@ class StoreEstateUtilityServiceInvoiceUsecase implements StoreEstateUtilityServi
             $this->sharedWaterInvoiceRepository->store(
                 new SharedWaterInvoiceEntity(
                     contractId: $contract->id,
-                    sharedValue: (int) round($invoiceValuePerUnit * $contract->waterInvoicePercentage),
+                    sharedValue: $invoiceValuePerUnit * $contract->waterInvoicePercentage,
                     forMonth: $this->utilityServiceInvoice->forMonth,
                     forYear: $this->utilityServiceInvoice->forYear,
                     transactionId: $transactionEntity->id,
