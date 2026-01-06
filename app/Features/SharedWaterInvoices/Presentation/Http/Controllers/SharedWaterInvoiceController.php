@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Features\SharedWaterInvoices\Presentation\Http\Controllers;
 
+use App\Features\SharedWaterInvoices\Application\Contracts\EditSharedWaterInvoiceContract;
 use App\Features\SharedWaterInvoices\Application\Contracts\ShowAllSharedWaterInvoiceContract;
+use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\EditSharedWaterInvoicePresenter;
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\ShowAllSharedWaterInvoicePresenter;
 use Carbon\Carbon;
 
@@ -12,6 +14,7 @@ class SharedWaterInvoiceController
 {
     public function __construct(
         private readonly ShowAllSharedWaterInvoiceContract $showAllSharedWaterInvoiceUsecase,
+        private readonly EditSharedWaterInvoiceContract $editSharedWaterInvoiceUsecase, 
     ) {}
     public function index(string $estateId, string $unitId, string $contractId)
     {
@@ -34,9 +37,11 @@ class SharedWaterInvoiceController
     {
         return __CLASS__ . "::" . __FUNCTION__;
     }
-    public function edit()
+    public function edit(string $estateId, string $unitId, string $contractId , string $sharedWaterInvoiceId )
     {
-        return __CLASS__ . "::" . __FUNCTION__;
+        $presenter = new EditSharedWaterInvoicePresenter();
+        $this->editSharedWaterInvoiceUsecase->exectute((int)$sharedWaterInvoiceId, $presenter);
+        return $presenter->handle();
     }
     public function update()
     {

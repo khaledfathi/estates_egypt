@@ -141,8 +141,17 @@
                                     <td>{{ round($invoice->sharedValue - $invoice->transaction->amount) }}</td>
                                     <td>
                                         <div>
-                                            <label>edit | </label>
-                                            <label>delete</label>
+                                            <a style="margin-left:20px;text-decoration:none"
+                                                href="{{ route('estates.units.contracts.shared-water-invoices.edit', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'shared_water_invoice' => $invoice->id]) }}">
+                                                <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
+                                            </a>
+                                            <form class="d-inline" action="" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <i
+                                                    class="delete-contract-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                                <input class="delete-submit-btn" type="submit" hidden="">
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

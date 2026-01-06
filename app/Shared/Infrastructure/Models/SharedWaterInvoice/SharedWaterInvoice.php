@@ -3,6 +3,7 @@
 namespace App\Shared\Infrastructure\Models\SharedWaterInvoice;
 
 use App\Shared\Infrastructure\Models\Transaction\Transaction;
+use App\Shared\Infrastructure\Models\Unit\UnitContract;
 use Illuminate\Database\Eloquent\Model;
 
 class SharedWaterInvoice extends Model
@@ -15,6 +16,9 @@ class SharedWaterInvoice extends Model
         'for_year',
     ];
 
+    public function contract (){
+        return $this->belongsTo(UnitContract::class , 'contract_id');
+    }
     public function transaction (){
         return $this->belongsTo(Transaction::class , 'transaction_id');
     }

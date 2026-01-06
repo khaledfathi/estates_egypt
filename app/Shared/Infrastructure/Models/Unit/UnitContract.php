@@ -4,6 +4,7 @@ namespace App\Shared\Infrastructure\Models\Unit;
 
 use App\Models\RentInvoice;
 use App\Shared\Infrastructure\Models\Renter\Renter;
+use App\Shared\Infrastructure\Models\SharedWaterInvoice\SharedWaterInvoice;
 use Illuminate\Database\Eloquent\Model;
 
 class UnitContract  extends Model
@@ -32,5 +33,9 @@ class UnitContract  extends Model
     public function rentInvoices ()
     {
         return $this->hasMany(RentInvoice::class);
+    }
+    public function sharedWaterInvoices()
+    {
+        return $this->hasMany(SharedWaterInvoice::class);
     }
 }

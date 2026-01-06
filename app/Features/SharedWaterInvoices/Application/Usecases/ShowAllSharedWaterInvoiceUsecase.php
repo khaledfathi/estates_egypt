@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Features\SharedWaterInvoices\Application\Usecases;
+namespace App\Features\SharedWaterInvoices\Application\Usecases; 
 
 use App\Features\SharedWaterInvoices\Application\Outputs\ShowAllSharedWaterInvoiceOutput;
 use App\Shared\Domain\Repositories\SharedWaterInvoiceRepository;

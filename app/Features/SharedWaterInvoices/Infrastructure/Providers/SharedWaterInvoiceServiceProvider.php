@@ -2,7 +2,9 @@
 
 namespace App\Features\SharedWaterInvoices\Infrastructure\Providers;
 
+use App\Features\SharedWaterInvoices\Application\Contracts\EditSharedWaterInvoiceContract;
 use App\Features\SharedWaterInvoices\Application\Contracts\ShowAllSharedWaterInvoiceContract;
+use App\Features\SharedWaterInvoices\Application\Usecases\EditSharedWaterInvoiceUsecase;
 use App\Features\SharedWaterInvoices\Application\Usecases\ShowAllSharedWaterInvoiceUsecase;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -12,8 +14,10 @@ class SharedWaterInvoiceServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register(): void {
-        $this->app->bind(ShowAllSharedWaterInvoiceContract::class , ShowAllSharedWaterInvoiceUsecase::class);
+    public function register(): void
+    {
+        $this->app->bind(ShowAllSharedWaterInvoiceContract::class, ShowAllSharedWaterInvoiceUsecase::class);
+        $this->app->bind(EditSharedWaterInvoiceContract::class, EditSharedWaterInvoiceUsecase::class);
     }
     /**
      * Bootstrap services.
