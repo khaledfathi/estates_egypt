@@ -305,7 +305,11 @@ Breadcrumbs::for('estates.units.contracts.shared-water-invoices', function (Brea
 });
 // parent > child1 > child2 > show > [param1 , param2]
 // parent > child1 > child2 > create > [param1 , param2]
-// parent > child1 > child2 > edit > [param1 , param2]
+// estates > units > contracts > shared water invoice > [ estateId , unitId , contractId, waterSharedInvoicesId ]
+Breadcrumbs::for('estates.units.contracts.shared-water-invoices.edit', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId, $sharedWaterInvoiceId) {
+    $trail->parent('estates.units.contracts.shared-water-invoices', $estateId, $unitId, $contractId);
+    $trail->push('تحديث', route('estates.units.contracts.shared-water-invoices.index', [$estateId, $unitId, $contractId, $sharedWaterInvoiceId]));
+});
 // ########################################### 
 
 

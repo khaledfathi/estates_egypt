@@ -17,4 +17,12 @@ class SharedWaterInvoiceEntity {
         public ?TransactionEntity $transaction= null,
         public ?UnitContractEntity $unitContract = null,
     ) { }
+
+    public function getRemaining ():float | null {
+       if ($this->transaction && $this->sharedValue){
+            $remaining = $this->sharedValue - $this->transaction->amount ;
+            return $remaining >= 0 ? $remaining : 0 ;
+       }
+       return null; 
+    }
 }
