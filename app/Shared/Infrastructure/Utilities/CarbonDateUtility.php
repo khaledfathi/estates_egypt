@@ -30,6 +30,9 @@ final class CarbonDateUtility implements DateProviderContract
     {
         return new self($date);
     }
+    public static function genereateDate (int $day , int $month , int $year):DateProviderContract{
+        return new self(Carbon::create($year, $month , $day)->toDateString());
+    }
     public static function now(): DateProviderContract
     {
         return new self(Carbon::now()->toDateString());
@@ -64,13 +67,11 @@ final class CarbonDateUtility implements DateProviderContract
     {
         return (int)($this->carbonDate->diffInMonths(self::from($date->toDateString())->toDateString()));
     }
-    public function yearsUntillNow(): int
+    public function yearsUntilNow(): int
     {
-        return (int)ceil(
-            $this->carbonDate->diffInYears(Carbon::now()->toDateString())
-        );
+        return (int) $this->carbonDate->diffInYears(Carbon::now()->toDateString()) ;
     }
-    public function yearsUntill(DateProviderContract $date): int
+    public function yearsUntil(DateProviderContract $date): int
     {
 
         return (int)($this->carbonDate->diffInYears(self::from($date->toDateString())->toDateString()));

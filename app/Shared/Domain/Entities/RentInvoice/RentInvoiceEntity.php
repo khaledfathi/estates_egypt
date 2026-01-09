@@ -9,6 +9,7 @@ class RentInvoiceEntity {
     public function __construct(
         public ?int $id=null,
         public ?int $transactionId=null,
+        public ?int $invoiceValue = null,
         public ?int $contractId=null,
         public ?int $forMonth=null,
         public ?int $forYear=null,

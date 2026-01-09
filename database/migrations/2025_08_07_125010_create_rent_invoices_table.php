@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('rent_invoices', function (Blueprint $table) {
             $table->id();
+            $table->integer('invoice_value');
             $table->unsignedTinyInteger('for_month');
             $table->unsignedSmallInteger('for_year');
             $table->timestamps();

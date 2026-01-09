@@ -131,9 +131,9 @@
                         <tr>
                             <th>عن شهر</th>
                             <th>عن عام</th>
+                            <th>المطلوب سدادة</th>
                             <th>المبلغ المسدد</th>
                             <th>متبقى</th>
-                            <th>حالة السداد</th>
                             <th>تحكم</th>
                         </tr>
                     </thead>
@@ -142,23 +142,27 @@
                             <tr>
                                 <td>{{ Month::from($rentInvoice->forMonth)->name }}</td>
                                 <td>{{ $rentInvoice->forYear }}</td>
-                                <td>{{ $rentInvoice->transaction->amount }}</td>
+                                <td>{{ $rentInvoice->invoiceValue }}</td>
+                                <td>{{ $rentInvoice->transaction->amount }} <span style="color:green;font-size:18px">{{  $rentInvoice->transaction->amount > $rentInvoice->invoiceValue ? '+' : null }}</span></td>
                                 @php
                                     $remindRentValue =
-                                        $unitContract->getCurrentRentValue() - $rentInvoice->transaction->amount;
+                                        $rentInvoice->invoiceValue - $rentInvoice->transaction->amount;
                                 @endphp
-                                <td>{{ $remindRentValue > 0 ? $remindRentValue : 0 }}</td>
-                                <td>{{ $remindRentValue >= 0 ? 'غير مكتمل' : 'مكتمل' }}</td>
+                                <td style="color:{{ $remindRentValue > 0 ? 'red' : 'green' }}">
+                                    {{ $remindRentValue > 0 ? $remindRentValue : 0 }}</td>
                                 <td>
                                     <div>
                                         <a style="margin-left:20px;text-decoration:none"
                                             href="{{ route('estates.units.contracts.rent-invoices.show', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
                                             <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
                                         </a>
-                                        <a style="margin-left:20px;text-decoration:none" href="{{ route('estates.units.contracts.rent-invoices.edit', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
+                                        <a style="margin-left:20px;text-decoration:none"
+                                            href="{{ route('estates.units.contracts.rent-invoices.edit', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
                                             <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
                                         </a>
-                                        <form class="d-inline" action="{{ route('estates.units.contracts.rent-invoices.destroy' , ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id] ) }}" method="post">
+                                        <form class="d-inline"
+                                            action="{{ route('estates.units.contracts.rent-invoices.destroy', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}"
+                                            method="post">
                                             @method('DELETE')
                                             @csrf
                                             <i

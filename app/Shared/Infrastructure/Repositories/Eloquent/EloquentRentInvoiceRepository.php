@@ -50,6 +50,7 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
                 id: $record->id,
                 transactionId: $record->transaction_id,
                 contractId: $record->contract_id,
+                invoiceValue : $record->invoice_value,
                 forMonth: $record->for_month,
                 forYear: $record->for_year,
                 transaction: $transactionEntity,
@@ -73,6 +74,7 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
         $record = RentInvoice::create([
             'contract_id' => $RentInvoiceEntity->contractId,
             'transaction_id' => $RentInvoiceEntity->transaction->id,
+            'invoice_value' => $RentInvoiceEntity->invoiceValue,
             'for_month' => $RentInvoiceEntity->forMonth,
             'for_year' => $RentInvoiceEntity->forYear,
         ]);
@@ -138,6 +140,7 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
                 id:$record->id,
                 transactionId:$record->transaction_id,
                 contractId:$record->contract_id,
+                invoiceValue : $record->invoice_value,
                 forMonth:$record->for_month,
                 forYear:$record->for_year,
                 transaction:$transactionEntity, 
