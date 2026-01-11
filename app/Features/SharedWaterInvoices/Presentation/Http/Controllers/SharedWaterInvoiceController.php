@@ -6,8 +6,11 @@ namespace App\Features\SharedWaterInvoices\Presentation\Http\Controllers;
 
 use App\Features\SharedWaterInvoices\Application\Contracts\EditSharedWaterInvoiceContract;
 use App\Features\SharedWaterInvoices\Application\Contracts\ShowAllSharedWaterInvoiceContract;
+use App\Features\SharedWaterInvoices\Application\Contracts\UpdateSharedWaterInvoiceContract;
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\EditSharedWaterInvoicePresenter;
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\ShowAllSharedWaterInvoicePresenter;
+use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\UpdateSharedWaterInvoicePresenter;
+use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
 use Carbon\Carbon;
 
 class SharedWaterInvoiceController
@@ -15,6 +18,7 @@ class SharedWaterInvoiceController
     public function __construct(
         private readonly ShowAllSharedWaterInvoiceContract $showAllSharedWaterInvoiceUsecase,
         private readonly EditSharedWaterInvoiceContract $editSharedWaterInvoiceUsecase, 
+        private readonly UpdateSharedWaterInvoiceContract $updateSharedWaterInvoiceUsecase, 
     ) {}
     public function index(string $estateId, string $unitId, string $contractId)
     {
@@ -45,7 +49,11 @@ class SharedWaterInvoiceController
     }
     public function update()
     {
-        return __CLASS__ . "::" . __FUNCTION__;
+        //prepare 
+        $presenter = new UpdateSharedWaterInvoicePresenter ();
+        //action
+        $this->updateSharedWaterInvoiceUsecase->exectute(new SharedWaterInvoiceEntity (), $presenter);
+        return $presenter->handle(); 
     }
     public function destroy()
     {

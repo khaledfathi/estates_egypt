@@ -157,8 +157,8 @@ final class EloquentUnitContractRepository implements UnitContractRepository
             'insurance_value' => $UnitContractEntity->insuranceValue,
             'start_date' => $UnitContractEntity->startDate->toDateString(),
             'end_date' => $UnitContractEntity->endDate->toDateString(),
-            'water_invoice_precentage' => $UnitContractEntity->waterInvoicePercentage,
-            'electricity_invoice_precentage' => $UnitContractEntity->electricityInvoicePercentage,
+            'water_invoice_percentage' => $UnitContractEntity->waterInvoicePercentage,
+            'electricity_invoice_percentage' => $UnitContractEntity->electricityInvoicePercentage,
         ]);
         $UnitContractEntity->id = $record->id;
         return $UnitContractEntity;

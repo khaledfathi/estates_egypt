@@ -26,7 +26,9 @@ final class EloquentTransactionRepository implements TransactionRepository
     public function indexWithPaginationByDate(string $date, int $perPage): EntitiesWithPagination
     {
 
-        $transactionRecords = Transaction::where('date', $date)
+        $transactionRecords = Transaction::with(['rentInvoices', 'sharedWaterInvoices'])->where('date', $date)
+            ->whereDoesntHave('rentInvoices')
+            ->whereDoesntHave('sharedWaterInvoices')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
         //transaction entities DTO 

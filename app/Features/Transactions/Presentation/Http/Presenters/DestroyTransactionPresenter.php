@@ -22,7 +22,6 @@ final class DestroyTransactionPresenter implements DestroyTransactionOutput
    }
    public function onFailure(string $error)
    {
-      dd($error);
       $this->response = fn() => back()
          ->with('error', Messages::INTERNAL_SERVER_ERROR);
       //log

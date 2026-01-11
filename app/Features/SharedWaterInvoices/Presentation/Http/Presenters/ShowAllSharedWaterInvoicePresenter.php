@@ -44,7 +44,6 @@ final class ShowAllSharedWaterInvoicePresenter implements ShowAllSharedWaterInvo
     }
     public function onFailure(string $error): void
     {
-        dd('failure ', $error);
         $this->response = fn() => view('units::index', [
             'error' => Messages::INTERNAL_SERVER_ERROR,
         ]);
