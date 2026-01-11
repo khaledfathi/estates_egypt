@@ -4,13 +4,14 @@ namespace App\Features\EstateUtilityServices\Application\Usecases;
 
 use App\Features\EstateUtilityServices\Application\Contracts\DestroyEstateUtilityServiceContract;
 use App\Features\EstateUtilityServices\Application\Outputs\DestroyEstateUtilityServiceOutput;
+use App\Shared\Domain\Enum\Estate\EstateUtilityServiceType;
 use App\Shared\Domain\Repositories\EstateUtilityServiceRepository;
 use Exception;
 
 final class DestroyEstateUtilityServiceUsecase implements DestroyEstateUtilityServiceContract{
 
     public function __construct(
-        private readonly EstateUtilityServiceRepository $estateUtilityServiceRepository
+        private readonly EstateUtilityServiceRepository $estateUtilityServiceRepository,
     ){}
     public function execute(int $EstateUtilityServiceId, DestroyEstateUtilityServiceOutput $presenter): void{
         try {

@@ -10,9 +10,9 @@ use App\Features\SharedWaterInvoices\Application\Contracts\UpdateSharedWaterInvo
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\EditSharedWaterInvoicePresenter;
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\ShowAllSharedWaterInvoicePresenter;
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\UpdateSharedWaterInvoicePresenter;
+use App\Features\SharedWaterInvoices\Presentation\Http\Requests\UpdateSharedWaterInvoiceRequest;
 use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
-use App\Shared\Infrastructure\Models\Transaction\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -50,7 +50,7 @@ class SharedWaterInvoiceController
         $this->editSharedWaterInvoiceUsecase->exectute((int)$sharedWaterInvoiceId, $presenter);
         return $presenter->handle();
     }
-    public function update(Request $request, string $estateId, string $unitId, string $contractId, string $sharedWaterInvoiceId)
+    public function update(UpdateSharedWaterInvoiceRequest $request, string $estateId, string $unitId, string $contractId, string $sharedWaterInvoiceId)
     {
         //prepare 
         $sharedWaterInvoiceEntity = $this->formToSharedWaterInvoiceEntity($request->all());
