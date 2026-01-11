@@ -137,8 +137,14 @@
                                     <td>{{ Month::from($invoice->forMonth)->name }}</td>
                                     <td>{{ $invoice->forYear }}</td>
                                     <td>{{ round($invoice->sharedValue) }}</td>
-                                    <td>{{ $invoice->transaction->amount }}</td>
-                                    <td>{{ round($invoice->sharedValue - $invoice->transaction->amount) }}</td>
+                                    @php
+                                        $amount = $invoice->transaction->amount;
+                                    @endphp
+                                    <td>{{$amount}} <span style="color:green">{{ $amount > $invoice->sharedValue ? '+' : null }}</span></td>
+                                    @php
+                                        $remaining = round($invoice->sharedValue - $invoice->transaction->amount) 
+                                    @endphp
+                                    <td style="color:{{ $remaining > 0 ? 'red' : 'green' }}">{{ $remaining > 0 ? $remaining : 0 }}</td>
                                     <td>
                                         <div>
                                             <a style="margin-left:20px;text-decoration:none"

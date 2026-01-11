@@ -121,6 +121,10 @@
                         </div>
                         <div class="card-block">
 
+                            {{-- transaction id --}}
+                            <input type="hidden" name="transaction_id" value="{{ $sharedWaterInvoice->transactionId}}">
+                            {{-- transaction id --}}
+
                             {{-- month --}}
                             <div class="form-group">
                                 <label for="month">الشهر<span class="required">*</span></label>
@@ -173,7 +177,7 @@
                                 <button id="submit-btn" type="submit" class="btn btn-md btn-success">
                                     <i class="fa fa-edit "></i>
                                     تحديث</button>
-                                <a href="{{ route('estates.units.edit', ['estate' => $estate->id, 'unit' => $unit->id]) }}"
+                                <a href="{{ url()->current() }}"
                                     class="btn btn-md btn-primary">
                                     <i class="fa fa-refresh "></i>
                                     اعادة</a>

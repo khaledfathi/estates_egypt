@@ -11,19 +11,22 @@ use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\EditSharedWate
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\ShowAllSharedWaterInvoicePresenter;
 use App\Features\SharedWaterInvoices\Presentation\Http\Presenters\UpdateSharedWaterInvoicePresenter;
 use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
+use App\Shared\Domain\Entities\Transaction\TransactionEntity;
+use App\Shared\Infrastructure\Models\Transaction\Transaction;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SharedWaterInvoiceController
 {
     public function __construct(
         private readonly ShowAllSharedWaterInvoiceContract $showAllSharedWaterInvoiceUsecase,
-        private readonly EditSharedWaterInvoiceContract $editSharedWaterInvoiceUsecase, 
-        private readonly UpdateSharedWaterInvoiceContract $updateSharedWaterInvoiceUsecase, 
+        private readonly EditSharedWaterInvoiceContract $editSharedWaterInvoiceUsecase,
+        private readonly UpdateSharedWaterInvoiceContract $updateSharedWaterInvoiceUsecase,
     ) {}
     public function index(string $estateId, string $unitId, string $contractId)
     {
         //prepare 
-        $year= (int)($request->year ?? Carbon::now()->year);
+        $year = (int)($request->year ?? Carbon::now()->year);
         //action
         $presenter = new ShowAllSharedWaterInvoicePresenter($year);
         $this->showAllSharedWaterInvoiceUsecase->execute((int)$contractId, $year, $presenter);
@@ -41,22 +44,40 @@ class SharedWaterInvoiceController
     {
         return __CLASS__ . "::" . __FUNCTION__;
     }
-    public function edit(string $estateId, string $unitId, string $contractId , string $sharedWaterInvoiceId )
+    public function edit(string $estateId, string $unitId, string $contractId, string $sharedWaterInvoiceId)
     {
         $presenter = new EditSharedWaterInvoicePresenter();
         $this->editSharedWaterInvoiceUsecase->exectute((int)$sharedWaterInvoiceId, $presenter);
         return $presenter->handle();
     }
-    public function update()
+    public function update(Request $request, string $estateId, string $unitId, string $contractId, string $sharedWaterInvoiceId)
     {
         //prepare 
-        $presenter = new UpdateSharedWaterInvoicePresenter ();
+        $sharedWaterInvoiceEntity = $this->formToSharedWaterInvoiceEntity($request->all());
+        $presenter = new UpdateSharedWaterInvoicePresenter(
+            (int)$estateId,
+            (int)$unitId,
+            (int) $contractId,
+            (int) $sharedWaterInvoiceId
+        );
         //action
-        $this->updateSharedWaterInvoiceUsecase->exectute(new SharedWaterInvoiceEntity (), $presenter);
-        return $presenter->handle(); 
+        $this->updateSharedWaterInvoiceUsecase->exectute($sharedWaterInvoiceEntity, $presenter);
+        return $presenter->handle();
     }
     public function destroy()
     {
         return __CLASS__ . "::" . __FUNCTION__;
+    }
+    private function formToSharedWaterInvoiceEntity(array $formArray): SharedWaterInvoiceEntity
+    {
+        $transactionId = isset($formArray['transaction_id']) ? (int)$formArray['transaction_id'] : null;
+        return new SharedWaterInvoiceEntity(
+            transactionId: $transactionId,
+            transaction: new TransactionEntity(
+                id: $transactionId,
+                amount: isset($formArray['amount']) ? (int) $formArray['amount'] : null,
+                description: $formArray['notes'],
+            ),
+        );
     }
 }

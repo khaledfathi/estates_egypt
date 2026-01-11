@@ -134,7 +134,11 @@ final class EloquentSharedWaterInvoiceRepository implements SharedWaterInvoiceRe
     }
     public function update(SharedWaterInvoiceEntity $sharedWaterInvoiceEntity): bool
     {
-        return false;
+        return SharedWaterInvoice::find($sharedWaterInvoiceEntity->id)->update([
+            'shared_value' => $sharedWaterInvoiceEntity->sharedValue,
+            'for_month' => $sharedWaterInvoiceEntity->forMonth,
+            'for_year' => $sharedWaterInvoiceEntity->forYear,
+        ]);
     }
     public function destroy(int $sharedWaterInvoiceId): bool
     {

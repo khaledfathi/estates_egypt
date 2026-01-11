@@ -6,15 +6,16 @@ use App\Features\SharedWaterInvoices\Application\Contracts\UpdateSharedWaterInvo
 use App\Features\SharedWaterInvoices\Application\Outputs\UpdateSharedWaterInvoiceOutput;
 use App\Shared\Domain\Entities\SharedWaterInvoice\SharedWaterInvoiceEntity;
 use App\Shared\Domain\Repositories\SharedWaterInvoiceRepository;
+use App\Shared\Domain\Repositories\TransactionRepository;
 use Exception;
 
 final class UpdateSharedWaterInvoiceUsecase implements UpdateSharedWaterInvoiceContract {
     public function __construct(
-        private readonly SharedWaterInvoiceRepository $sharedWaterInvoiceRepository
+        private readonly TransactionRepository $transactionRepository,
     ) { }
     public function exectute (SharedWaterInvoiceEntity $sharedWaterInvoiceEntity, UpdateSharedWaterInvoiceOutput $presenter):void{
         try{
-            $status = $this->sharedWaterInvoiceRepository->update($sharedWaterInvoiceEntity);
+            $status = $this->transactionRepository->update($sharedWaterInvoiceEntity->transaction);
             $presenter->onSuccess($status);
         }catch (Exception $e){
             $presenter->onFailure($e->getMessage());
