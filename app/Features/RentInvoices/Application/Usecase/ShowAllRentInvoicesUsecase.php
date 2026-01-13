@@ -23,7 +23,7 @@ class ShowAllRentInvoicesUsecase implements ShowAllRentInvoicesContract
             $unitContractEntity
                 ? $presenter->onSuccess(
                     $unitContractEntity,
-                    $this->RentInvoiceRepository->indexWithPaginateByYear($year)
+                    $this->RentInvoiceRepository->indexWithPaginateByYear($year,$contractId)
                 )
                 : $presenter->onContractNotFound();
         } catch (Exception $e) {

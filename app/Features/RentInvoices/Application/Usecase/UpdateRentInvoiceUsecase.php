@@ -4,7 +4,7 @@ namespace App\Features\RentInvoices\Application\Usecase;
 
 use App\Features\RentInvoices\Application\Contracts\UpdateRentInvoiceContract;
 use App\Features\RentInvoices\Application\Outputs\UpdateRentInvoiceOutput;
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Domain\Repositories\RentInvoiceRepository;
 use App\Shared\Domain\Repositories\TransactionRepository;
 use Exception;

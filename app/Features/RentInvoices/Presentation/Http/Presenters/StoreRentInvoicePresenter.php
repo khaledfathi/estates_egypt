@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Features\RentInvoices\Presentation\Http\Presenters;
 
 use App\Features\RentInvoices\Application\Outputs\StoreRentInvoiceOutput;
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;

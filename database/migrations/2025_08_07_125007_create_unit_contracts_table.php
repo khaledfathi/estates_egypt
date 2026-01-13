@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedInteger('insurance_value')->default(0);
             $table->date('start_date');
             $table->date('end_date');
-            $table->unsignedInteger('water_invoice_percentage')->default(1);
-            $table->unsignedInteger('electricity_invoice_percentage')->default(1);
+            $table->float('water_invoice_percentage',1)->default(1);
+            $table->float('electricity_invoice_percentage',1)->default(1);
             $table->timestamps();
             //FK
             $table->foreignId('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');

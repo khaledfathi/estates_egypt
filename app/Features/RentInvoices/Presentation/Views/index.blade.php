@@ -18,31 +18,31 @@
 
 @section('content')
     <div class="container-fluid">
-        @if (isset($unitContract))
-            {{-- Errors --}}
-            @if ($errors->any() || isset($error) || session()->has('error'))
-                <div class="row" style="display:flex; justify-content:center;">
-                    <div class="col-sm-12 col-md-10 col-lg-8">
-                        <div class="card card-inverse card-danger ">
-                            <div class="card-block">
-                                <ul>
-                                    @if ($errors->any())
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    @elseif (isset($error))
+        {{-- Errors --}}
+        @if ($errors->any() || isset($error) || session()->has('error'))
+            <div class="row" style="display:flex; justify-content:center;">
+                <div class="col-sm-12 col-md-10 col-lg-8">
+                    <div class="card card-inverse card-danger ">
+                        <div class="card-block">
+                            <ul>
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
-                                    @elseif (session('error'))
-                                        <li>{{ session('error') }}</li>
-                                    @endif
-                                </ul>
-                            </div>
+                                    @endforeach
+                                @elseif (isset($error))
+                                    <li>{{ $error }}</li>
+                                @elseif (session('error'))
+                                    <li>{{ session('error') }}</li>
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>
-            @endif
-            {{-- / Errors --}}
+            </div>
+        @endif
+        {{-- / Errors --}}
 
+        @if (isset($unitContract))
             {{-- success message --}}
             @if (session('success'))
                 <div class="row" style="display:flex; justify-content:center;">
@@ -110,78 +110,85 @@
                     </ul>
                 </div>
             </div> {{-- / card --}}
-        @endif
-        <a href="{{ route('estates.units.contracts.rent-invoices.create', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}"
-            class="btn btn-md btn-primary" style="margin-bottom: 15px">
-            <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
-            <span>تسجيل سداد ايجار</span>
-        </a>
-        <form style="width:300px;display:flex; flex-direction:row;" method="get" action="">
-            <label style="width:160px;margin:auto" for="">ايجارات عام </label>
-            <input class="form-control" type="number" name="year" value="{{ old('year', $selectedYear) }}">
-            <input class="btn btn-primary" type="submit" value="عرض">
-        </form>
 
-        {{-- Invoices --}}
-        <div class="row">
-            <hr>
-            @if ($rentInvoices)
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>عن شهر</th>
-                            <th>عن عام</th>
-                            <th>المبلغ المسدد</th>
-                            <th>متبقى</th>
-                            <th>حالة السداد</th>
-                            <th>تحكم</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($rentInvoices as $rentInvoice)
+            <a href="{{ route('estates.units.contracts.rent-invoices.create', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id]) }}"
+                class="btn btn-md btn-primary" style="margin-bottom: 15px">
+                <i class="fa fa-plus-circle fa-lg d-inline-block"></i>
+                <span>تسجيل سداد ايجار</span>
+            </a>
+            <form style="width:300px;display:flex; flex-direction:row;" method="get" action="">
+                <label style="width:160px;margin:auto" for="">ايجارات عام </label>
+                <input class="form-control" type="number" name="year" value="{{ old('year', $selectedYear) }}">
+                <input class="btn btn-primary" type="submit" value="عرض">
+            </form>
+
+            {{-- Invoices --}}
+            <div class="row">
+                <hr>
+                @if ($rentInvoices)
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ Month::from($rentInvoice->forMonth)->name }}</td>
-                                <td>{{ $rentInvoice->forYear }}</td>
-                                <td>{{ $rentInvoice->transaction->amount }}</td>
-                                @php
-                                    $remindRentValue =
-                                        $unitContract->getCurrentRentValue() - $rentInvoice->transaction->amount;
-                                @endphp
-                                <td>{{ $remindRentValue > 0 ? $remindRentValue : 0 }}</td>
-                                <td>{{ $remindRentValue >= 0 ? 'غير مكتمل' : 'مكتمل' }}</td>
-                                <td>
-                                    <div>
-                                        <a style="margin-left:20px;text-decoration:none"
-                                            href="{{ route('estates.units.contracts.rent-invoices.show', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
-                                            <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
-                                        </a>
-                                        <a style="margin-left:20px;text-decoration:none" href="{{ route('estates.units.contracts.rent-invoices.edit', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
-                                            <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
-                                        </a>
-                                        <form class="d-inline" action="{{ route('estates.units.contracts.rent-invoices.destroy' , ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id] ) }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <i
-                                                class="delete-rent-invoice-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
-                                            <input class="delete-submit-btn" type="submit" hidden>
-                                        </form>
-                                    </div>
-                                </td>
+                                <th>عن شهر</th>
+                                <th>عن عام</th>
+                                <th>المطلوب سدادة</th>
+                                <th>المبلغ المسدد</th>
+                                <th>متبقى</th>
+                                <th>تحكم</th>
                             </tr>
-                        @endforeach
-                </table>
-            @else
-                <div class="card card-inverse card-primary text-xs-center">
-                    <div class="card-block">
-                        <blockquote class="card-blockquote">
-                            لا توجد ايجارات مسددة لهذا العام - قم بتسجيل سداد ايجار
-                        </blockquote>
+                        </thead>
+                        <tbody>
+                            @foreach ($rentInvoices as $rentInvoice)
+                                <tr>
+                                    <td>{{ Month::from($rentInvoice->forMonth)->name }}</td>
+                                    <td>{{ $rentInvoice->forYear }}</td>
+                                    <td>{{ $rentInvoice->invoiceValue }}</td>
+                                    <td>{{ $rentInvoice->transaction->amount }} <span
+                                            style="color:green;font-size:18px">{{ $rentInvoice->transaction->amount > $rentInvoice->invoiceValue ? '+' : null }}</span>
+                                    </td>
+                                    @php
+                                        $remindRentValue =
+                                            $rentInvoice->invoiceValue - $rentInvoice->transaction->amount;
+                                    @endphp
+                                    <td style="color:{{ $remindRentValue > 0 ? 'red' : 'green' }}">
+                                        {{ $remindRentValue > 0 ? $remindRentValue : 0 }}</td>
+                                    <td>
+                                        <div>
+                                            <a style="margin-left:20px;text-decoration:none"
+                                                href="{{ route('estates.units.contracts.rent-invoices.show', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
+                                                <i class="action-icon fa fa-eye fa-lg m-t-2 "></i>
+                                            </a>
+                                            <a style="margin-left:20px;text-decoration:none"
+                                                href="{{ route('estates.units.contracts.rent-invoices.edit', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}">
+                                                <i class="action-icon action-icon--edit fa fa-pencil fa-lg m-t-2"></i>
+                                            </a>
+                                            <form class="d-inline"
+                                                action="{{ route('estates.units.contracts.rent-invoices.destroy', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}"
+                                                method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <i
+                                                    class="delete-rent-invoice-btn action-icon action-icon--delete fa fa-trash fa-lg m-t-2"></i>
+                                                <input class="delete-submit-btn" type="submit" hidden>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                    </table>
+                @else
+                    <div class="card card-inverse card-primary text-xs-center">
+                        <div class="card-block">
+                            <blockquote class="card-blockquote">
+                                لا توجد ايجارات مسددة لهذا العام - قم بتسجيل سداد ايجار
+                            </blockquote>
+                        </div>
                     </div>
-                </div>
 
-                <p></p>
-            @endif
-        </div>
-        {{--  --}}
+                    <p></p>
+                @endif
+            </div>
+            {{--  --}}
+        @endif
     </div>
 @endsection

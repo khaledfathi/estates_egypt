@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('shared_water_invoices', function (Blueprint $table) {
             $table->id();
+            $table->integer('utility_service_invoice_id');
+            $table->integer('shared_value');
             $table->unsignedTinyInteger('for_month');
             $table->unsignedSmallInteger('for_year');
             $table->timestamps();
             //FK
             $table->foreignId('contract_id')->references('id')->on('unit_contracts')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('transaction_id')->nullable()->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

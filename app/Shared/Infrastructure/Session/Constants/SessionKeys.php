@@ -57,5 +57,10 @@ final class SessionKeys {
     public const RENT_INVOICE_EDIT_PREVIOUS_PAGE = 'rent_invoies_last_page';
     public const RENT_INVOICE_CURRENT_INDEX_PAGE = 'rent_invoices_current_index_page';
     // ----------------------
+
+    //for shared water invoices features  
+    public const SHARED_WATER_INVOICE_EDIT_PREVIOUS_PAGE = 'shared_water_invoies_last_page';
+    public const SHARED_WATER_INVOICE_CURRENT_INDEX_PAGE = 'shared_water_invoices_current_index_page';
+    // ----------------------
 }
 

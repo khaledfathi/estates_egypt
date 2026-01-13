@@ -28,7 +28,6 @@ final class StoreRenterPresenter implements StoreRenterOutput {
         );
 
     }
-
     public function handle (){
 
         return ($this->response)();

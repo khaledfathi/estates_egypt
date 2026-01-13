@@ -158,7 +158,7 @@
                                 <button id="submit-btn" type="submit" class="btn btn-md btn-success">
                                     <i class="fa fa-edit "></i>
                                     تحديث</button>
-                                <a href="{{ route('estates.units.contracts.rent-invoices.show', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}"
+                                <a href="{{ route('estates.units.contracts.rent-invoices.edit', ['estate' => $estate->id, 'unit' => $unit->id, 'contract' => $unitContract->id, 'rent_invoice' => $rentInvoice->id]) }}"
                                     class="btn btn-md btn-primary">
                                     <i class="fa fa-refresh "></i>
                                     اعادة</a>

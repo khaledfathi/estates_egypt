@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Features\RentInvoices\Application\Outputs;
 
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Domain\Entities\Unit\UnitContractEntity;
 use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 

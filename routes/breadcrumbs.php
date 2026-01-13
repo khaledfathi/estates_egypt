@@ -280,23 +280,37 @@ Breadcrumbs::for('estates.units.contracts.rent-invoices', function (BreadcrumbTr
     $trail->parent('estates.units.contracts.show', $estateId, $unitId, $contractId);
     $trail->push('سجل الايجارات', route('estates.units.contracts.rent-invoices.index', [$estateId, $unitId, $contractId]));
 });
-// estates > units > contracts > rent-invoices > show  > [id]
+// estates > units > contracts > rent-invoices > show  > [estateId , unitId , contractId, rentInvoiceId]
 Breadcrumbs::for('estates.units.contracts.rent-invoices.show', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId , $rentInvoiceId) {
     $trail->parent('estates.units.contracts.rent-invoices', $estateId, $unitId, $contractId);
     $trail->push('ايصال سداد ايجار', route('estates.units.contracts.rent-invoices.show', [$estateId, $unitId, $contractId, $rentInvoiceId]));
 });
-// estates > units > contracts > rent-invoices > create  > [id]
+// estates > units > contracts > rent-invoices > create  > [estateId , unitId , contractId]
 Breadcrumbs::for('estates.units.contracts.rent-invoices.create', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId) {
     $trail->parent('estates.units.contracts.rent-invoices', $estateId, $unitId, $contractId);
     $trail->push('اضافة', route('estates.units.contracts.rent-invoices.create', [$estateId, $unitId, $contractId]));
 });
-// estates > units > contracts > rent-invoices > edit  > [id]
+// estates > units > contracts > rent-invoices > edit  > [estateId , unitId , contractId, rentInvoiceId]
 Breadcrumbs::for('estates.units.contracts.rent-invoices.edit', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId , $rentInvoiceId) {
     $trail->parent('estates.units.contracts.rent-invoices', $estateId, $unitId, $contractId);
     $trail->push('تحديث فاتورة سداد ايجار', route('estates.units.contracts.rent-invoices.edit', [$estateId, $unitId, $contractId, $rentInvoiceId]));
 });
 // ########################################### 
 
+// ########## SHARED WATER INVOICES ########## 
+// estates > units > contracts > shared water invoice > [ estateId , $unitId , $contractId ]
+Breadcrumbs::for('estates.units.contracts.shared-water-invoices', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId) {
+    $trail->parent('estates.units.contracts.show', $estateId, $unitId, $contractId);
+    $trail->push('سجل فواتير المياة المشتركة', route('estates.units.contracts.shared-water-invoices.index', [$estateId, $unitId, $contractId]));
+});
+// parent > child1 > child2 > show > [param1 , param2]
+// parent > child1 > child2 > create > [param1 , param2]
+// estates > units > contracts > shared water invoice > [ estateId , unitId , contractId, waterSharedInvoicesId ]
+Breadcrumbs::for('estates.units.contracts.shared-water-invoices.edit', function (BreadcrumbTrail $trail, $estateId, $unitId, $contractId, $sharedWaterInvoiceId) {
+    $trail->parent('estates.units.contracts.shared-water-invoices', $estateId, $unitId, $contractId);
+    $trail->push('تحديث', route('estates.units.contracts.shared-water-invoices.index', [$estateId, $unitId, $contractId, $sharedWaterInvoiceId]));
+});
+// ########################################### 
 
 
 
