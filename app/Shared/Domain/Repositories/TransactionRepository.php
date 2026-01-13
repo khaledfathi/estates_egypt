@@ -17,6 +17,12 @@ interface TransactionRepository
     public function store(TransactionEntity $transactionEntity): TransactionEntity;
     public function update(TransactionEntity $transactionEntity): bool;
     public function destroy(int $transactionId): bool;
+    /**
+     * 
+     * @param array<int> $transactionsIds
+     * @return int affected rows  
+     */
+    public function destroyMany (array $transactionsIds): int;
     // ----
     public function balance ():int;
 }

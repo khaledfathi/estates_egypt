@@ -158,13 +158,13 @@
                             {{-- / water_invoice_percentage --}}
 
                             {{-- electricity_invoice_percentage --}}
-                            <div class="form-group">
+                            <div class="form-group" hidden >
                                 <label for="electricity_invoice_percentage">نسبة تحصيل فاتورة كهرباء العقار
                                     المشتركة<span class="required">*</span></label>
                                 <input name="electricity_invoice_percentage" type="text" class="form-control"
                                     id="electricity_invoice_percentage"
                                     placeholder="مثال: 1 يعادل شقة - 1.5 يعادل شقة ونصف ... الخ"
-                                    value="{{ old('electricity_invoice_percentage') }}">
+                                    value="{{ old('electricity_invoice_percentage' , 1) }}">
                             </div>
                             {{-- electricity_invoice_percentage --}}
 

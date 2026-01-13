@@ -21,16 +21,18 @@ final class UnitContractEntity
         public ?int $insuranceValue = null,
         public ?DateProviderContract $startDate = null,
         public ?DateProviderContract $endDate = null,
-        public ?int $waterInvoicePercentage = null,
-        public ?int $electricityInvoicePercentage = null,
+        public ?float $waterInvoicePercentage = null,
+        public ?float $electricityInvoicePercentage = null,
         public ?RenterEntity $renter = null,
         public ?UnitEntity $unit = null,
     ) {}
 
-    public function getCurrentRentValue(): int
+    public function getCurrentRentValue(?DateProviderContract $untilDate=null): int
     {
         if ($this->rentValue >= 0  && $this->startDate != null && $this->annualRentIncreasement >= 0) {
-            $years = $this->startDate->yearsUntillNow();
+            $years = $untilDate 
+                ? $this->startDate->yearsUntil($untilDate)
+                : $this->startDate->yearsUntilNow();
             $currentValue = $this->rentValue;
             for ($i = 1; $i < $years; $i++) {
                 $currentValue += $currentValue * $this->annualRentIncreasement / 100;
@@ -64,9 +66,9 @@ final class UnitContractEntity
     public function getYearsPassedPercentage(): int
     {
 
-        $period = $this->startDate->yearsUntill($this->endDate); // whole contract period 
+        $period = $this->startDate->yearsUntil($this->endDate); // whole contract period 
         $period = $period == 0 ? 1 : $period; // prevent division by zero 
-        $unitlNow = $this->startDate->yearsUntillNow(); // years passed from start date till now  
+        $unitlNow = $this->startDate->yearsUntilNow(); // years passed from start date till now  
         return (int) (($unitlNow * 100) / $period); // remaining years as persentage to whole period
     }
     public function getMonthsPassedPercentage(): int

@@ -87,6 +87,65 @@ final class EloquentUnitContractRepository implements UnitContractRepository
         );
     }
 
+    public function getAllActive(int $estateId): array
+    {
+        $records = UnitContract::with(['renter', 'unit'])
+            ->whereDate('end_date', '>=', now()->format('Y-m-d'))
+            ->whereHas('unit.estate', function ($query) use ($estateId) {
+                return $query->where('id', $estateId);
+            })->get();
+
+        $unitContractEntities = [];
+        foreach ($records as $record) {
+            //Unit DTO
+            $unitEntity = new UnitEntity(
+                id: $record->unit->id,
+                estateId: $record->unit->estate_id,
+                number: $record->unit->number,
+                floorNumber: $record->unit->floor_number,
+                type: UnitType::from($record->unit->type),
+                isEmpty: $record->unit->isEmpty ? true : false,
+            );
+            //renter DTO
+            $renterEntity = null;
+            if (isset($record->renter)) {
+                $renterEntity = new RenterEntity(
+                    id: $record->renter->id,
+                    name: $record->renter->name,
+                    identityType: RenterIdentityType::from($record->renter->identity_type),
+                    identityNumber: $record->renter->identity_number,
+                    notes: $record->renter->notes,
+                );
+            }
+            //UnitContract entity DTO
+            $unitContractEntities[] = new UnitContractEntity(
+                id: $record->id,
+                unitId: $record->unit_id,
+                renterId: $record->renter_id,
+                type: UnitContractType::from($record->type),
+                rentValue: $record->rent_value,
+                annualRentIncreasement: $record->annual_rent_increasement,
+                insuranceValue: $record->insurance_value,
+                startDate: CarbonDateUtility::from($record->start_date),
+                endDate: CarbonDateUtility::from($record->end_date),
+                waterInvoicePercentage: $record->water_invoice_percentage,
+                electricityInvoicePercentage: $record->electricity_invoice_percentage,
+                renter: $renterEntity,
+                unit: $unitEntity,
+            );
+            //
+        }
+        return $unitContractEntities;
+    }
+    public function sumActiveWaterInvoicesPrecentage(int $estateId): float
+    {
+        $records = UnitContract::with(['renter', 'unit'])
+            ->whereDate('end_date', '>=', now()->format('Y-m-d'))
+            ->whereHas('unit.estate', function ($query) use ($estateId) {
+                return $query->where('id', $estateId);
+            })->sum('water_invoice_percentage');
+        return $records ?? 0;
+    }
     public function store(UnitContractEntity $UnitContractEntity): UnitContractEntity
     {
         $record = UnitContract::create([
@@ -98,8 +157,8 @@ final class EloquentUnitContractRepository implements UnitContractRepository
             'insurance_value' => $UnitContractEntity->insuranceValue,
             'start_date' => $UnitContractEntity->startDate->toDateString(),
             'end_date' => $UnitContractEntity->endDate->toDateString(),
-            'water_invoice_precentage' => $UnitContractEntity->waterInvoicePercentage,
-            'electricity_invoice_precentage' => $UnitContractEntity->electricityInvoicePercentage,
+            'water_invoice_percentage' => $UnitContractEntity->waterInvoicePercentage,
+            'electricity_invoice_percentage' => $UnitContractEntity->electricityInvoicePercentage,
         ]);
         $UnitContractEntity->id = $record->id;
         return $UnitContractEntity;

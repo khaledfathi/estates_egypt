@@ -12,6 +12,7 @@ interface  DateProviderContract {
     public static function now(): DateProviderContract;
     public function monthsUnitlNow ():int;
     public function monthsUnitl (DateProviderContract $date):int;
-    public function yearsUntillNow():int;
-    public function yearsUntill(DateProviderContract $date):int;
+    public function yearsUntilNow():int;
+    public function yearsUntil(DateProviderContract $date):int;
+    public static function genereateDate (int $day , int $month , int $year):DateProviderContract;
 }

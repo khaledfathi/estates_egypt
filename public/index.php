@@ -4,7 +4,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
-
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
@@ -12,6 +11,13 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 
 // Register the Composer autoloader...
 require __DIR__.'/../vendor/autoload.php';
+
+// ----------------------------------
+function distibutedInvoiceEqualToOneUnit (float $invoiceValue , array $unitSharedRatios) {
+    return $invoiceValue/array_sum($unitSharedRatios);
+}
+
+// ----------------------------------
 
 // Bootstrap Laravel and handle the request...
 /** @var Application $app */

@@ -26,7 +26,10 @@ final class EloquentTransactionRepository implements TransactionRepository
     public function indexWithPaginationByDate(string $date, int $perPage): EntitiesWithPagination
     {
 
-        $transactionRecords = Transaction::where('date', $date)
+        $transactionRecords = Transaction::with(['rentInvoices', 'sharedWaterInvoices'])->where('date', $date)
+            ->whereDoesntHave('rentInvoices')
+            ->whereDoesntHave('sharedWaterInvoices')
+            ->whereDoesntHave('estateMaintenanceExpenses')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
         //transaction entities DTO 
@@ -81,17 +84,21 @@ final class EloquentTransactionRepository implements TransactionRepository
     }
     public function update(TransactionEntity $transactionEntity): bool
     {
-        return Transaction::find($transactionEntity->id)->update([
-            'date' => $transactionEntity->date->toDateString(),
-            'amount' => $transactionEntity->amount,
-            'description' => $transactionEntity->description,
-        ]);
+        $data = [];
+        if ($transactionEntity->date != null)  $data['date'] = $transactionEntity->date->toDateString();
+        if ($transactionEntity->amount != null)  $data['amount'] = $transactionEntity->amount;
+        if ($transactionEntity->description != null)  $data['description'] = $transactionEntity->description;
+        return Transaction::find($transactionEntity->id)->update($data);
     }
     public function destroy(int $transactionId): bool
     {
         return Transaction::find($transactionId)->delete();
     }
-    public function balance ():int{
+    public function destroyMany (array $transactionsIds): int{
+        return Transaction::destroy($transactionsIds);
+    }
+    public function balance(): int
+    {
         return Transaction::sum('amount');
     }
 }

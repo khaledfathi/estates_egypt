@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Shared\Infrastructure\Models\Estate; 
+namespace App\Shared\Infrastructure\Models\Estate;
 
+use App\Shared\Infrastructure\Models\SharedWaterInvoice\SharedWaterInvoice;
 use Illuminate\Database\Eloquent\Model;
 
 class EstateUtilityServiceInvoice extends Model
@@ -16,5 +17,8 @@ class EstateUtilityServiceInvoice extends Model
 
     public function estateUtilityService (){
         return $this->belongsTo(EstateUtilityService::class, 'estate_utility_service_id', 'id');
+    }
+    public function sharedWaterInvoices (){
+        return $this->hasMany(SharedWaterInvoice::class);
     }
 }

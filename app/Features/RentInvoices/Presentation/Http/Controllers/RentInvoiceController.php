@@ -21,7 +21,7 @@ use App\Features\RentInvoices\Presentation\Http\Presenters\UpdateRentInvoicePres
 use App\Features\RentInvoices\Presentation\Http\Requests\StoreRentInvoiceRequest;
 use App\Features\RentInvoices\Presentation\Http\Requests\UpdateRentInvoiceRequest;
 use App\Http\Controllers\Controller;
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Infrastructure\Utilities\CarbonDateUtility;
 use Carbon\Carbon;

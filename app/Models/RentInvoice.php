@@ -11,6 +11,7 @@ class RentInvoice extends Model
     protected $fillable = [ 
         'contract_id',
         'transaction_id',
+        'invoice_value',
         'for_month',
         'for_year',
     ];

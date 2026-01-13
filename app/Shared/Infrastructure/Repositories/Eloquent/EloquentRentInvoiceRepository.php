@@ -7,7 +7,7 @@ namespace App\Shared\Infrastructure\Repositories\Eloquent;
 use App\Models\RentInvoice;
 use App\Shared\Domain\Entities\Estate\EstateEntity;
 use App\Shared\Domain\Entities\Renter\RenterEntity;
-use App\Shared\Domain\Entities\RentsPayment\RentInvoiceEntity;
+use App\Shared\Domain\Entities\RentInvoice\RentInvoiceEntity;
 use App\Shared\Domain\Entities\Transaction\TransactionEntity;
 use App\Shared\Domain\Entities\Unit\UnitContractEntity;
 use App\Shared\Domain\Entities\Unit\UnitEntity;
@@ -31,9 +31,12 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
     /**
      * @inheritDoc
      */
-    public function indexWithPaginateByYear(int $year): EntitiesWithPagination
+    public function indexWithPaginateByYear(int $year, int $contractId): EntitiesWithPagination
     {
-        $records = RentInvoice::with('transaction')->where('for_year', $year)->orderBy('for_month')->paginate();
+        $records = RentInvoice::with('transaction')
+            ->where('contract_id', $contractId)
+            ->where('for_year', $year)
+            ->orderBy('for_month')->paginate();
         $rentInvoicesEntities = [];
         foreach ($records as $record) {
             //transaction DTO 
@@ -50,6 +53,7 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
                 id: $record->id,
                 transactionId: $record->transaction_id,
                 contractId: $record->contract_id,
+                invoiceValue : $record->invoice_value,
                 forMonth: $record->for_month,
                 forYear: $record->for_year,
                 transaction: $transactionEntity,
@@ -73,15 +77,16 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
         $record = RentInvoice::create([
             'contract_id' => $RentInvoiceEntity->contractId,
             'transaction_id' => $RentInvoiceEntity->transaction->id,
+            'invoice_value' => $RentInvoiceEntity->invoiceValue,
             'for_month' => $RentInvoiceEntity->forMonth,
             'for_year' => $RentInvoiceEntity->forYear,
         ]);
         $RentInvoiceEntity->id = $record->id;
         return $RentInvoiceEntity;
     }
-    public function show(int $renterId): RentInvoiceEntity|null
+    public function show(int $rentInvoiceId): RentInvoiceEntity|null
     {
-        $record = RentInvoice::with('contract', 'transaction', 'contract.unit' , 'contract.renter', 'contract.unit.estate')->find($renterId);
+        $record = RentInvoice::with('contract', 'transaction', 'contract.unit' , 'contract.renter', 'contract.unit.estate')->find($rentInvoiceId);
         if ($record) {
             $estateRecord = $record->contract->unit->estate;
             $estateEntity= new EstateEntity(
@@ -138,6 +143,7 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
                 id:$record->id,
                 transactionId:$record->transaction_id,
                 contractId:$record->contract_id,
+                invoiceValue : $record->invoice_value,
                 forMonth:$record->for_month,
                 forYear:$record->for_year,
                 transaction:$transactionEntity, 
@@ -155,8 +161,8 @@ final class EloquentRentInvoiceRepository implements RentInvoiceRepository
             ]
         );
     }
-    public function destroy(int $renterId): bool
+    public function destroy(int $rentInvoiceId): bool
     {
-        return RentInvoice::find($renterId)->delete();
+        return RentInvoice::find($rentInvoiceId)->delete();
     }
 }
