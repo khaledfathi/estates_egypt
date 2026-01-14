@@ -22,7 +22,7 @@ final class ShowRenterPaginatePresenter implements ShowRentersPaginationOutput
     }
     private function handleSession()
     {
-        $currentPage = url()->current() . '?page=' . request('page');
+        $currentPage = request()->fullUrl(); 
         session()->put(SessionKeys::RENTER_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::RENTER_EDIT_PREVIOUS_PAGE, $currentPage);
     }

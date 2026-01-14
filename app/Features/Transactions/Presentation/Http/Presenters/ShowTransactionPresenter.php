@@ -22,7 +22,7 @@ final class ShowTransactionPresenter implements ShowTransactionOutput
     private function handleSession()
     {
         $previousPage = SessionKeys::TRANSACTION_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        session()->put($previousPage, request()->fullUrl());
     }
     public function onSuccess(TransactionEntity $transactionEntity): void
     {

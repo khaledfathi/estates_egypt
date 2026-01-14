@@ -17,7 +17,7 @@ final class DestroyTransactionPresenter implements DestroyTransactionOutput
    public Closure $response;
    public function onSuccess(bool $status): void
    {
-      $this->response = fn() => redirect(route('transactions.index'))
+      $this->response = fn() =>back() 
          ->with('success', Messages::DESTROY_SUCCESS);
    }
    public function onFailure(string $error)
