@@ -22,7 +22,7 @@ final class ShowOwnerPresenter implements ShowOwnerOutput
     private function handleSession()
     {
         $previousPage = SessionKeys::OWNER_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        session()->put($previousPage, request()->fullUrl());
     }
     public function onSuccess(OwnerEntity $ownerEntity): void
     {

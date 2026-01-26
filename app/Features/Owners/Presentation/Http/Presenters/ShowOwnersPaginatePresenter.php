@@ -23,7 +23,7 @@ final class ShowOwnersPaginatePresenter implements ShowOwnersPaginationOutput
     }
     private function handleSession()
     {
-        $currentPage = url()->current() . '?page=' . request('page');
+        $currentPage = request()->fullUrl(); 
         session()->put(SessionKeys::OWNER_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::OWNER_EDIT_PREVIOUS_PAGE, $currentPage);
     }
