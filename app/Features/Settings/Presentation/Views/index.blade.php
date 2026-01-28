@@ -4,7 +4,7 @@
 @section('content')
     <h1>الاعدادات</h1>
 
-    <div class="container">
+    {{-- <div class="container">
         <form class="col-md-12">
             <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="select">عدد النتائج فى الصفحة</label>
@@ -27,5 +27,5 @@
 
             </div>
         </form>
-    </div>
+    </div> --}}
 @endsection

@@ -20,7 +20,7 @@ final class ShowRenterPresenter implements ShowRenterOutput {
     private function handleSession()
     {
         $previousPage = SessionKeys::RENTER_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        session()->put($previousPage, request()->fullUrl());
     }
     public function onSuccess(RenterEntity $renterEntity): void
     {
