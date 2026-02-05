@@ -22,7 +22,7 @@ final class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPagination
     }
     private function handleSession()
     {
-        $currentPage = url()->current() . '?page=' . request('page');
+        $currentPage = request()->fullUrl(); 
         session()->put(SessionKeys::OWNER_GROUP_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::OWNER_GROUP_EDIT_PREVIOUS_PAGE, $currentPage);
     }
@@ -32,7 +32,18 @@ final class ShowOwnerGroupPaginatePresenter implements ShowOwnerGroupsPagination
             'ownerGroups' => $ownerGroupsEntitiesWithPagination->entities,
             'pagination' => $ownerGroupsEntitiesWithPagination->pagination,
         ];
-        $this->response = fn() => view('owner-groups::index', $data);
+        
+        //handle session & response
+        $pageCounts = $ownerGroupsEntitiesWithPagination->pagination->getPageCounts();
+        $requestPageNumber = request('page');
+        if ($requestPageNumber > $pageCounts) {
+            // if last page empty or user try to add page string query manually
+            session()->put(SessionKeys::OWNER_GROUP_CURRENT_INDEX_PAGE , url()->current() . '?page=' . $pageCounts);
+            $this->response = fn() => redirect(route('owner-groups.index') . '?page=' . $pageCounts);
+        } else {
+            // notmal use
+            $this->response = fn() => view('owner-groups::index', $data);
+        }
     }
     public function onFailure(string $error)
     {

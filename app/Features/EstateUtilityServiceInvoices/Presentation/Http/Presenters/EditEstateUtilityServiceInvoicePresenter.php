@@ -8,6 +8,7 @@ use App\Features\EstateUtilityServiceInvoices\Application\Outputs\EditEstateUtil
 use App\Shared\Application\Utility\Month;
 use App\Shared\Domain\Entities\Estate\EstateUtilityServiceInvoiceEntity;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Carbon\Carbon;
 use Closure;
@@ -24,6 +25,7 @@ final class EditEstateUtilityServiceInvoicePresenter implements EditEstateUtilit
             'currentYear'=> Carbon::now()->year,
             'months'=>Month::list(),
             'currentMonth'=>Month::from(Carbon::now()->month),
+            'previousURL' => session(SessionKeys::estate_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE)
         ];
         $this->response = fn() => view('estates.utility-service-invoices::edit', $data);
     }

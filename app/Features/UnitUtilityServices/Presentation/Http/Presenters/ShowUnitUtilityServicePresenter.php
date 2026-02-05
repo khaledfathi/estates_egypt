@@ -20,7 +20,7 @@ final class ShowUnitUtilityServicePresenter implements ShowUnitUtilityServiceOut
     private function handleSession()
     {
         $previousPage = SessionKeys::UNIT_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        session()->put($previousPage, request()->fullUrl());
     }
     public function onSuccess(UnitUtilityServiceEntity $unitUtilityServiceEntity):void{
         $data = [

@@ -25,8 +25,7 @@ final class EditTransactionPresenter implements EditTransactionOutput
    private function handleSession()
    {
       $previousPage = SessionKeys::TRANSACTION_EDIT_PREVIOUS_PAGE;
-      $this->previousURL = session($previousPage)
-         ?? route('units.index');
+      $this->previousURL = session($previousPage) ?? url()->previous();
    }
    public function onSuccess(TransactionEntity $transactionEntity): void
    {

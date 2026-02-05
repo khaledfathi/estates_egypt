@@ -6,6 +6,7 @@ namespace App\Features\EstateUtilityServiceInvoices\Presentation\Http\Presenters
 
 use App\Features\EstateUtilityServiceInvoices\Application\Outputs\UpdateEstateUtilityServiceInvoiceOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Illuminate\Support\Facades\Log;
 
@@ -13,16 +14,18 @@ final class UpdateEstateUtilityServiceInvoicePresenter implements UpdateEstateUt
 {
 
     private \Closure $response;
+    private $lastPage;
     public  function __construct(
-        private readonly int $estateId,
-        private readonly int $utilityServiceId,
-    ) {}
+    ) {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $this->lastPage = session(SessionKeys::SHARED_WATER_INVOICE_EDIT_PREVIOUS_PAGE);
+    }
     public function onSuccess(bool $status): void
     {
-        $this->response =  fn() =>   redirect(route('estates.utility-services.show', [
-            'estate' => $this->estateId,
-            'utility_service' =>  $this->utilityServiceId,
-        ]))->with('success', Messages::UPDATE_SUCCESS);
+        $this->response =  fn() =>   redirect($this->lastPage)->with('success', Messages::UPDATE_SUCCESS);
     }
     public function onFailure($error): void
     {

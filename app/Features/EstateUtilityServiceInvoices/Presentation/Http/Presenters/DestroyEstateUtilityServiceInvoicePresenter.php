@@ -6,6 +6,7 @@ namespace App\Features\EstateUtilityServiceInvoices\Presentation\Http\Presenters
 
 use App\Features\EstateUtilityServiceInvoices\Application\Outputs\DestroyEstateUtilityServiceInvoiceOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -14,8 +15,17 @@ final class DestroyEstateUtilityServiceInvoicePresenter  implements DestroyEstat
 {
 
     private Closure $response;
+    private $lastPage;
+    public function __construct()
+    {
+        $this->handleSession();
+    }
+    private function handleSession()
+    {
+        $this->lastPage = session(SessionKeys::SHARED_WATER_INVOICE_EDIT_PREVIOUS_PAGE);
+    }
     public function onSuccess(bool $status): void {
-        $this->response = fn() => back()
+        $this->response = fn() => redirect($this->lastPage)
             ->with('success', Messages::DESTROY_SUCCESS);
     }
     public function onFailure($error): void

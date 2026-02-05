@@ -23,7 +23,7 @@ final class ShowTransactionsPaginationPresenter implements ShowTransactionsPagin
     }
     private function handleSession()
     {
-        $currentPage = url()->current() . '?page=' . request('page');
+        $currentPage = request()->fullUrl(); 
         session()->put(SessionKeys::TRANSACTION_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::TRANSACTION_EDIT_PREVIOUS_PAGE, $currentPage);
     }

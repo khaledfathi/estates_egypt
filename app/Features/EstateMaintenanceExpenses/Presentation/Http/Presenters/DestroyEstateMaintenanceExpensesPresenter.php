@@ -6,6 +6,7 @@ namespace App\Features\EstateMaintenanceExpenses\Presentation\Http\Presenters;
 
 use App\Features\EstateMaintenanceExpenses\Application\Outputs\DestroyEstateMaintenanceExpensesOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -13,13 +14,16 @@ use Illuminate\Support\Facades\Log;
 final class DestroyEstateMaintenanceExpensesPresenter implements DestroyEstateMaintenanceExpensesOutput
 {
     private Closure $response;
+    private $lastIndexPage;
     public function __construct(
         private readonly int $estateId, 
-    ){}
+    ){
+        $this->lastIndexPage = session(SessionKeys::ESTATE_MAINTENANCE_EXPENSE_CURRENT_INDEX_PAGE) ?? url()->previous();
+    }
     public function onSuccess(bool $status): void
     {
         $this->response = fn() => 
-            redirect(route('estates.maintenance-expenses.index', ['estate' => $this->estateId]))
+            redirect($this->lastIndexPage)
             ->with('success' , Messages::DESTROY_SUCCESS);
     }
     public function onFailure(string $error): void

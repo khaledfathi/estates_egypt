@@ -22,7 +22,7 @@ final class ShowAllEstateUtilityServicesPresenter implements ShowAllEstateUtilit
     }
     private function handleSession()
     {
-        $currentPage = url()->current() ;
+        $currentPage = request()->fullUrl() ;
         session()->put(SessionKeys::estate_UTILITY_SERVICE_CURRENT_INDEX_PAGE, $currentPage);
         session()->put(SessionKeys::estate_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE, $currentPage);
     }

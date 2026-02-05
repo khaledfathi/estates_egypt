@@ -22,7 +22,7 @@ final class ShowEstateMaintenanceExpensesPresenter implements ShowEstateMaintena
     private function handleSession()
     {
         $previousPage = SessionKeys::ESTATE_MAINTENANCE_EXPENSE_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        session()->put($previousPage, request()->fullUrl());
     }
     public function onSuccess(EstateMaintenanceExpensesEntity $estateMaintenanceExpensesEntity): void
     {

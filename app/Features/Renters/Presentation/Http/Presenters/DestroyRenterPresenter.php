@@ -6,6 +6,7 @@ namespace App\Features\Renters\Presentation\Http\Presenters;
 
 use App\Features\Renters\Application\Outputs\DestroyRenterOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -14,11 +15,16 @@ final class  DestroyRenterPresenter  implements DestroyRenterOutput
 {
 
   private Closure $response;
+  private $lastIndexPage;  
+  public function __construct()
+  {
+    $this->lastIndexPage = session(SessionKeys::RENTER_CURRENT_INDEX_PAGE) ?? url()->previous();
+  }
   public function onSuccess(bool $status): void
   {
 
     $this->response = fn () =>
-      redirect(route('renters.index'))->with('success', Messages::DESTROY_SUCCESS);
+      redirect($this->lastIndexPage)->with('success', Messages::DESTROY_SUCCESS);
   }
   public function onFailure(string $error): void
   {
