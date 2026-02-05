@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Features\Owners\Presentation\Http\Presenters;
 
 use App\Features\Owners\Application\Outputs\DestroyOwnerOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -12,10 +14,15 @@ use Illuminate\Support\Facades\Log;
 final class DestroyOwnerPresenter implements DestroyOwnerOutput
 {
     private Closure $response;
+    private $lastIndexPage;
+    public function __construct()
+    {
+        $this->lastIndexPage = session(SessionKeys::OWNER_CURRENT_INDEX_PAGE) ?? url()->previous();
+    }
     public function onSuccess(bool $status): void
     {
         $this->response = function () {
-            return redirect(route('owners.index'))->with('success', Messages::DESTROY_SUCCESS);
+            return redirect($this->lastIndexPage)->with('success', Messages::DESTROY_SUCCESS);
         };
     }
     public function onFailure(string $error): void

@@ -23,7 +23,7 @@ final class ShowOwnerGroupPresenter implements ShowOwnerGroupOutput
     private function handleSession()
     {
         $previousPage = SessionKeys::OWNER_GROUP_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        session()->put($previousPage, request()->fullUrl());
     }
     public function onSuccess(OwnerGroupEntity $ownerGroupEntity): void
     {

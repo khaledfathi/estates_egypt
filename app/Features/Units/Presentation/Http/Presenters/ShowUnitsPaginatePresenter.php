@@ -33,6 +33,7 @@ final class ShowUnitsPaginatePresenter implements ShowUnitsPaginationOutput
             'estate' => $estateEntity,
             'pagination' => $unitEntitiesWithPagination->pagination,
         ];
+
         //handle session & response
         $pageCounts = $unitEntitiesWithPagination->pagination->getPageCounts();
         $requestPageNumber = request('page');

@@ -145,7 +145,7 @@
                                 <a href="{{ route('estates.utility-services.invoices.edit', ['estate' => $estate->id, 'utility_service' => $estateUtilityService->id, 'invoice' => $invoice->id]) }}" class="btn btn-md btn-primary">
                                     <i class="fa fa-refresh "></i>
                                     اعادة</a>
-                                <a href="{{ route('estates.utility-services.show', ['estate' => $estate->id, 'utility_service' => $estateUtilityService->id]) }}"
+                                <a href="{{$previousURL}}"
                                     class="btn btn-md btn-danger"><i class="fa fa-ban"></i>
                                     الغاء</a>
                             </div>

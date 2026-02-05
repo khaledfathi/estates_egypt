@@ -10,7 +10,6 @@ use App\Shared\Domain\ValueObjects\EntitiesWithPagination;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
 use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -37,7 +36,18 @@ final class  ShowAllEstateMaintenanceExpensesPresenter implements ShowAllEstateM
             'pagination' => $pagination,
             'selectedYear' => $this->year, 
         ];
-        $this->response = fn() => view('estates.maintenance-expenses::index', $data);
+
+        //handle session & response
+        $pageCounts = $entitiesWithPagination->pagination->getPageCounts();
+        $requestPageNumber = request('page');
+        if ($requestPageNumber > $pageCounts) {
+            // if last page empty or user try to add page string query manually
+            session()->put(SessionKeys::ESTATE_MAINTENANCE_EXPENSE_CURRENT_INDEX_PAGE, url()->current() . '?page=' . $pageCounts.'&selected_year='. $this->year);
+            $this->response = fn() => redirect(session(SessionKeys::ESTATE_MAINTENANCE_EXPENSE_CURRENT_INDEX_PAGE));
+        } else {
+            // notmal use
+            $this->response = fn() => view('estates.maintenance-expenses::index', $data);
+        }
     }
     public function onEstaetNotFound(): void
     {

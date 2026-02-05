@@ -79,7 +79,7 @@ class EstateUtilityServiceInvoiceController extends Controller
         ]);
         $file = $this->fileDTO($request->file('file'));
         //action 
-        $presenter = new UpdateEstateUtilityServiceInvoicePresenter((int)$estateId , (int)$utilityServiceId);
+        $presenter = new UpdateEstateUtilityServiceInvoicePresenter();
         $this->updateEstateUtilityServiceInvoiceUsecase->execute( $estateUtilityServiceinvoiceEntity , $file, $presenter);
         return $presenter->handle();
     }

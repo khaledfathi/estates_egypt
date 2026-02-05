@@ -6,6 +6,7 @@ namespace App\Features\EstateDocuments\Presentation\Http\Presenters;
 
 use App\Features\EstateDocuments\Application\Outputs\DestroyEstateDocumentOutput;
 use App\Shared\Infrastructure\Logging\Constants\LogChannels;
+use App\Shared\Infrastructure\Session\Constants\SessionKeys;
 use App\Shared\Presentation\Constants\Messages;
 use Closure;
 use Illuminate\Support\Facades\Log;
@@ -13,10 +14,13 @@ use Illuminate\Support\Facades\Log;
 final class DestroyEstateDocumentPresenter implements DestroyEstateDocumentOutput
 {
     private Closure $response;
-    public  function  __construct(private readonly int $estateId) {}
+    private $lastIndexPage;
+    public  function  __construct(private readonly int $estateId) {
+        $this->lastIndexPage = session(SessionKeys::ESTATE_DOCUMENT_CURRENT_INDEX_PAGE) ?? url()->previous();
+    }
     public function onSuccess(bool $status): void
     {
-        $this->response = fn() => redirect(route('estates.documents.index', $this->estateId))
+        $this->response = fn() => redirect($this->lastIndexPage)
             ->with('success', Messages::DESTROY_SUCCESS);
     }
     public function onFailure($error): void

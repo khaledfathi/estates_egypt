@@ -24,7 +24,10 @@ final class ShowEstateUtilityServicePresenter implements ShowEstateUtilityServic
     private function handleSession()
     {
         $previousPage = SessionKeys::estate_UTILITY_SERVICE_EDIT_PREVIOUS_PAGE;
-        session()->put($previousPage, url()->current());
+        $waterInvoicePreviousPage = SessionKeys::SHARED_WATER_INVOICE_EDIT_PREVIOUS_PAGE;
+        $currentPage = request()->fullUrl();
+        session()->put($waterInvoicePreviousPage ,$currentPage);
+        session()->put($previousPage, $currentPage);
     }
     public function onSuccess(EstateUtilityServiceEntity $estateUtilityServiceEntity): void
     {

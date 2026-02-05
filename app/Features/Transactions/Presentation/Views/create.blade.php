@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label for="date">تاريخ العملية <span class="required">*</span></label>
                             <input name="date" type="date" class="form-control" id="date"
-                                value="{{ $currentDate }}">
+                                value="{{ old( 'date' , $currentDate) }}">
                         </div>
                         <hr>
                         {{--  / date --}}
