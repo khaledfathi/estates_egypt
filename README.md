@@ -1,4 +1,5 @@
 # Estates Egypt 
+*This is just a prototype of the **Estates Egypt** web app and it's **not completed** , and now it has been stopped , because we decided to rebuild it as a offline desktop application .*
 
 ###  Requirements 
 ```
